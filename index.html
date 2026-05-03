@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Laura's Health Hub</title>
+<title>Health Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -24,24 +24,24 @@
   .sync-btn  {
     display:inline-flex;align-items:center;gap:10px;padding:13px 24px;
     background:var(--text);color:#fff;border:none;border-radius:999px;
-    font-family:'DM Sans', sans-serif;font-size:14px;font-weight:600;cursor:pointer;
+    font-family:DM Sans, sans-serif;font-size:14px;font-weight:600;cursor:pointer;
     transition:opacity 0.15s;margin-bottom:14px;width:100%;justify-content:center;
   }
   .sync-btn:hover { opacity:0.85; }
   .sync-btn-secondary {
     display:inline-flex;align-items:center;gap:10px;padding:11px 24px;
     background:none;color:var(--text2);border:1.5px solid var(--border);border-radius:999px;
-    font-family:'DM Sans', sans-serif;font-size:13px;font-weight:500;cursor:pointer;
+    font-family:DM Sans, sans-serif;font-size:13px;font-weight:500;cursor:pointer;
     transition:border-color 0.15s;width:100%;justify-content:center;
   }
   .sync-btn-secondary:hover { border-color:var(--text); color:var(--text); }
   .sync-setup { background:var(--bg2);border-radius:12px;padding:18px;text-align:left;margin-top:16px; }
-  .sync-setup-title { font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:10px; }
+  .sync-setup-title { font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:10px; }
   .sync-step { font-size:12.5px;color:var(--text2);padding:5px 0;display:flex;gap:10px;border-bottom:1px solid var(--border);line-height:1.5; }
   .sync-step:last-child { border-bottom:none; }
-  .sync-step-num { font-family:'DM Sans', sans-serif;font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px; }
+  .sync-step-num { font-family:DM Sans, sans-serif;font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px; }
   .sync-input-wrap { margin-top:14px; }
-  .sync-input { width:100%;padding:10px 14px;border-radius:8px;border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:13px;background:var(--bg);color:var(--text);outline:none; }
+  .sync-input { width:100%;padding:10px 14px;border-radius:8px;border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:13px;background:var(--bg);color:var(--text);outline:none; }
   .sync-input:focus { border-color:var(--teal); }
   .sync-status { font-size:12px;color:var(--text3);margin-top:10px; }
   .sync-status.ok  { color:var(--teal); }
@@ -49,7 +49,7 @@
   #sync-indicator {
     position:fixed;top:14px;right:18px;z-index:500;
     font-size:11px;font-weight:600;padding:5px 12px;border-radius:999px;
-    font-family:'DM Sans', sans-serif;display:flex;align-items:center;gap:6px;
+    font-family:DM Sans, sans-serif;display:flex;align-items:center;gap:6px;
     background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow);
     transition:all 0.3s;
   }
@@ -93,7 +93,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: "DM Sans", sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
@@ -126,12 +126,12 @@
     border-bottom: 1px solid rgba(255,255,255,0.08);
     margin-bottom: 16px;
   }
-  .logo-eyebrow { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 4px; font-family: 'DM Sans', sans-serif; }
+  .logo-eyebrow { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 4px; font-family: "DM Sans", sans-serif; }
   .logo-name { font-family: 'Playfair Display', serif; font-size: 22px; color: #fff; font-weight: 700; line-height: 1.1; }
   .logo-sub { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px; }
 
   .nav-section { padding: 0 12px; margin-bottom: 4px; }
-  .nav-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); padding: 8px 12px 4px; font-family: 'DM Sans', sans-serif; }
+  .nav-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); padding: 8px 12px 4px; font-family: "DM Sans", sans-serif; }
   .nav-item {
     display: flex; align-items: center; gap: 10px;
     padding: 9px 12px; border-radius: 10px;
@@ -162,7 +162,7 @@
 
   /* ---- PAGE HEADER ---- */
   .page-header { margin-bottom: 28px; }
-  .page-eyebrow { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); font-family: 'DM Sans', sans-serif; margin-bottom: 6px; }
+  .page-eyebrow { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); font-family: "DM Sans", sans-serif; margin-bottom: 6px; }
   .page-title { font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 700; line-height: 1.1; }
   .page-sub { font-size: 14px; color: var(--text2); margin-top: 6px; line-height: 1.5; }
 
@@ -207,7 +207,7 @@
   }
   .day-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
   .day-card.selected { border-color: var(--text); }
-  .day-label-s { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; font-family: 'DM Sans', sans-serif; }
+  .day-label-s { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; font-family: "DM Sans", sans-serif; }
   .day-emoji { font-size: 20px; margin-bottom: 5px; }
   .day-type { font-size: 11px; font-weight: 600; }
   .day-tag-s { font-size: 10px; color: var(--text3); margin-top: 2px; }
@@ -225,13 +225,13 @@
   .workout-meta { font-size: 13px; color: var(--text2); margin-top: 2px; }
 
   .ex-table { width: 100%; border-collapse: collapse; }
-  .ex-table th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); font-family: 'DM Sans', sans-serif; padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 500; }
+  .ex-table th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); font-family: "DM Sans", sans-serif; padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 500; }
   .ex-table td { padding: 11px 12px; border-bottom: 1px solid var(--border); font-size: 13.5px; vertical-align: middle; }
   .ex-table tr:last-child td { border-bottom: none; }
   .ex-table tr:hover td { background: var(--bg); }
   .ex-name-cell { font-weight: 500; }
   .ex-focus { font-size: 11px; color: var(--text2); margin-top: 2px; }
-  .pill-sm { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; font-family: 'DM Sans', sans-serif; }
+  .pill-sm { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; font-family: "DM Sans", sans-serif; }
   .pill-sets { background: var(--teal-light); color: var(--teal); }
   .pill-reps { background: var(--blue-light); color: var(--blue); }
   .pill-rest { background: var(--bg2); color: var(--text2); }
@@ -250,7 +250,7 @@
     padding: 16px 0; border-bottom: 1px solid var(--border);
   }
   .meal-row:last-child { border-bottom: none; }
-  .meal-time-col { font-family: 'DM Sans', sans-serif; font-size: 11px; color: var(--text3); padding-top: 3px; }
+  .meal-time-col { font-family: "DM Sans", sans-serif; font-size: 11px; color: var(--text3); padding-top: 3px; }
   .meal-name-col { }
   .meal-name-main { font-size: 15px; font-weight: 500; margin-bottom: 3px; }
   .meal-desc-col { font-size: 12.5px; color: var(--text2); line-height: 1.5; }
@@ -282,7 +282,7 @@
 
   /* ---- SHOPPING LIST ---- */
   .shop-section-f { margin-bottom: 20px; }
-  .shop-section-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); font-family: 'DM Sans', sans-serif; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .shop-section-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); font-family: "DM Sans", sans-serif; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
   .shop-grid-f { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; }
   .shop-item-f { background: var(--bg2); border-radius: var(--radius-sm); padding: 10px 13px; }
   .shop-item-name { font-size: 13px; font-weight: 500; }
@@ -290,7 +290,7 @@
 
   /* ---- TIPS SECTION ---- */
   .tip-box-f { background: var(--bg2); border-radius: var(--radius-sm); padding: 16px 18px; margin-top: 16px; }
-  .tip-box-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); font-family: 'DM Sans', sans-serif; margin-bottom: 10px; }
+  .tip-box-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); font-family: "DM Sans", sans-serif; margin-bottom: 10px; }
   .tip-item { font-size: 13px; color: var(--text); padding: 4px 0; display: flex; gap: 10px; align-items: flex-start; }
   .tip-dot-f { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; background: var(--teal); }
 
@@ -299,7 +299,7 @@
   .overview-week-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 500; margin-bottom: 14px; }
   .week-map { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
   .wm-cell { border-radius: 8px; padding: 10px 4px; text-align: center; }
-  .wm-day { font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); font-family: 'DM Sans', sans-serif; margin-bottom: 4px; }
+  .wm-day { font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); font-family: "DM Sans", sans-serif; margin-bottom: 4px; }
   .wm-emoji { font-size: 17px; margin-bottom: 3px; }
   .wm-label { font-size: 10px; font-weight: 600; }
 
@@ -462,7 +462,7 @@
 <div id="sync-overlay">
   <div class="sync-card" id="sync-signin-view">
     <div style="font-size:36px;margin-bottom:12px;">🏋️</div>
-    <div class="sync-logo">Laura's Health Hub</div>
+    <div class="sync-logo">Health Hub</div>
     <div class="sync-sub">Sign in with Google to sync your data across all devices</div>
 
     <!-- Client ID input (shown if not yet set) -->
@@ -509,7 +509,7 @@
 <nav class="sidebar">
   <div class="sidebar-logo">
     <div class="logo-eyebrow">My Plan</div>
-    <div class="logo-name">Laura's<br>Health Hub</div>
+    <div class="logo-name">Health Hub</div>
     <div class="logo-sub">David Lloyd · Purley & Beckenham</div>
   </div>
 
@@ -755,19 +755,19 @@
       <div style="display:flex;flex-direction:column;gap:10px;">
         <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:13.5px;">
           <div><div style="font-weight:500;">Standard days</div><div style="font-size:11px;color:var(--text3);">Mon, Tue, Fri</div></div>
-          <div style="font-family:'DM Sans', sans-serif;font-size:15px;font-weight:600;">1,450 kcal</div>
+          <div style="font-family:DM Sans, sans-serif;font-size:15px;font-weight:600;">1,450 kcal</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:13.5px;">
           <div><div style="font-weight:500;">Early finish days</div><div style="font-size:11px;color:var(--text3);">Wed, Thu</div></div>
-          <div style="font-family:'DM Sans', sans-serif;font-size:15px;font-weight:600;">1,240 kcal</div>
+          <div style="font-family:DM Sans, sans-serif;font-size:15px;font-weight:600;">1,240 kcal</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:13.5px;">
           <div><div style="font-weight:500;">OMAD day</div><div style="font-size:11px;color:var(--text3);">Saturday</div></div>
-          <div style="font-family:'DM Sans', sans-serif;font-size:15px;font-weight:600;">1,200 kcal</div>
+          <div style="font-family:DM Sans, sans-serif;font-size:15px;font-weight:600;">1,200 kcal</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;font-size:13.5px;">
           <div><div style="font-weight:500;">Keto day</div><div style="font-size:11px;color:var(--text3);">Sunday</div></div>
-          <div style="font-family:'DM Sans', sans-serif;font-size:15px;font-weight:600;">1,400 kcal</div>
+          <div style="font-family:DM Sans, sans-serif;font-size:15px;font-weight:600;">1,400 kcal</div>
         </div>
       </div>
     </div>
@@ -798,7 +798,7 @@
         <div class="page-title">Weekly schedule</div>
         <div class="page-sub">Tap a day to see details</div>
       </div>
-      <button onclick="openWorkoutEditor()" style="padding:10px 16px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'DM Sans', sans-serif;font-weight:600;cursor:pointer;font-size:14px;white-space:nowrap;">Edit Routine</button>
+      <button onclick="openWorkoutEditor()" style="padding:10px 16px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:DM Sans, sans-serif;font-weight:600;cursor:pointer;font-size:14px;white-space:nowrap;">Edit Routine</button>
     </div>
   </div>
 
@@ -884,7 +884,7 @@
       <div style="font-size:13px;color:var(--teal);"><strong>Suggested timing:</strong> Gym 7–8:30am before work, log on from home. Lunchtime run 12:30–1pm — no commute means you can be back at your desk in under 30 minutes.</div>
     </div>
 
-    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:10px;">Part 1 · Legs gym session · Morning</div>
+    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:10px;">Part 1 · Legs gym session · Morning</div>
     <table class="ex-table">
       <thead><tr><th>Exercise</th><th>Type</th><th>Sets</th><th>Reps</th><th>Rest</th></tr></thead>
       <tbody>
@@ -898,7 +898,7 @@
     </table>
 
     <div style="margin:18px 0;border-top:1px solid var(--border);"></div>
-    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:10px;">Part 2 · Lunchtime interval run · ~30 min</div>
+    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:10px;">Part 2 · Lunchtime interval run · ~30 min</div>
     <div class="grid-2" style="gap:10px;margin-bottom:14px;">
       <div style="background:var(--blue-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--blue);margin-bottom:4px;">THE SESSION</div><div style="font-size:13px;color:var(--text2);">5 min easy warm-up jog · 5 × 2 min hard (7/10 effort) with 90s easy jog recovery · 5 min cool-down walk. Total ~30 min.</div></div>
       <div style="background:var(--teal-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--teal);margin-bottom:4px;">WHY SHORTER?</div><div style="font-size:13px;color:var(--text2);">Your legs will already be worked from the morning gym session. Fewer intervals, slightly lower intensity — this is intentional. Quality over volume.</div></div>
@@ -929,7 +929,7 @@
       <div style="background:var(--coral-light);border-radius:var(--radius-sm);padding:14px;text-align:center;"><div style="font-size:22px;font-weight:700;font-family:'Playfair Display', serif;">85–95%</div><div style="font-size:11px;color:var(--coral);margin-top:3px;">Target heart rate</div></div>
       <div style="background:var(--coral-light);border-radius:var(--radius-sm);padding:14px;text-align:center;"><div style="font-size:22px;font-weight:700;font-family:'Playfair Display', serif;">45 min</div><div style="font-size:11px;color:var(--coral);margin-top:3px;">Duration</div></div>
     </div>
-    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:10px;">What to expect</div>
+    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:10px;">What to expect</div>
     <div class="grid-2" style="gap:10px;margin-bottom:14px;">
       <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;margin-bottom:4px;">Cardio stations</div><div style="font-size:12.5px;color:var(--text2);">Treadmill sprints, ski erg, rowing machine, assault bike. Push to your absolute max on every cardio block.</div></div>
       <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;margin-bottom:4px;">Strength stations</div><div style="font-size:12.5px;color:var(--text2);">Sled pushes, punch bags, battle ropes, bodyweight drills. These follow Thursday's legs — expect them to feel heavier.</div></div>
@@ -962,7 +962,7 @@
       <span style="font-size:18px;">💡</span>
       <div style="font-size:13px;color:var(--purple);"><strong>This is your flex day.</strong> If Thu double + Fri Blaze has left you drained, do Pull only or take full rest. If you feel good, add the long run after. Check your Whoop and let your body decide.</div>
     </div>
-    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:10px;">Part 1 · Pull gym session</div>
+    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:10px;">Part 1 · Pull gym session</div>
     <table class="ex-table">
       <thead><tr><th>Exercise</th><th>Type</th><th>Sets</th><th>Reps</th><th>Rest</th></tr></thead>
       <tbody>
@@ -975,7 +975,7 @@
       </tbody>
     </table>
     <div style="margin:18px 0;border-top:1px solid var(--border);"></div>
-    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:10px;">Part 2 (optional) · Long easy run</div>
+    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:10px;">Part 2 (optional) · Long easy run</div>
     <div class="grid-2" style="gap:10px;margin-bottom:14px;">
       <div style="background:var(--purple-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--purple);margin-bottom:4px;">EFFORT LEVEL</div><div style="font-size:13px;color:var(--text2);">Easy / conversational · 5–6/10. After gym your legs will feel heavy — run slower than usual and enjoy it.</div></div>
       <div style="background:var(--teal-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--teal);margin-bottom:4px;">DURATION</div><div style="font-size:13px;color:var(--text2);">30–45 min is plenty after a gym session. Time on feet matters more than distance.</div></div>
@@ -1130,7 +1130,7 @@
       <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;text-align:center;"><div style="font-size:22px;font-weight:700;font-family:'Playfair Display', serif;">65–80%</div><div style="font-size:11px;color:var(--text3);margin-top:3px;">Target heart rate</div></div>
       <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;text-align:center;"><div style="font-size:22px;font-weight:700;font-family:'Playfair Display', serif;">30–45min</div><div style="font-size:11px;color:var(--text3);margin-top:3px;">Duration</div></div>
     </div>
-    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:10px;">Session structure</div>
+    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:10px;">Session structure</div>
     <div class="grid-2" style="gap:10px;margin-bottom:14px;">
       <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;margin-bottom:4px;">Warm-up</div><div style="font-size:12.5px;color:var(--text2);">5–10 min easy swimming. Mix strokes to loosen up shoulders and get your rhythm.</div></div>
       <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;margin-bottom:4px;">Main set</div><div style="font-size:12.5px;color:var(--text2);">15–25 min of steady effort. Mix freestyle with backstroke every 100m to avoid shoulder fatigue.</div></div>
@@ -1259,12 +1259,12 @@
   <div class="card" style="margin-bottom:20px;">
     <div class="card-title" style="margin-bottom:16px;">Add a new running plan</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-      <input type="text" id="planName" placeholder="Plan name (e.g. 10K Training)" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
-      <input type="number" id="planDuration" placeholder="Duration (weeks)" min="1" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
-      <input type="date" id="planStartDate" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
-      <input type="date" id="planEndDate" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
+      <input type="text" id="planName" placeholder="Plan name (e.g. 10K Training)" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
+      <input type="number" id="planDuration" placeholder="Duration (weeks)" min="1" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
+      <input type="date" id="planStartDate" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
+      <input type="date" id="planEndDate" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
     </div>
-    <button onclick="addRunningPlan()" style="width:100%;padding:12px 16px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'DM Sans', sans-serif;font-weight:600;cursor:pointer;font-size:14px;transition:opacity 0.15s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">+ Add plan</button>
+    <button onclick="addRunningPlan()" style="width:100%;padding:12px 16px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:DM Sans, sans-serif;font-weight:600;cursor:pointer;font-size:14px;transition:opacity 0.15s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">+ Add plan</button>
   </div>
 
   <div id="running-plans-list" style="display:grid;grid-template-columns:1fr;gap:14px;">
@@ -1500,7 +1500,7 @@
         <div class="card-title" style="margin-bottom:2px;">This week's meal planner ingredients</div>
         <div style="font-size:12.5px;color:var(--text3);">Auto-generated from your current meal planner — updates when you change meals</div>
       </div>
-      <button onclick="refreshPlannerShoppingList()" style="background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans', sans-serif;">↻ Refresh</button>
+      <button onclick="refreshPlannerShoppingList()" style="background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:DM Sans, sans-serif;">↻ Refresh</button>
     </div>
     <div id="planner-ingredients-list" style="font-size:13.5px;color:var(--text2);"><em style="color:var(--text3);">Visit your Meal Planner first, then come back and hit Refresh.</em></div>
   </div>
@@ -1638,12 +1638,12 @@
     </div>
 
     <style>
-      .ctab { padding:7px 14px;border-radius:999px;border:1.5px solid var(--border);background:var(--bg);color:var(--text2);font-family:'DM Sans', sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.15s; }
+      .ctab { padding:7px 14px;border-radius:999px;border:1.5px solid var(--border);background:var(--bg);color:var(--text2);font-family:DM Sans, sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.15s; }
       .ctab:hover { border-color:var(--text);color:var(--text); }
       .ctab.active { background:var(--text);color:#fff;border-color:var(--text); }
       .cuisine-panel { display:none; }
       .cuisine-panel.active { display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px; }
-      .cp-col-title { font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;font-family:'DM Sans', sans-serif;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border); }
+      .cp-col-title { font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;font-family:DM Sans, sans-serif;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border); }
       .cp-item { font-size:13px;color:var(--text2);padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:flex-start;line-height:1.4; }
       .cp-item:last-child { border-bottom:none; }
       .cp-dot { width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px; }
@@ -1903,23 +1903,23 @@
     <div class="card-title" style="margin-bottom:14px;">What to actually say to the waiter</div>
     <div style="display:flex;flex-direction:column;gap:10px;">
       <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px 16px;">
-        <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:6px;">Swapping sides</div>
+        <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:6px;">Swapping sides</div>
         <div style="font-size:13.5px;color:var(--text);font-style: normal;">"Could I swap the chips for a side salad or seasonal vegetables please?"</div>
       </div>
       <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px 16px;">
-        <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:6px;">Dressings and sauces</div>
+        <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:6px;">Dressings and sauces</div>
         <div style="font-size:13.5px;color:var(--text);font-style: normal;">"Could I have the dressing on the side please? And do you have olive oil and lemon?"</div>
       </div>
       <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px 16px;">
-        <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:6px;">Bread basket</div>
+        <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:6px;">Bread basket</div>
         <div style="font-size:13.5px;color:var(--text);font-style: normal;">"We'd love to skip the bread basket today, thank you."</div>
       </div>
       <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px 16px;">
-        <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:6px;">Protein without the carbs</div>
+        <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:6px;">Protein without the carbs</div>
         <div style="font-size:13.5px;color:var(--text);font-style: normal;">"Could I have the salmon with extra vegetables instead of the rice please?"</div>
       </div>
       <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px 16px;">
-        <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:6px;">Understanding the menu</div>
+        <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:6px;">Understanding the menu</div>
         <div style="font-size:13.5px;color:var(--text);font-style: normal;">"Is the sauce homemade, or does it come from a bottle? What's in it?"</div>
       </div>
     </div>
@@ -1956,7 +1956,7 @@ function showCuisine(id, el) {
 
   <!-- Reset button -->
   <div style="text-align:center;margin-top:20px;">
-    <button onclick="resetPlanner()" style="font-size:13px;color:var(--text3);background:none;border:1px solid var(--border);cursor:pointer;padding:8px 20px;border-radius:999px;font-family:'DM Sans', sans-serif;" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text3)'">Reset to default plan</button>
+    <button onclick="resetPlanner()" style="font-size:13px;color:var(--text3);background:none;border:1px solid var(--border);cursor:pointer;padding:8px 20px;border-radius:999px;font-family:DM Sans, sans-serif;" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text3)'">Reset to default plan</button>
   </div>
 </div>
 
@@ -1965,13 +1965,13 @@ function showCuisine(id, el) {
   <div style="background:var(--card);border-radius:var(--radius);padding:28px;max-width:520px;width:90%;max-height:80vh;overflow-y:auto;box-shadow:var(--shadow-lg);">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
       <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);font-family:'DM Sans', sans-serif;" id="modal-slot-label">Breakfast</div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);font-family:DM Sans, sans-serif;" id="modal-slot-label">Breakfast</div>
         <div style="font-family:'Playfair Display', serif;font-size:20px;font-weight:700;margin-top:2px;" id="modal-day-label">Monday</div>
       </div>
       <button onclick="closeModal()" style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--text3);line-height:1;">✕</button>
     </div>
     <div style="font-size:13px;color:var(--text2);margin-bottom:18px;">Current: <strong id="modal-current" style="color:var(--text);"></strong></div>
-    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:10px;">Choose a replacement</div>
+    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:10px;">Choose a replacement</div>
     <div id="modal-options" style="display:flex;flex-direction:column;gap:8px;"></div>
   </div>
 </div>
@@ -1995,7 +1995,7 @@ function showCuisine(id, el) {
       <div style="font-size:13px;font-weight:600;color:#0E7A61;margin-bottom:6px;">Well recovered — go for it</div>
       <div style="font-size:12.5px;color:#0E7A61;line-height:1.7;margin-bottom:12px;">Your HRV is high, sleep debt is low, and your body is primed to perform and adapt. This is your day to push hard.</div>
       <div style="border-top:1px solid #7DCDB4;padding-top:12px;">
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#0E7A61;margin-bottom:8px;font-family:'DM Sans', sans-serif;">Do this</div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#0E7A61;margin-bottom:8px;font-family:DM Sans, sans-serif;">Do this</div>
         <div style="font-size:12.5px;color:#0E7A61;line-height:1.8;">
           ✓ Gym: this is your day to attempt progressive overload — add weight<br>
           ✓ Blaze: go all out on every cardio station<br>
@@ -2014,7 +2014,7 @@ function showCuisine(id, el) {
       <div style="font-size:13px;font-weight:600;color:#f5a623;margin-bottom:6px;">Moderate recovery</div>
       <div style="font-size:12.5px;color:#b9cac4;line-height:1.7;margin-bottom:12px;">Your body is coping but not fully restored. Train, but be smart about intensity. This is your most common score.</div>
       <div style="border-top:1px solid #f5c842;padding-top:12px;">
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#f5a623;margin-bottom:8px;font-family:'DM Sans', sans-serif;">Do this</div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#f5a623;margin-bottom:8px;font-family:DM Sans, sans-serif;">Do this</div>
         <div style="font-size:12.5px;color:#b9cac4;line-height:1.8;">
           ✓ Gym sessions: proceed as planned, but don't chase PRs<br>
           ✓ Blaze: attend — but hold back 10–15% on cardio stations<br>
@@ -2033,7 +2033,7 @@ function showCuisine(id, el) {
       <div style="font-size:13px;font-weight:600;color:#f87171;margin-bottom:6px;">Poor recovery — protect the body</div>
       <div style="font-size:12.5px;color:#1a2525;line-height:1.7;margin-bottom:12px;">Your body is still repairing. Training hard today risks injury, illness and sets back progress. A lighter day now means a better week overall.</div>
       <div style="border-top:1px solid #1a2a28;padding-top:12px;">
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#f87171;margin-bottom:8px;font-family:'DM Sans', sans-serif;">Do this instead</div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#f87171;margin-bottom:8px;font-family:DM Sans, sans-serif;">Do this instead</div>
         <div style="font-size:12.5px;color:#1a2525;line-height:1.8;">
           ✗ Skip heavy lifting — swap for a 20–30 min walk outside<br>
           ✗ Skip Blaze — attend Cyclone at 60% effort instead, or rest<br>
@@ -2115,43 +2115,43 @@ function showCuisine(id, el) {
 
       <div style="display:flex;flex-direction:column;gap:8px;">
         <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow);">
-          <div style="font-family:'DM Sans', sans-serif;font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px;min-width:28px;">01</div>
+          <div style="font-family:DM Sans, sans-serif;font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px;min-width:28px;">01</div>
           <div>
             <div style="font-size:13.5px;font-weight:600;margin-bottom:3px;">Check your Whoop recovery</div>
             <div style="font-size:12px;color:var(--text2);line-height:1.5;">Before you do anything else. Green, yellow or red determines today's training intensity. Takes 30 seconds.</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:'DM Sans', sans-serif;">1 min</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:DM Sans, sans-serif;">1 min</div>
           </div>
         </div>
         <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow);">
-          <div style="font-family:'DM Sans', sans-serif;font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px;min-width:28px;">02</div>
+          <div style="font-family:DM Sans, sans-serif;font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px;min-width:28px;">02</div>
           <div>
             <div style="font-size:13.5px;font-weight:600;margin-bottom:3px;">Hydrate immediately</div>
             <div style="font-size:12px;color:var(--text2);line-height:1.5;">500ml water before coffee. You wake up mildly dehydrated every day — this alone improves energy, focus and reduces false hunger.</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:'DM Sans', sans-serif;">1 min</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:DM Sans, sans-serif;">1 min</div>
           </div>
         </div>
         <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow);">
-          <div style="font-family:'DM Sans', sans-serif;font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px;min-width:28px;">03</div>
+          <div style="font-family:DM Sans, sans-serif;font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px;min-width:28px;">03</div>
           <div>
             <div style="font-size:13.5px;font-weight:600;margin-bottom:3px;">5 min mobility flow</div>
             <div style="font-size:12px;color:var(--text2);line-height:1.5;">Hip circles, thoracic rotations, neck rolls, shoulder rolls, cat-cow. On gym days this primes joints before lifting. On rest days it keeps you supple.</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:'DM Sans', sans-serif;">5 min</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:DM Sans, sans-serif;">5 min</div>
           </div>
         </div>
         <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow);">
-          <div style="font-family:'DM Sans', sans-serif;font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px;min-width:28px;">04</div>
+          <div style="font-family:DM Sans, sans-serif;font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px;min-width:28px;">04</div>
           <div>
             <div style="font-size:13.5px;font-weight:600;margin-bottom:3px;">Natural light exposure</div>
             <div style="font-size:12px;color:var(--text2);line-height:1.5;">Step outside or sit by a window for 5–10 min. Anchors your circadian rhythm, improves cortisol curve, and makes falling asleep easier that night. Especially important on WFH days.</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:'DM Sans', sans-serif;">5 min</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:DM Sans, sans-serif;">5 min</div>
           </div>
         </div>
         <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow);">
-          <div style="font-family:'DM Sans', sans-serif;font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px;min-width:28px;">05</div>
+          <div style="font-family:DM Sans, sans-serif;font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px;min-width:28px;">05</div>
           <div>
             <div style="font-size:13.5px;font-weight:600;margin-bottom:3px;">Protein-first breakfast</div>
             <div style="font-size:12px;color:var(--text2);line-height:1.5;">Whatever day type you're on — hit protein early. A high-protein breakfast reduces cravings for the rest of the day and stabilises blood sugar.</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:'DM Sans', sans-serif;">See meal plan →</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:DM Sans, sans-serif;">See meal plan →</div>
           </div>
         </div>
       </div>
@@ -2169,43 +2169,43 @@ function showCuisine(id, el) {
 
       <div style="display:flex;flex-direction:column;gap:8px;">
         <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow);">
-          <div style="font-family:'DM Sans', sans-serif;font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px;min-width:28px;">01</div>
+          <div style="font-family:DM Sans, sans-serif;font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px;min-width:28px;">01</div>
           <div>
             <div style="font-size:13.5px;font-weight:600;margin-bottom:3px;">Prep tomorrow</div>
             <div style="font-size:12px;color:var(--text2);line-height:1.5;">If it's a breakfast oats day, make overnight oats now. Batch-boil eggs if needed. Lay out your gym kit. Removes all friction from the morning.</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:'DM Sans', sans-serif;">5 min</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:DM Sans, sans-serif;">5 min</div>
           </div>
         </div>
         <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow);">
-          <div style="font-family:'DM Sans', sans-serif;font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px;min-width:28px;">02</div>
+          <div style="font-family:DM Sans, sans-serif;font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px;min-width:28px;">02</div>
           <div>
             <div style="font-size:13.5px;font-weight:600;margin-bottom:3px;">10 min stretch or foam roll</div>
             <div style="font-size:12px;color:var(--text2);line-height:1.5;">Focus on what's tight: after leg day — quads, hamstrings, calves. After push day — chest, pecs. After running — hip flexors, IT band. After Blaze — everything. Activates parasympathetic recovery.</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:'DM Sans', sans-serif;">10 min</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:DM Sans, sans-serif;">10 min</div>
           </div>
         </div>
         <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow);">
-          <div style="font-family:'DM Sans', sans-serif;font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px;min-width:28px;">03</div>
+          <div style="font-family:DM Sans, sans-serif;font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px;min-width:28px;">03</div>
           <div>
             <div style="font-size:13.5px;font-weight:600;margin-bottom:3px;">Dim lights and screens</div>
             <div style="font-size:12px;color:var(--text2);line-height:1.5;">Blue light suppresses melatonin for up to 2 hours. Switch to warm lighting, use night mode on your phone, or put it face-down. Your Whoop HRV will thank you within days.</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:'DM Sans', sans-serif;">From 9pm onwards</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:DM Sans, sans-serif;">From 9pm onwards</div>
           </div>
         </div>
         <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow);">
-          <div style="font-family:'DM Sans', sans-serif;font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px;min-width:28px;">04</div>
+          <div style="font-family:DM Sans, sans-serif;font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px;min-width:28px;">04</div>
           <div>
             <div style="font-size:13.5px;font-weight:600;margin-bottom:3px;">Herbal tea (if needed)</div>
             <div style="font-size:12px;color:var(--text2);line-height:1.5;">Peppermint, chamomile or valerian root tea. On early-finish days this replaces the urge to snack after 6pm. Valerian in particular supports deeper sleep and higher HRV.</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:'DM Sans', sans-serif;">Optional</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:DM Sans, sans-serif;">Optional</div>
           </div>
         </div>
         <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow);">
-          <div style="font-family:'DM Sans', sans-serif;font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px;min-width:28px;">05</div>
+          <div style="font-family:DM Sans, sans-serif;font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px;min-width:28px;">05</div>
           <div>
             <div style="font-size:13.5px;font-weight:600;margin-bottom:3px;">Cool, dark room for sleep</div>
             <div style="font-size:12px;color:var(--text2);line-height:1.5;">18–19°C is optimal for deep sleep. Blackout blinds or an eye mask meaningfully improve sleep quality. Aim for 7–9 hours — this is when fat metabolism and muscle repair actually occur.</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:'DM Sans', sans-serif;">Every night</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:DM Sans, sans-serif;">Every night</div>
           </div>
         </div>
       </div>
@@ -2217,37 +2217,37 @@ function showCuisine(id, el) {
     <div class="card-title" style="margin-bottom:14px;">Routine tweaks by day</div>
     <div class="ampm-routines-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;">
       <div style="background:var(--teal-light);border-radius:var(--radius-sm);padding:10px 8px;text-align:center;">
-        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--teal);font-family:'DM Sans', sans-serif;margin-bottom:4px;">Mon</div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--teal);font-family:DM Sans, sans-serif;margin-bottom:4px;">Mon</div>
         <div style="font-size:12px;font-weight:600;color:var(--teal);margin-bottom:5px;">Push</div>
         <div style="font-size:11px;color:var(--text2);line-height:1.5;">AM: mobility — chest + shoulders<br>PM: chest & tricep stretch</div>
       </div>
       <div style="background:var(--amber-light);border-radius:var(--radius-sm);padding:10px 8px;text-align:center;">
-        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--amber);font-family:'DM Sans', sans-serif;margin-bottom:4px;">Tue</div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--amber);font-family:DM Sans, sans-serif;margin-bottom:4px;">Tue</div>
         <div style="font-size:12px;font-weight:600;color:var(--amber);margin-bottom:5px;">Cyclone 7am</div>
         <div style="font-size:11px;color:var(--text2);line-height:1.5;">AM: banana before class, kit ready night before<br>PM: full leg foam roll</div>
       </div>
       <div style="background:var(--blue-light);border-radius:var(--radius-sm);padding:10px 8px;text-align:center;">
-        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--blue);font-family:'DM Sans', sans-serif;margin-bottom:4px;">Wed</div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--blue);font-family:DM Sans, sans-serif;margin-bottom:4px;">Wed</div>
         <div style="font-size:12px;font-weight:600;color:var(--blue);margin-bottom:5px;">Run</div>
         <div style="font-size:11px;color:var(--text2);line-height:1.5;">AM: dynamic leg swings before heading out<br>PM: hip flexor + calf stretch</div>
       </div>
       <div style="background:var(--teal-light);border-radius:var(--radius-sm);padding:10px 8px;text-align:center;">
-        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--teal);font-family:'DM Sans', sans-serif;margin-bottom:4px;">Thu</div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--teal);font-family:DM Sans, sans-serif;margin-bottom:4px;">Thu</div>
         <div style="font-size:12px;font-weight:600;color:var(--teal);margin-bottom:5px;">Legs + Run</div>
         <div style="font-size:11px;color:var(--text2);line-height:1.5;">AM: hip & knee mobility before gym<br>Lunch: running kit by the door<br>PM: quad + hamstring foam roll</div>
       </div>
       <div style="background:var(--coral-light);border-radius:var(--radius-sm);padding:10px 8px;text-align:center;">
-        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--coral);font-family:'DM Sans', sans-serif;margin-bottom:4px;">Fri</div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--coral);font-family:DM Sans, sans-serif;margin-bottom:4px;">Fri</div>
         <div style="font-size:12px;font-weight:600;color:var(--coral);margin-bottom:5px;">Blaze 7:20am</div>
         <div style="font-size:11px;color:var(--text2);line-height:1.5;">AM: kit on, leave by 6:50am<br>PM: full body foam roll, early dinner</div>
       </div>
       <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:10px 8px;text-align:center;">
-        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text2);font-family:'DM Sans', sans-serif;margin-bottom:4px;">Sat</div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text2);font-family:DM Sans, sans-serif;margin-bottom:4px;">Sat</div>
         <div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:5px;">Rest</div>
         <div style="font-size:11px;color:var(--text2);line-height:1.5;">AM: no alarm, relaxed start<br>PM: early bed — big week behind you</div>
       </div>
       <div style="background:var(--purple-light);border-radius:var(--radius-sm);padding:10px 8px;text-align:center;">
-        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--purple);font-family:'DM Sans', sans-serif;margin-bottom:4px;">Sun</div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--purple);font-family:DM Sans, sans-serif;margin-bottom:4px;">Sun</div>
         <div style="font-size:12px;font-weight:600;color:var(--purple);margin-bottom:5px;">Pull + Run</div>
         <div style="font-size:11px;color:var(--text2);line-height:1.5;">AM: breakfast before gym, check Whoop<br>PM: lat + bicep stretch, optional easy run</div>
       </div>
@@ -2347,20 +2347,20 @@ function showCuisine(id, el) {
   <div class="card" style="margin-bottom:20px;">
     <div id="weight-form-row" style="display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;">
       <div style="flex:1;min-width:140px;">
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:8px;">Date</div>
-        <input type="date" id="log-date" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:8px;">Date</div>
+        <input type="date" id="log-date" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
       </div>
       <div style="flex:1;min-width:120px;">
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:8px;">Weight (kg)</div>
-        <input type="number" id="log-weight" placeholder="e.g. 63.5" step="0.1" min="40" max="150" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:8px;">Weight (kg)</div>
+        <input type="number" id="log-weight" placeholder="e.g. 63.5" step="0.1" min="40" max="150" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
       </div>
       <div style="flex:2;min-width:180px;">
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:8px;">Note (optional)</div>
-        <input type="text" id="log-note" placeholder="e.g. After Blaze week, feeling good" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:8px;">Note (optional)</div>
+        <input type="text" id="log-note" placeholder="e.g. After Blaze week, feeling good" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
       </div>
       <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:transparent;font-family:'DM Sans', sans-serif;margin-bottom:8px;">‌</div>
-        <button onclick="logWeight()" style="padding:10px 24px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'DM Sans', sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:opacity 0.15s;white-space:nowrap;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Save entry</button>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:transparent;font-family:DM Sans, sans-serif;margin-bottom:8px;">‌</div>
+        <button onclick="logWeight()" style="padding:10px 24px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:DM Sans, sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:opacity 0.15s;white-space:nowrap;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Save entry</button>
       </div>
     </div>
     <div id="log-msg" style="margin-top:12px;font-size:13px;display:none;"></div>
@@ -2394,7 +2394,7 @@ function showCuisine(id, el) {
   <div class="card" style="margin-bottom:20px;">
     <div style="display:flex;justify-content:space-between;margin-bottom:10px;align-items:center;">
       <div style="font-size:14px;font-weight:500;">Journey to 57kg</div>
-      <div style="font-size:12px;color:var(--text3);font-family:'DM Sans', sans-serif;" id="prog-bar-label">0% complete</div>
+      <div style="font-size:12px;color:var(--text3);font-family:DM Sans, sans-serif;" id="prog-bar-label">0% complete</div>
     </div>
     <div style="height:12px;background:var(--bg2);border-radius:999px;overflow:hidden;margin-bottom:8px;">
       <div id="prog-bar-fill" style="height:100%;background:linear-gradient(90deg,var(--teal),#2ECC9A);border-radius:999px;width:0%;transition:width 0.6s ease;"></div>
@@ -2431,11 +2431,11 @@ function showCuisine(id, el) {
       <table id="log-table" style="width:100%;border-collapse:collapse;display:none;">
         <thead>
           <tr>
-            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Date</th>
-            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Weight</th>
-            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Change</th>
-            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Note</th>
-            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;padding:8px 12px;text-align:center;border-bottom:1px solid var(--border);font-weight:500;"></th>
+            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Date</th>
+            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Weight</th>
+            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Change</th>
+            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Note</th>
+            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;padding:8px 12px;text-align:center;border-bottom:1px solid var(--border);font-weight:500;"></th>
           </tr>
         </thead>
         <tbody id="log-tbody"></tbody>
@@ -2454,9 +2454,9 @@ function showCuisine(id, el) {
 
   <!-- View toggle -->
   <div id="supp-tabs" style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;">
-    <button id="supp-tab-stack" onclick="suppTab('stack')" style="padding:8px 20px;border-radius:999px;border:1.5px solid var(--text);background:var(--text);color:#fff;font-family:'DM Sans', sans-serif;font-size:13px;font-weight:500;cursor:pointer;">My Stack</button>
-    <button id="supp-tab-schedule" onclick="suppTab('schedule')" style="padding:8px 20px;border-radius:999px;border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-family:'DM Sans', sans-serif;font-size:13px;font-weight:500;cursor:pointer;">Daily Routine</button>
-    <button id="supp-tab-checkin" onclick="suppTab('checkin')" style="padding:8px 20px;border-radius:999px;border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-family:'DM Sans', sans-serif;font-size:13px;font-weight:500;cursor:pointer;">✅ Today</button>
+    <button id="supp-tab-stack" onclick="suppTab('stack')" style="padding:8px 20px;border-radius:999px;border:1.5px solid var(--text);background:var(--text);color:#fff;font-family:DM Sans, sans-serif;font-size:13px;font-weight:500;cursor:pointer;">My Stack</button>
+    <button id="supp-tab-schedule" onclick="suppTab('schedule')" style="padding:8px 20px;border-radius:999px;border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-family:DM Sans, sans-serif;font-size:13px;font-weight:500;cursor:pointer;">Daily Routine</button>
+    <button id="supp-tab-checkin" onclick="suppTab('checkin')" style="padding:8px 20px;border-radius:999px;border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-family:DM Sans, sans-serif;font-size:13px;font-weight:500;cursor:pointer;">✅ Today</button>
   </div>
 
   <!-- CHECKIN VIEW -->
@@ -2468,7 +2468,7 @@ function showCuisine(id, el) {
   <div id="supp-view-stack">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
       <div style="font-size:13px;color:var(--text2);">Tap to edit · toggle active/inactive · <span style="color:var(--teal);font-weight:500;" id="supp-count"></span></div>
-      <button onclick="openAddSupp()" style="padding:7px 16px;border-radius:999px;border:1.5px solid var(--teal);background:var(--teal-light);color:var(--teal);font-family:'DM Sans', sans-serif;font-size:13px;font-weight:600;cursor:pointer;">+ Add supplement</button>
+      <button onclick="openAddSupp()" style="padding:7px 16px;border-radius:999px;border:1.5px solid var(--teal);background:var(--teal-light);color:var(--teal);font-family:DM Sans, sans-serif;font-size:13px;font-weight:600;cursor:pointer;">+ Add supplement</button>
     </div>
     <div id="supp-stack-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"></div>
   </div>
@@ -2495,13 +2495,13 @@ function showCuisine(id, el) {
     </div>
 
     <div style="margin-bottom:16px;">
-      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:8px;">API Key</div>
-      <input id="settings-api-key" type="password" placeholder="paste your Anthropic API key here" style="width:100%;padding:12px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:13px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:8px;">API Key</div>
+      <input id="settings-api-key" type="password" placeholder="paste your Anthropic API key here" style="width:100%;padding:12px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:13px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
     </div>
 
     <div style="display:flex;gap:10px;margin-bottom:16px;">
-      <button onclick="saveApiKeySettings()" style="flex:1;padding:12px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'DM Sans', sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Save API Key</button>
-      <button onclick="toggleApiKeyVisibility(this)" style="padding:12px 16px;background:var(--border);color:var(--text);border:none;border-radius:var(--radius-sm);font-family:'DM Sans', sans-serif;font-size:14px;font-weight:500;cursor:pointer;">Show</button>
+      <button onclick="saveApiKeySettings()" style="flex:1;padding:12px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:DM Sans, sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Save API Key</button>
+      <button onclick="toggleApiKeyVisibility(this)" style="padding:12px 16px;background:var(--border);color:var(--text);border:none;border-radius:var(--radius-sm);font-family:DM Sans, sans-serif;font-size:14px;font-weight:500;cursor:pointer;">Show</button>
     </div>
 
     <div id="api-key-status" style="font-size:13px;color:var(--text2);padding:12px;background:var(--bg);border-radius:var(--radius-sm);border-left:3px solid var(--border);">
@@ -2510,7 +2510,7 @@ function showCuisine(id, el) {
   </div>
 
   <div class="card">
-    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:12px;">How to get your API key</div>
+    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:12px;">How to get your API key</div>
     <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;color:var(--text2);line-height:1.6;">
       <div style="display:flex;gap:10px;align-items:flex-start;">
         <div style="background:var(--teal);color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0;font-size:12px;">1</div>
@@ -2547,24 +2547,24 @@ function showCuisine(id, el) {
     </div>
     <div style="display:flex;flex-direction:column;gap:14px;">
       <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:6px;">Name</div>
-        <input id="supp-edit-name" type="text" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:6px;">Name</div>
+        <input id="supp-edit-name" type="text" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
       </div>
       <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:6px;">Dose</div>
-        <input id="supp-edit-dose" type="text" placeholder="e.g. 400mg, 5g, 1 capsule" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:6px;">Dose</div>
+        <input id="supp-edit-dose" type="text" placeholder="e.g. 400mg, 5g, 1 capsule" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
       </div>
       <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:6px;">Best time to take</div>
-        <input id="supp-edit-time" type="text" placeholder="e.g. Morning with food, Before bed" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:6px;">Best time to take</div>
+        <input id="supp-edit-time" type="text" placeholder="e.g. Morning with food, Before bed" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
       </div>
       <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:6px;">Why you take it</div>
-        <textarea id="supp-edit-why" rows="3" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;resize:vertical;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'"></textarea>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:6px;">Why you take it</div>
+        <textarea id="supp-edit-why" rows="3" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;resize:vertical;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'"></textarea>
       </div>
       <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:6px;">Category</div>
-        <select id="supp-edit-cat" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:6px;">Category</div>
+        <select id="supp-edit-cat" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;">
           <option value="recovery">Recovery</option>
           <option value="cognitive">Cognitive</option>
           <option value="longevity">Longevity</option>
@@ -2575,8 +2575,8 @@ function showCuisine(id, el) {
         </select>
       </div>
       <div style="display:flex;gap:10px;margin-top:6px;">
-        <button onclick="saveSuppEdit()" style="flex:1;padding:12px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'DM Sans', sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Save</button>
-        <button id="supp-delete-btn" onclick="deleteSuppEdit()" style="padding:12px 20px;background:var(--red-light);color:var(--red);border:none;border-radius:var(--radius-sm);font-family:'DM Sans', sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Delete</button>
+        <button onclick="saveSuppEdit()" style="flex:1;padding:12px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:DM Sans, sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Save</button>
+        <button id="supp-delete-btn" onclick="deleteSuppEdit()" style="padding:12px 20px;background:var(--red-light);color:var(--red);border:none;border-radius:var(--radius-sm);font-family:DM Sans, sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Delete</button>
       </div>
     </div>
   </div>
@@ -2587,14 +2587,14 @@ function showCuisine(id, el) {
   <div style="background:var(--card);border-radius:var(--radius);padding:28px;max-width:540px;width:92%;max-height:85vh;overflow-y:auto;box-shadow:var(--shadow-lg);">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
       <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;" id="sched-modal-time-label"></div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;" id="sched-modal-time-label"></div>
         <div style="font-family:'Playfair Display', serif;font-size:20px;font-weight:700;margin-top:2px;" id="sched-modal-day-label"></div>
       </div>
       <button onclick="closeSuppSchedModal()" style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--text3);line-height:1;">✕</button>
     </div>
     <div style="font-size:13px;color:var(--text2);margin-bottom:18px;">Tick the supplements you take at this time on this day</div>
     <div id="sched-modal-options" style="display:flex;flex-direction:column;gap:8px;"></div>
-    <button onclick="saveSuppSchedModal()" style="width:100%;margin-top:18px;padding:12px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'DM Sans', sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Save</button>
+    <button onclick="saveSuppSchedModal()" style="width:100%;margin-top:18px;padding:12px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:DM Sans, sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Save</button>
   </div>
 </div>
 
@@ -2607,28 +2607,28 @@ function showCuisine(id, el) {
     </div>
     <div style="display:flex;flex-direction:column;gap:13px;">
       <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:6px;">Meal name</div>
-        <input id="cm-name" type="text" placeholder="e.g. Egg fried rice" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:6px;">Meal name</div>
+        <input id="cm-name" type="text" placeholder="e.g. Egg fried rice" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
       </div>
       <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:6px;">Description / ingredients</div>
-        <input id="cm-desc" type="text" placeholder="e.g. 2 eggs, Tilda rice, frozen peas, sesame oil" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:6px;">Description / ingredients</div>
+        <input id="cm-desc" type="text" placeholder="e.g. 2 eggs, Tilda rice, frozen peas, sesame oil" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
         <div>
-          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:6px;">Calories</div>
-          <input id="cm-kcal" type="number" placeholder="e.g. 420" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:6px;">Calories</div>
+          <input id="cm-kcal" type="number" placeholder="e.g. 420" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
         </div>
         <div>
-          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:6px;">Protein (g)</div>
-          <input id="cm-pro" type="number" placeholder="e.g. 35" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:6px;">Protein (g)</div>
+          <input id="cm-pro" type="number" placeholder="e.g. 35" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
         </div>
         <div>
-          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:6px;">Cook time</div>
-          <input id="cm-cook" type="text" placeholder="e.g. 10 min" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:6px;">Cook time</div>
+          <input id="cm-cook" type="text" placeholder="e.g. 10 min" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
         </div>
       </div>
-      <button onclick="saveCustomMeal()" style="padding:12px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'DM Sans', sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:4px;">Add to my meals</button>
+      <button onclick="saveCustomMeal()" style="padding:12px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:DM Sans, sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:4px;">Add to my meals</button>
     </div>
   </div>
 </div>
@@ -2638,7 +2638,7 @@ function showCuisine(id, el) {
   <div style="background:var(--card);border-radius:var(--radius);padding:28px;max-width:440px;width:92%;box-shadow:var(--shadow-lg);">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
       <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--amber);font-family:'DM Sans', sans-serif;margin-bottom:3px;" id="eo-modal-slot"></div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--amber);font-family:DM Sans, sans-serif;margin-bottom:3px;" id="eo-modal-slot"></div>
         <div style="font-family:'Playfair Display', serif;font-size:20px;font-weight:700;" id="eo-modal-day"></div>
       </div>
       <button onclick="closeEoModal()" style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--text3);line-height:1;">✕</button>
@@ -2649,22 +2649,22 @@ function showCuisine(id, el) {
     </div>
     <div style="display:flex;flex-direction:column;gap:13px;">
       <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:6px;">What you're having (optional)</div>
-        <input id="eo-note" type="text" placeholder="e.g. Grilled salmon at Carluccio's" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--amber)'" onblur="this.style.borderColor='var(--border)'">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:6px;">What you're having (optional)</div>
+        <input id="eo-note" type="text" placeholder="e.g. Grilled salmon at Carluccio's" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--amber)'" onblur="this.style.borderColor='var(--border)'">
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
         <div>
-          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:6px;">Calories (kcal)</div>
-          <input id="eo-kcal" type="number" placeholder="e.g. 520" min="0" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--amber)'" onblur="this.style.borderColor='var(--border)'">
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:6px;">Calories (kcal)</div>
+          <input id="eo-kcal" type="number" placeholder="e.g. 520" min="0" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--amber)'" onblur="this.style.borderColor='var(--border)'">
         </div>
         <div>
-          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:6px;">Protein (g)</div>
-          <input id="eo-pro" type="number" placeholder="e.g. 38" min="0" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--amber)'" onblur="this.style.borderColor='var(--border)'">
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:6px;">Protein (g)</div>
+          <input id="eo-pro" type="number" placeholder="e.g. 38" min="0" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--amber)'" onblur="this.style.borderColor='var(--border)'">
         </div>
       </div>
       <div style="display:flex;gap:10px;margin-top:4px;">
-        <button onclick="saveEoModal()" style="flex:1;padding:12px;background:var(--amber);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'DM Sans', sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Save</button>
-        <button onclick="clearEoModal()" style="padding:12px 18px;background:var(--bg2);color:var(--text2);border:none;border-radius:var(--radius-sm);font-family:'DM Sans', sans-serif;font-size:13px;font-weight:500;cursor:pointer;">Clear</button>
+        <button onclick="saveEoModal()" style="flex:1;padding:12px;background:var(--amber);color:#fff;border:none;border-radius:var(--radius-sm);font-family:DM Sans, sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Save</button>
+        <button onclick="clearEoModal()" style="padding:12px 18px;background:var(--bg2);color:var(--text2);border:none;border-radius:var(--radius-sm);font-family:DM Sans, sans-serif;font-size:13px;font-weight:500;cursor:pointer;">Clear</button>
       </div>
     </div>
   </div>
@@ -2747,19 +2747,28 @@ function showClientIdSetup() {
 function signIn() {
   const clientId = getClientId();
   if (!clientId) { showClientIdSetup(); return; }
-  const client = google.accounts.oauth2.initTokenClient({
-    client_id: clientId,
-    scope: DRIVE_SCOPE,
-    callback: async (resp) => {
-      if (resp.error) { setSyncStatus('error', 'Sign-in failed'); return; }
-      gAccessToken = resp.access_token;
-      gSyncEnabled = true;
-      setSyncStatus('saving', 'Loading your data…');
-      await loadFromDrive();
-      launchApp();
-    },
-  });
-  client.requestAccessToken();
+  if (typeof google === 'undefined' || !google.accounts) {
+    alert('Google sign-in is still loading — please wait a moment and try again.');
+    return;
+  }
+  try {
+    const client = google.accounts.oauth2.initTokenClient({
+      client_id: clientId,
+      scope: DRIVE_SCOPE,
+      prompt: 'select_account',
+      callback: async (resp) => {
+        if (resp.error) { setSyncStatus('error', 'Sign-in failed: ' + resp.error); return; }
+        gAccessToken = resp.access_token;
+        gSyncEnabled = true;
+        setSyncStatus('saving', 'Loading your data…');
+        await loadFromDrive();
+        launchApp();
+      },
+    });
+    client.requestAccessToken({ prompt: 'select_account' });
+  } catch(e) {
+    alert('Sign-in error: ' + e.message);
+  }
 }
 
 function usePlanOnly() {
@@ -3006,7 +3015,7 @@ function renderProgress() {
     }
     return `<tr>
       <td style="padding:11px 12px;border-bottom:1px solid var(--border);font-size:13.5px;">${formatDate(e.date)}</td>
-      <td style="padding:11px 12px;border-bottom:1px solid var(--border);font-size:13.5px;font-family:'DM Sans', sans-serif;font-weight:600;">${e.weight.toFixed(1)} kg</td>
+      <td style="padding:11px 12px;border-bottom:1px solid var(--border);font-size:13.5px;font-family:DM Sans, sans-serif;font-weight:600;">${e.weight.toFixed(1)} kg</td>
       <td style="padding:11px 12px;border-bottom:1px solid var(--border);font-size:13px;">${changeHTML}</td>
       <td style="padding:11px 12px;border-bottom:1px solid var(--border);font-size:12.5px;color:var(--text2);">${e.note || '—'}</td>
       <td style="padding:11px 12px;border-bottom:1px solid var(--border);text-align:center;">
@@ -3055,7 +3064,7 @@ function renderChart(entries) {
 
   // grid lines & y labels
   ctx.textAlign = 'right';
-  ctx.font = '11px 'DM Mono', monospace';
+  ctx.font = '11px "DM Mono", monospace';
   ctx.fillStyle = '#83948f';
   const ticks = 5;
   for (let i = 0; i <= ticks; i++) {
@@ -3078,7 +3087,7 @@ function renderChart(entries) {
   ctx.setLineDash([]);
   ctx.fillStyle   = '#0E7A61';
   ctx.textAlign   = 'left';
-  ctx.font        = '10px 'DM Mono', monospace';
+  ctx.font        = '10px "DM Mono", monospace';
   ctx.fillText('Goal 57kg', PAD.left + 4, goalY - 5);
 
   // gradient fill under line
@@ -3122,7 +3131,7 @@ function renderChart(entries) {
       const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
       ctx.fillStyle   = '#83948f';
       ctx.textAlign   = 'center';
-      ctx.font        = '10px 'DM Mono', monospace';
+      ctx.font        = '10px "DM Mono", monospace';
       ctx.fillText(`${parseInt(d)} ${months[parseInt(m)-1]}`, x, PAD.top + cH + 20);
     }
   });
@@ -3348,7 +3357,7 @@ function renderPlanner() {
         </div>
       </div>
       <div style="text-align:right;">
-        <div style="font-size:15px;font-weight:700;font-family:'DM Sans', sans-serif;color:${c.text};">${totals.kcal} kcal</div>
+        <div style="font-size:15px;font-weight:700;font-family:DM Sans, sans-serif;color:${c.text};">${totals.kcal} kcal</div>
         <div style="font-size:11px;color:${c.text};opacity:0.75;">${totals.pro}g protein</div>
       </div>`;
     dayEl.appendChild(header);
@@ -3367,7 +3376,7 @@ function renderPlanner() {
       const slotWrap = document.createElement('div');
 
       const slotLabel = document.createElement('div');
-      slotLabel.style.cssText = 'font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);font-family:"DM Sans", sans-serif;margin-bottom:5px;';
+      slotLabel.style.cssText = 'font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:5px;';
       slotLabel.textContent = SLOT_ICONS[slot] + ' ' + SLOT_LABELS[slot];
 
       const mealCard = document.createElement('div');
@@ -3467,7 +3476,7 @@ function openModal(dayKey, slot) {
   // Divider
   const divider = document.createElement('div');
   divider.style.cssText = 'display:flex;align-items:center;gap:10px;margin:8px 0;';
-  divider.innerHTML = '<div style="flex:1;height:1px;background:var(--border);"></div><div style="font-size:11px;color:var(--text3);font-family:'DM Sans',monospace;white-space:nowrap;">or choose a home meal</div><div style="flex:1;height:1px;background:var(--border);"></div>';
+  divider.innerHTML = '<div style="flex:1;height:1px;background:var(--border);"></div><div style="font-size:11px;color:var(--text3);font-family:DM Sans,monospace;white-space:nowrap;">or choose a home meal</div><div style="flex:1;height:1px;background:var(--border);"></div>';
   optionsEl.appendChild(divider);
 
   const allMeals = getAllMealsForSlot(slot);
@@ -3480,7 +3489,7 @@ function openModal(dayKey, slot) {
     card.innerHTML = `
       <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px;">
         <div style="font-size:13.5px;font-weight:600;color:${isActive ? 'var(--teal)' : 'var(--text)'};">${m.name}${isActive ? ' ✓' : ''}${isCustom ? ' <span style="font-size:10px;background:var(--purple-light);color:var(--purple);padding:1px 6px;border-radius:999px;">custom</span>' : ''}</div>
-        <div style="font-size:11px;color:var(--text3);flex-shrink:0;font-family:'DM Sans', sans-serif;">${m.cook}</div>
+        <div style="font-size:11px;color:var(--text3);flex-shrink:0;font-family:DM Sans, sans-serif;">${m.cook}</div>
       </div>
       <div style="font-size:12px;color:var(--text2);margin-bottom:8px;line-height:1.5;">${m.desc}</div>
       <div style="display:flex;gap:6px;flex-wrap:wrap;">
@@ -3504,7 +3513,7 @@ function openModal(dayKey, slot) {
 
   // Add your own button
   const addBtn = document.createElement('button');
-  addBtn.style.cssText = 'width:100%;margin-top:6px;padding:11px;border:1.5px dashed var(--border);background:none;border-radius:var(--radius-sm);font-family:"DM Sans", sans-serif;font-size:13px;font-weight:600;color:var(--teal);cursor:pointer;transition:border-color 0.15s;';
+  addBtn.style.cssText = 'width:100%;margin-top:6px;padding:11px;border:1.5px dashed var(--border);background:none;border-radius:var(--radius-sm);font-family:DM Sans, sans-serif;font-size:13px;font-weight:600;color:var(--teal);cursor:pointer;transition:border-color 0.15s;';
   addBtn.textContent = '+ Add your own meal';
   addBtn.addEventListener('mouseenter', () => addBtn.style.borderColor = 'var(--teal)');
   addBtn.addEventListener('mouseleave', () => addBtn.style.borderColor = 'var(--border)');
@@ -3783,7 +3792,7 @@ function renderRoutinesGrid() {
       const ampmText = day.ampmText || `AM: prep for ${combinedName.toLowerCase()}<br>PM: recovery & stretching`;
       html += `
         <div style="background:var(--${color}-light);border-radius:var(--radius-sm);padding:10px 8px;text-align:center;">
-          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--${color});font-family:'DM Sans', sans-serif;margin-bottom:4px;">${dayLabels[dayKey]}</div>
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--${color});font-family:DM Sans, sans-serif;margin-bottom:4px;">${dayLabels[dayKey]}</div>
           <div style="font-size:12px;font-weight:600;color:var(--${color});margin-bottom:5px;">${combinedName}</div>
           <div style="font-size:11px;color:var(--text2);line-height:1.5;">${ampmText}</div>
         </div>
@@ -3933,7 +3942,7 @@ function renderClassTimesManager(workoutType) {
   }
 
   const addBtn = document.createElement('button');
-  addBtn.style.cssText = `width:100%;margin-top:${sorted.length > 0 ? '10px' : '0'};padding:9px 12px;background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius-sm);color:var(--text2);font-size:13px;font-weight:500;cursor:pointer;transition:all 0.15s;font-family:'DM Sans', sans-serif;`;
+  addBtn.style.cssText = `width:100%;margin-top:${sorted.length > 0 ? '10px' : '0'};padding:9px 12px;background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius-sm);color:var(--text2);font-size:13px;font-weight:500;cursor:pointer;transition:all 0.15s;font-family:DM Sans, sans-serif;`;
   addBtn.textContent = '+ Add class time';
   addBtn.onmouseover = () => { addBtn.style.borderColor = 'var(--text)'; addBtn.style.color = 'var(--text)'; addBtn.style.background = 'var(--bg)'; };
   addBtn.onmouseout = () => { addBtn.style.borderColor = 'var(--border)'; addBtn.style.color = 'var(--text2)'; addBtn.style.background = 'var(--card)'; };
@@ -4013,19 +4022,19 @@ function openClassTimeModal(workoutType) {
 
       <div style="margin-bottom:16px;">
         <label style="display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.08em;">Day</label>
-        <select id="ct-day" style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'DM Sans', sans-serif;background:var(--bg);color:var(--text);">
+        <select id="ct-day" style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:DM Sans, sans-serif;background:var(--bg);color:var(--text);">
           ${days.map((d, i) => `<option value="${dayKeys[i]}">${d}</option>`).join('')}
         </select>
       </div>
 
       <div style="margin-bottom:16px;">
         <label style="display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.08em;">Time</label>
-        <input id="ct-time" type="text" placeholder="e.g. 7:20am" style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'DM Sans', sans-serif;background:var(--bg);color:var(--text);box-sizing:border-box;">
+        <input id="ct-time" type="text" placeholder="e.g. 7:20am" style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:DM Sans, sans-serif;background:var(--bg);color:var(--text);box-sizing:border-box;">
       </div>
 
       <div style="margin-bottom:16px;">
         <label style="display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.08em;">Location (optional)</label>
-        <select id="ct-location" style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'DM Sans', sans-serif;background:var(--bg);color:var(--text);">
+        <select id="ct-location" style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:DM Sans, sans-serif;background:var(--bg);color:var(--text);">
           <option value="">— Select a location —</option>
           <option value="David Lloyd Beckenham">David Lloyd Beckenham</option>
           <option value="David Lloyd Cheam">David Lloyd Cheam</option>
@@ -4038,12 +4047,12 @@ function openClassTimeModal(workoutType) {
 
       <div style="margin-bottom:20px;">
         <label style="display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.08em;">Notes (optional)</label>
-        <textarea id="ct-notes" placeholder="Any notes about this class..." rows="2" style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'DM Sans', sans-serif;background:var(--bg);color:var(--text);box-sizing:border-box;resize:vertical;"></textarea>
+        <textarea id="ct-notes" placeholder="Any notes about this class..." rows="2" style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:DM Sans, sans-serif;background:var(--bg);color:var(--text);box-sizing:border-box;resize:vertical;"></textarea>
       </div>
 
       <div style="display:flex;gap:8px;">
-        <button onclick="document.getElementById('class-time-modal').remove()" style="flex:1;padding:10px;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius-sm);color:var(--text2);font-weight:600;cursor:pointer;font-family:'DM Sans', sans-serif;">Cancel</button>
-        <button onclick="saveClassTimeFromModal('${workoutType}')" style="flex:1;padding:10px;background:var(--teal);border:none;border-radius:var(--radius-sm);color:#fff;font-weight:600;cursor:pointer;font-family:'DM Sans', sans-serif;">Save</button>
+        <button onclick="document.getElementById('class-time-modal').remove()" style="flex:1;padding:10px;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius-sm);color:var(--text2);font-weight:600;cursor:pointer;font-family:DM Sans, sans-serif;">Cancel</button>
+        <button onclick="saveClassTimeFromModal('${workoutType}')" style="flex:1;padding:10px;background:var(--teal);border:none;border-radius:var(--radius-sm);color:#fff;font-weight:600;cursor:pointer;font-family:DM Sans, sans-serif;">Save</button>
       </div>
     </div>
   `;
@@ -4130,10 +4139,10 @@ function openWorkoutEditor() {
         <div style="font-size:12px;color:var(--text3);margin-top:2px;">${day.dayKey.charAt(0).toUpperCase() + day.dayKey.slice(1)}</div>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <select style="padding:8px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'DM Sans', sans-serif;cursor:pointer;background:var(--bg);color:var(--text);" onchange="handleWorkoutChange(${idx}, 0, this.value)">
+        <select style="padding:8px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:DM Sans, sans-serif;cursor:pointer;background:var(--bg);color:var(--text);" onchange="handleWorkoutChange(${idx}, 0, this.value)">
           ${optionsHTML}
         </select>
-        <select style="padding:8px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'DM Sans', sans-serif;cursor:pointer;background:var(--bg);color:var(--text);" onchange="handleWorkoutChange(${idx}, 1, this.value)">
+        <select style="padding:8px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:DM Sans, sans-serif;cursor:pointer;background:var(--bg);color:var(--text);" onchange="handleWorkoutChange(${idx}, 1, this.value)">
           ${optionsHTML}
         </select>
       </div>
@@ -4312,7 +4321,7 @@ function renderSuppSchedule() {
         <div style="font-size:12px;color:var(--text3);margin-top:2px;">${rt.note}</div>
       </div>
       <div style="text-align:right;">
-        <div style="font-size:26px;font-weight:700;font-family:'DM Sans', sans-serif;color:var(--teal);">${active.length}</div>
+        <div style="font-size:26px;font-weight:700;font-family:DM Sans, sans-serif;color:var(--teal);">${active.length}</div>
         <div style="font-size:11px;color:var(--text3);">supplement${active.length !== 1 ? 's' : ''}</div>
       </div>`;
     block.appendChild(hdr);
@@ -4333,7 +4342,7 @@ function renderSuppSchedule() {
             <div style="width:10px;height:10px;border-radius:50%;background:${cm.text};flex-shrink:0;"></div>
             <div>
               <div style="font-size:14px;font-weight:600;">${s.name}</div>
-              <div style="font-size:11px;color:var(--text3);margin-top:2px;font-family:'DM Sans', sans-serif;">${s.dose}</div>
+              <div style="font-size:11px;color:var(--text3);margin-top:2px;font-family:DM Sans, sans-serif;">${s.dose}</div>
             </div>
           </div>
           <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;background:${cm.bg};color:${cm.text};">${meta.label}</span>`;
@@ -4348,7 +4357,7 @@ function renderSuppSchedule() {
     }
 
     const editBtn = document.createElement('button');
-    editBtn.style.cssText = 'font-size:13px;font-weight:600;color:var(--teal);background:var(--teal-light);border:none;border-radius:var(--radius-sm);padding:10px 20px;cursor:pointer;font-family:"DM Sans", sans-serif;';
+    editBtn.style.cssText = 'font-size:13px;font-weight:600;color:var(--teal);background:var(--teal-light);border:none;border-radius:var(--radius-sm);padding:10px 20px;cursor:pointer;font-family:DM Sans, sans-serif;';
     editBtn.textContent = '✏️ Edit this window';
     editBtn.addEventListener('click', () => openDailyRoutineModal(rt.key, rt.label, rt.icon));
     body.appendChild(editBtn);
@@ -4379,7 +4388,7 @@ function openDailyRoutineModal(timeKey, timeLabel, icon) {
     row.innerHTML = `
       <input type="checkbox" data-suppid="${s.id}" ${isChecked ? 'checked' : ''} style="margin-top:3px;accent-color:var(--teal);width:16px;height:16px;flex-shrink:0;">
       <div style="flex:1;">
-        <div style="font-size:13.5px;font-weight:600;">${s.name} <span style="font-size:11px;color:var(--text3);font-family:'DM Sans', sans-serif;font-weight:400;">${s.dose}</span></div>
+        <div style="font-size:13.5px;font-weight:600;">${s.name} <span style="font-size:11px;color:var(--text3);font-family:DM Sans, sans-serif;font-weight:400;">${s.dose}</span></div>
         <div style="font-size:11px;color:var(--text3);margin-top:2px;">Recommended: ${s.time}</div>
         <span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:999px;background:${cm.bg};color:${cm.text};display:inline-block;margin-top:4px;">${meta.label}</span>
       </div>`;
@@ -4450,14 +4459,14 @@ function renderSuppStack() {
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
         <div style="flex:1;min-width:0;">
           <div style="font-family:'Playfair Display', serif;font-size:17px;font-weight:700;${isActive ? '' : 'text-decoration:line-through;color:var(--text3);'}">${s.name}</div>
-          <div style="font-size:12px;color:var(--text3);margin-top:2px;font-family:'DM Sans', sans-serif;">${s.dose}</div>
+          <div style="font-size:12px;color:var(--text3);margin-top:2px;font-family:DM Sans, sans-serif;">${s.dose}</div>
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;margin-left:8px;flex-shrink:0;">
           <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;background:${cm.bg};color:${cm.text};">${meta.label}</span>
           <button data-idx="${i}" class="toggle-btn" style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;border:none;cursor:pointer;background:${isActive ? 'var(--teal-light)' : 'var(--red-light)'};color:${isActive ? 'var(--teal)' : 'var(--red)'};">${isActive ? '● Active' : '○ Paused'}</button>
         </div>
       </div>
-      <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);font-family:'DM Sans', sans-serif;margin-bottom:5px;">⏰ ${s.time}</div>
+      <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);font-family:DM Sans, sans-serif;margin-bottom:5px;">⏰ ${s.time}</div>
       <div style="font-size:13px;color:var(--text2);line-height:1.6;">${s.why}</div>
       <div style="margin-top:12px;font-size:12px;color:var(--teal);font-weight:500;">✏️ Tap card to edit</div>`;
 
@@ -4727,7 +4736,7 @@ function renderSuppCheckin() {
   var sumRight = document.createElement('div');
   sumRight.style.cssText = 'text-align:right;';
   var sumCount = document.createElement('div');
-  sumCount.style.cssText = "font-size:36px;font-weight:700;font-family:'DM Sans', sans-serif;color:var(--teal);";
+  sumCount.style.cssText = "font-size:36px;font-weight:700;font-family:DM Sans, sans-serif;color:var(--teal);";
   sumCount.textContent = done + '/' + total;
   var sumLabel = document.createElement('div');
   sumLabel.style.cssText = 'font-size:12px;color:var(--text3);';
@@ -4794,7 +4803,7 @@ function renderSuppCheckin() {
       sName.style.cssText = 'font-size:14px;font-weight:600;' + (isTaken ? 'text-decoration:line-through;color:var(--text3);' : '');
       sName.textContent = s.name;
       var sDose = document.createElement('div');
-      sDose.style.cssText = "font-size:12px;color:var(--text3);font-family:'DM Sans', sans-serif;margin-top:2px;";
+      sDose.style.cssText = "font-size:12px;color:var(--text3);font-family:DM Sans, sans-serif;margin-top:2px;";
       sDose.textContent = s.dose;
       info.appendChild(sName);
       info.appendChild(sDose);
@@ -4815,7 +4824,7 @@ function renderSuppCheckin() {
 
   // Reset button
   var reset = document.createElement('button');
-  reset.style.cssText = 'width:100%;padding:12px;border:1.5px dashed var(--border);border-radius:var(--radius-sm);background:transparent;color:var(--text3);font-size:13px;cursor:pointer;font-family:"DM Sans", sans-serif;margin-top:4px;';
+  reset.style.cssText = 'width:100%;padding:12px;border:1.5px dashed var(--border);border-radius:var(--radius-sm);background:transparent;color:var(--text3);font-size:13px;cursor:pointer;font-family:DM Sans, sans-serif;margin-top:4px;';
   reset.textContent = "Reset today's check-in";
   reset.onclick = function() { saveCheckin({}); renderSuppCheckin(); };
   grid.appendChild(reset);
@@ -4831,15 +4840,15 @@ function renderSuppCheckin() {
     </div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-      <input type="text" id="editPlanName" placeholder="Plan name" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
-      <input type="number" id="editPlanDuration" placeholder="Duration (weeks)" min="1" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
-      <input type="date" id="editPlanStartDate" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
-      <input type="date" id="editPlanEndDate" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'DM Sans', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
+      <input type="text" id="editPlanName" placeholder="Plan name" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
+      <input type="number" id="editPlanDuration" placeholder="Duration (weeks)" min="1" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
+      <input type="date" id="editPlanStartDate" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
+      <input type="date" id="editPlanEndDate" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:DM Sans, sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
     </div>
 
     <div style="display:flex;gap:12px;">
-      <button onclick="saveRunningPlanEdit()" style="flex:1;padding:12px 16px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'DM Sans', sans-serif;font-weight:600;cursor:pointer;font-size:14px;transition:opacity 0.15s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">Save changes</button>
-      <button onclick="closeRunningPlanEditor()" style="flex:1;padding:12px 16px;background:var(--card);color:var(--text);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'DM Sans', sans-serif;font-weight:600;cursor:pointer;font-size:14px;">Cancel</button>
+      <button onclick="saveRunningPlanEdit()" style="flex:1;padding:12px 16px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:DM Sans, sans-serif;font-weight:600;cursor:pointer;font-size:14px;transition:opacity 0.15s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">Save changes</button>
+      <button onclick="closeRunningPlanEditor()" style="flex:1;padding:12px 16px;background:var(--card);color:var(--text);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:DM Sans, sans-serif;font-weight:600;cursor:pointer;font-size:14px;">Cancel</button>
     </div>
   </div>
 </div>
@@ -4855,8 +4864,8 @@ function renderSuppCheckin() {
     <div id="workout-list" style="margin-bottom:20px;"></div>
 
     <div style="display:flex;gap:12px;">
-      <button onclick="revertWorkoutRoutine()" style="flex:1;padding:12px 16px;background:var(--red-light);color:var(--red);border:none;border-radius:var(--radius-sm);font-family:'DM Sans', sans-serif;font-weight:600;cursor:pointer;font-size:14px;">Reset to Default</button>
-      <button onclick="closeWorkoutEditor()" style="flex:1;padding:12px 16px;background:var(--card);color:var(--text);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'DM Sans', sans-serif;font-weight:600;cursor:pointer;font-size:14px;">Done</button>
+      <button onclick="revertWorkoutRoutine()" style="flex:1;padding:12px 16px;background:var(--red-light);color:var(--red);border:none;border-radius:var(--radius-sm);font-family:DM Sans, sans-serif;font-weight:600;cursor:pointer;font-size:14px;">Reset to Default</button>
+      <button onclick="closeWorkoutEditor()" style="flex:1;padding:12px 16px;background:var(--card);color:var(--text);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:DM Sans, sans-serif;font-weight:600;cursor:pointer;font-size:14px;">Done</button>
     </div>
   </div>
 </div>
