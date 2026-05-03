@@ -2590,7 +2590,7 @@ function showCuisine(id, el) {
   <!-- STACK VIEW -->
   <div id="supp-view-stack">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-      <div style="font-size:13px;color:var(--text2);">Tap to edit · toggle active/inactive · <span style="color:var(--teal);font-weight:500;" id="supp-count"></span></div>
+      <div style="font-size:13px;color:var(--text2);">Toggle active/inactive · <span style="color:var(--teal);font-weight:500;" id="supp-count"></span></div>
       <button onclick="openAddSupp()" style="padding:7px 16px;border-radius:999px;border:1.5px solid var(--teal);background:var(--teal-light);color:var(--teal);font-family:'Manrope', sans-serif;font-size:13px;font-weight:600;cursor:pointer;">+ Add supplement</button>
     </div>
     <div id="supp-stack-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"></div>
@@ -2752,6 +2752,18 @@ function showCuisine(id, el) {
           <option value="immune">Immune</option>
           <option value="general">General</option>
         </select>
+      </div>
+      <!-- PRODUCTS section -->
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;">My Products</div>
+          <span style="font-size:11px;color:var(--text3);font-family:'Manrope',sans-serif;">Brands / bottles you own</span>
+        </div>
+        <div id="supp-products-list" style="display:flex;flex-direction:column;gap:6px;margin-bottom:8px;"></div>
+        <div style="display:flex;gap:8px;">
+          <input id="supp-new-product" type="text" placeholder="e.g. Ancient + Brave Collagen" style="flex:1;padding:9px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:13px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'" onkeydown="if(event.key==='Enter'){event.preventDefault();addSuppProduct();}">
+          <button onclick="addSuppProduct()" style="padding:9px 14px;background:var(--teal-light);color:var(--teal);border:1.5px solid var(--teal);border-radius:var(--radius-sm);font-family:'Manrope',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;">+ Add</button>
+        </div>
       </div>
       <div style="display:flex;gap:10px;margin-top:6px;">
         <button onclick="saveSuppEdit()" style="flex:1;padding:12px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Save</button>
@@ -4757,26 +4769,49 @@ function renderSuppStack() {
     const isActive = s.active !== false;
     const meta = CAT_META[s.cat] || CAT_META.general;
     const cm   = COLOR_MAP[meta.color] || COLOR_MAP.gray;
+    const products = s.products || [];
+    const usedCount = products.filter(p => p.used).length;
 
     const card = document.createElement('div');
-    card.style.cssText = `background:var(--card);border:1px solid ${isActive ? 'var(--border)' : 'var(--border)'};border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);cursor:pointer;transition:box-shadow 0.15s,border-color 0.15s;opacity:${isActive ? '1' : '0.5'};`;
+    card.style.cssText = `background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow);transition:box-shadow 0.15s,border-color 0.15s;opacity:${isActive ? '1' : '0.5'};`;
+
+    // Build products HTML
+    let productsHtml = '';
+    if (products.length > 0) {
+      const productItems = products.map((p, pi) => `
+        <div style="display:flex;align-items:center;gap:8px;padding:5px 0;">
+          <button data-suppidx="${i}" data-pi="${pi}" class="prod-tick-btn" style="width:18px;height:18px;border-radius:4px;border:1.5px solid ${p.used ? 'var(--teal)' : 'var(--border)'};background:${p.used ? 'var(--teal)' : 'transparent'};cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:0;transition:all 0.15s;">
+            ${p.used ? '<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#131313" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>' : ''}
+          </button>
+          <span style="font-size:12px;color:${p.used ? 'var(--text3)' : 'var(--text2)'};${p.used ? 'text-decoration:line-through;' : ''}font-family:'Manrope',sans-serif;">${p.name}</span>
+        </div>`).join('');
+
+      productsHtml = `
+        <div style="border-top:1px solid var(--border);margin-top:12px;padding-top:10px;">
+          <div style="font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);font-family:'Manrope',sans-serif;margin-bottom:4px;">In stock${usedCount > 0 ? ' · ' + usedCount + '/' + products.length + ' used up' : ''}</div>
+          ${productItems}
+        </div>`;
+    }
 
     card.innerHTML = `
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
         <div style="flex:1;min-width:0;">
-          <div style="font-family:'Space Grotesk', sans-serif;font-size:17px;font-weight:700;${isActive ? '' : 'text-decoration:line-through;color:var(--text3);'}">${s.name}</div>
+          <div style="font-family:'Space Grotesk', sans-serif;font-size:16px;font-weight:700;${isActive ? '' : 'text-decoration:line-through;color:var(--text3);'}">${s.name}</div>
           <div style="font-size:12px;color:var(--text3);margin-top:2px;font-family:'Manrope', sans-serif;">${s.dose}</div>
         </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;margin-left:8px;flex-shrink:0;">
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;margin-left:8px;flex-shrink:0;">
           <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;background:${cm.bg};color:${cm.text};">${meta.label}</span>
           <button data-idx="${i}" class="toggle-btn" style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;border:none;cursor:pointer;background:${isActive ? 'var(--teal-light)' : 'var(--red-light)'};color:${isActive ? 'var(--teal)' : 'var(--red)'};">${isActive ? '● Active' : '○ Paused'}</button>
         </div>
       </div>
-      <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:5px;">⏰ ${s.time}</div>
-      <div style="font-size:13px;color:var(--text2);line-height:1.6;">${s.why}</div>
-      <div style="margin-top:12px;font-size:12px;color:var(--teal);font-weight:500;">✏️ Tap card to edit</div>`;
+      <div style="font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:4px;">⏰ ${s.time}</div>
+      <div style="font-size:12.5px;color:var(--text2);line-height:1.55;">${s.why}</div>
+      ${productsHtml}
+      <div style="display:flex;align-items:center;gap:8px;margin-top:12px;">
+        <button data-editidx="${i}" class="edit-supp-btn" style="font-size:12px;font-weight:600;color:var(--teal);background:var(--teal-light);border:none;border-radius:999px;padding:4px 12px;cursor:pointer;font-family:'Manrope',sans-serif;line-height:1.4;">✏️ Edit</button>
+      </div>`;
 
-    // Toggle button — stop propagation so it doesn't open the edit modal
+    // Toggle active
     const toggleBtn = card.querySelector('.toggle-btn');
     toggleBtn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -4784,22 +4819,80 @@ function renderSuppStack() {
       supps2[i].active = !(supps2[i].active !== false);
       saveSupps(supps2);
       renderSuppStack();
-      // If daily routine is visible, refresh it too
       if (document.getElementById('supp-view-schedule').style.display !== 'none') renderSuppSchedule();
     });
 
-    card.addEventListener('mouseenter', () => { if(isActive) { card.style.boxShadow = 'var(--shadow-lg)'; card.style.borderColor = 'var(--teal)'; }});
+    // Edit button
+    const editBtn = card.querySelector('.edit-supp-btn');
+    editBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openSuppEdit(i);
+    });
+
+    // Product tick buttons
+    card.querySelectorAll('.prod-tick-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const si = parseInt(btn.dataset.suppidx);
+        const pi = parseInt(btn.dataset.pi);
+        const supps2 = loadSupps();
+        supps2[si].products[pi].used = !supps2[si].products[pi].used;
+        saveSupps(supps2);
+        renderSuppStack();
+      });
+    });
+
+    card.addEventListener('mouseenter', () => { if(isActive) { card.style.boxShadow = 'var(--shadow-lg)'; card.style.borderColor = 'rgba(0,245,212,0.3)'; }});
     card.addEventListener('mouseleave', () => { card.style.boxShadow = 'var(--shadow)'; card.style.borderColor = 'var(--border)'; });
-    card.addEventListener('click', () => openSuppEdit(i));
     grid.appendChild(card);
   });
+}
+
+// Temporary product list while modal is open
+let suppEditProducts = [];
+
+function renderSuppProductsList() {
+  const list = document.getElementById('supp-products-list');
+  if (!list) return;
+  list.innerHTML = '';
+  suppEditProducts.forEach((p, pi) => {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--border);';
+    row.innerHTML = `
+      <span style="font-size:13px;color:var(--text2);flex:1;font-family:'Manrope',sans-serif;${p.used ? 'text-decoration:line-through;color:var(--text3);' : ''}">${p.name}</span>
+      <span style="font-size:11px;color:${p.used ? 'var(--teal)' : 'var(--text3)'};font-family:'Manrope',sans-serif;">${p.used ? 'Used up' : 'In stock'}</span>
+      <button data-pi="${pi}" class="prod-toggle-modal" style="font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid var(--border);background:var(--card);color:var(--text2);cursor:pointer;font-family:'Manrope',sans-serif;">${p.used ? 'Restock' : 'Mark used'}</button>
+      <button data-pi="${pi}" class="prod-remove-modal" style="font-size:12px;background:none;border:none;cursor:pointer;color:var(--text3);padding:2px 4px;">✕</button>`;
+    row.querySelector('.prod-toggle-modal').addEventListener('click', () => {
+      suppEditProducts[pi].used = !suppEditProducts[pi].used;
+      renderSuppProductsList();
+    });
+    row.querySelector('.prod-remove-modal').addEventListener('click', () => {
+      suppEditProducts.splice(pi, 1);
+      renderSuppProductsList();
+    });
+    list.appendChild(row);
+  });
+  if (suppEditProducts.length === 0) {
+    list.innerHTML = '<div style="font-size:12px;color:var(--text3);font-style:italic;font-family:\'Manrope\',sans-serif;padding:4px 0;">No products added yet</div>';
+  }
+}
+
+function addSuppProduct() {
+  const input = document.getElementById('supp-new-product');
+  const name = (input.value || '').trim();
+  if (!name) return;
+  suppEditProducts.push({ name, used: false });
+  input.value = '';
+  input.focus();
+  renderSuppProductsList();
 }
 
 function openSuppEdit(index) {
   const supps = loadSupps();
   suppEditIndex = index;
   const isNew = index === -1;
-  const s = isNew ? { name:'', dose:'', time:'', why:'', cat:'general', active:true } : supps[index];
+  const s = isNew ? { name:'', dose:'', time:'', why:'', cat:'general', active:true, products:[] } : supps[index];
   document.getElementById('supp-modal-title').textContent = isNew ? 'Add supplement' : 'Edit supplement';
   document.getElementById('supp-edit-name').value = s.name;
   document.getElementById('supp-edit-dose').value = s.dose;
@@ -4807,6 +4900,10 @@ function openSuppEdit(index) {
   document.getElementById('supp-edit-why').value  = s.why;
   document.getElementById('supp-edit-cat').value  = s.cat || 'general';
   document.getElementById('supp-delete-btn').style.display = isNew ? 'none' : 'block';
+  // Load products into temp array
+  suppEditProducts = (s.products || []).map(p => ({ ...p }));
+  renderSuppProductsList();
+  document.getElementById('supp-new-product').value = '';
   document.getElementById('supp-modal').style.display = 'flex';
   document.body.style.overflow = 'hidden';
 }
@@ -4817,13 +4914,14 @@ function saveSuppEdit() {
   const supps = loadSupps();
   const existing = suppEditIndex !== -1 ? supps[suppEditIndex] : {};
   const s = {
-    id:     suppEditIndex === -1 ? 's' + Date.now() : (existing.id || 's' + Date.now()),
-    name:   document.getElementById('supp-edit-name').value.trim(),
-    dose:   document.getElementById('supp-edit-dose').value.trim(),
-    time:   document.getElementById('supp-edit-time').value.trim(),
-    why:    document.getElementById('supp-edit-why').value.trim(),
-    cat:    document.getElementById('supp-edit-cat').value,
-    active: existing.active !== false, // preserve active state
+    id:       suppEditIndex === -1 ? 's' + Date.now() : (existing.id || 's' + Date.now()),
+    name:     document.getElementById('supp-edit-name').value.trim(),
+    dose:     document.getElementById('supp-edit-dose').value.trim(),
+    time:     document.getElementById('supp-edit-time').value.trim(),
+    why:      document.getElementById('supp-edit-why').value.trim(),
+    cat:      document.getElementById('supp-edit-cat').value,
+    active:   existing.active !== false,
+    products: suppEditProducts.slice(),
   };
   if (!s.name) { alert('Please enter a supplement name'); return; }
   if (suppEditIndex === -1) { s.active = true; supps.push(s); }
