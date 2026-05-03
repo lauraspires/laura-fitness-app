@@ -3766,6 +3766,7 @@ const DEFAULT_SUPPLEMENTS = [
   { id:'s9',  name:'Vitamin C',       dose:'500mg–1g',            time:'Morning with Collagen',          cat:'immune',    active:true, why:'Essential for immune function, collagen synthesis and iron absorption. Taking it alongside collagen significantly amplifies the collagen benefit. Also a powerful antioxidant.' },
   { id:'s10', name:'Vitamin D3 + K2', dose:'2000–4000 IU D3 + 100mcg K2', time:'Mid-morning with fat (fat-soluble)', cat:'longevity', active:true, why:'Essential in the UK where sunlight is insufficient year-round. D3 supports immune function, bone density, muscle strength, mood and hormonal health. K2 ensures calcium goes to bones rather than arteries. Fat-soluble — take with a meal containing fat.' },
   { id:'s11', name:'Symprove',        dose:'70ml (1 measure)',     time:'First thing — 10 min before eating', cat:'immune', active:true, why:'Water-based live bacteria probiotic with strong clinical evidence for gut microbiome support. Must be taken on an empty stomach at least 10 minutes before food or other supplements to survive stomach acid. Supports digestion, immunity and mood via the gut-brain axis.' },
+  { id:'s12', name:'Hydrogen Tablets', dose:'1 tablet dissolved in water', time:'Morning, on an empty stomach', cat:'longevity', active:true, why:'Molecular hydrogen (H₂) is a selective antioxidant that neutralises only the most harmful free radicals without disrupting beneficial reactive oxygen species needed for cell signalling. Evidence points to reduced exercise-induced oxidative stress, faster recovery, anti-inflammatory effects, and potential neuroprotective benefits. Dissolve in 250–500ml water and drink immediately — hydrogen dissipates quickly.' },
 ];
 
 const SUPP_DAYS = [
@@ -4765,7 +4766,10 @@ function renderSuppStack() {
   if (count) count.textContent = active + ' active · ' + supps.length + ' total';
   grid.innerHTML = '';
 
-  supps.forEach((s, i) => {
+  // Sort alphabetically, keeping the original index for edit/toggle operations
+  const sorted = supps.map((s, i) => ({ s, i })).sort((a, b) => a.s.name.localeCompare(b.s.name));
+
+  sorted.forEach(({ s, i }) => {
     const isActive = s.active !== false;
     const meta = CAT_META[s.cat] || CAT_META.general;
     const cm   = COLOR_MAP[meta.color] || COLOR_MAP.gray;
