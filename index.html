@@ -4885,7 +4885,7 @@ document.addEventListener('drop', function(e) {
 });
 
 // Initialize workout routine on page load
-renderDayCards();
+setTimeout(function() { renderDayCards(); }, 0);
 
 // ===================== RUNNING PLANS =====================
 const RUNNING_PLANS_KEY = 'runningPlans';
