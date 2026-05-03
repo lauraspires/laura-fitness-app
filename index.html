@@ -3104,7 +3104,7 @@ const GOAL_WEIGHT  = 57.0;
 const STORAGE_KEY  = 'laura_weight_log';
 
 function loadEntries()        { return getData(STORAGE_KEY, []); }
-function saveEntries(entries) { setData(STORAGE_KEY, entries); }
+function saveEntries(entries) { setData(STORAGE_KEY, entries); scheduleSave(); }
 
 function logWeight() {
   const dateEl   = document.getElementById('log-date');
@@ -3447,6 +3447,7 @@ function loadPlannerState() {
 }
 function savePlannerState() {
   setData(PLANNER_KEY, plannerState);
+  scheduleSave();
 }
 function resetPlanner() {
   if (!confirm('Reset all meals to the default plan?')) return;
@@ -3459,7 +3460,7 @@ const EATING_OUT_KEY = 'laura_eating_out_v1';
 const EATING_OUT_SENTINEL = '__EATING_OUT__';
 
 function loadEatingOutData()    { return getData(EATING_OUT_KEY, {}); }
-function saveEatingOutData(d)   { setData(EATING_OUT_KEY, d); }
+function saveEatingOutData(d)   { setData(EATING_OUT_KEY, d); scheduleSave(); }
 function eoKey(dayKey, slot) { return dayKey + '_' + slot; }
 function getEoData(dayKey, slot) {
   const eo = loadEatingOutData();
@@ -4570,7 +4571,7 @@ function addWorkoutDay() {
 function loadSupps() {
   return getData(SUPP_KEY, JSON.parse(JSON.stringify(DEFAULT_SUPPLEMENTS)));
 }
-function saveSupps(s) { setData(SUPP_KEY, s); }
+function saveSupps(s) { setData(SUPP_KEY, s); scheduleSave(); }
 const ROUTINE_TIMES = [
   { key:'first',      label:'First thing · empty stomach', icon:'🌄', note:'Before food or other supplements — 10–15 min before eating' },
   { key:'morning',    label:'Morning · with breakfast',     icon:'🌅', note:'With food — ideally within 30 min of waking' },
@@ -4613,7 +4614,7 @@ function loadDailyRoutine() {
   }
   return stored;
 }
-function saveDailyRoutine(r) { setData(DAILY_ROUTINE_KEY, r); }
+function saveDailyRoutine(r) { setData(DAILY_ROUTINE_KEY, r); scheduleSave(); }
 
 let dailyRoutineContext = null;
 
@@ -4958,7 +4959,7 @@ document.getElementById('supp-modal').addEventListener('click', function(e) { if
 let customMealSlotContext = null;
 
 function loadCustomMeals()    { return getData(CUSTOM_MEALS_KEY, {}); }
-function saveCustomMeals(m)   { setData(CUSTOM_MEALS_KEY, m); }
+function saveCustomMeals(m)   { setData(CUSTOM_MEALS_KEY, m); scheduleSave(); }
 
 function getAllMealsForSlot(slot) {
   const custom = loadCustomMeals()[slot] || [];
@@ -5113,7 +5114,8 @@ function saveCheckin(state) {
   // Preserve check-ins from other days — don't blow them away
   var allDays = getData(CHECKIN_KEY, {});
   allDays[getTodayKey()] = state;
-  setData(CHECKIN_KEY, allDays); // setData persists to gAppData + scheduleSave (Drive + localStorage)
+  setData(CHECKIN_KEY, allDays);
+  scheduleSave();
 }
 function toggleSuppCheckin(suppId) {
   var state = loadCheckin();
@@ -5316,6 +5318,7 @@ function getRunningPlans() {
 
 function saveRunningPlans(plans) {
   setData(RUNNING_PLANS_KEY, plans);
+  scheduleSave();
   renderRunningPlans();
 }
 
