@@ -1720,6 +1720,12 @@
       <div id="pantry-modal-title" style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;margin-bottom:16px;">Add pantry item</div>
       <input id="pantry-add-name" type="text" placeholder="Item name (e.g. Chicken breast)" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-family:'Manrope',sans-serif;font-size:13px;box-sizing:border-box;margin-bottom:10px;">
       <input id="pantry-add-size" type="text" placeholder="Size / description (e.g. 500g, large bag) — optional" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-family:'Manrope',sans-serif;font-size:13px;box-sizing:border-box;margin-bottom:10px;">
+      <select id="pantry-add-location" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-family:'Manrope',sans-serif;font-size:13px;box-sizing:border-box;margin-bottom:10px;">
+        <option value="fridge">🧊 Fridge</option>
+        <option value="freezer">❄️ Freezer</option>
+        <option value="cupboard">🗄️ Cupboard</option>
+        <option value="counter">🍎 Counter</option>
+      </select>
       <div style="display:flex;gap:10px;margin-bottom:16px;align-items:center;">
         <div style="font-size:13px;color:var(--text2);white-space:nowrap;">How many?</div>
         <div style="display:flex;align-items:center;gap:8px;">
@@ -7341,6 +7347,7 @@ function addPantryItem(loc) {
   document.getElementById('pantry-add-name').value = '';
   document.getElementById('pantry-add-size').value = '';
   document.getElementById('pantry-add-count').value = '1';
+  document.getElementById('pantry-add-location').value = loc;
   modal.style.display = 'flex';
   document.getElementById('pantry-add-name').focus();
 }
@@ -7357,6 +7364,7 @@ function editPantryItem(loc, idx) {
   document.getElementById('pantry-add-name').value = item.name || '';
   document.getElementById('pantry-add-size').value = item.size || '';
   document.getElementById('pantry-add-count').value = item.count || 1;
+  document.getElementById('pantry-add-location').value = loc;
   modal.style.display = 'flex';
   document.getElementById('pantry-add-name').focus();
 }
@@ -7375,21 +7383,26 @@ function closePantryModal() {
 }
 
 function confirmAddPantryItem() {
-  const name  = (document.getElementById('pantry-add-name')  || {}).value || '';
-  const size  = (document.getElementById('pantry-add-size')  || {}).value || '';
-  const count = parseInt((document.getElementById('pantry-add-count') || {}).value) || 1;
-  if (!name.trim() || !_pantryAddingLocation) return;
+  const name  = (document.getElementById('pantry-add-name')     || {}).value || '';
+  const size  = (document.getElementById('pantry-add-size')     || {}).value || '';
+  const count = parseInt((document.getElementById('pantry-add-count')    || {}).value) || 1;
+  const newLoc = (document.getElementById('pantry-add-location') || {}).value || _pantryAddingLocation;
+  if (!name.trim()) return;
   const pantry = loadPantry();
-  if (!pantry[_pantryAddingLocation]) pantry[_pantryAddingLocation] = [];
   if (_pantryEditIdx !== null) {
-    pantry[_pantryAddingLocation][_pantryEditIdx] = { name: name.trim(), size: size.trim(), count };
+    // Remove from old location
+    if (pantry[_pantryAddingLocation]) pantry[_pantryAddingLocation].splice(_pantryEditIdx, 1);
+    // Add to new location (may be same or different)
+    if (!pantry[newLoc]) pantry[newLoc] = [];
+    pantry[newLoc].push({ name: name.trim(), size: size.trim(), count });
   } else {
-    pantry[_pantryAddingLocation].push({ name: name.trim(), size: size.trim(), count });
+    if (!pantry[newLoc]) pantry[newLoc] = [];
+    pantry[newLoc].push({ name: name.trim(), size: size.trim(), count });
   }
   savePantry(pantry);
   renderPantry();
   closePantryModal();
-  showNotification(_pantryEditIdx !== null ? 'Item updated' : 'Added to ' + _pantryAddingLocation);
+  showNotification(_pantryEditIdx !== null ? 'Item updated' : 'Added to ' + newLoc);
 }
 
 // Allow Enter key to confirm in the modal
@@ -7579,7 +7592,7 @@ async function getMealSuggestions() {
     return;
   }
   const pantry = loadPantry();
-  const allItems = PANTRY_LOCATIONS.flatMap(loc => (pantry[loc] || []).filter(i => !i.used).map(i => i.name + (i.qty ? ' (' + i.qty + ')' : '')));
+  const allItems = PANTRY_LOCATIONS.flatMap(loc => (pantry[loc] || []).filter(i => (i.count || 1) > 0).map(i => i.name + (i.size ? ' (' + i.size + ')' : '') + (i.count > 1 ? ' x' + i.count : '')));
   if (allItems.length === 0) { showNotification('Add items to your pantry first'); return; }
 
   const workoutEl = document.getElementById('suggestions-workout-select');
@@ -7592,7 +7605,7 @@ async function getMealSuggestions() {
   if (loading) loading.style.display = 'block';
   if (results) results.innerHTML = '';
 
-  const prompt = `You are a clean-eating nutrition assistant. The user has these ingredients available:\n${allItems.join(', ')}\n\nToday they are doing ${workoutLabel}. Suggest 4 meal ideas (breakfast, lunch, snack, dinner) using mainly these ingredients. Each suggestion should be:\n- UPF-free and no added sugar\n- High protein (aim 30g+ per main meal)\n- Quick to prepare (under 15 mins)\n- Practical and simple\n\nFor each meal return JSON in this format:\n[{"slot":"Breakfast","name":"Meal name","desc":"Short description","kcal":320,"protein":24,"time":"5 min"},...]`;
+  const userPrompt = `I have these ingredients available: ${allItems.join(', ')}\n\nToday I am doing ${workoutLabel}. Suggest 4 meal ideas (breakfast, lunch, snack, dinner) using mainly these ingredients. Each should be UPF-free, no added sugar, high protein (30g+ per main meal), and quick to prepare.\n\nReturn ONLY a JSON array, no other text:\n[{"slot":"Breakfast","name":"Meal name","desc":"Short description","kcal":320,"protein":24,"time":"5 min"},{"slot":"Lunch",...},{"slot":"Snack",...},{"slot":"Dinner",...}]`;
 
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
@@ -7605,11 +7618,15 @@ async function getMealSuggestions() {
       },
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
-        max_tokens: 1024,
-        messages: [{ role: 'user', content: prompt }]
+        max_tokens: 1200,
+        system: 'You are a clean-eating nutrition assistant. Always respond with valid JSON only — no markdown, no explanation, just the JSON array.',
+        messages: [{ role: 'user', content: userPrompt }]
       })
     });
-    if (!res.ok) throw new Error('API error ' + res.status);
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error('API error ' + res.status + ': ' + errText.slice(0, 200));
+    }
     const data = await res.json();
     const text = (data.content && data.content[0] && data.content[0].text) || '';
     const jsonMatch = text.match(/\[[\s\S]*\]/);
