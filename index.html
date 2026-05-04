@@ -169,7 +169,7 @@
 
   /* ---- PAGE HEADER ---- */
   .page-header { margin-bottom: 28px; }
-  .page-eyebrow { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); font-family: 'Manrope', sans-serif; margin-bottom: 6px; }
+  .page-eyebrow { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); font-family: 'Manrope', sans-serif; margin-bottom: 6px; }
   .page-title { font-family: 'Space Grotesk', sans-serif; font-size: 34px; font-weight: 700; line-height: 1.1; }
   .page-sub { font-size: 14px; color: var(--text2); margin-top: 6px; line-height: 1.5; }
 
@@ -203,21 +203,21 @@
   .stat-card { background: var(--card); border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow); border: 1px solid var(--border); }
   .stat-val { font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; line-height: 1; }
   .stat-label { font-size: 12px; color: var(--text2); margin-top: 5px; }
-  .stat-sub { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .stat-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
 
   /* ---- WEEK STRIP ---- */
   .week-strip { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-bottom: 24px; }
   .day-card {
-    border-radius: var(--radius-sm); padding: 14px 8px; text-align: center;
+    border-radius: var(--radius-sm); padding: 10px 6px; text-align: center;
     cursor: pointer; border: 2px solid transparent; transition: all 0.15s;
-    background: var(--card); box-shadow: var(--shadow);
+    background: var(--bg2);
   }
-  .day-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-  .day-card.selected { border-color: var(--text); }
-  .day-label-s { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; font-family: 'Manrope', sans-serif; }
+  .day-card:hover { filter: brightness(1.1); }
+  .day-card.selected { border-color: rgba(255,255,255,0.35); }
+  .day-label-s { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; font-family: 'Manrope', sans-serif; }
   .day-emoji { font-size: 20px; margin-bottom: 5px; }
-  .day-type { font-size: 11px; font-weight: 600; }
-  .day-tag-s { font-size: 10px; color: var(--text3); margin-top: 2px; }
+  .day-type { font-size: 12px; font-weight: 600; }
+  .day-tag-s { font-size: 11px; color: var(--text3); margin-top: 2px; }
 
   .dt-strength { color: var(--teal); background: var(--teal-light); }
   .dt-hiit { color: var(--coral); background: var(--coral-light); }
@@ -238,7 +238,7 @@
   /* ---- WORKOUT DETAIL ---- */
   .workout-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
   .workout-title { font-family: 'Space Grotesk', sans-serif; font-size: 22px; }
-  .workout-meta { font-size: 13px; color: var(--text2); margin-top: 2px; }
+  .workout-meta { font-size: 14px; color: var(--text2); margin-top: 2px; }
 
   .ex-table { width: 100%; border-collapse: collapse; }
   .ex-table th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); font-family: 'Manrope', sans-serif; padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 500; }
@@ -246,7 +246,7 @@
   .ex-table tr:last-child td { border-bottom: none; }
   .ex-table tr:hover td { background: var(--bg); }
   .ex-name-cell { font-weight: 500; }
-  .ex-focus { font-size: 11px; color: var(--text2); margin-top: 2px; }
+  .ex-focus { font-size: 12px; color: var(--text2); margin-top: 2px; }
   .pill-sm { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; font-family: 'Manrope', sans-serif; }
   .pill-sets { background: var(--teal-light); color: var(--teal); }
   .pill-reps { background: var(--blue-light); color: var(--blue); }
@@ -266,7 +266,7 @@
     padding: 16px 0; border-bottom: 1px solid var(--border);
   }
   .meal-row:last-child { border-bottom: none; }
-  .meal-time-col { font-family: 'Manrope', sans-serif; font-size: 11px; color: var(--text3); padding-top: 3px; }
+  .meal-time-col { font-family: 'Manrope', sans-serif; font-size: 12px; color: var(--text3); padding-top: 3px; }
   .meal-name-col { }
   .meal-name-main { font-size: 15px; font-weight: 500; margin-bottom: 3px; }
   .meal-desc-col { font-size: 12.5px; color: var(--text2); line-height: 1.5; }
@@ -309,15 +309,15 @@
   #shop-tick-controls .pill-btn { padding: 6px 14px; border-radius: 999px; border: 1.5px solid var(--border); background: var(--card); color: var(--text2); font-family: 'Manrope', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.15s; }
   #shop-tick-controls .pill-btn:hover { border-color: var(--text); color: var(--text); }
   #shop-tick-controls .shop-tick-progress { font-size: 12px; color: var(--text3); font-family: 'Manrope', sans-serif; margin-left: auto; }
-  .shop-section-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); font-family: 'Manrope', sans-serif; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .shop-section-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); font-family: 'Manrope', sans-serif; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
   .shop-grid-f { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; }
   .shop-item-f { background: var(--bg2); border-radius: var(--radius-sm); padding: 10px 13px; }
   .shop-item-name { font-size: 13px; font-weight: 500; }
-  .shop-item-note { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .shop-item-note { font-size: 12px; color: var(--text3); margin-top: 2px; }
 
   /* ---- TIPS SECTION ---- */
   .tip-box-f { background: var(--bg2); border-radius: var(--radius-sm); padding: 16px 18px; margin-top: 16px; }
-  .tip-box-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); font-family: 'Manrope', sans-serif; margin-bottom: 10px; }
+  .tip-box-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); font-family: 'Manrope', sans-serif; margin-bottom: 10px; }
   .tip-item { font-size: 13px; color: var(--text); padding: 4px 0; display: flex; gap: 10px; align-items: flex-start; }
   .tip-dot-f { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; background: var(--teal); }
 
@@ -328,7 +328,7 @@
   .wm-cell { border-radius: 8px; padding: 10px 4px; text-align: center; }
   .wm-day { font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); font-family: 'Manrope', sans-serif; margin-bottom: 4px; }
   .wm-emoji { font-size: 17px; margin-bottom: 3px; }
-  .wm-label { font-size: 10px; font-weight: 600; }
+  .wm-label { font-size: 12px; font-weight: 600; }
 
   .goal-bar-wrap { margin-top: 10px; }
   .goal-bar-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 5px; }
@@ -695,43 +695,7 @@
 
   <div class="overview-week">
     <div class="overview-week-title">This week</div>
-    <div class="week-map">
-      <div class="wm-cell" style="background:var(--teal-light);">
-        <div class="wm-day">Mon</div>
-        <div class="wm-emoji">💪</div>
-        <div class="wm-label" style="color:var(--teal);">Push</div>
-      </div>
-      <div class="wm-cell" style="background:var(--amber-light);">
-        <div class="wm-day">Tue</div>
-        <div class="wm-emoji">🚴</div>
-        <div class="wm-label" style="color:var(--amber);">Cyclone 7am</div>
-      </div>
-      <div class="wm-cell" style="background:var(--blue-light);">
-        <div class="wm-day">Wed</div>
-        <div class="wm-emoji">🏃</div>
-        <div class="wm-label" style="color:var(--blue);">Run</div>
-      </div>
-      <div class="wm-cell" style="background:var(--teal-light);">
-        <div class="wm-day">Thu</div>
-        <div class="wm-emoji">🦵🏃</div>
-        <div class="wm-label" style="color:var(--teal);">Legs + Run</div>
-      </div>
-      <div class="wm-cell" style="background:var(--coral-light);">
-        <div class="wm-day">Fri</div>
-        <div class="wm-emoji">🔥</div>
-        <div class="wm-label" style="color:var(--coral);">Blaze 7:20am</div>
-      </div>
-      <div class="wm-cell" style="background:var(--bg2);">
-        <div class="wm-day">Sat</div>
-        <div class="wm-emoji">🤝</div>
-        <div class="wm-label" style="color:var(--text2);">Rest</div>
-      </div>
-      <div class="wm-cell" style="background:var(--purple-light);">
-        <div class="wm-day">Sun</div>
-        <div class="wm-emoji">🏋️🏃</div>
-        <div class="wm-label" style="color:var(--purple);">Pull + Run</div>
-      </div>
-    </div>
+    <div class="week-map"></div>
   </div>
 
   <div class="grid-2" style="margin-bottom:20px;">
@@ -783,17 +747,17 @@
     <div class="card card-sm">
       <div style="font-size:20px;margin-bottom:8px;">🔥</div>
       <div class="card-title" style="font-size:15px;">Blaze HIIT</div>
-      <div class="card-sub">Friday Purley · 7:20am · Primary fat-burn session</div>
+      <div class="card-sub">Primary fat-burn session of the week</div>
     </div>
     <div class="card card-sm">
       <div style="font-size:20px;margin-bottom:8px;">🚴</div>
       <div class="card-title" style="font-size:15px;">Cyclone spin</div>
-      <div class="card-sub">Tuesday Purley · 7:00am · Low-impact cardio</div>
+      <div class="card-sub">Low-impact cardio &amp; endurance</div>
     </div>
     <div class="card card-sm">
       <div style="font-size:20px;margin-bottom:8px;">🏃</div>
       <div class="card-title" style="font-size:15px;">2 runs/week</div>
-      <div class="card-sub">Wed intervals · Thu lunch · Sun optional long run</div>
+      <div class="card-sub">Intervals + easy runs throughout the week</div>
     </div>
   </div>
 </div>
@@ -3282,10 +3246,10 @@ const PLANNER_KEY = 'laura_meal_planner_v1';
 
 const DAYS = [
   { key:'mon', label:'Monday',    emoji:'💪', tag:'Push · Gym',        color:'teal'   },
-  { key:'tue', label:'Tuesday',   emoji:'🚴', tag:'Cyclone 7am',       color:'amber'  },
+  { key:'tue', label:'Tuesday',   emoji:'🚴', tag:'Spin class',       color:'amber'  },
   { key:'wed', label:'Wednesday', emoji:'🏃', tag:'Interval Run',      color:'blue'   },
   { key:'thu', label:'Thursday',  emoji:'🦵', tag:'Legs + Run · WFH', color:'teal'   },
-  { key:'fri', label:'Friday',    emoji:'🔥', tag:'Blaze 7:20am',      color:'coral'  },
+  { key:'fri', label:'Friday',    emoji:'🔥', tag:'HIIT class',      color:'coral'  },
   { key:'sat', label:'Saturday',  emoji:'🤝', tag:'Rest · Volunteer',  color:'gray'   },
   { key:'sun', label:'Sunday',    emoji:'🏋️', tag:'Pull + Run',        color:'purple' },
 ];
@@ -3686,10 +3650,10 @@ const DEFAULT_SUPPLEMENTS = [
 
 const SUPP_DAYS = [
   { key:'mon', label:'Monday',    emoji:'💪', tag:'Push · Gym',        color:'teal'   },
-  { key:'tue', label:'Tuesday',   emoji:'🚴', tag:'Cyclone 7am',       color:'amber'  },
+  { key:'tue', label:'Tuesday',   emoji:'🚴', tag:'Spin class',       color:'amber'  },
   { key:'wed', label:'Wednesday', emoji:'🏃', tag:'Interval Run',      color:'blue'   },
   { key:'thu', label:'Thursday',  emoji:'🦵', tag:'Legs + Run · WFH', color:'teal'   },
-  { key:'fri', label:'Friday',    emoji:'🔥', tag:'Blaze 7:20am',      color:'coral'  },
+  { key:'fri', label:'Friday',    emoji:'🔥', tag:'HIIT class',      color:'coral'  },
   { key:'sat', label:'Saturday',  emoji:'🤝', tag:'Rest',              color:'gray'   },
   { key:'sun', label:'Sunday',    emoji:'🏋️', tag:'Pull + Run',        color:'purple' },
 ];
@@ -3719,8 +3683,8 @@ const WORKOUT_LIBRARY = {
   arms:        { name:'Arms',        emoji:'💪', tag:'Biceps + Triceps',                color:'amber',  id:'gym-arms',     type:'strength' },
 
   // Spin classes
-  cyclone:     { name:'Cyclone',     emoji:'🚴', tag:'7:00am Purley spin',          color:'amber',  id:'day-cyclone',     type:'cardio' },
-  rhythm:      { name:'Rhythm',      emoji:'🎵', tag:'Rhythm spin class',           color:'amber',  id:'day-rhythm',      type:'cardio' },
+  cyclone:     { name:'Cyclone',     emoji:'🚴', tag:'Spin class',                  color:'amber',  id:'day-cyclone',     type:'cardio' },
+  rhythm:      { name:'Rhythm',      emoji:'🎵', tag:'Spin class',                  color:'amber',  id:'day-rhythm',      type:'cardio' },
 
   // Running routines
   interval_run:{ name:'Interval Run',emoji:'🏃', tag:'Wed intervals 30–35 min',    color:'blue',   id:'day-run_wed',     type:'cardio' },
@@ -3732,7 +3696,7 @@ const WORKOUT_LIBRARY = {
   swim:        { name:'Swim',        emoji:'🏊', tag:'Swimming',                    color:'cyan',   id:'day-swim',        type:'cardio' },
 
   // HIIT class (Blaze)
-  blaze:       { name:'Blaze',       emoji:'🔥', tag:'7:20am Purley HIIT',         color:'coral',  id:'day-blaze_fri',   type:'hiit' },
+  blaze:       { name:'Blaze',       emoji:'🔥', tag:'HIIT class',                  color:'coral',  id:'day-blaze_fri',   type:'hiit' },
 
   // Rest day
   rest:        { name:'Rest',        emoji:'🤝', tag:'Rest & volunteer',           color:'gray',   id:'day-vol',         type:'rest' },
@@ -3834,7 +3798,20 @@ function renderDayCards() {
 
     // Use first workout color, or default
     const color = firstWorkout?.color || 'teal';
-    const tag = firstWorkout?.tag || 'Workout';
+    const staticTag = firstWorkout?.tag || 'Workout';
+    // For class workouts, show the live selected slot time instead of the static tag
+    let tag = staticTag;
+    if (firstType && CLASS_WORKOUTS && CLASS_WORKOUTS.includes(firstType)) {
+      const selId = getSelectedClassTime(firstType);
+      if (selId) {
+        const ct = getClassTimes(firstType);
+        const slot = ct.find(x => x.id === selId);
+        if (slot) {
+          const locShort = slot.location ? ' · ' + slot.location.replace(/david lloyd /i, '') : '';
+          tag = (DAY_SHORT[slot.day] || slot.day) + ' ' + slot.time + locShort;
+        }
+      }
+    }
     // Neon overrides for class/run day types
     const wType = firstWorkout?.type || '';
     const dayTypeColor = (wType === 'cardio' && (firstType || '').match(/run|runna|interval|easy|long/i))
@@ -3843,6 +3820,12 @@ function renderDayCards() {
         ? '#d4ff00'
         : null;
     const dayTypeStyle = dayTypeColor ? `color:${dayTypeColor};` : `color:var(--${color});`;
+    // Background colour matching dashboard wm-cell style
+    const isClassCard = (wType === 'cardio' || wType === 'hiit') && (firstType || '').match(/cyclone|blaze|rhythm/i);
+    const isRunCard   = wType === 'cardio' && (firstType || '').match(/run|runna|interval|easy|long/i);
+    card.style.background = isClassCard ? 'rgba(212,255,0,0.08)'
+      : isRunCard ? 'rgba(191,95,255,0.08)'
+      : `var(--${color}-light)`;
 
     card.onclick = () => selectDay(firstType, card);
     card.innerHTML = `
@@ -3898,12 +3881,22 @@ function renderDashboardWeek() {
       });
 
       const color = firstWorkout?.color || 'teal';
+      const wTypeDw = firstWorkout?.type || '';
+      // Neon colour overrides matching the week strip
+      const isClassDw = (wTypeDw === 'cardio' || wTypeDw === 'hiit') && (firstType || '').match(/cyclone|blaze|rhythm/i);
+      const isRunDw   = wTypeDw === 'cardio' && (firstType || '').match(/run|runna|interval|easy|long/i);
+      const labelColor = isClassDw ? '#d4ff00' : isRunDw ? '#bf5fff' : `var(--${color})`;
+      const bgStyle    = isClassDw
+        ? 'background:rgba(212,255,0,0.08);'
+        : isRunDw
+          ? 'background:rgba(191,95,255,0.08);'
+          : `background:var(--${color}-light);`;
 
       html += `
-        <div class="wm-cell" style="background:var(--${color}-light);">
+        <div class="wm-cell" style="${bgStyle}">
           <div class="wm-day">${dayKey.charAt(0).toUpperCase() + dayKey.slice(1)}</div>
           <div class="wm-emoji">${combinedEmoji}</div>
-          <div class="wm-label" style="color:var(--${color});">${combinedName}</div>
+          <div class="wm-label" style="color:${labelColor};">${combinedName}</div>
         </div>
       `;
     }
@@ -4235,7 +4228,7 @@ function renderClassTimesManager(workoutType) {
         const sel = document.createElement('button');
         sel.style.cssText = 'padding:3px 8px;background:var(--teal-light);border:1px solid var(--teal);border-radius:var(--radius-sm);color:var(--teal);font-size:11px;cursor:pointer;font-weight:600;white-space:nowrap;';
         sel.textContent = '★ Set as my slot';
-        sel.onclick = () => { setSelectedClassTime(workoutType, t.id); renderClassTimesManager(workoutType); updateClassBadge(workoutType); };
+        sel.onclick = () => { setSelectedClassTime(workoutType, t.id); renderClassTimesManager(workoutType); updateClassBadge(workoutType); if (typeof renderDayCards === 'function') renderDayCards(); };
         btns.appendChild(sel);
       }
 
