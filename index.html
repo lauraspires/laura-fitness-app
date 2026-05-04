@@ -198,6 +198,8 @@
   .badge-blue { background: var(--blue-light); color: var(--blue); }
   .badge-purple { background: var(--purple-light); color: var(--purple); }
   .badge-red { background: var(--red-light); color: var(--red); }
+  .badge-run { background: rgba(191,95,255,0.12); color: #bf5fff; }
+  .badge-class { background: rgba(212,255,0,0.10); color: #d4ff00; }
 
   /* ---- STAT CARDS ---- */
   .stat-card { background: var(--card); border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow); border: 1px solid var(--border); }
@@ -494,14 +496,14 @@
       grid-template-columns: 1fr 1fr !important;
     }
 
-    /* Workout day strip: 4-wide on small screens, last item centred */
+    /* Workout day strip: 3-wide on mobile → rows of 3,3 then Sunday centred */
     .week-strip {
-      grid-template-columns: repeat(4, 1fr) !important;
+      grid-template-columns: repeat(3, 1fr) !important;
       gap: 6px;
     }
-    /* 7th tile (Sunday) — span across middle 2 cols to centre it */
-    .week-strip .day-card:last-child {
-      grid-column: 2 / 4;
+    /* 7th tile (Sunday) — centred in its own row */
+    .week-strip .day-card:nth-child(7) {
+      grid-column: 2 / 3;
     }
 
     /* Gym workouts: single column on mobile */
@@ -526,6 +528,17 @@
     #weight-form-row button {
       width: 100% !important;
       box-sizing: border-box !important;
+    }
+    /* Date input: force same height as text inputs (iOS renders it taller by default) */
+    #log-date {
+      height: 44px !important;
+      line-height: 44px !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      -webkit-appearance: none !important;
+      appearance: none !important;
     }
 
     /* Sync indicator: hide label, show dot only */
@@ -3330,12 +3343,15 @@ const DEFAULT_PLAN = {
 };
 
 const COLOR_MAP = {
-  teal:   { bg:'var(--teal-light)',   text:'var(--teal)',   border:'#7DCDB4' },
-  amber:  { bg:'var(--amber-light)',  text:'var(--amber)',  border:'#E5C87A' },
-  blue:   { bg:'var(--blue-light)',   text:'var(--blue)',   border:'#90B8E8' },
-  coral:  { bg:'var(--coral-light)',  text:'var(--coral)',  border:'#E8A090' },
-  gray:   { bg:'var(--bg2)',          text:'var(--text2)',  border:'var(--border)' },
-  purple: { bg:'var(--purple-light)', text:'var(--purple)', border:'#B0ABEC' },
+  teal:   { bg:'var(--teal-light)',        text:'var(--teal)',   border:'#7DCDB4' },
+  amber:  { bg:'var(--amber-light)',        text:'var(--amber)',  border:'#E5C87A' },
+  blue:   { bg:'var(--blue-light)',         text:'var(--blue)',   border:'#90B8E8' },
+  coral:  { bg:'var(--coral-light)',        text:'var(--coral)',  border:'#E8A090' },
+  gray:   { bg:'var(--bg2)',               text:'var(--text2)',  border:'var(--border)' },
+  purple: { bg:'var(--purple-light)',       text:'var(--purple)', border:'#B0ABEC' },
+  // Semantic colour keys for the workout category system
+  run:    { bg:'rgba(191,95,255,0.10)',     text:'#bf5fff',       border:'rgba(191,95,255,0.4)' },
+  class:  { bg:'rgba(212,255,0,0.08)',      text:'#d4ff00',       border:'rgba(212,255,0,0.4)' },
 };
 
 let plannerState = {};
@@ -3695,32 +3711,32 @@ const CUSTOM_WORKOUT_KEY = 'laura_workout_routine_v1';
 // be added here so it shows up in the Edit Routine dropdowns on the Weekly Schedule.
 // Custom user-added gym workouts are merged in dynamically at runtime — see getWorkoutLibrary().
 const WORKOUT_LIBRARY = {
-  // Strength routines (gym workouts — MUST stay in sync with BUILTIN_GYM_WORKOUTS)
-  push:        { name:'Push',        emoji:'💪', tag:'Chest · Shoulders · Triceps', color:'teal',   id:'day-push',        type:'strength' },
-  legs:        { name:'Legs',        emoji:'🦵', tag:'Legs gym',                    color:'teal',   id:'day-legs',        type:'strength' },
-  pull:        { name:'Pull',        emoji:'🏋️', tag:'Pull gym',                    color:'purple', id:'day-pull',        type:'strength' },
-  upper:       { name:'Upper Body',  emoji:'🆙', tag:'Chest · Back · Shoulders · Arms', color:'blue',   id:'gym-upper',    type:'strength' },
-  lower:       { name:'Lower Body',  emoji:'⬇️', tag:'Quads · Hamstrings · Glutes',     color:'amber',  id:'gym-lower',    type:'strength' },
-  fullbody:    { name:'Full Body',   emoji:'🌟', tag:'Compound focus',                  color:'coral',  id:'gym-fullbody', type:'strength' },
-  glutes:      { name:'Glutes',      emoji:'🍑', tag:'Glute focus + posterior',         color:'purple', id:'gym-glutes',   type:'strength' },
-  core:        { name:'Core',        emoji:'🧘', tag:'Anti-rotation + stability',       color:'blue',   id:'gym-core',     type:'strength' },
-  arms:        { name:'Arms',        emoji:'💪', tag:'Biceps + Triceps',                color:'amber',  id:'gym-arms',     type:'strength' },
+  // Strength routines (gym workouts — all teal — MUST stay in sync with BUILTIN_GYM_WORKOUTS)
+  push:        { name:'Push',        emoji:'💪', tag:'Chest · Shoulders · Triceps',     color:'teal',   id:'day-push',     type:'strength' },
+  legs:        { name:'Legs',        emoji:'🦵', tag:'Legs gym',                         color:'teal',   id:'day-legs',     type:'strength' },
+  pull:        { name:'Pull',        emoji:'🏋️', tag:'Pull gym',                         color:'teal',   id:'day-pull',     type:'strength' },
+  upper:       { name:'Upper Body',  emoji:'🆙', tag:'Chest · Back · Shoulders · Arms',  color:'teal',   id:'gym-upper',   type:'strength' },
+  lower:       { name:'Lower Body',  emoji:'⬇️', tag:'Quads · Hamstrings · Glutes',      color:'teal',   id:'gym-lower',   type:'strength' },
+  fullbody:    { name:'Full Body',   emoji:'🌟', tag:'Compound focus',                   color:'teal',   id:'gym-fullbody',type:'strength' },
+  glutes:      { name:'Glutes',      emoji:'🍑', tag:'Glute focus + posterior',          color:'teal',   id:'gym-glutes',  type:'strength' },
+  core:        { name:'Core',        emoji:'🧘', tag:'Anti-rotation + stability',        color:'teal',   id:'gym-core',    type:'strength' },
+  arms:        { name:'Arms',        emoji:'💪', tag:'Biceps + Triceps',                 color:'teal',   id:'gym-arms',    type:'strength' },
 
-  // Spin classes
-  cyclone:     { name:'Cyclone',     emoji:'🚴', tag:'Spin class',                  color:'amber',  id:'day-cyclone',     type:'cardio' },
-  rhythm:      { name:'Rhythm',      emoji:'🎵', tag:'Spin class',                  color:'amber',  id:'day-rhythm',      type:'cardio' },
+  // Spin classes (neon yellow)
+  cyclone:     { name:'Cyclone',     emoji:'🚴', tag:'Spin class',                  color:'class',  id:'day-cyclone',     type:'class' },
+  rhythm:      { name:'Rhythm',      emoji:'🎵', tag:'Spin class',                  color:'class',  id:'day-rhythm',      type:'class' },
 
-  // Running routines
-  interval_run:{ name:'Interval Run',emoji:'🏃', tag:'Wed intervals 30–35 min',    color:'blue',   id:'day-run_wed',     type:'cardio' },
-  long_run:    { name:'Long Run',    emoji:'🏃', tag:'Easy long run',               color:'blue',   id:'day-long-run',    type:'cardio' },
-  easy_run:    { name:'Easy Run',    emoji:'🏃', tag:'Easy conversational jog',     color:'blue',   id:'day-easy-run',    type:'cardio' },
-  runna:       { name:'Runna',       emoji:'📱', tag:'Runna workout',               color:'blue',   id:'day-runna',       type:'cardio' },
+  // Running routines (neon purple)
+  interval_run:{ name:'Interval Run',emoji:'🏃', tag:'Wed intervals 30–35 min',    color:'run',    id:'day-run_wed',     type:'run' },
+  long_run:    { name:'Long Run',    emoji:'🏃', tag:'Easy long run',               color:'run',    id:'day-long-run',    type:'run' },
+  easy_run:    { name:'Easy Run',    emoji:'🏃', tag:'Easy conversational jog',     color:'run',    id:'day-easy-run',    type:'run' },
+  runna:       { name:'Runna',       emoji:'🏃', tag:'Runna workout',               color:'run',    id:'day-runna',       type:'run' },
 
-  // Swimming
-  swim:        { name:'Swim',        emoji:'🏊', tag:'Swimming',                    color:'cyan',   id:'day-swim',        type:'cardio' },
+  // Swimming (teal — gym-based)
+  swim:        { name:'Swim',        emoji:'🏊', tag:'Swimming',                    color:'teal',   id:'day-swim',        type:'strength' },
 
-  // HIIT class (Blaze)
-  blaze:       { name:'Blaze',       emoji:'🔥', tag:'HIIT class',                  color:'coral',  id:'day-blaze_fri',   type:'hiit' },
+  // HIIT class (Blaze — neon yellow)
+  blaze:       { name:'Blaze',       emoji:'🔥', tag:'HIIT class',                  color:'class',  id:'day-blaze_fri',   type:'class' },
 
   // Rest day
   rest:        { name:'Rest',        emoji:'🤝', tag:'Rest & volunteer',           color:'gray',   id:'day-vol',         type:'rest' },
@@ -3820,8 +3836,40 @@ function renderDayCards() {
       }
     });
 
-    // Use first workout color, or default
-    const color = firstWorkout?.color || 'teal';
+    // Determine category colour for each workout type in the day
+    // Category system: gym/swim=teal, run=purple, class=yellow, rest=gray
+    function getCardCategory(type) {
+      if (!type) return 'gym';
+      const w = _lib[type];
+      if (!w) return 'gym';
+      if (w.type === 'run' || w.color === 'run') return 'run';
+      if (w.type === 'class' || w.color === 'class') return 'class';
+      if (w.type === 'rest') return 'rest';
+      return 'gym'; // strength, swim, anything else
+    }
+    const CATEGORY_COLOR   = { gym:'#00f5d4', run:'#bf5fff', class:'#d4ff00', rest:'#888' };
+    const CATEGORY_BG      = { gym:'rgba(0,245,212,0.10)', run:'rgba(191,95,255,0.10)', class:'rgba(212,255,0,0.08)', rest:'rgba(136,136,136,0.08)' };
+
+    const cats = workoutTypes.map(t => getCardCategory(t));
+    const primaryCat = cats[0] || 'gym';
+    const secondaryCat = cats.length > 1 && cats[1] !== primaryCat ? cats[1] : null;
+
+    // Text colour: primary category colour
+    const textColor = CATEGORY_COLOR[primaryCat];
+    const dayTypeStyle = `color:${textColor};`;
+
+    // Background: diagonal gradient blend if two different categories, solid if one
+    if (secondaryCat) {
+      const c1 = CATEGORY_BG[primaryCat].replace('rgba(', '').replace(')', '').split(',');
+      const c2 = CATEGORY_BG[secondaryCat].replace('rgba(', '').replace(')', '').split(',');
+      // Use named colours for gradient clarity
+      const g1 = CATEGORY_COLOR[primaryCat] + '18';  // ~9% opacity hex
+      const g2 = CATEGORY_COLOR[secondaryCat] + '18';
+      card.style.background = `linear-gradient(135deg, ${g1} 0%, ${g1} 45%, ${g2} 55%, ${g2} 100%)`;
+    } else {
+      card.style.background = CATEGORY_BG[primaryCat];
+    }
+
     const staticTag = firstWorkout?.tag || 'Workout';
     // For class workouts, show the live selected slot time instead of the static tag
     let tag = staticTag;
@@ -3836,20 +3884,6 @@ function renderDayCards() {
         }
       }
     }
-    // Neon overrides for class/run day types
-    const wType = firstWorkout?.type || '';
-    const dayTypeColor = (wType === 'cardio' && (firstType || '').match(/run|runna|interval|easy|long/i))
-      ? '#bf5fff'
-      : (wType === 'cardio' || wType === 'hiit') && (firstType || '').match(/cyclone|blaze|rhythm|swim/i)
-        ? '#d4ff00'
-        : null;
-    const dayTypeStyle = dayTypeColor ? `color:${dayTypeColor};` : `color:var(--${color});`;
-    // Background colour matching dashboard wm-cell style
-    const isClassCard = (wType === 'cardio' || wType === 'hiit') && (firstType || '').match(/cyclone|blaze|rhythm/i);
-    const isRunCard   = wType === 'cardio' && (firstType || '').match(/run|runna|interval|easy|long/i);
-    card.style.background = isClassCard ? 'rgba(212,255,0,0.08)'
-      : isRunCard ? 'rgba(191,95,255,0.08)'
-      : `var(--${color}-light)`;
 
     card.onclick = () => selectDay(firstType, card);
     card.innerHTML = `
@@ -3907,17 +3941,30 @@ function renderDashboardWeek() {
         }
       });
 
-      const color = firstWorkout?.color || 'teal';
-      const wTypeDw = firstWorkout?.type || '';
-      // Neon colour overrides matching the week strip
-      const isClassDw = (wTypeDw === 'cardio' || wTypeDw === 'hiit') && (firstType || '').match(/cyclone|blaze|rhythm/i);
-      const isRunDw   = wTypeDw === 'cardio' && (firstType || '').match(/run|runna|interval|easy|long/i);
-      const labelColor = isClassDw ? '#d4ff00' : isRunDw ? '#bf5fff' : `var(--${color})`;
-      const bgStyle    = isClassDw
-        ? 'background:rgba(212,255,0,0.08);'
-        : isRunDw
-          ? 'background:rgba(191,95,255,0.08);'
-          : `background:var(--${color}-light);`;
+      // Use the same category system as the week strip
+      const DW_CAT_COLOR = { gym:'#00f5d4', run:'#bf5fff', class:'#d4ff00', rest:'#888' };
+      const DW_CAT_BG    = { gym:'rgba(0,245,212,0.10)', run:'rgba(191,95,255,0.10)', class:'rgba(212,255,0,0.08)', rest:'rgba(136,136,136,0.08)' };
+      function getDwCat(type) {
+        if (!type) return 'gym';
+        const w = _libDw[type];
+        if (!w) return 'gym';
+        if (w.type === 'run' || w.color === 'run') return 'run';
+        if (w.type === 'class' || w.color === 'class') return 'class';
+        if (w.type === 'rest') return 'rest';
+        return 'gym';
+      }
+      const dwCats = workoutTypes.map(t => getDwCat(t));
+      const dwPrimary = dwCats[0] || 'gym';
+      const dwSecondary = dwCats.length > 1 && dwCats[1] !== dwPrimary ? dwCats[1] : null;
+      const labelColor = DW_CAT_COLOR[dwPrimary];
+      let bgStyle;
+      if (dwSecondary) {
+        const g1 = DW_CAT_COLOR[dwPrimary] + '18';
+        const g2 = DW_CAT_COLOR[dwSecondary] + '18';
+        bgStyle = `background:linear-gradient(135deg,${g1} 0%,${g1} 45%,${g2} 55%,${g2} 100%);`;
+      } else {
+        bgStyle = `background:${DW_CAT_BG[dwPrimary]};`;
+      }
 
       html += `
         <div class="wm-cell" style="${bgStyle}">
@@ -3967,15 +4014,28 @@ function renderRoutinesGrid() {
         }
       });
 
-      const color = firstWorkout?.color || 'teal';
+      const RG_CAT_COLOR = { gym:'#00f5d4', run:'#bf5fff', class:'#d4ff00', rest:'#888' };
+      const RG_CAT_BG    = { gym:'rgba(0,245,212,0.10)', run:'rgba(191,95,255,0.10)', class:'rgba(212,255,0,0.08)', rest:'rgba(136,136,136,0.08)' };
+      function getRgCat(type) {
+        if (!type) return 'gym';
+        const w = _libRg[type];
+        if (!w) return 'gym';
+        if (w.type === 'run' || w.color === 'run') return 'run';
+        if (w.type === 'class' || w.color === 'class') return 'class';
+        if (w.type === 'rest') return 'rest';
+        return 'gym';
+      }
+      const rgCat = getRgCat(firstType);
+      const rgColor = RG_CAT_COLOR[rgCat];
+      const rgBg = RG_CAT_BG[rgCat];
       const tips = (typeof getWorkoutTips === 'function')
         ? getWorkoutTips(workoutTypes)
         : { am: 'Mobility prep', pm: 'Recovery stretch' };
       const ampmText = `<strong style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);">AM</strong><br>${tips.am}<br><br><strong style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);">PM</strong><br>${tips.pm}`;
       html += `
-        <div style="background:var(--${color}-light);border-radius:var(--radius-sm);padding:10px 8px;text-align:center;">
-          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--${color});font-family:'Manrope', sans-serif;margin-bottom:4px;">${dayLabels[dayKey]}</div>
-          <div style="font-size:12px;font-weight:600;color:var(--${color});margin-bottom:5px;">${combinedName}</div>
+        <div style="background:${rgBg};border-radius:var(--radius-sm);padding:10px 8px;text-align:center;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:${rgColor};font-family:'Manrope', sans-serif;margin-bottom:4px;">${dayLabels[dayKey]}</div>
+          <div style="font-size:12px;font-weight:600;color:${rgColor};margin-bottom:5px;">${combinedName}</div>
           <div style="font-size:10.5px;color:var(--text2);line-height:1.5;text-align:left;">${ampmText}</div>
         </div>
       `;
@@ -6610,7 +6670,15 @@ function renderRoutinesTweaks() {
     var workoutTypes = day.workoutTypes || [];
     var firstType    = workoutTypes[0];
     var firstWorkout = firstType ? lib[firstType] : null;
-    var color        = firstWorkout ? (firstWorkout.color || 'teal') : 'gray';
+    var RT_CAT_COLOR = { gym:'#00f5d4', run:'#bf5fff', class:'#d4ff00', rest:'#888', gray:'#888' };
+    var RT_CAT_BG    = { gym:'rgba(0,245,212,0.10)', run:'rgba(191,95,255,0.10)', class:'rgba(212,255,0,0.08)', rest:'rgba(136,136,136,0.08)', gray:'rgba(136,136,136,0.08)' };
+    var rtCat = !firstWorkout ? 'gray'
+      : (firstWorkout.type === 'run' || firstWorkout.color === 'run') ? 'run'
+      : (firstWorkout.type === 'class' || firstWorkout.color === 'class') ? 'class'
+      : firstWorkout.type === 'rest' ? 'rest'
+      : 'gym';
+    var rtColor = RT_CAT_COLOR[rtCat];
+    var rtBg    = RT_CAT_BG[rtCat];
 
     var combinedName = '';
     workoutTypes.forEach(function(type, i) {
@@ -6621,9 +6689,9 @@ function renderRoutinesTweaks() {
     var tips = getWorkoutTips(workoutTypes);
 
     html +=
-      '<div style="background:var(--' + color + '-light);border-radius:var(--radius-sm);padding:10px 8px;text-align:center;">' +
-        '<div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--' + color + ');font-family:\'Manrope\',sans-serif;margin-bottom:4px;">' + dayLabels[dayKey] + '</div>' +
-        '<div style="font-size:12px;font-weight:600;color:var(--' + color + ');margin-bottom:5px;">' + (combinedName || 'Rest') + '</div>' +
+      '<div style="background:' + rtBg + ';border-radius:var(--radius-sm);padding:10px 8px;text-align:center;">' +
+        '<div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:' + rtColor + ';font-family:\'Manrope\',sans-serif;margin-bottom:4px;">' + dayLabels[dayKey] + '</div>' +
+        '<div style="font-size:12px;font-weight:600;color:' + rtColor + ';margin-bottom:5px;">' + (combinedName || 'Rest') + '</div>' +
         '<div style="font-size:10.5px;color:var(--text2);line-height:1.5;text-align:left;">' +
           '<strong style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);">AM</strong><br>' + tips.am +
           '<br><br><strong style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);">PM</strong><br>' + tips.pm +
