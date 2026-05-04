@@ -494,15 +494,38 @@
       grid-template-columns: 1fr 1fr !important;
     }
 
-    /* Workout day strip: 3-wide on very small screens */
+    /* Workout day strip: 4-wide on small screens, last item centred */
     .week-strip {
-      grid-template-columns: repeat(3, 1fr) !important;
+      grid-template-columns: repeat(4, 1fr) !important;
       gap: 6px;
+    }
+    /* 7th tile (Sunday) — span across middle 2 cols to centre it */
+    .week-strip .day-card:last-child {
+      grid-column: 2 / 4;
     }
 
     /* Gym workouts: single column on mobile */
     #gym-workouts-list > div {
       grid-template-columns: 1fr !important;
+    }
+
+    /* Hamburger covers page title — push headers down */
+    .page-header { padding-top: 52px !important; }
+
+    /* Weight log form: stack inputs vertically so date matches other fields */
+    #weight-form-row {
+      flex-direction: column !important;
+      align-items: stretch !important;
+    }
+    #weight-form-row > div {
+      flex: unset !important;
+      min-width: unset !important;
+      width: 100% !important;
+    }
+    #weight-form-row input,
+    #weight-form-row button {
+      width: 100% !important;
+      box-sizing: border-box !important;
     }
 
     /* Sync indicator: hide label, show dot only */
@@ -738,26 +761,27 @@
     </div>
   </div>
 
-  <div class="grid-3">
-    <div class="card card-sm">
-      <div style="font-size:20px;margin-bottom:8px;">🏋️</div>
-      <div class="card-title" style="font-size:15px;">3 gym sessions</div>
-      <div class="card-sub">Push · Pull · Legs — progressive overload every week</div>
+  <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">Weekly goals</div>
+  <div class="grid-4">
+    <div class="stat-card" style="background:var(--teal-light);border-color:rgba(0,245,212,0.25);">
+      <div style="font-size:22px;margin-bottom:6px;">🏋️</div>
+      <div style="font-size:14px;font-weight:700;color:var(--teal);line-height:1.2;margin-bottom:4px;">3 gym sessions</div>
+      <div class="stat-label">Push · Pull · Legs</div>
     </div>
-    <div class="card card-sm">
-      <div style="font-size:20px;margin-bottom:8px;">🔥</div>
-      <div class="card-title" style="font-size:15px;">Blaze HIIT</div>
-      <div class="card-sub">Primary fat-burn session of the week</div>
+    <div class="stat-card" style="background:rgba(212,255,0,0.07);border-color:rgba(212,255,0,0.25);">
+      <div style="font-size:22px;margin-bottom:6px;">🔥</div>
+      <div style="font-size:14px;font-weight:700;color:#d4ff00;line-height:1.2;margin-bottom:4px;">Blaze HIIT</div>
+      <div class="stat-label">Primary fat-burn session</div>
     </div>
-    <div class="card card-sm">
-      <div style="font-size:20px;margin-bottom:8px;">🚴</div>
-      <div class="card-title" style="font-size:15px;">Cyclone spin</div>
-      <div class="card-sub">Low-impact cardio &amp; endurance</div>
+    <div class="stat-card" style="background:rgba(212,255,0,0.07);border-color:rgba(212,255,0,0.25);">
+      <div style="font-size:22px;margin-bottom:6px;">🚴</div>
+      <div style="font-size:14px;font-weight:700;color:#d4ff00;line-height:1.2;margin-bottom:4px;">Cyclone spin</div>
+      <div class="stat-label">Low-impact cardio &amp; endurance</div>
     </div>
-    <div class="card card-sm">
-      <div style="font-size:20px;margin-bottom:8px;">🏃</div>
-      <div class="card-title" style="font-size:15px;">2 runs/week</div>
-      <div class="card-sub">Intervals + easy runs throughout the week</div>
+    <div class="stat-card" style="background:rgba(191,95,255,0.08);border-color:rgba(191,95,255,0.25);">
+      <div style="font-size:22px;margin-bottom:6px;">🏃</div>
+      <div style="font-size:14px;font-weight:700;color:#bf5fff;line-height:1.2;margin-bottom:4px;">2 runs/week</div>
+      <div class="stat-label">Intervals + easy runs</div>
     </div>
   </div>
 </div>
@@ -834,7 +858,7 @@
 
   <!-- Day detail cards — compact summaries. Full exercise detail lives in Gym Workouts tab. -->
 
-  <div id="day-push" class="card day-detail active-detail">
+  <div id="day-push" class="card day-detail" style="display:none;">
     <div class="workout-header">
       <span class="badge badge-teal">Strength · Push</span>
       <div><div class="workout-title">Push day</div>
@@ -3832,10 +3856,13 @@ function renderDayCards() {
       <div class="day-label-s">${day.dayKey.charAt(0).toUpperCase() + day.dayKey.slice(1)}</div>
       <div class="day-emoji">${combinedEmoji}</div>
       <div class="day-type" style="${dayTypeStyle}">${combinedName}</div>
-      <div class="day-tag-s">${tag}</div>
     `;
     strip.appendChild(card);
   });
+
+  // Auto-select the first day card so the detail panel is always populated on load
+  const firstCard = strip.querySelector('.day-card');
+  if (firstCard) firstCard.click();
 
   // Also update the dashboard week map and AM/PM routines when routine changes
   renderDashboardWeek();
