@@ -221,6 +221,15 @@
 
   .dt-strength { color: var(--teal); background: var(--teal-light); }
   .dt-hiit { color: var(--coral); background: var(--coral-light); }
+  /* Day-detail compact preview */
+  .day-detail-preview { margin: 14px 0 4px; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; }
+  .ddp-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; font-size: 13px; border-bottom: 1px solid var(--border); }
+  .ddp-row:last-child { border-bottom: none; }
+  .ddp-row span:last-child { color: var(--text3); font-size: 12px; font-variant-numeric: tabular-nums; }
+  .ddp-link { display: inline-block; margin-top: 8px; font-size: 12px; color: var(--teal); background: none; border: none; padding: 0; cursor: pointer; font-family: 'Manrope', sans-serif; text-decoration: underline; text-underline-offset: 3px; }
+  /* Neon colours for run/class day types in week strip */
+  .day-type-class { color: #d4ff00 !important; }
+  .day-type-run { color: #bf5fff !important; }
   .dt-run { color: var(--blue); background: var(--blue-light); }
   .dt-spin { color: var(--amber); background: var(--amber-light); }
   .dt-rest { color: var(--text2); background: var(--bg2); }
@@ -489,6 +498,11 @@
     .week-strip {
       grid-template-columns: repeat(3, 1fr) !important;
       gap: 6px;
+    }
+
+    /* Gym workouts: single column on mobile */
+    #gym-workouts-list > div {
+      grid-template-columns: 1fr !important;
     }
 
     /* Sync indicator: hide label, show dot only */
@@ -854,174 +868,118 @@
 
   <div class="week-strip" id="weekStrip"></div>
 
+  <!-- Day detail cards — compact summaries. Full exercise detail lives in Gym Workouts tab. -->
+
   <div id="day-push" class="card day-detail active-detail">
     <div class="workout-header">
       <span class="badge badge-teal">Strength · Push</span>
-      <div><div class="workout-title">Monday — Push day</div>
-      <div class="workout-meta">Chest · Shoulders · Triceps &nbsp;|&nbsp; ~55 min</div></div>
+      <div><div class="workout-title">Push day</div>
+      <div class="workout-meta">Chest · Shoulders · Triceps &nbsp;|&nbsp; ~55 min · David Lloyd</div></div>
     </div>
-    <table class="ex-table">
-      <thead><tr><th>Exercise</th><th>Type</th><th>Sets</th><th>Reps</th><th>Rest</th></tr></thead>
-      <tbody>
-        <tr><td><div class="ex-name-cell">Barbell bench press</div><div class="ex-focus">Compound · Chest focus</div></td><td><span class="badge badge-teal">Primary</span></td><td><span class="pill-sm pill-sets">4</span></td><td><span class="pill-sm pill-reps">8–10</span></td><td><span class="pill-sm pill-rest">90s</span></td></tr>
-        <tr><td><div class="ex-name-cell">Incline dumbbell press</div><div class="ex-focus">Upper chest · Shoulder tie-in</div></td><td><span class="badge badge-blue">Secondary</span></td><td><span class="pill-sm pill-sets">3</span></td><td><span class="pill-sm pill-reps">10–12</span></td><td><span class="pill-sm pill-rest">75s</span></td></tr>
-        <tr><td><div class="ex-name-cell">Seated dumbbell shoulder press</div><div class="ex-focus">Deltoids · Overhead strength</div></td><td><span class="badge badge-blue">Secondary</span></td><td><span class="pill-sm pill-sets">3</span></td><td><span class="pill-sm pill-reps">10–12</span></td><td><span class="pill-sm pill-rest">75s</span></td></tr>
-        <tr><td><div class="ex-name-cell">Lateral raises</div><div class="ex-focus">Side deltoid · Shoulder width</div></td><td><span class="badge badge-amber">Isolation</span></td><td><span class="pill-sm pill-sets">3</span></td><td><span class="pill-sm pill-reps">12–15</span></td><td><span class="pill-sm pill-rest">60s</span></td></tr>
-        <tr><td><div class="ex-name-cell">Tricep rope pushdown</div><div class="ex-focus">Cable · Tricep long head</div></td><td><span class="badge badge-amber">Isolation</span></td><td><span class="pill-sm pill-sets">3</span></td><td><span class="pill-sm pill-reps">12–15</span></td><td><span class="pill-sm pill-rest">60s</span></td></tr>
-        <tr><td><div class="ex-name-cell">Overhead tricep extension</div><div class="ex-focus">Dumbbell · Full stretch</div></td><td><span class="badge badge-amber">Isolation</span></td><td><span class="pill-sm pill-sets">3</span></td><td><span class="pill-sm pill-reps">12</span></td><td><span class="pill-sm pill-rest">60s</span></td></tr>
-      </tbody>
-    </table>
-    <div class="tip-box-f" style="margin-top:16px;">
-      <div class="tip-box-title">Tips</div>
+    <div class="day-detail-preview">
+      <div class="ddp-row"><span>Barbell bench press</span><span>4 × 8–10</span></div>
+      <div class="ddp-row"><span>Overhead press</span><span>3 × 10–12</span></div>
+      <div class="ddp-row"><span>Lateral raises</span><span>3 × 12–15</span></div>
+    </div>
+    <button class="ddp-link" onclick="goTo('workouts')">View full workout in Gym workouts →</button>
+    <div class="tip-box-f" style="margin-top:14px;">
+      <div class="tip-box-title">Prep</div>
       <div class="tip-item"><span class="tip-dot-f"></span>2 warm-up sets before working weight on bench press</div>
-      <div class="tip-item"><span class="tip-dot-f"></span>Control the lowering phase — 2–3 seconds down</div>
-      <div class="tip-item"><span class="tip-dot-f"></span>Add 2.5kg when you hit top of rep range for 2 sessions in a row</div>
+      <div class="tip-item"><span class="tip-dot-f"></span>Control the lowering phase — 2–3 seconds down on every rep</div>
+      <div class="tip-item"><span class="tip-dot-f"></span>Add 2.5kg when you hit the top of the rep range for 2 sessions running</div>
     </div>
   </div>
 
   <div id="day-cyclone" class="card day-detail" style="display:none;">
     <div class="workout-header">
-      <span class="badge badge-amber">Spin Class · Tue 7:00am</span>
-      <div><div class="workout-title">Tuesday — Cyclone spin</div>
-      <div class="workout-meta">Purley David Lloyd · 45 min · ~400 kcal · 75–90% HR</div></div>
-    </div>
-    <div style="background:var(--amber-light);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px;">
-      <span style="font-size:18px;">⏰</span>
-      <div style="font-size:13px;color:var(--amber);"><strong>7:00am Tuesday · Purley David Lloyd.</strong> Set your alarm for 6:15am — time to get kit on, drive/travel and clip in before the warm-up starts.</div>
-    </div>
-    <div class="grid-3" style="margin:0 0 16px;">
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;text-align:center;"><div style="font-size:22px;font-weight:700;font-family:'Space Grotesk', sans-serif;">~400</div><div style="font-size:11px;color:var(--text3);margin-top:3px;">Calories burned</div></div>
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;text-align:center;"><div style="font-size:22px;font-weight:700;font-family:'Space Grotesk', sans-serif;">75–90%</div><div style="font-size:11px;color:var(--text3);margin-top:3px;">Target heart rate</div></div>
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;text-align:center;"><div style="font-size:22px;font-weight:700;font-family:'Space Grotesk', sans-serif;">45 min</div><div style="font-size:11px;color:var(--text3);margin-top:3px;">Duration</div></div>
+      <span class="badge badge-amber" id="class-badge-weekly-cyclone">Spin class · David Lloyd</span>
+      <div><div class="workout-title">Cyclone spin</div>
+      <div class="workout-meta">45 min · ~400 kcal · 75–90% HR</div></div>
     </div>
     <div class="tip-box-f">
-      <div class="tip-box-title">Tips</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Eat a small snack the night before or a banana 30 min before — 7am class means no time for a full breakfast first</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Adjust saddle height before the warm-up starts — knee should be soft at the bottom of the pedal stroke</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Match resistance to the instructor — don't cheat the climbs, that's where the calories burn</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Bring a full water bottle — you'll sweat more than you expect at this intensity</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Have a proper protein-rich breakfast immediately after class to kick off the day right</div>
+      <div class="tip-box-title">Prep</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Book your slot via the David Lloyd app in advance — Cyclone fills up fast</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Eat a small snack the night before or a banana before leaving — no time for breakfast at early sessions</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Adjust saddle height before the warm-up — knee should be soft at the bottom of the pedal stroke</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Bring a full water bottle — spin is sweatier than it looks</div>
     </div>
   </div>
 
   <div id="day-run_wed" class="card day-detail" style="display:none;">
     <div class="workout-header">
       <span class="badge badge-blue">Running</span>
-      <div><div class="workout-title">Wednesday — Interval run</div>
+      <div><div class="workout-title">Interval run</div>
       <div class="workout-meta">30–35 min · 6 × 2 min hard efforts</div></div>
     </div>
-    <div class="grid-2" style="margin:16px 0;gap:10px;">
-      <div style="background:var(--blue-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--blue);margin-bottom:4px;">WARM-UP · 5 min</div><div style="font-size:13px;color:var(--text2);">Easy conversational jog. Get the legs moving.</div></div>
-      <div style="background:var(--purple-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--purple);margin-bottom:4px;">MAIN SET · 20 min</div><div style="font-size:13px;color:var(--text2);">6 × 2 min hard (7–8/10 effort) with 1 min easy jog recovery between each.</div></div>
-      <div style="background:var(--blue-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--blue);margin-bottom:4px;">COOL-DOWN · 5 min</div><div style="font-size:13px;color:var(--text2);">Easy walk/jog. Stretch calves and quads after.</div></div>
-      <div style="background:var(--teal-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--teal);margin-bottom:4px;">PROGRESSION</div><div style="font-size:13px;color:var(--text2);">Start at 4 intervals, add 1 every 2 weeks up to 8 × 2 min.</div></div>
-    </div>
     <div class="tip-box-f">
-      <div class="tip-box-title">Tips</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>No gym needed — run local from wherever you are mid-week</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>If legs feel sore from Blaze, dial back to 5/10 effort</div>
+      <div class="tip-box-title">Prep</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Check Runna for today's session — effort may vary from the default</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>No gym needed — run from home or wherever you are mid-week</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>If legs are sore from a class, dial the effort back to 5/10</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Lay kit out the night before so there are no excuses in the morning</div>
     </div>
   </div>
 
   <div id="day-legs" class="card day-detail" style="display:none;">
     <div class="workout-header">
       <span class="badge badge-teal">Strength · Legs</span>
-      <div><div class="workout-title">Legs</div>
-      <div class="workout-meta">Quads · Hamstrings · Glutes &nbsp;|&nbsp; ~55 min</div></div>
+      <div><div class="workout-title">Legs day</div>
+      <div class="workout-meta">Quads · Hamstrings · Glutes &nbsp;|&nbsp; ~55 min · David Lloyd</div></div>
     </div>
-    <table class="ex-table">
-      <thead><tr><th>Exercise</th><th>Type</th><th>Sets</th><th>Reps</th><th>Rest</th></tr></thead>
-      <tbody>
-        <tr><td><div class="ex-name-cell">Barbell back squat</div><div class="ex-focus">Compound · Biggest strength driver</div></td><td><span class="badge badge-teal">Primary</span></td><td><span class="pill-sm pill-sets">4</span></td><td><span class="pill-sm pill-reps">8–10</span></td><td><span class="pill-sm pill-rest">120s</span></td></tr>
-        <tr><td><div class="ex-name-cell">Romanian deadlift</div><div class="ex-focus">Hamstrings · Glutes · Hip hinge</div></td><td><span class="badge badge-teal">Primary</span></td><td><span class="pill-sm pill-sets">3</span></td><td><span class="pill-sm pill-reps">10–12</span></td><td><span class="pill-sm pill-rest">90s</span></td></tr>
-        <tr><td><div class="ex-name-cell">Leg press</div><div class="ex-focus">Quad dominant · Load safely</div></td><td><span class="badge badge-blue">Secondary</span></td><td><span class="pill-sm pill-sets">3</span></td><td><span class="pill-sm pill-reps">12–15</span></td><td><span class="pill-sm pill-rest">75s</span></td></tr>
-        <tr><td><div class="ex-name-cell">Walking lunges</div><div class="ex-focus">Unilateral · Glutes + balance</div></td><td><span class="badge badge-blue">Secondary</span></td><td><span class="pill-sm pill-sets">3</span></td><td><span class="pill-sm pill-reps">12 each</span></td><td><span class="pill-sm pill-rest">75s</span></td></tr>
-        <tr><td><div class="ex-name-cell">Leg curl</div><div class="ex-focus">Hamstring isolation · Machine</div></td><td><span class="badge badge-amber">Isolation</span></td><td><span class="pill-sm pill-sets">3</span></td><td><span class="pill-sm pill-reps">12–15</span></td><td><span class="pill-sm pill-rest">60s</span></td></tr>
-        <tr><td><div class="ex-name-cell">Standing calf raises</div><div class="ex-focus">Gastrocnemius · Full ROM</div></td><td><span class="badge badge-amber">Isolation</span></td><td><span class="pill-sm pill-sets">4</span></td><td><span class="pill-sm pill-reps">15–20</span></td><td><span class="pill-sm pill-rest">60s</span></td></tr>
-      </tbody>
-    </table>
-    <div class="tip-box-f" style="margin-top:16px;">
-      <div class="tip-box-title">Tips</div>
-      <div class="tip-item"><span class="tip-dot-f"></span>Warm up with bodyweight squats and hip openers</div>
-      <div class="tip-item"><span class="tip-dot-f"></span>Brace your core hard before each squat rep</div>
-      <div class="tip-item"><span class="tip-dot-f"></span>Romanian deadlifts: hinge from the hips, knees only soft</div>
+    <div class="day-detail-preview">
+      <div class="ddp-row"><span>Barbell back squat</span><span>4 × 8–10</span></div>
+      <div class="ddp-row"><span>Romanian deadlift</span><span>3 × 10–12</span></div>
+      <div class="ddp-row"><span>Leg press</span><span>3 × 12–15</span></div>
+    </div>
+    <button class="ddp-link" onclick="goTo('workouts')">View full workout in Gym workouts →</button>
+    <div class="tip-box-f" style="margin-top:14px;">
+      <div class="tip-box-title">Prep</div>
+      <div class="tip-item"><span class="tip-dot-f"></span>Warm up with bodyweight squats and hip openers before loading the bar</div>
+      <div class="tip-item"><span class="tip-dot-f"></span>Brace your core hard before every squat rep</div>
+      <div class="tip-item"><span class="tip-dot-f"></span>Romanian deadlifts: hinge from the hips, keep knees only soft</div>
     </div>
   </div>
 
   <div id="day-blaze_fri" class="card day-detail" style="display:none;">
     <div class="workout-header">
-      <span class="badge badge-coral">HIIT Class · Fri 7:20am</span>
-      <div><div class="workout-title">Friday — Blaze HIIT</div>
-      <div class="workout-meta">Purley David Lloyd · 7:20am · 45 min · ~500 kcal</div></div>
-    </div>
-    <div style="background:var(--coral-light);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px;">
-      <span style="font-size:18px;">⏰</span>
-      <div style="font-size:13px;color:var(--coral);"><strong>7:20am Friday · Purley David Lloyd.</strong> Set your alarm for 6:30am — get kit on, drive over, and be on the floor warmed up before 7:20. Class ends around 8:05am leaving plenty of time to start work.</div>
-    </div>
-    <div class="grid-3" style="margin:0 0 16px;">
-      <div style="background:var(--coral-light);border-radius:var(--radius-sm);padding:14px;text-align:center;"><div style="font-size:22px;font-weight:700;font-family:'Space Grotesk', sans-serif;">~500</div><div style="font-size:11px;color:var(--coral);margin-top:3px;">Calories burned</div></div>
-      <div style="background:var(--coral-light);border-radius:var(--radius-sm);padding:14px;text-align:center;"><div style="font-size:22px;font-weight:700;font-family:'Space Grotesk', sans-serif;">85–95%</div><div style="font-size:11px;color:var(--coral);margin-top:3px;">Target heart rate</div></div>
-      <div style="background:var(--coral-light);border-radius:var(--radius-sm);padding:14px;text-align:center;"><div style="font-size:22px;font-weight:700;font-family:'Space Grotesk', sans-serif;">45 min</div><div style="font-size:11px;color:var(--coral);margin-top:3px;">Duration</div></div>
-    </div>
-    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:10px;">What to expect</div>
-    <div class="grid-2" style="gap:10px;margin-bottom:14px;">
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;margin-bottom:4px;">Cardio stations</div><div style="font-size:12.5px;color:var(--text2);">Treadmill sprints, ski erg, rowing machine, assault bike. Push to your absolute max on every cardio block.</div></div>
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;margin-bottom:4px;">Strength stations</div><div style="font-size:12.5px;color:var(--text2);">Sled pushes, punch bags, battle ropes, bodyweight drills. These follow Thursday's legs — expect them to feel heavier.</div></div>
+      <span class="badge badge-coral" id="class-badge-weekly-blaze">HIIT class · David Lloyd</span>
+      <div><div class="workout-title">Blaze HIIT</div>
+      <div class="workout-meta">45 min · ~500 kcal · 85–95% HR</div></div>
     </div>
     <div class="tip-box-f">
-      <div class="tip-box-title">Tips for Friday Blaze</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--coral);"></span>Book the 7:20am slot in advance via the David Lloyd app — Friday morning Blaze fills up fast</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--coral);"></span>Eat something small the night before if you struggle with 7am fasted sessions — a banana or small yogurt</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--coral);"></span>Your legs will be sore from Thursday's double session — that's expected. The cardio stations will still be strong</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--coral);"></span>This is your primary fat-burning session of the week — give the cardio blocks everything you have</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--coral);"></span>On a red Whoop day, skip Blaze and do a 30 min easy walk instead — don't push through when under-recovered</div>
+      <div class="tip-box-title">Prep</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--coral);"></span>Book in advance via the David Lloyd app — Friday Blaze fills up fast</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--coral);"></span>Legs will be heavy from Thursday — that's normal, the cardio stations will carry you</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--coral);"></span>Eat something small the night before if early sessions are hard on an empty stomach</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--coral);"></span>On a red Whoop day, skip Blaze and do a 30 min walk instead — recovery wins long-term</div>
     </div>
   </div>
 
   <div id="day-vol" class="card day-detail" style="display:none;">
-    <div style="text-align:center;padding:32px 20px;">
-      <div style="font-size:40px;margin-bottom:12px;">🤝</div>
-      <div style="font-family:'Space Grotesk', sans-serif;font-size:22px;margin-bottom:8px;">Saturday — Rest & volunteer</div>
-      <div style="font-size:14px;color:var(--text2);max-width:480px;margin:0 auto;line-height:1.7;">Your muscles grow when you rest. Volunteering keeps you on your feet without structured training pressure. Keep protein up, stay hydrated, get to bed early ready for Sunday's long run.</div>
+    <div style="text-align:center;padding:28px 20px;">
+      <div style="font-size:36px;margin-bottom:12px;">🤝</div>
+      <div style="font-family:'Space Grotesk', sans-serif;font-size:20px;margin-bottom:8px;">Rest &amp; volunteer</div>
+      <div style="font-size:14px;color:var(--text2);max-width:480px;margin:0 auto;line-height:1.7;">Your muscles grow when you rest. Volunteering keeps you active without training pressure. Keep protein up, stay hydrated, and get to bed early.</div>
     </div>
   </div>
 
   <div id="day-run_sun" class="card day-detail" style="display:none;">
     <div class="workout-header">
-      <span class="badge badge-purple">Optional double · Sun</span>
-      <div><div class="workout-title">Sunday — Pull gym + long run</div>
-      <div class="workout-meta">Pull strength session · then easy long run if feeling good · fully flexible</div></div>
+      <span class="badge badge-purple">Flex day</span>
+      <div><div class="workout-title">Pull gym + optional long run</div>
+      <div class="workout-meta">Pull strength · then easy long run if feeling good</div></div>
     </div>
-    <div style="background:var(--purple-light);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px;">
-      <span style="font-size:18px;">💡</span>
-      <div style="font-size:13px;color:var(--purple);"><strong>This is your flex day.</strong> If Thu double + Fri Blaze has left you drained, do Pull only or take full rest. If you feel good, add the long run after. Check your Whoop and let your body decide.</div>
+    <div class="day-detail-preview">
+      <div class="ddp-row"><span>Pull-ups / Lat pulldown</span><span>4 × 8–10</span></div>
+      <div class="ddp-row"><span>Seated cable row</span><span>3 × 10–12</span></div>
+      <div class="ddp-row"><span>Face pulls</span><span>3 × 15</span></div>
     </div>
-    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:10px;">Part 1 · Pull gym session</div>
-    <table class="ex-table">
-      <thead><tr><th>Exercise</th><th>Type</th><th>Sets</th><th>Reps</th><th>Rest</th></tr></thead>
-      <tbody>
-        <tr><td><div class="ex-name-cell">Pull-ups / Lat pulldown</div><div class="ex-focus">Compound · Wide back</div></td><td><span class="badge badge-teal">Primary</span></td><td><span class="pill-sm pill-sets">4</span></td><td><span class="pill-sm pill-reps">8–10</span></td><td><span class="pill-sm pill-rest">90s</span></td></tr>
-        <tr><td><div class="ex-name-cell">Seated cable row</div><div class="ex-focus">Mid-back · Rhomboids</div></td><td><span class="badge badge-teal">Primary</span></td><td><span class="pill-sm pill-sets">3</span></td><td><span class="pill-sm pill-reps">10–12</span></td><td><span class="pill-sm pill-rest">75s</span></td></tr>
-        <tr><td><div class="ex-name-cell">Single-arm dumbbell row</div><div class="ex-focus">Unilateral · Lat focus</div></td><td><span class="badge badge-blue">Secondary</span></td><td><span class="pill-sm pill-sets">3</span></td><td><span class="pill-sm pill-reps">10 each</span></td><td><span class="pill-sm pill-rest">75s</span></td></tr>
-        <tr><td><div class="ex-name-cell">Face pulls</div><div class="ex-focus">Rear deltoids · Shoulder health</div></td><td><span class="badge badge-blue">Accessory</span></td><td><span class="pill-sm pill-sets">3</span></td><td><span class="pill-sm pill-reps">15</span></td><td><span class="pill-sm pill-rest">60s</span></td></tr>
-        <tr><td><div class="ex-name-cell">Barbell bicep curl</div><div class="ex-focus">Biceps peak · Elbows tucked</div></td><td><span class="badge badge-amber">Isolation</span></td><td><span class="pill-sm pill-sets">3</span></td><td><span class="pill-sm pill-reps">10–12</span></td><td><span class="pill-sm pill-rest">60s</span></td></tr>
-        <tr><td><div class="ex-name-cell">Plank + cable crunch</div><div class="ex-focus">Core · Anti-extension</div></td><td><span class="badge badge-amber">Core</span></td><td><span class="pill-sm pill-sets">3</span></td><td><span class="pill-sm pill-reps">45s / 15</span></td><td><span class="pill-sm pill-rest">60s</span></td></tr>
-      </tbody>
-    </table>
-    <div style="margin:18px 0;border-top:1px solid var(--border);"></div>
-    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:10px;">Part 2 (optional) · Long easy run</div>
-    <div class="grid-2" style="gap:10px;margin-bottom:14px;">
-      <div style="background:var(--purple-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--purple);margin-bottom:4px;">EFFORT LEVEL</div><div style="font-size:13px;color:var(--text2);">Easy / conversational · 5–6/10. After gym your legs will feel heavy — run slower than usual and enjoy it.</div></div>
-      <div style="background:var(--teal-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--teal);margin-bottom:4px;">DURATION</div><div style="font-size:13px;color:var(--text2);">30–45 min is plenty after a gym session. Time on feet matters more than distance.</div></div>
-      <div style="background:var(--amber-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--amber);margin-bottom:4px;">GOOD ROUTES</div><div style="font-size:13px;color:var(--text2);">Purley Way or Beckenham Place Park — both flat and a short walk from the gym.</div></div>
-      <div style="background:var(--blue-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--blue);margin-bottom:4px;">SKIP THE RUN IF…</div><div style="font-size:13px;color:var(--text2);">Whoop is red, legs very sore from Thu/Fri, or you just feel off. Pull alone is a solid Sunday.</div></div>
-    </div>
-    <div class="tip-box-f">
-      <div class="tip-box-title">Sunday tips</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>Always gym before run — lifting on pre-fatigued legs risks injury and reduces quality</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>Proper breakfast before gym, then banana or yogurt as a snack before the run</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>Sunday bridges to Monday Push — don't leave yourself so wrecked you can't train well tomorrow</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>Some weeks just Pull and rest — that is a perfectly valid and productive Sunday</div>
+    <button class="ddp-link" onclick="goTo('workouts')">View full Pull day in Gym workouts →</button>
+    <div class="tip-box-f" style="margin-top:14px;">
+      <div class="tip-box-title">Prep</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>If Thu + Fri left you drained, do Pull only or take full rest — both are valid</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>Always gym before run — lifting on pre-fatigued legs risks injury</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>Sunday bridges to Monday Push — don't leave yourself wrecked for the week ahead</div>
     </div>
   </div>
 
@@ -1029,21 +987,16 @@
     <div class="workout-header">
       <span class="badge badge-purple">Strength · Pull</span>
       <div><div class="workout-title">Pull day</div>
-      <div class="workout-meta">Back · Biceps · Rear delts &nbsp;|&nbsp; ~55 min</div></div>
+      <div class="workout-meta">Back · Biceps · Rear delts &nbsp;|&nbsp; ~55 min · David Lloyd</div></div>
     </div>
-    <table class="ex-table">
-      <thead><tr><th>Exercise</th><th>Type</th><th>Sets</th><th>Reps</th><th>Rest</th></tr></thead>
-      <tbody>
-        <tr><td><div class="ex-name-cell">Pull-ups / Lat pulldown</div><div class="ex-focus">Compound · Wide back</div></td><td><span class="badge badge-teal">Primary</span></td><td><span class="pill-sm pill-sets">4</span></td><td><span class="pill-sm pill-reps">8–10</span></td><td><span class="pill-sm pill-rest">90s</span></td></tr>
-        <tr><td><div class="ex-name-cell">Seated cable row</div><div class="ex-focus">Mid-back · Rhomboids</div></td><td><span class="badge badge-teal">Primary</span></td><td><span class="pill-sm pill-sets">3</span></td><td><span class="pill-sm pill-reps">10–12</span></td><td><span class="pill-sm pill-rest">75s</span></td></tr>
-        <tr><td><div class="ex-name-cell">Single-arm dumbbell row</div><div class="ex-focus">Unilateral · Lat focus</div></td><td><span class="badge badge-blue">Secondary</span></td><td><span class="pill-sm pill-sets">3</span></td><td><span class="pill-sm pill-reps">10 each</span></td><td><span class="pill-sm pill-rest">75s</span></td></tr>
-        <tr><td><div class="ex-name-cell">Face pulls</div><div class="ex-focus">Rear deltoids · Shoulder health</div></td><td><span class="badge badge-blue">Accessory</span></td><td><span class="pill-sm pill-sets">3</span></td><td><span class="pill-sm pill-reps">15</span></td><td><span class="pill-sm pill-rest">60s</span></td></tr>
-        <tr><td><div class="ex-name-cell">Barbell bicep curl</div><div class="ex-focus">Biceps peak · Elbows tucked</div></td><td><span class="badge badge-amber">Isolation</span></td><td><span class="pill-sm pill-sets">3</span></td><td><span class="pill-sm pill-reps">10–12</span></td><td><span class="pill-sm pill-rest">60s</span></td></tr>
-        <tr><td><div class="ex-name-cell">Plank + cable crunch</div><div class="ex-focus">Core · Anti-extension</div></td><td><span class="badge badge-amber">Core</span></td><td><span class="pill-sm pill-sets">3</span></td><td><span class="pill-sm pill-reps">45s / 15</span></td><td><span class="pill-sm pill-rest">60s</span></td></tr>
-      </tbody>
-    </table>
-    <div class="tip-box-f" style="margin-top:16px;">
-      <div class="tip-box-title">Tips</div>
+    <div class="day-detail-preview">
+      <div class="ddp-row"><span>Pull-ups / Lat pulldown</span><span>4 × 8–10</span></div>
+      <div class="ddp-row"><span>Seated cable row</span><span>3 × 10–12</span></div>
+      <div class="ddp-row"><span>Barbell bicep curl</span><span>3 × 10–12</span></div>
+    </div>
+    <button class="ddp-link" onclick="goTo('workouts')">View full workout in Gym workouts →</button>
+    <div class="tip-box-f" style="margin-top:14px;">
+      <div class="tip-box-title">Prep</div>
       <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>Lat pulldown: chest up, pull elbows to hips — avoid hunching shoulders</div>
       <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>Rows: squeeze shoulder blades together at the top of each rep</div>
       <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>Add 2.5kg every 2 sessions when you hit the top of the rep range</div>
@@ -1052,25 +1005,16 @@
 
   <div id="day-rhythm" class="card day-detail" style="display:none;">
     <div class="workout-header">
-      <span class="badge badge-amber">Spin Class</span>
-      <div><div class="workout-title">Rhythm spin class</div>
-      <div class="workout-meta">Music-driven spin · 45 min · ~350–400 kcal · 70–85% HR</div></div>
-    </div>
-    <div style="background:var(--amber-light);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px;">
-      <span style="font-size:18px;">🎵</span>
-      <div style="font-size:13px;color:var(--amber);"><strong>Music-driven rhythm session.</strong> Follow the instructor's choreography and build resistance gradually. Less intense than Cyclone but excellent for form and rhythm development.</div>
-    </div>
-    <div class="grid-3" style="margin:0 0 16px;">
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;text-align:center;"><div style="font-size:22px;font-weight:700;font-family:'Space Grotesk', sans-serif;">~375</div><div style="font-size:11px;color:var(--text3);margin-top:3px;">Calories burned</div></div>
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;text-align:center;"><div style="font-size:22px;font-weight:700;font-family:'Space Grotesk', sans-serif;">70–85%</div><div style="font-size:11px;color:var(--text3);margin-top:3px;">Target heart rate</div></div>
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;text-align:center;"><div style="font-size:22px;font-weight:700;font-family:'Space Grotesk', sans-serif;">45 min</div><div style="font-size:11px;color:var(--text3);margin-top:3px;">Duration</div></div>
+      <span class="badge badge-amber" id="class-badge-weekly-rhythm">Spin class · David Lloyd</span>
+      <div><div class="workout-title">Rhythm spin</div>
+      <div class="workout-meta">Music-driven · 45 min · ~350–400 kcal · 70–85% HR</div></div>
     </div>
     <div class="tip-box-f">
-      <div class="tip-box-title">Tips</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Rhythm is great for learning technique and pace control — enjoy the music and stay relaxed</div>
+      <div class="tip-box-title">Prep</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Book in advance — check the David Lloyd app for available slots</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Rhythm is music-led — follow the instructor's choreography and stay relaxed</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Great recovery session after a hard Cyclone or Blaze — less intense but still effective</div>
       <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Adjust resistance to match the instructor — don't go too heavy on climbs, focus on form</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Perfect day-after recovery option after a hard Cyclone or Blaze session</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Keep cadence 80–100 RPM on recovery sections, 120+ on climbs</div>
     </div>
   </div>
 
@@ -1078,74 +1022,44 @@
     <div class="workout-header">
       <span class="badge badge-blue">Running</span>
       <div><div class="workout-title">Long easy run</div>
-      <div class="workout-meta">45–90 min · Easy conversational pace · Aerobic base building</div></div>
-    </div>
-    <div style="background:var(--blue-light);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px;">
-      <span style="font-size:18px;">🏃</span>
-      <div style="font-size:13px;color:var(--blue);"><strong>Easy aerobic work.</strong> You should be able to hold a conversation the whole way. This builds aerobic capacity, base fitness, and mental toughness without the injury risk of harder paces.</div>
-    </div>
-    <div class="grid-2" style="gap:10px;margin-bottom:14px;">
-      <div style="background:var(--blue-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--blue);margin-bottom:4px;">EFFORT LEVEL</div><div style="font-size:13px;color:var(--text2);">Easy / conversational · 4–5/10. If you can't talk comfortably, slow down. This should feel recovery-like.</div></div>
-      <div style="background:var(--teal-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--teal);margin-bottom:4px;">DURATION</div><div style="font-size:13px;color:var(--text2);">45–60 min building up to 90 min over weeks. Aim for a mix of paces and terrain.</div></div>
-      <div style="background:var(--amber-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--amber);margin-bottom:4px;">BEST ROUTES</div><div style="font-size:13px;color:var(--text2);">Purley Way, Croydon park, Beckenham Place Park — mix flat and rolling terrain for variety.</div></div>
-      <div style="background:var(--purple-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--purple);margin-bottom:4px;">NUTRITION</div><div style="font-size:13px;color:var(--text2);">Eat well 2–3 hours before. If it's over 60 min, bring water and consider an energy gel or date.</div></div>
+      <div class="workout-meta">45–90 min · Easy conversational pace · Aerobic base</div></div>
     </div>
     <div class="tip-box-f">
-      <div class="tip-box-title">Long run tips</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Build distance gradually — add 10% per week max to avoid injury</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Do these when well-rested — skip if your Whoop recovery is red</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>No music — use this time to practice mindfulness and build mental resilience</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Same day as gym? Do gym first, rest 1–2 hours, then run. Never run before lifting.</div>
+      <div class="tip-box-title">Prep</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Check Runna for this week's long run distance and structure</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Eat well 2–3 hours before. Bring water and a gel if going over 60 min</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Skip if your Whoop is red — rest wins over forced mileage</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Build distance gradually — add no more than 10% per week to avoid injury</div>
     </div>
   </div>
 
   <div id="day-easy-run" class="card day-detail" style="display:none;">
     <div class="workout-header">
       <span class="badge badge-blue">Running</span>
-      <div><div class="workout-title">Easy conversational run</div>
-      <div class="workout-meta">20–30 min · No intervals · Active recovery</div></div>
-    </div>
-    <div style="background:var(--blue-light);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px;">
-      <span style="font-size:18px;">🏃</span>
-      <div style="font-size:13px;color:var(--blue);"><strong>Gentle aerobic work.</strong> Perfect for active recovery, getting the legs moving after gym, or a quick lunchtime session. Should feel easy enough to hold a full conversation.</div>
-    </div>
-    <div class="grid-2" style="gap:10px;margin-bottom:14px;">
-      <div style="background:var(--blue-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--blue);margin-bottom:4px;">PACE</div><div style="font-size:13px;color:var(--text2);">Easy conversational jog · 6–7 min/km roughly. If you're pushing hard, you're running too fast.</div></div>
-      <div style="background:var(--teal-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--teal);margin-bottom:4px;">DISTANCE</div><div style="font-size:13px;color:var(--text2);">Time on feet matters more than speed. 20–30 min is perfect. Distance will be 2–3.5km.</div></div>
-      <div style="background:var(--amber-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--amber);margin-bottom:4px;">GOOD FOR</div><div style="font-size:13px;color:var(--text2);">Thursday lunchtime run, Tuesday easy shake-out, Saturday recovery jog, or anytime post-gym.</div></div>
-      <div style="background:var(--purple-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--purple);margin-bottom:4px;">HEART RATE</div><div style="font-size:13px;color:var(--text2);">70–75% max HR roughly. Keep it conversational — you're training recovery, not speed.</div></div>
+      <div><div class="workout-title">Easy run</div>
+      <div class="workout-meta">20–30 min · Conversational pace · Active recovery</div></div>
     </div>
     <div class="tip-box-f">
-      <div class="tip-box-title">Easy run tips</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Don't overthink the pace — if you can't talk, slow down</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>After gym: run 1–2 hours post-session, not immediately after</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Use this to practice running form — cadence 160–170 steps/min</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Perfect as "filler" sessions between hard workouts</div>
+      <div class="tip-box-title">Prep</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Check Runna — this might be a structured easy session rather than free running</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>If you can't hold a conversation, you're going too fast — slow down</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>After gym: leave at least an hour before running to avoid nausea</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Great filler session between hard training days</div>
     </div>
   </div>
 
   <div id="day-runna" class="card day-detail" style="display:none;">
     <div class="workout-header">
-      <span class="badge badge-blue">App-based training</span>
+      <span class="badge badge-blue">Runna</span>
       <div><div class="workout-title">Runna workout</div>
-      <div class="workout-meta">App-guided session · 20–40 min · Follow coach instructions</div></div>
-    </div>
-    <div style="background:var(--blue-light);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px;">
-      <span style="font-size:18px;">📱</span>
-      <div style="font-size:13px;color:var(--blue);"><strong>Coach-guided running on your phone.</strong> Follow the Runna app's structured workout — could be an interval session, tempo run, or easy jog. The app will guide pace and provide real-time coaching.</div>
-    </div>
-    <div class="grid-2" style="gap:10px;margin-bottom:14px;">
-      <div style="background:var(--blue-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--blue);margin-bottom:4px;">HOW TO PREPARE</div><div style="font-size:13px;color:var(--text2);">Download the Runna app, create an account, and select a training plan matching your goals. Choose your preferred workout for the day.</div></div>
-      <div style="background:var(--teal-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--teal);margin-bottom:4px;">DURING THE SESSION</div><div style="font-size:13px;color:var(--text2);">Keep your phone on you, play audio through speakers or earbuds. The app will give voice cues for pace and intervals.</div></div>
-      <div style="background:var(--amber-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--amber);margin-bottom:4px;">FLEXIBILITY</div><div style="font-size:13px;color:var(--text2);">Choose sessions based on how you feel that day. Skip or substitute if tired. Always prioritize recovery over completing workouts.</div></div>
-      <div style="background:var(--purple-light);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;color:var(--purple);margin-bottom:4px;">VARIETY</div><div style="font-size:13px;color:var(--text2);">Runna includes easy runs, tempo work, intervals, and long runs. Great for structured progression and building running fitness.</div></div>
+      <div class="workout-meta">App-guided session · Follow coach instructions</div></div>
     </div>
     <div class="tip-box-f">
-      <div class="tip-box-title">Runna tips</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>The app's guidance is real-time — listen carefully to pace instructions</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>It's okay to bail or modify if the session doesn't match how you feel that day</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Use Runna for variety and structured progression throughout the week</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Log your sessions in the app so it can adjust your plan based on your performance</div>
+      <div class="tip-box-title">Prep</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Open Runna before you head out — check session type, distance, and effort level</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Lay kit out the night before so there's nothing to think about in the morning</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>It's fine to modify if the session doesn't match how you feel — Runna adapts over time</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Log every session in the app so it can adjust future workouts to your progress</div>
     </div>
   </div>
 
@@ -1153,31 +1067,14 @@
     <div class="workout-header">
       <span class="badge badge-cyan">Low-impact cardio</span>
       <div><div class="workout-title">Swimming</div>
-      <div class="workout-meta">30–45 min · Full-body low impact · ~350 kcal</div></div>
-    </div>
-    <div style="background:var(--cyan-light);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px;">
-      <span style="font-size:18px;">🏊</span>
-      <div style="font-size:13px;color:var(--cyan);"><strong>Full-body, zero-impact training.</strong> Excellent for active recovery, shoulder conditioning, and building cardiovascular fitness without joint stress. Perfect on days when your legs need a break.</div>
-    </div>
-    <div class="grid-3" style="margin:0 0 16px;">
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;text-align:center;"><div style="font-size:22px;font-weight:700;font-family:'Space Grotesk', sans-serif;">~350</div><div style="font-size:11px;color:var(--text3);margin-top:3px;">Calories burned</div></div>
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;text-align:center;"><div style="font-size:22px;font-weight:700;font-family:'Space Grotesk', sans-serif;">65–80%</div><div style="font-size:11px;color:var(--text3);margin-top:3px;">Target heart rate</div></div>
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;text-align:center;"><div style="font-size:22px;font-weight:700;font-family:'Space Grotesk', sans-serif;">30–45min</div><div style="font-size:11px;color:var(--text3);margin-top:3px;">Duration</div></div>
-    </div>
-    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:10px;">Session structure</div>
-    <div class="grid-2" style="gap:10px;margin-bottom:14px;">
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;margin-bottom:4px;">Warm-up</div><div style="font-size:12.5px;color:var(--text2);">5–10 min easy swimming. Mix strokes to loosen up shoulders and get your rhythm.</div></div>
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;margin-bottom:4px;">Main set</div><div style="font-size:12.5px;color:var(--text2);">15–25 min of steady effort. Mix freestyle with backstroke every 100m to avoid shoulder fatigue.</div></div>
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;margin-bottom:4px;">Cool-down</div><div style="font-size:12.5px;color:var(--text2);">5–10 min easy swimming to bring heart rate down. Stretch in the pool after.</div></div>
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;"><div style="font-size:12px;font-weight:600;margin-bottom:4px;">Recovery</div><div style="font-size:12.5px;color:var(--text2);">Excellent active recovery option. No impact on joints makes this perfect post-hard session.</div></div>
+      <div class="workout-meta">30–45 min · Full-body · ~350 kcal · David Lloyd pool</div></div>
     </div>
     <div class="tip-box-f">
-      <div class="tip-box-title">Swimming tips</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--cyan);"></span>Mix your strokes — freestyle, backstroke, and sidestroke. Prevents shoulder overuse and works different muscles.</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--cyan);"></span>Focus on technique, not speed. Smooth, controlled strokes beat fast, sloppy ones every time.</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--cyan);"></span>Breathe every 2–3 strokes on freestyle to maintain rhythm and oxygen levels.</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--cyan);"></span>Perfect day after Blaze, Cyclone, or hard running sessions — zero impact lets you recover while staying active.</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--cyan);"></span>Eat a light snack 30 min before, then a proper meal within 2 hours after.</div>
+      <div class="tip-box-title">Prep</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--cyan);"></span>Pack kit the night before — goggles, cap, and a towel you don't mind chlorine on</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--cyan);"></span>Mix strokes — freestyle and backstroke alternating prevents shoulder fatigue</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--cyan);"></span>Focus on technique over speed — smooth strokes are more efficient than splashing fast</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--cyan);"></span>Perfect after Blaze or a hard run — zero impact lets you recover while staying active</div>
     </div>
   </div>
 </div>
@@ -3938,12 +3835,20 @@ function renderDayCards() {
     // Use first workout color, or default
     const color = firstWorkout?.color || 'teal';
     const tag = firstWorkout?.tag || 'Workout';
+    // Neon overrides for class/run day types
+    const wType = firstWorkout?.type || '';
+    const dayTypeColor = (wType === 'cardio' && (firstType || '').match(/run|runna|interval|easy|long/i))
+      ? '#bf5fff'
+      : (wType === 'cardio' || wType === 'hiit') && (firstType || '').match(/cyclone|blaze|rhythm|swim/i)
+        ? '#d4ff00'
+        : null;
+    const dayTypeStyle = dayTypeColor ? `color:${dayTypeColor};` : `color:var(--${color});`;
 
     card.onclick = () => selectDay(firstType, card);
     card.innerHTML = `
       <div class="day-label-s">${day.dayKey.charAt(0).toUpperCase() + day.dayKey.slice(1)}</div>
       <div class="day-emoji">${combinedEmoji}</div>
-      <div class="day-type" style="color:var(--${color});">${combinedName}</div>
+      <div class="day-type" style="${dayTypeStyle}">${combinedName}</div>
       <div class="day-tag-s">${tag}</div>
     `;
     strip.appendChild(card);
@@ -4230,6 +4135,26 @@ function sortedClassTimes(times) {
 
 const SELECTED_CLASS_KEY = 'laura_selected_class_v1';
 
+// Travel times in minutes for each David Lloyd location
+const LOCATION_TRAVEL_TIMES = {
+  'purley':        10,
+  'dl purley':     10,
+  'david lloyd purley': 10,
+  'beckenham':     20,
+  'david lloyd beckenham': 20,
+  'colliers wood': 30,
+  'david lloyd colliers wood': 30,
+};
+
+function getLocationTravelTime(locationStr) {
+  if (!locationStr) return null;
+  const key = locationStr.toLowerCase().trim();
+  for (const loc in LOCATION_TRAVEL_TIMES) {
+    if (key.indexOf(loc) >= 0) return LOCATION_TRAVEL_TIMES[loc];
+  }
+  return null;
+}
+
 function getSelectedClassTime(workoutType) {
   const sel = getData(SELECTED_CLASS_KEY, {});
   return sel[workoutType] || null;
@@ -4243,17 +4168,27 @@ function setSelectedClassTime(workoutType, timeId) {
 }
 
 const DAY_SHORT = { mon:'Mon', tue:'Tue', wed:'Wed', thu:'Thu', fri:'Fri', sat:'Sat', sun:'Sun' };
+const DAY_FULL  = { mon:'Monday', tue:'Tuesday', wed:'Wednesday', thu:'Thursday', fri:'Friday', sat:'Saturday', sun:'Sunday' };
 
 function updateClassBadge(workoutType) {
-  const badge = document.getElementById('class-badge-' + workoutType);
-  if (!badge) return;
+  // Update the badge in the Classes & Running page header
+  const classBadge = document.getElementById('class-badge-' + workoutType);
+  // Update the badge in the Weekly Schedule day-detail card
+  const weeklyBadge = document.getElementById('class-badge-weekly-' + workoutType);
+
   const selectedId = getSelectedClassTime(workoutType);
   if (!selectedId) return;
   const times = getClassTimes(workoutType);
   const t = times.find(x => x.id === selectedId);
   if (!t) return;
-  const loc = t.location ? ' · ' + t.location.replace('David Lloyd ', '') : '';
-  badge.textContent = DAY_SHORT[t.day] + ' ' + t.time + loc;
+
+  const locShort = t.location ? ' · ' + t.location.replace(/david lloyd /i, '') : '';
+  const locFull  = t.location ? ' · ' + t.location : '';
+  const badgeText = DAY_SHORT[t.day] + ' ' + t.time + locShort;
+  const weeklyText = t.time + ' · ' + (t.location || 'David Lloyd');
+
+  if (classBadge)  classBadge.textContent  = badgeText;
+  if (weeklyBadge) weeklyBadge.textContent = weeklyText;
 }
 
 function updateAllClassBadges() {
@@ -5971,30 +5906,51 @@ function renderGymWorkouts() {
   var container = document.getElementById('gym-workouts-list');
   if (!container) return;
   var all = getAllGymWorkouts();
-  // Sort alphabetically by name
   all = all.slice().sort(function(a,b) { return a.name.localeCompare(b.name); });
   container.innerHTML = '';
 
-  all.forEach(function(w) {
-    var card = document.createElement('div');
-    card.className = 'card';
-    card.style.marginBottom = '16px';
+  if (all.length === 0) {
+    container.innerHTML = '<div style="text-align:center;color:var(--text3);padding:40px 20px;font-size:14px;">No gym workouts yet. Add one to get started!</div>';
+    return;
+  }
 
+  // 2-column grid wrapper
+  var grid = document.createElement('div');
+  grid.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:12px;';
+
+  all.forEach(function(w) {
     var isCustom = !!w.custom;
     var badgeColor = w.color || 'teal';
+    var exCount = (w.exercises && w.exercises.length) ? w.exercises.length : 0;
+    var cardId = 'gym-card-' + escapeHtml(w.id);
 
-    var html = '';
-    html += '<div class="workout-header" style="display:flex;align-items:flex-start;gap:14px;margin-bottom:12px;">';
-    html += '<span class="badge badge-' + escapeHtml(badgeColor) + '">' + escapeHtml(w.emoji || '💪') + ' ' + escapeHtml(w.badge || w.name) + '</span>';
-    html += '<div style="flex:1;min-width:0;"><div class="workout-title">' + escapeHtml(w.name) + '</div>';
-    html += '<div class="workout-meta">' + escapeHtml(w.meta || '') + '</div></div>';
+    var card = document.createElement('div');
+    card.className = 'card gym-grid-card';
+    card.id = cardId;
+    card.style.cssText = 'padding:14px;cursor:pointer;transition:border-color 0.15s;border:1.5px solid var(--border);';
+
+    // Header row
+    var headerHtml = '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">';
+    headerHtml += '<div style="flex:1;min-width:0;">';
+    headerHtml += '<div style="font-size:14px;font-weight:600;margin-bottom:3px;">' + escapeHtml(w.emoji || '💪') + ' ' + escapeHtml(w.name) + '</div>';
+    if (w.meta) headerHtml += '<div style="font-size:11px;color:var(--text3);margin-bottom:6px;">' + escapeHtml(w.meta) + '</div>';
+    headerHtml += '<div style="display:flex;flex-wrap:wrap;gap:4px;">';
+    if (exCount) headerHtml += '<span style="font-size:10px;padding:2px 7px;border-radius:10px;background:var(--bg2);color:var(--text3);">' + exCount + ' exercises</span>';
+    headerHtml += '<span class="badge badge-' + badgeColor + '" style="font-size:10px;padding:2px 7px;">' + escapeHtml(w.badge || w.name) + '</span>';
+    headerHtml += '</div>';
+    headerHtml += '</div>';
     if (isCustom) {
-      html += '<button onclick="deleteCustomGymWorkout(\'' + escapeHtml(w.id) + '\')" style="background:var(--red-light);color:var(--red);border:none;border-radius:6px;width:32px;height:32px;cursor:pointer;font-size:16px;font-weight:600;flex-shrink:0;" title="Delete workout">✕</button>';
+      headerHtml += '<button onclick="event.stopPropagation();deleteCustomGymWorkout(\'' + escapeHtml(w.id) + '\')" style="background:var(--red-light);color:var(--red);border:none;border-radius:6px;width:28px;height:28px;cursor:pointer;font-size:14px;font-weight:600;flex-shrink:0;" title="Delete">✕</button>';
     }
-    html += '</div>';
+    headerHtml += '</div>';
 
+    // Expand hint
+    headerHtml += '<div class="gym-expand-hint" style="font-size:11px;color:var(--text3);margin-top:10px;text-align:center;">Tap to see exercises</div>';
+
+    // Expandable section (hidden by default)
+    var expandHtml = '<div class="gym-card-expand" style="display:none;margin-top:12px;border-top:1px solid var(--border);padding-top:12px;">';
     if (w.exercises && w.exercises.length) {
-      html += '<table class="ex-table"><thead><tr><th>Exercise</th><th>Type</th><th>Sets</th><th>Reps</th><th>Rest</th></tr></thead><tbody>';
+      expandHtml += '<table class="ex-table"><thead><tr><th>Exercise</th><th>Type</th><th>Sets</th><th>Reps</th><th>Rest</th></tr></thead><tbody>';
       w.exercises.forEach(function(ex) {
         var typeColor = 'teal';
         var t = (ex.type || '').toLowerCase();
@@ -6002,30 +5958,47 @@ function renderGymWorkouts() {
         else if (t.indexOf('isolation') >= 0) typeColor = 'amber';
         else if (t.indexOf('accessory') >= 0) typeColor = 'blue';
         else if (t.indexOf('core') >= 0) typeColor = 'amber';
-        html += '<tr><td><div class="ex-name-cell">' + escapeHtml(ex.name) + '</div><div class="ex-focus">' + escapeHtml(ex.focus || '') + '</div></td>';
-        html += '<td><span class="badge badge-' + typeColor + '">' + escapeHtml(ex.type || '') + '</span></td>';
-        html += '<td><span class="pill-sm pill-sets">' + escapeHtml(ex.sets || '') + '</span></td>';
-        html += '<td><span class="pill-sm pill-reps">' + escapeHtml(ex.reps || '') + '</span></td>';
-        html += '<td><span class="pill-sm pill-rest">' + escapeHtml(ex.rest || '') + '</span></td></tr>';
+        expandHtml += '<tr><td><div class="ex-name-cell">' + escapeHtml(ex.name) + '</div><div class="ex-focus">' + escapeHtml(ex.focus || '') + '</div></td>';
+        expandHtml += '<td><span class="badge badge-' + typeColor + '">' + escapeHtml(ex.type || '') + '</span></td>';
+        expandHtml += '<td><span class="pill-sm pill-sets">' + escapeHtml(ex.sets || '') + '</span></td>';
+        expandHtml += '<td><span class="pill-sm pill-reps">' + escapeHtml(ex.reps || '') + '</span></td>';
+        expandHtml += '<td><span class="pill-sm pill-rest">' + escapeHtml(ex.rest || '') + '</span></td></tr>';
       });
-      html += '</tbody></table>';
+      expandHtml += '</tbody></table>';
     }
-
     if (w.tips && w.tips.length) {
-      html += '<div class="tip-box-f" style="margin-top:16px;"><div class="tip-box-title">Tips</div>';
+      expandHtml += '<div class="tip-box-f" style="margin-top:12px;"><div class="tip-box-title">Tips</div>';
       w.tips.forEach(function(tip) {
-        html += '<div class="tip-item"><span class="tip-dot-f"></span>' + escapeHtml(tip) + '</div>';
+        expandHtml += '<div class="tip-item"><span class="tip-dot-f"></span>' + escapeHtml(tip) + '</div>';
       });
-      html += '</div>';
+      expandHtml += '</div>';
     }
+    expandHtml += '</div>';
 
-    card.innerHTML = html;
-    container.appendChild(card);
+    card.innerHTML = headerHtml + expandHtml;
+
+    // Toggle expand on click
+    card.addEventListener('click', function() {
+      var expandEl = card.querySelector('.gym-card-expand');
+      var hintEl = card.querySelector('.gym-expand-hint');
+      var isOpen = expandEl.style.display !== 'none';
+      // Collapse all other cards first
+      document.querySelectorAll('.gym-grid-card').forEach(function(c) {
+        c.querySelector('.gym-card-expand').style.display = 'none';
+        c.querySelector('.gym-expand-hint').style.display = '';
+        c.style.borderColor = 'var(--border)';
+      });
+      if (!isOpen) {
+        expandEl.style.display = 'block';
+        hintEl.style.display = 'none';
+        card.style.borderColor = 'var(--teal)';
+      }
+    });
+
+    grid.appendChild(card);
   });
 
-  if (all.length === 0) {
-    container.innerHTML = '<div style="text-align:center;color:var(--text3);padding:40px 20px;font-size:14px;">No gym workouts yet. Add one to get started!</div>';
-  }
+  container.appendChild(grid);
 }
 
 // Add Custom Workout — modal helpers
