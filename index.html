@@ -3038,22 +3038,67 @@ function showClientIdSetup() {
 }
 
 // ---- Sign in / out ----
+function _setSignInMsg(msg, isError) {
+  let el = document.getElementById('signin-status-msg');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'signin-status-msg';
+    el.style.cssText = 'font-size:12px;margin-top:10px;padding:8px 12px;border-radius:8px;';
+    const wrap = document.getElementById('signin-btn-wrap');
+    if (wrap) wrap.appendChild(el);
+  }
+  el.textContent = msg;
+  el.style.background = isError ? 'rgba(220,60,60,0.12)' : 'rgba(0,245,212,0.1)';
+  el.style.color = isError ? '#ff6b6b' : 'var(--teal)';
+  el.style.display = msg ? 'block' : 'none';
+}
+
 function signIn() {
   const clientId = getClientId();
   if (!clientId) { showClientIdSetup(); return; }
-  const client = google.accounts.oauth2.initTokenClient({
-    client_id: clientId,
-    scope: DRIVE_SCOPE,
-    callback: async (resp) => {
-      if (resp.error) { setSyncStatus('error', 'Sign-in failed'); return; }
-      gAccessToken = resp.access_token;
-      gSyncEnabled = true;
-      setSyncStatus('saving', 'Loading your data…');
-      await loadFromDrive();
-      launchApp();
-    },
-  });
-  client.requestAccessToken();
+
+  // GSI script loads async — wait for it if not ready yet
+  if (typeof google === 'undefined' || !google.accounts || !google.accounts.oauth2) {
+    _setSignInMsg('Loading Google Sign-In library…');
+    let waited = 0;
+    const poll = setInterval(() => {
+      waited += 100;
+      if (typeof google !== 'undefined' && google.accounts && google.accounts.oauth2) {
+        clearInterval(poll);
+        _setSignInMsg('');
+        _doSignIn(clientId);
+      } else if (waited > 10000) {
+        clearInterval(poll);
+        _setSignInMsg('Could not load Google Sign-In. Check your internet connection and try again.', true);
+      }
+    }, 100);
+    return;
+  }
+  _doSignIn(clientId);
+}
+
+function _doSignIn(clientId) {
+  _setSignInMsg('');
+  try {
+    const client = google.accounts.oauth2.initTokenClient({
+      client_id: clientId,
+      scope: DRIVE_SCOPE,
+      callback: async (resp) => {
+        if (resp.error) {
+          _setSignInMsg('Sign-in failed: ' + (resp.error_description || resp.error), true);
+          return;
+        }
+        gAccessToken = resp.access_token;
+        gSyncEnabled = true;
+        setSyncStatus('saving', 'Loading your data…');
+        await loadFromDrive();
+        launchApp();
+      },
+    });
+    client.requestAccessToken();
+  } catch(e) {
+    _setSignInMsg('Sign-in error: ' + e.message + '. Try refreshing the page.', true);
+  }
 }
 
 function usePlanOnly() {
