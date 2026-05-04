@@ -3918,10 +3918,11 @@ function renderDayCards() {
       gym:   'linear-gradient(145deg,#021310 0%,#042e26 100%)',
       run:   'linear-gradient(145deg,#130820 0%,#220a36 100%)',
       class: 'linear-gradient(145deg,#141200 0%,#2a2600 100%)',
-      rest:  'linear-gradient(145deg,#141414 0%,#1e1e1e 100%)'
+      rest:  'linear-gradient(145deg,#161616 0%,#222222 100%)'
     };
-    const CATEGORY_BORDER = { gym:'rgba(0,245,212,0.4)', run:'rgba(191,95,255,0.4)', class:'rgba(212,255,0,0.4)', rest:'rgba(136,136,136,0.2)' };
-    const CATEGORY_GLOW   = { gym:'rgba(0,245,212,0.12)', run:'rgba(191,95,255,0.12)', class:'rgba(212,255,0,0.08)', rest:'rgba(180,180,180,0.06)' };
+    const CATEGORY_BORDER = { gym:'rgba(0,245,212,0.4)', run:'rgba(191,95,255,0.4)', class:'rgba(212,255,0,0.4)', rest:'rgba(255,255,255,0.22)' };
+    const CATEGORY_GLOW   = { gym:'rgba(0,245,212,0.12)', run:'rgba(191,95,255,0.12)', class:'rgba(212,255,0,0.08)', rest:'rgba(255,255,255,0.10)' };
+    const CATEGORY_BORDER_STYLE = { gym:'solid', run:'solid', class:'solid', rest:'dashed' };
 
     const cats = workoutTypes.map(t => getCardCategory(t));
     const primaryCat = cats[0] || 'gym';
@@ -3942,7 +3943,7 @@ function renderDayCards() {
       card.style.background = `linear-gradient(135deg,${g1} 0%,${g1} 45%,${g2} 55%,${g2} 100%), linear-gradient(145deg,#0d0d0d,#1a1a1a)`;
     } else {
       card.style.background = CATEGORY_GRAD[primaryCat];
-      card.style.border = `1px solid ${CATEGORY_BORDER[primaryCat]}`;
+      card.style.border = `1px ${CATEGORY_BORDER_STYLE[primaryCat]} ${CATEGORY_BORDER[primaryCat]}`;
       card.style.boxShadow = `0 0 20px ${CATEGORY_GLOW[primaryCat]}, 0 2px 8px rgba(0,0,0,0.5)`;
     }
 
@@ -4034,10 +4035,11 @@ function renderDashboardWeek() {
         gym:   'linear-gradient(145deg,#021310 0%,#042e26 100%)',
         run:   'linear-gradient(145deg,#130820 0%,#220a36 100%)',
         class: 'linear-gradient(145deg,#141200 0%,#2a2600 100%)',
-        rest:  'linear-gradient(145deg,#141414 0%,#1e1e1e 100%)'
+        rest:  'linear-gradient(145deg,#161616 0%,#222222 100%)'
       };
-      const DW_CAT_BORDER = { gym:'rgba(0,245,212,0.4)', run:'rgba(191,95,255,0.4)', class:'rgba(212,255,0,0.4)', rest:'rgba(136,136,136,0.2)' };
-      const DW_CAT_GLOW   = { gym:'rgba(0,245,212,0.12)', run:'rgba(191,95,255,0.12)', class:'rgba(212,255,0,0.08)', rest:'rgba(180,180,180,0.06)' };
+      const DW_CAT_BORDER = { gym:'rgba(0,245,212,0.4)', run:'rgba(191,95,255,0.4)', class:'rgba(212,255,0,0.4)', rest:'rgba(255,255,255,0.22)' };
+      const DW_CAT_GLOW   = { gym:'rgba(0,245,212,0.12)', run:'rgba(191,95,255,0.12)', class:'rgba(212,255,0,0.08)', rest:'rgba(255,255,255,0.10)' };
+      const DW_CAT_BORDER_STYLE = { gym:'solid', run:'solid', class:'solid', rest:'dashed' };
       function getDwCat(type) {
         if (!type) return 'gym';
         const w = _libDw[type];
@@ -4064,8 +4066,9 @@ function renderDashboardWeek() {
         cellShadow = `0 0 20px ${DW_CAT_GLOW[dwPrimary]}, 0 2px 8px rgba(0,0,0,0.5)`;
       }
 
+      const cellBorderStyle = DW_CAT_BORDER_STYLE[dwPrimary];
       html += `
-        <div class="wm-cell" style="background:${cellBg};border:1px solid ${cellBorder};box-shadow:${cellShadow};">
+        <div class="wm-cell" style="background:${cellBg};border:1px ${cellBorderStyle} ${cellBorder};box-shadow:${cellShadow};">
           <div class="wm-day">${dayKey.charAt(0).toUpperCase() + dayKey.slice(1)}</div>
           <div class="wm-emoji">${combinedEmoji}</div>
           <div class="wm-label" style="color:${labelColor};">${combinedName}</div>
