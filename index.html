@@ -186,6 +186,45 @@
     box-shadow: var(--shadow);
     border: 1px solid var(--border);
   }
+  /* Finance Hub-inspired category cards */
+  .card-gym {
+    background: linear-gradient(145deg,#021310 0%,#042e26 100%);
+    border: 1px solid rgba(0,245,212,0.45);
+    box-shadow: 0 0 40px rgba(0,245,212,0.12), 0 2px 16px rgba(0,0,0,0.5);
+    border-radius: var(--radius);
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-run {
+    background: linear-gradient(145deg,#130820 0%,#220a36 100%);
+    border: 1px solid rgba(191,95,255,0.45);
+    box-shadow: 0 0 40px rgba(191,95,255,0.12), 0 2px 16px rgba(0,0,0,0.5);
+    border-radius: var(--radius);
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-class {
+    background: linear-gradient(145deg,#141200 0%,#2a2600 100%);
+    border: 1px solid rgba(212,255,0,0.45);
+    box-shadow: 0 0 40px rgba(212,255,0,0.10), 0 2px 16px rgba(0,0,0,0.5);
+    border-radius: var(--radius);
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-gym::before, .card-run::before, .card-class::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+    pointer-events: none;
+  }
   .card-sm { padding: 16px 18px; }
   .card-title { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 500; margin-bottom: 4px; }
   .card-sub { font-size: 12px; color: var(--text2); }
@@ -880,7 +919,7 @@
 
   <!-- Day detail cards — compact summaries. Full exercise detail lives in Gym Workouts tab. -->
 
-  <div id="day-push" class="card day-detail" style="display:none;">
+  <div id="day-push" class="card card-gym day-detail" style="display:none;">
     <div class="workout-header">
       <span class="badge badge-teal">Strength · Push</span>
       <div><div class="workout-title">Push day</div>
@@ -900,7 +939,7 @@
     </div>
   </div>
 
-  <div id="day-cyclone" class="card day-detail" style="display:none;">
+  <div id="day-cyclone" class="card card-class day-detail" style="display:none;">
     <div class="workout-header">
       <span class="badge badge-class" id="class-badge-weekly-cyclone">Spin class · David Lloyd</span>
       <div><div class="workout-title">Cyclone</div>
@@ -915,7 +954,7 @@
     </div>
   </div>
 
-  <div id="day-run_wed" class="card day-detail" style="display:none;">
+  <div id="day-run_wed" class="card card-run day-detail" style="display:none;">
     <div class="workout-header">
       <span class="badge badge-run" id="run-badge-interval_run">Flexible</span>
       <div><div class="workout-title">Interval run</div>
@@ -930,7 +969,7 @@
     </div>
   </div>
 
-  <div id="day-legs" class="card day-detail" style="display:none;">
+  <div id="day-legs" class="card card-gym day-detail" style="display:none;">
     <div class="workout-header">
       <span class="badge badge-teal">Strength · Legs</span>
       <div><div class="workout-title">Legs day</div>
@@ -950,7 +989,7 @@
     </div>
   </div>
 
-  <div id="day-blaze_fri" class="card day-detail" style="display:none;">
+  <div id="day-blaze_fri" class="card card-class day-detail" style="display:none;">
     <div class="workout-header">
       <span class="badge badge-class" id="class-badge-weekly-blaze">HIIT class · David Lloyd</span>
       <div><div class="workout-title">Blaze</div>
@@ -993,7 +1032,7 @@
     </div>
   </div>
 
-  <div id="day-pull" class="card day-detail" style="display:none;">
+  <div id="day-pull" class="card card-gym day-detail" style="display:none;">
     <div class="workout-header">
       <span class="badge badge-teal">Strength · Pull</span>
       <div><div class="workout-title">Pull day</div>
@@ -1013,7 +1052,7 @@
     </div>
   </div>
 
-  <div id="day-rhythm" class="card day-detail" style="display:none;">
+  <div id="day-rhythm" class="card card-class day-detail" style="display:none;">
     <div class="workout-header">
       <span class="badge badge-class" id="class-badge-weekly-rhythm">Spin class · David Lloyd</span>
       <div><div class="workout-title">Rhythm</div>
@@ -1028,7 +1067,7 @@
     </div>
   </div>
 
-  <div id="day-long-run" class="card day-detail" style="display:none;">
+  <div id="day-long-run" class="card card-run day-detail" style="display:none;">
     <div class="workout-header">
       <span class="badge badge-run" id="run-badge-long_run">Flexible</span>
       <div><div class="workout-title">Long easy run</div>
@@ -1043,7 +1082,7 @@
     </div>
   </div>
 
-  <div id="day-easy-run" class="card day-detail" style="display:none;">
+  <div id="day-easy-run" class="card card-run day-detail" style="display:none;">
     <div class="workout-header">
       <span class="badge badge-run" id="run-badge-easy_run">Flexible</span>
       <div><div class="workout-title">Easy run</div>
@@ -1058,7 +1097,7 @@
     </div>
   </div>
 
-  <div id="day-runna" class="card day-detail" style="display:none;">
+  <div id="day-runna" class="card card-run day-detail" style="display:none;">
     <div class="workout-header">
       <span class="badge badge-run" id="run-badge-runna">Flexible</span>
       <div><div class="workout-title">Runna</div>
@@ -1073,7 +1112,7 @@
     </div>
   </div>
 
-  <div id="day-swim" class="card day-detail" style="display:none;">
+  <div id="day-swim" class="card card-gym day-detail" style="display:none;">
     <div class="workout-header">
       <span class="badge badge-cyan">Low-impact cardio</span>
       <div><div class="workout-title">Swimming</div>
@@ -1150,11 +1189,11 @@
   <div class="page-header">
     <div class="page-eyebrow">Training</div>
     <div class="page-title">Classes & running</div>
-    <div class="page-sub">Blaze HIIT · Cyclone · Rhythm · Interval runs · Easy run · Runna · Swim</div>
+    <div class="page-sub">Blaze · Cyclone · Rhythm · Interval runs · Easy run · Runna · Swim</div>
   </div>
   <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">Classes</div>
   <div class="grid-2" style="margin-bottom:20px;">
-    <div class="card">
+    <div class="card-class">
       <div class="workout-header"><span class="badge badge-class" id="class-badge-blaze">Flexible</span><div><div class="workout-title">Blaze</div><div class="workout-meta">45 min · ~500 kcal · 85–95% HR</div></div></div>
       <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Your primary fat-burning session. Treadmill sprints, sled, punch bags and strength stations. Friday morning — gets the weekend off to a great start and your metabolism firing all day.</div>
       <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
@@ -1163,7 +1202,7 @@
       </div>
       <div id="class-times-manager-blaze"></div>
     </div>
-    <div class="card">
+    <div class="card-class">
       <div class="workout-header"><span class="badge badge-class" id="class-badge-cyclone">Tue 7:00am · Purley</span><div><div class="workout-title">Cyclone</div><div class="workout-meta">45 min · ~400 kcal · 75–90% HR</div></div></div>
       <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Tuesday 7am at Purley. Low-impact, high calorie burn. A great start to the working day — you'll be done by 8am. Match resistance to the instructor on all climbs.</div>
       <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
@@ -1172,7 +1211,7 @@
       </div>
       <div id="class-times-manager-cyclone"></div>
     </div>
-    <div class="card">
+    <div class="card-class">
       <div class="workout-header"><span class="badge badge-class" id="class-badge-rhythm">Flexible</span><div><div class="workout-title">Rhythm</div><div class="workout-meta">45 min · ~400 kcal · 75–90% HR</div></div></div>
       <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Indoor cycling class option. Low-impact, high calorie burn. Can be scheduled flexibly throughout the week based on class availability.</div>
       <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
@@ -1185,17 +1224,17 @@
 
   <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">Running</div>
   <div class="grid-2" style="margin-bottom:20px;">
-    <div class="card">
+    <div class="card-run">
       <div class="workout-header"><span class="badge badge-run" id="run-badge-page-interval_run">Flexible</span><div><div class="workout-title">Interval run</div><div class="workout-meta">30–35 min · 6 × 2 min efforts</div></div></div>
       <div style="font-size:13.5px;color:var(--text2);line-height:1.7;">Run hard for 2 min, recover for 1 min easy jog. Repeat 6 times. Start with 4 and build. No gym needed — run local wherever you are. Burns more fat in less time than steady jogging.</div>
       <div id="run-times-manager-interval_run"></div>
     </div>
-    <div class="card">
+    <div class="card-run">
       <div class="workout-header"><span class="badge badge-run" id="run-badge-page-long_run">Flexible</span><div><div class="workout-title">Easy long run</div><div class="workout-meta">30–45 min · Conversational pace · 5–6/10</div></div></div>
       <div style="font-size:13.5px;color:var(--text2);line-height:1.7;">Thursday lunchtime run from home (WFH), and optionally Sunday after gym. Run slow enough to hold a full sentence. Beckenham Place Park and Purley Way are both ideal flat routes.</div>
       <div id="run-times-manager-long_run"></div>
     </div>
-    <div class="card">
+    <div class="card-run">
       <div class="workout-header"><span class="badge badge-run" id="run-badge-page-easy_run">Flexible</span><div><div class="workout-title">Easy run</div><div class="workout-meta">20–30 min · Easy pace · 4–5/10 effort</div></div></div>
       <div style="font-size:13.5px;color:var(--text2);line-height:1.7;">A gentle, conversational-pace run. Great for active recovery or adding volume without stress. No watch pressure — just move at a pace that feels comfortable.</div>
       <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
@@ -1204,7 +1243,7 @@
       </div>
       <div id="run-times-manager-easy_run"></div>
     </div>
-    <div class="card">
+    <div class="card-run">
       <div class="workout-header"><span class="badge badge-run" id="run-badge-page-runna">Flexible</span><div><div class="workout-title">Runna</div><div class="workout-meta">20–40 min · Varies · Tracking via app</div></div></div>
       <div style="font-size:13.5px;color:var(--text2);line-height:1.7;">Run tracking and training through the Runna app. Flexible duration and intensity — perfect for building running consistency without fixed gym times.</div>
       <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
@@ -1217,7 +1256,7 @@
 
   <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">Other</div>
   <div class="grid-2">
-    <div class="card">
+    <div class="card-gym">
       <div class="workout-header"><span class="badge badge-teal" id="class-badge-swim">Flexible</span><div><div class="workout-title">Swimming</div><div class="workout-meta">30–45 min · ~350 kcal · Low impact</div></div></div>
       <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Full-body low-impact cardio. Great for recovery days and joint health. Can be added as a flexible cross-training option.</div>
       <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
@@ -4150,7 +4189,7 @@ function renderDynamicGymDayDetail(workoutType, targetId) {
   if (!el) {
     el = document.createElement('div');
     el.id = targetId;
-    el.className = 'card day-detail';
+    el.className = 'card card-gym day-detail';
     el.style.display = 'none';
     trainingPage.appendChild(el);
   }
