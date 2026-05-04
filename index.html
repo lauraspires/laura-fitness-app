@@ -824,22 +824,22 @@
 
   <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">Weekly goals</div>
   <div class="grid-4">
-    <div class="stat-card" style="background:var(--teal-light);border-color:rgba(0,245,212,0.25);">
+    <div class="stat-card card-gym" style="border-color:rgba(0,245,212,0.4);box-shadow:0 0 20px rgba(0,245,212,0.12),0 2px 8px rgba(0,0,0,0.5);">
       <div style="font-size:22px;margin-bottom:6px;">🏋️</div>
-      <div style="font-size:14px;font-weight:700;color:var(--teal);line-height:1.2;margin-bottom:4px;">3 gym sessions</div>
+      <div style="font-size:14px;font-weight:700;color:#00f5d4;line-height:1.2;margin-bottom:4px;">3 gym sessions</div>
       <div class="stat-label">Push · Pull · Legs</div>
     </div>
-    <div class="stat-card" style="background:rgba(212,255,0,0.18);border-color:rgba(212,255,0,0.25);">
+    <div class="stat-card card-class" style="border-color:rgba(212,255,0,0.4);box-shadow:0 0 20px rgba(212,255,0,0.08),0 2px 8px rgba(0,0,0,0.5);">
       <div style="font-size:22px;margin-bottom:6px;">🔥</div>
       <div style="font-size:14px;font-weight:700;color:#d4ff00;line-height:1.2;margin-bottom:4px;">Blaze</div>
       <div class="stat-label">Primary fat-burn session</div>
     </div>
-    <div class="stat-card" style="background:rgba(212,255,0,0.18);border-color:rgba(212,255,0,0.25);">
+    <div class="stat-card card-class" style="border-color:rgba(212,255,0,0.4);box-shadow:0 0 20px rgba(212,255,0,0.08),0 2px 8px rgba(0,0,0,0.5);">
       <div style="font-size:22px;margin-bottom:6px;">🚴</div>
       <div style="font-size:14px;font-weight:700;color:#d4ff00;line-height:1.2;margin-bottom:4px;">Cyclone</div>
       <div class="stat-label">Low-impact cardio &amp; endurance</div>
     </div>
-    <div class="stat-card" style="background:rgba(191,95,255,0.18);border-color:rgba(191,95,255,0.25);">
+    <div class="stat-card card-run" style="border-color:rgba(191,95,255,0.4);box-shadow:0 0 20px rgba(191,95,255,0.12),0 2px 8px rgba(0,0,0,0.5);">
       <div style="font-size:22px;margin-bottom:6px;">🏃</div>
       <div style="font-size:14px;font-weight:700;color:#bf5fff;line-height:1.2;margin-bottom:4px;">2 runs/week</div>
       <div class="stat-label">Intervals + easy runs</div>
@@ -3921,7 +3921,7 @@ function renderDayCards() {
       rest:  'linear-gradient(145deg,#141414 0%,#1e1e1e 100%)'
     };
     const CATEGORY_BORDER = { gym:'rgba(0,245,212,0.4)', run:'rgba(191,95,255,0.4)', class:'rgba(212,255,0,0.4)', rest:'rgba(136,136,136,0.2)' };
-    const CATEGORY_GLOW   = { gym:'rgba(0,245,212,0.12)', run:'rgba(191,95,255,0.12)', class:'rgba(212,255,0,0.08)', rest:'rgba(0,0,0,0)' };
+    const CATEGORY_GLOW   = { gym:'rgba(0,245,212,0.12)', run:'rgba(191,95,255,0.12)', class:'rgba(212,255,0,0.08)', rest:'rgba(180,180,180,0.06)' };
 
     const cats = workoutTypes.map(t => getCardCategory(t));
     const primaryCat = cats[0] || 'gym';
@@ -4037,7 +4037,7 @@ function renderDashboardWeek() {
         rest:  'linear-gradient(145deg,#141414 0%,#1e1e1e 100%)'
       };
       const DW_CAT_BORDER = { gym:'rgba(0,245,212,0.4)', run:'rgba(191,95,255,0.4)', class:'rgba(212,255,0,0.4)', rest:'rgba(136,136,136,0.2)' };
-      const DW_CAT_GLOW   = { gym:'rgba(0,245,212,0.12)', run:'rgba(191,95,255,0.12)', class:'rgba(212,255,0,0.08)', rest:'rgba(0,0,0,0)' };
+      const DW_CAT_GLOW   = { gym:'rgba(0,245,212,0.12)', run:'rgba(191,95,255,0.12)', class:'rgba(212,255,0,0.08)', rest:'rgba(180,180,180,0.06)' };
       function getDwCat(type) {
         if (!type) return 'gym';
         const w = _libDw[type];
@@ -6308,12 +6308,12 @@ function renderGymWorkouts() {
     var cardId = 'gym-card-' + escapeHtml(w.id);
 
     var card = document.createElement('div');
-    card.className = 'card gym-grid-card';
+    card.className = 'card-gym gym-grid-card';
     card.id = cardId;
-    card.style.cssText = 'padding:0;cursor:pointer;transition:all 0.15s;border:1.5px solid var(--border);overflow:hidden;';
+    card.style.cssText = 'padding:0;cursor:pointer;transition:all 0.15s;overflow:hidden;border-radius:var(--radius);';
 
     // Header section with teal accent top bar
-    var headerHtml = '<div style="border-top:3px solid var(--teal);padding:14px 14px 10px;">';
+    var headerHtml = '<div style="border-top:3px solid #00f5d4;padding:14px 14px 10px;">';
     headerHtml += '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">';
     headerHtml += '<div style="flex:1;min-width:0;">';
     // Large emoji + name
@@ -6323,7 +6323,7 @@ function renderGymWorkouts() {
     headerHtml += '</div>';
     if (w.meta) headerHtml += '<div style="font-size:11px;color:var(--text3);margin-bottom:6px;">' + escapeHtml(w.meta) + '</div>';
     headerHtml += '<div style="display:flex;flex-wrap:wrap;gap:4px;">';
-    if (exCount) headerHtml += '<span style="font-size:10px;padding:2px 7px;border-radius:10px;background:var(--teal-light);color:var(--teal);font-weight:600;">' + exCount + ' exercises</span>';
+    if (exCount) headerHtml += '<span style="font-size:10px;padding:2px 7px;border-radius:10px;background:rgba(0,245,212,0.12);color:#00f5d4;font-weight:600;">' + exCount + ' exercises</span>';
     if (w.badge && w.badge !== w.name) headerHtml += '<span style="font-size:10px;padding:2px 7px;border-radius:10px;background:var(--bg2);color:var(--text3);">' + escapeHtml(w.badge) + '</span>';
     headerHtml += '</div>';
     headerHtml += '</div>';
@@ -6334,7 +6334,7 @@ function renderGymWorkouts() {
     headerHtml += '</div>';
 
     // Expand hint bar
-    headerHtml += '<div class="gym-expand-hint" style="padding:7px 14px;background:var(--bg2);border-top:1px solid var(--border);font-size:11px;color:var(--text3);text-align:center;letter-spacing:0.03em;">▾ Tap to see exercises</div>';
+    headerHtml += '<div class="gym-expand-hint" style="padding:7px 14px;background:rgba(0,245,212,0.06);border-top:1px solid rgba(0,245,212,0.18);font-size:11px;color:#888;text-align:center;letter-spacing:0.03em;">▾ Tap to see exercises</div>';
 
     // Expandable section (hidden by default)
     var expandHtml = '<div class="gym-card-expand" style="display:none;margin-top:12px;border-top:1px solid var(--border);padding-top:12px;">';
@@ -6375,12 +6375,14 @@ function renderGymWorkouts() {
       document.querySelectorAll('.gym-grid-card').forEach(function(c) {
         c.querySelector('.gym-card-expand').style.display = 'none';
         c.querySelector('.gym-expand-hint').style.display = '';
-        c.style.borderColor = 'var(--border)';
+        c.style.borderColor = 'rgba(0,245,212,0.4)';
+        c.style.boxShadow = '0 0 20px rgba(0,245,212,0.12), 0 2px 8px rgba(0,0,0,0.5)';
       });
       if (!isOpen) {
         expandEl.style.display = 'block';
         hintEl.style.display = 'none';
-        card.style.borderColor = 'var(--teal)';
+        card.style.borderColor = 'rgba(0,245,212,0.8)';
+        card.style.boxShadow = '0 0 30px rgba(0,245,212,0.22), 0 2px 8px rgba(0,0,0,0.5)';
       }
     });
 
