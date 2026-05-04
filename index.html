@@ -473,9 +473,16 @@
       padding: 12px 14px !important;
     }
 
-    /* Stat cards: tighten up value text */
+    /* Stat cards: tighten up on mobile */
     .stat-val {
-      font-size: 22px !important;
+      font-size: 20px !important;
+    }
+    .stat-card {
+      padding: 12px 14px !important;
+    }
+    /* Progress tracker: 2-column grid on mobile instead of 4 */
+    #page-progress .grid-4 {
+      grid-template-columns: 1fr 1fr !important;
     }
 
     /* Workout day strip: 3-wide on very small screens */
@@ -1240,7 +1247,7 @@
   </div>
   <div class="grid-2" style="margin-bottom:16px;">
     <div class="card">
-      <div class="workout-header"><span class="badge badge-coral">Fri 7:20am · Purley</span><div><div class="workout-title">Blaze HIIT</div><div class="workout-meta">45 min · ~500 kcal · 85–95% HR</div></div></div>
+      <div class="workout-header"><span class="badge badge-coral" id="class-badge-blaze">Fri 7:20am · Purley</span><div><div class="workout-title">Blaze HIIT</div><div class="workout-meta">45 min · ~500 kcal · 85–95% HR</div></div></div>
       <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Your primary fat-burning session. Treadmill sprints, sled, punch bags and strength stations. Friday morning — gets the weekend off to a great start and your metabolism firing all day.</div>
       <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
         <div class="tip-item"><span class="tip-dot-f" style="background:var(--coral);"></span>Book the 7:20am Purley slot in advance via David Lloyd app — fills fast</div>
@@ -1249,7 +1256,7 @@
       <div id="class-times-manager-blaze"></div>
     </div>
     <div class="card">
-      <div class="workout-header"><span class="badge badge-amber">Tue 7:00am · Purley</span><div><div class="workout-title">Cyclone spin</div><div class="workout-meta">45 min · ~400 kcal · 75–90% HR</div></div></div>
+      <div class="workout-header"><span class="badge badge-amber" id="class-badge-cyclone">Tue 7:00am · Purley</span><div><div class="workout-title">Cyclone spin</div><div class="workout-meta">45 min · ~400 kcal · 75–90% HR</div></div></div>
       <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Tuesday 7am at Purley. Low-impact, high calorie burn. A great start to the working day — you'll be done by 8am. Match resistance to the instructor on all climbs.</div>
       <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
         <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Banana or small snack 30 min before — no time for a full breakfast at 7am</div>
@@ -1270,7 +1277,7 @@
   </div>
   <div class="grid-2" style="margin-top:16px;">
     <div class="card">
-      <div class="workout-header"><span class="badge badge-amber">Flexible</span><div><div class="workout-title">Rhythm spin class</div><div class="workout-meta">45 min · ~400 kcal · 75–90% HR</div></div></div>
+      <div class="workout-header"><span class="badge badge-amber" id="class-badge-rhythm">Flexible</span><div><div class="workout-title">Rhythm spin class</div><div class="workout-meta">45 min · ~400 kcal · 75–90% HR</div></div></div>
       <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Indoor cycling class option. Low-impact, high calorie burn. Can be scheduled flexibly throughout the week based on class availability.</div>
       <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
         <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Adjust resistance to match the instructor cues</div>
@@ -1727,7 +1734,7 @@
     .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr !important; }
     .page-title { font-size: 26px !important; }
     .hamburger { display: flex !important; }
-    .sidebar-overlay { display: block; }
+    .sidebar-overlay { display: none; }
     .mobile-nav {
       display: flex !important;
       position: fixed; bottom: 0; left: 0; right: 0;
@@ -2577,14 +2584,20 @@ function showCuisine(id, el) {
 
   <!-- View toggle -->
   <div id="supp-tabs" style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;">
-    <button id="supp-tab-stack" onclick="suppTab('stack')" style="padding:8px 20px;border-radius:999px;border:1.5px solid var(--text);background:#00f5d4;color:#00382f;font-family:'Manrope', sans-serif;font-size:13px;font-weight:500;cursor:pointer;">My Stack</button>
+    <button id="supp-tab-stack" onclick="suppTab('stack')" style="padding:8px 20px;border-radius:999px;border:1.5px solid #00f5d4;background:#00f5d4;color:#00382f;font-family:'Manrope', sans-serif;font-size:13px;font-weight:500;cursor:pointer;">My Stack</button>
     <button id="supp-tab-schedule" onclick="suppTab('schedule')" style="padding:8px 20px;border-radius:999px;border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-family:'Manrope', sans-serif;font-size:13px;font-weight:500;cursor:pointer;">Daily Routine</button>
     <button id="supp-tab-checkin" onclick="suppTab('checkin')" style="padding:8px 20px;border-radius:999px;border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-family:'Manrope', sans-serif;font-size:13px;font-weight:500;cursor:pointer;">✅ Today</button>
+    <button id="supp-tab-insights" onclick="suppTab('insights')" style="padding:8px 20px;border-radius:999px;border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-family:'Manrope', sans-serif;font-size:13px;font-weight:500;cursor:pointer;">📊 Insights</button>
   </div>
 
   <!-- CHECKIN VIEW -->
   <div id="supp-view-checkin" style="display:none;">
     <div id="supp-checkin-grid" style="display:flex;flex-direction:column;gap:12px;"></div>
+  </div>
+
+  <!-- INSIGHTS VIEW -->
+  <div id="supp-view-insights" style="display:none;">
+    <div id="supp-insights-grid" style="display:flex;flex-direction:column;gap:12px;"></div>
   </div>
 
   <!-- STACK VIEW -->
@@ -2895,7 +2908,7 @@ function goTo(page, el) {
     updateRunningPlansSyncStatus();
   }
   if (page === 'settings') updateApiKeyStatus();
-  if (page === 'classes') CLASS_WORKOUTS.forEach(w => renderClassTimesManager(w));
+  if (page === 'classes') { CLASS_WORKOUTS.forEach(w => renderClassTimesManager(w)); updateAllClassBadges(); }
   if (page === 'supplements') { suppTab('stack'); }
   if (page === 'wellbeing-tools') { if (typeof renderWtGrid === 'function') renderWtGrid(); }
   if (page === 'routines') { if (typeof routinesTab === 'function') routinesTab('overview'); }
@@ -2989,6 +3002,7 @@ function launchApp() {
   if (typeof renderRunningPlans === 'function') renderRunningPlans();
   if (typeof renderGymWorkouts === 'function') renderGymWorkouts();
   if (typeof renderShoppingTickList === 'function') renderShoppingTickList();
+  if (typeof updateAllClassBadges === 'function') updateAllClassBadges();
   setSyncStatus('ok', 'Synced');
 }
 
@@ -4214,6 +4228,38 @@ function sortedClassTimes(times) {
   });
 }
 
+const SELECTED_CLASS_KEY = 'laura_selected_class_v1';
+
+function getSelectedClassTime(workoutType) {
+  const sel = getData(SELECTED_CLASS_KEY, {});
+  return sel[workoutType] || null;
+}
+
+function setSelectedClassTime(workoutType, timeId) {
+  const sel = getData(SELECTED_CLASS_KEY, {});
+  sel[workoutType] = timeId;
+  setData(SELECTED_CLASS_KEY, sel);
+  scheduleSave();
+}
+
+const DAY_SHORT = { mon:'Mon', tue:'Tue', wed:'Wed', thu:'Thu', fri:'Fri', sat:'Sat', sun:'Sun' };
+
+function updateClassBadge(workoutType) {
+  const badge = document.getElementById('class-badge-' + workoutType);
+  if (!badge) return;
+  const selectedId = getSelectedClassTime(workoutType);
+  if (!selectedId) return;
+  const times = getClassTimes(workoutType);
+  const t = times.find(x => x.id === selectedId);
+  if (!t) return;
+  const loc = t.location ? ' · ' + t.location.replace('David Lloyd ', '') : '';
+  badge.textContent = DAY_SHORT[t.day] + ' ' + t.time + loc;
+}
+
+function updateAllClassBadges() {
+  CLASS_WORKOUTS.forEach(updateClassBadge);
+}
+
 // Full management UI — renders into Classes & Running tab
 function renderClassTimesManager(workoutType) {
   if (!CLASS_WORKOUTS.includes(workoutType)) return;
@@ -4237,23 +4283,35 @@ function renderClassTimesManager(workoutType) {
     const list = document.createElement('div');
     list.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px;';
 
+    const selectedId = getSelectedClassTime(workoutType);
     sorted.forEach(t => {
+      const isSelected = t.id === selectedId;
       const item = document.createElement('div');
-      item.style.cssText = 'display:flex;justify-content:space-between;align-items:flex-start;padding:8px 10px;background:var(--card);border-radius:var(--radius-sm);border:1px solid var(--border);';
+      item.style.cssText = `display:flex;justify-content:space-between;align-items:flex-start;padding:8px 10px;background:var(--card);border-radius:var(--radius-sm);border:1.5px solid ${isSelected ? 'var(--teal)' : 'var(--border)'};`;
 
       const info = document.createElement('div');
       info.style.cssText = 'flex:1;';
-      info.innerHTML = `<div style="font-weight:600;font-size:13px;">${t.day.charAt(0).toUpperCase() + t.day.slice(1)} · ${t.time}</div>${t.location ? `<div style="font-size:11px;color:var(--text2);margin-top:2px;">${t.location}</div>` : ''}${t.notes ? `<div style="font-size:11px;color:var(--text3);margin-top:2px;font-style:italic;">${t.notes}</div>` : ''}`;
+      info.innerHTML = `<div style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:13px;">${isSelected ? '<span style="font-size:10px;background:var(--teal);color:#00382f;padding:2px 6px;border-radius:999px;font-weight:700;">MY SLOT</span>' : ''}${t.day.charAt(0).toUpperCase() + t.day.slice(1)} · ${t.time}</div>${t.location ? `<div style="font-size:11px;color:var(--text2);margin-top:2px;">${t.location}</div>` : ''}${t.notes ? `<div style="font-size:11px;color:var(--text3);margin-top:2px;font-style:italic;">${t.notes}</div>` : ''}`;
+
+      const btns = document.createElement('div');
+      btns.style.cssText = 'display:flex;flex-direction:column;gap:4px;align-items:flex-end;';
+
+      if (!isSelected) {
+        const sel = document.createElement('button');
+        sel.style.cssText = 'padding:3px 8px;background:var(--teal-light);border:1px solid var(--teal);border-radius:var(--radius-sm);color:var(--teal);font-size:11px;cursor:pointer;font-weight:600;white-space:nowrap;';
+        sel.textContent = '★ Set as my slot';
+        sel.onclick = () => { setSelectedClassTime(workoutType, t.id); renderClassTimesManager(workoutType); updateClassBadge(workoutType); };
+        btns.appendChild(sel);
+      }
 
       const del = document.createElement('button');
-      del.style.cssText = 'padding:4px 8px;background:none;border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text3);font-size:11px;cursor:pointer;transition:all 0.15s;';
+      del.style.cssText = 'padding:3px 8px;background:none;border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text3);font-size:11px;cursor:pointer;';
       del.textContent = 'Delete';
-      del.onmouseover = () => { del.style.borderColor = 'var(--text)'; del.style.color = 'var(--text)'; };
-      del.onmouseout = () => { del.style.borderColor = 'var(--border)'; del.style.color = 'var(--text3)'; };
       del.onclick = () => removeClassTime(workoutType, t.id);
 
+      btns.appendChild(del);
       item.appendChild(info);
-      item.appendChild(del);
+      item.appendChild(btns);
       list.appendChild(item);
     });
     container.appendChild(list);
@@ -4756,7 +4814,7 @@ document.getElementById('supp-sched-modal').addEventListener('click', function(e
 let suppEditId = null; // null = new supplement
 
 function suppTab(which) {
-  ['stack','schedule','checkin'].forEach(function(v) {
+  ['stack','schedule','checkin','insights'].forEach(function(v) {
     var view = document.getElementById('supp-view-' + v);
     var btn  = document.getElementById('supp-tab-' + v);
     if (!view || !btn) return;
@@ -4769,6 +4827,7 @@ function suppTab(which) {
   if (which === 'schedule') renderSuppSchedule();
   if (which === 'checkin')  renderSuppCheckin();
   if (which === 'stack')    renderSuppStack();
+  if (which === 'insights') renderSuppInsights();
 }
 
 function renderSuppStack() {
@@ -5259,6 +5318,85 @@ function renderSuppCheckin() {
   reset.textContent = "Reset today's check-in";
   reset.onclick = function() { saveCheckin({}); renderSuppCheckin(); };
   grid.appendChild(reset);
+}
+
+function renderSuppInsights() {
+  var grid = document.getElementById('supp-insights-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  var supps = loadSupps().filter(function(s){ return s.active !== false; });
+  var allDays = getData(CHECKIN_KEY, {});
+  var dayKeys = Object.keys(allDays).sort();
+  var totalDays = dayKeys.length;
+
+  if (totalDays === 0) {
+    var empty = document.createElement('div');
+    empty.style.cssText = 'background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;text-align:center;';
+    empty.innerHTML = '<div style="font-size:28px;margin-bottom:12px;">📊</div><div style="font-size:15px;font-weight:600;margin-bottom:6px;">No check-in data yet</div><div style="font-size:13px;color:var(--text2);">Start ticking off supplements on the Today tab and your consistency stats will appear here.</div>';
+    grid.appendChild(empty);
+    return;
+  }
+
+  // Summary header
+  var today = getTodayKey();
+  var last30 = dayKeys.filter(function(d){ return d >= subtractDays(today, 30); });
+  var last30Count = last30.length;
+
+  var header = document.createElement('div');
+  header.style.cssText = 'background:var(--teal-light);border:1.5px solid var(--teal);border-radius:var(--radius);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;';
+  header.innerHTML = '<div><div style="font-family:\'Space Grotesk\',sans-serif;font-size:18px;font-weight:700;color:var(--teal);">Supplement consistency</div><div style="font-size:13px;color:var(--text2);margin-top:4px;">Based on ' + totalDays + ' day' + (totalDays !== 1 ? 's' : '') + ' of check-ins · last 30 days shown</div></div><div style="text-align:right;"><div style="font-size:28px;font-weight:700;font-family:\'Manrope\',sans-serif;color:var(--teal);">' + last30Count + '</div><div style="font-size:11px;color:var(--text3);">days tracked</div></div>';
+  grid.appendChild(header);
+
+  // Per-supplement consistency cards
+  var suppList = document.createElement('div');
+  suppList.style.cssText = 'display:flex;flex-direction:column;gap:10px;';
+
+  // Sort alphabetically
+  var sorted = supps.slice().sort(function(a,b){ return a.name.localeCompare(b.name); });
+
+  sorted.forEach(function(s) {
+    // Count days taken in last 30
+    var takenDays = last30.filter(function(d){ return allDays[d] && allDays[d][s.id]; }).length;
+    var pct = last30Count > 0 ? Math.round((takenDays / last30Count) * 100) : 0;
+
+    // Current streak
+    var streak = 0;
+    for (var i = dayKeys.length - 1; i >= 0; i--) {
+      if (allDays[dayKeys[i]] && allDays[dayKeys[i]][s.id]) { streak++; } else { break; }
+    }
+
+    // Best streak
+    var bestStreak = 0, cur = 0;
+    dayKeys.forEach(function(d) {
+      if (allDays[d] && allDays[d][s.id]) { cur++; bestStreak = Math.max(bestStreak, cur); } else { cur = 0; }
+    });
+
+    var barColor = pct >= 80 ? 'var(--teal)' : pct >= 50 ? 'var(--amber)' : 'var(--red)';
+    var card = document.createElement('div');
+    card.style.cssText = 'background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;box-shadow:var(--shadow);';
+    card.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">' +
+      '<div style="font-size:15px;font-weight:700;font-family:\'Space Grotesk\',sans-serif;">' + s.name + '</div>' +
+      '<div style="font-size:22px;font-weight:700;font-family:\'Manrope\',sans-serif;color:' + barColor + ';">' + pct + '%</div>' +
+    '</div>' +
+    '<div style="background:var(--border);border-radius:999px;height:6px;overflow:hidden;margin-bottom:10px;">' +
+      '<div style="height:100%;width:' + pct + '%;background:' + barColor + ';border-radius:999px;transition:width 0.4s;"></div>' +
+    '</div>' +
+    '<div style="display:flex;gap:20px;">' +
+      '<div style="font-size:12px;color:var(--text2);font-family:\'Manrope\',sans-serif;"><span style="font-weight:700;color:var(--text);">' + streak + '</span> day streak</div>' +
+      '<div style="font-size:12px;color:var(--text2);font-family:\'Manrope\',sans-serif;"><span style="font-weight:700;color:var(--text);">' + bestStreak + '</span> best streak</div>' +
+      '<div style="font-size:12px;color:var(--text2);font-family:\'Manrope\',sans-serif;"><span style="font-weight:700;color:var(--text);">' + takenDays + '/' + last30Count + '</span> days</div>' +
+    '</div>';
+    suppList.appendChild(card);
+  });
+
+  grid.appendChild(suppList);
+}
+
+function subtractDays(dateStr, days) {
+  var d = new Date(dateStr);
+  d.setDate(d.getDate() - days);
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
 }
 </script>
 
