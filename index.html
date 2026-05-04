@@ -209,6 +209,7 @@
 
   /* ---- WEEK STRIP ---- */
   .week-strip { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-bottom: 24px; }
+  .week-strip-row { display: contents; }
   .day-card {
     border-radius: var(--radius-sm); padding: 10px 6px; text-align: center;
     cursor: pointer; border: 2px solid transparent; transition: all 0.15s;
@@ -469,8 +470,9 @@
       flex-wrap: wrap !important;
       gap: 14px !important;
     }
-    /* Running Plans add form: stack into single column on phone */
-    #page-runningplans .card > div[style*="grid-template-columns"] {
+    /* Running Plans add form + list: single column on mobile */
+    #page-runningplans .card > div[style*="grid-template-columns"],
+    #running-plans-list {
       grid-template-columns: 1fr !important;
     }
 
@@ -496,15 +498,22 @@
       grid-template-columns: 1fr 1fr !important;
     }
 
-    /* Workout day strip: 3-wide on mobile → rows of 3,3 then Sunday centred */
+    /* Workout day strip: 3-2-2 layout on mobile */
     .week-strip {
-      grid-template-columns: repeat(3, 1fr) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 6px !important;
+    }
+    .week-strip-row1,
+    .week-strip-row2,
+    .week-strip-row3 {
+      display: flex;
       gap: 6px;
     }
-    /* 7th tile (Sunday) — centred in its own row */
-    .week-strip .day-card:nth-child(7) {
-      grid-column: 2 / 3;
-    }
+    .week-strip-row1 .day-card { flex: 1; }
+    .week-strip-row2 { justify-content: center; }
+    .week-strip-row2 .day-card { flex: 0 0 calc(33.33% - 3px); }
+    .week-strip-row3 .day-card { flex: 1; }
 
     /* Gym workouts: single column on mobile */
     #gym-workouts-list > div {
@@ -908,16 +917,16 @@
 
   <div id="day-run_wed" class="card day-detail" style="display:none;">
     <div class="workout-header">
-      <span class="badge badge-blue">Running</span>
+      <span class="badge badge-run" id="run-badge-interval_run">Flexible</span>
       <div><div class="workout-title">Interval run</div>
       <div class="workout-meta">30–35 min · 6 × 2 min hard efforts</div></div>
     </div>
     <div class="tip-box-f">
       <div class="tip-box-title">Prep</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Check Runna for today's session — effort may vary from the default</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>No gym needed — run from home or wherever you are mid-week</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>If legs are sore from a class, dial the effort back to 5/10</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Lay kit out the night before so there are no excuses in the morning</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Check Runna for today's session — effort may vary from the default</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>No gym needed — run from home or wherever you are mid-week</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>If legs are sore from a class, dial the effort back to 5/10</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Lay kit out the night before so there are no excuses in the morning</div>
     </div>
   </div>
 
@@ -943,16 +952,16 @@
 
   <div id="day-blaze_fri" class="card day-detail" style="display:none;">
     <div class="workout-header">
-      <span class="badge badge-coral" id="class-badge-weekly-blaze">HIIT class · David Lloyd</span>
+      <span class="badge badge-class" id="class-badge-weekly-blaze">HIIT class · David Lloyd</span>
       <div><div class="workout-title">Blaze HIIT</div>
       <div class="workout-meta">45 min · ~500 kcal · 85–95% HR</div></div>
     </div>
     <div class="tip-box-f">
       <div class="tip-box-title">Prep</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--coral);"></span>Book in advance via the David Lloyd app — Friday Blaze fills up fast</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--coral);"></span>Legs will be heavy from Thursday — that's normal, the cardio stations will carry you</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--coral);"></span>Eat something small the night before if early sessions are hard on an empty stomach</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--coral);"></span>On a red Whoop day, skip Blaze and do a 30 min walk instead — recovery wins long-term</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Book in advance via the David Lloyd app — Friday Blaze fills up fast</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Legs will be heavy from Thursday — that's normal, the cardio stations will carry you</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Eat something small the night before if early sessions are hard on an empty stomach</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>On a red Whoop day, skip Blaze and do a 30 min walk instead — recovery wins long-term</div>
     </div>
   </div>
 
@@ -986,7 +995,7 @@
 
   <div id="day-pull" class="card day-detail" style="display:none;">
     <div class="workout-header">
-      <span class="badge badge-purple">Strength · Pull</span>
+      <span class="badge badge-teal">Strength · Pull</span>
       <div><div class="workout-title">Pull day</div>
       <div class="workout-meta">Back · Biceps · Rear delts &nbsp;|&nbsp; ~55 min · David Lloyd</div></div>
     </div>
@@ -998,9 +1007,9 @@
     <button class="ddp-link" onclick="goTo('workouts')">View full workout in Gym workouts →</button>
     <div class="tip-box-f" style="margin-top:14px;">
       <div class="tip-box-title">Prep</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>Lat pulldown: chest up, pull elbows to hips — avoid hunching shoulders</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>Rows: squeeze shoulder blades together at the top of each rep</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>Add 2.5kg every 2 sessions when you hit the top of the rep range</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--teal);"></span>Lat pulldown: chest up, pull elbows to hips — avoid hunching shoulders</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--teal);"></span>Rows: squeeze shoulder blades together at the top of each rep</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:var(--teal);"></span>Add 2.5kg every 2 sessions when you hit the top of the rep range</div>
     </div>
   </div>
 
@@ -1021,46 +1030,46 @@
 
   <div id="day-long-run" class="card day-detail" style="display:none;">
     <div class="workout-header">
-      <span class="badge badge-blue">Running</span>
+      <span class="badge badge-run" id="run-badge-long_run">Flexible</span>
       <div><div class="workout-title">Long easy run</div>
       <div class="workout-meta">45–90 min · Easy conversational pace · Aerobic base</div></div>
     </div>
     <div class="tip-box-f">
       <div class="tip-box-title">Prep</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Check Runna for this week's long run distance and structure</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Eat well 2–3 hours before. Bring water and a gel if going over 60 min</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Skip if your Whoop is red — rest wins over forced mileage</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Build distance gradually — add no more than 10% per week to avoid injury</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Check Runna for this week's long run distance and structure</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Eat well 2–3 hours before. Bring water and a gel if going over 60 min</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Skip if your Whoop is red — rest wins over forced mileage</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Build distance gradually — add no more than 10% per week to avoid injury</div>
     </div>
   </div>
 
   <div id="day-easy-run" class="card day-detail" style="display:none;">
     <div class="workout-header">
-      <span class="badge badge-blue">Running</span>
+      <span class="badge badge-run" id="run-badge-easy_run">Flexible</span>
       <div><div class="workout-title">Easy run</div>
       <div class="workout-meta">20–30 min · Conversational pace · Active recovery</div></div>
     </div>
     <div class="tip-box-f">
       <div class="tip-box-title">Prep</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Check Runna — this might be a structured easy session rather than free running</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>If you can't hold a conversation, you're going too fast — slow down</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>After gym: leave at least an hour before running to avoid nausea</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Great filler session between hard training days</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Check Runna — this might be a structured easy session rather than free running</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>If you can't hold a conversation, you're going too fast — slow down</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>After gym: leave at least an hour before running to avoid nausea</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Great filler session between hard training days</div>
     </div>
   </div>
 
   <div id="day-runna" class="card day-detail" style="display:none;">
     <div class="workout-header">
-      <span class="badge badge-blue">Runna</span>
+      <span class="badge badge-run" id="run-badge-runna">Flexible</span>
       <div><div class="workout-title">Runna workout</div>
       <div class="workout-meta">App-guided session · Follow coach instructions</div></div>
     </div>
     <div class="tip-box-f">
       <div class="tip-box-title">Prep</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Open Runna before you head out — check session type, distance, and effort level</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Lay kit out the night before so there's nothing to think about in the morning</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>It's fine to modify if the session doesn't match how you feel — Runna adapts over time</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Log every session in the app so it can adjust future workouts to your progress</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Open Runna before you head out — check session type, distance, and effort level</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Lay kit out the night before so there's nothing to think about in the morning</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>It's fine to modify if the session doesn't match how you feel — Runna adapts over time</div>
+      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Log every session in the app so it can adjust future workouts to your progress</div>
     </div>
   </div>
 
@@ -1145,11 +1154,11 @@
   </div>
   <div class="grid-2" style="margin-bottom:16px;">
     <div class="card">
-      <div class="workout-header"><span class="badge badge-coral" id="class-badge-blaze">Fri 7:20am · Purley</span><div><div class="workout-title">Blaze HIIT</div><div class="workout-meta">45 min · ~500 kcal · 85–95% HR</div></div></div>
+      <div class="workout-header"><span class="badge badge-class" id="class-badge-blaze">Flexible</span><div><div class="workout-title">Blaze HIIT</div><div class="workout-meta">45 min · ~500 kcal · 85–95% HR</div></div></div>
       <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Your primary fat-burning session. Treadmill sprints, sled, punch bags and strength stations. Friday morning — gets the weekend off to a great start and your metabolism firing all day.</div>
       <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:var(--coral);"></span>Book the 7:20am Purley slot in advance via David Lloyd app — fills fast</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:var(--coral);"></span>Small snack the night before if you struggle with fasted morning sessions</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Book the 7:20am Purley slot in advance via David Lloyd app — fills fast</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Small snack the night before if you struggle with fasted morning sessions</div>
       </div>
       <div id="class-times-manager-blaze"></div>
     </div>
@@ -1165,12 +1174,14 @@
   </div>
   <div class="grid-2">
     <div class="card">
-      <div class="workout-header"><span class="badge badge-blue">Wednesday</span><div><div class="workout-title">Interval run</div><div class="workout-meta">30–35 min · 6 × 2 min efforts</div></div></div>
+      <div class="workout-header"><span class="badge badge-run" id="run-badge-page-interval_run">Flexible</span><div><div class="workout-title">Interval run</div><div class="workout-meta">30–35 min · 6 × 2 min efforts</div></div></div>
       <div style="font-size:13.5px;color:var(--text2);line-height:1.7;">Run hard for 2 min, recover for 1 min easy jog. Repeat 6 times. Start with 4 and build. No gym needed — run local wherever you are. Burns more fat in less time than steady jogging.</div>
+      <div id="run-times-manager-interval_run"></div>
     </div>
     <div class="card">
-      <div class="workout-header"><span class="badge badge-purple">Thu lunch · Sun optional</span><div><div class="workout-title">Easy long run</div><div class="workout-meta">30–45 min · Conversational pace · 5–6/10</div></div></div>
+      <div class="workout-header"><span class="badge badge-run" id="run-badge-page-long_run">Flexible</span><div><div class="workout-title">Easy long run</div><div class="workout-meta">30–45 min · Conversational pace · 5–6/10</div></div></div>
       <div style="font-size:13.5px;color:var(--text2);line-height:1.7;">Thursday lunchtime run from home (WFH), and optionally Sunday after gym. Run slow enough to hold a full sentence. Beckenham Place Park and Purley Way are both ideal flat routes.</div>
+      <div id="run-times-manager-long_run"></div>
     </div>
   </div>
   <div class="grid-2" style="margin-top:16px;">
@@ -1184,21 +1195,22 @@
       <div id="class-times-manager-rhythm"></div>
     </div>
     <div class="card">
-      <div class="workout-header"><span class="badge badge-blue">Flexible</span><div><div class="workout-title">Runna workout</div><div class="workout-meta">20–40 min · Varies · Tracking via app</div></div></div>
+      <div class="workout-header"><span class="badge badge-run" id="run-badge-page-runna">Flexible</span><div><div class="workout-title">Runna workout</div><div class="workout-meta">20–40 min · Varies · Tracking via app</div></div></div>
       <div style="font-size:13.5px;color:var(--text2);line-height:1.7;">Run tracking and training through the Runna app. Flexible duration and intensity — perfect for building running consistency without fixed gym times.</div>
       <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Use app for GPS tracking and pacing feedback</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span>Can be done anytime, anywhere</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Use app for GPS tracking and pacing feedback</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Can be done anytime, anywhere</div>
       </div>
+      <div id="run-times-manager-runna"></div>
     </div>
   </div>
   <div class="grid-2" style="margin-top:16px;">
     <div class="card">
-      <div class="workout-header"><span class="badge badge-cyan">Flexible</span><div><div class="workout-title">Swimming</div><div class="workout-meta">30–45 min · ~350 kcal · Low impact</div></div></div>
+      <div class="workout-header"><span class="badge badge-teal">Flexible</span><div><div class="workout-title">Swimming</div><div class="workout-meta">30–45 min · ~350 kcal · Low impact</div></div></div>
       <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Full-body low-impact cardio. Great for recovery days and joint health. Can be added as a flexible cross-training option.</div>
       <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:var(--cyan);"></span>Great for recovery and active rest days</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:var(--cyan);"></span>Low impact on joints — ideal for building volume without injury risk</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:var(--teal);"></span>Great for recovery and active rest days</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:var(--teal);"></span>Low impact on joints — ideal for building volume without injury risk</div>
       </div>
     </div>
   </div>
@@ -1237,7 +1249,7 @@
     <button onclick="addRunningPlan()" style="width:100%;padding:12px 16px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:600;cursor:pointer;font-size:14px;transition:opacity 0.15s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">+ Add plan</button>
   </div>
 
-  <div id="running-plans-list" style="display:grid;grid-template-columns:1fr;gap:14px;">
+  <div id="running-plans-list" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
     <div style="text-align:center;color:var(--text3);padding:40px 20px;font-size:14px;">No running plans yet. Add one to get started!</div>
   </div>
 </div>
@@ -2806,7 +2818,7 @@ function goTo(page, el) {
     updateRunningPlansSyncStatus();
   }
   if (page === 'settings') updateApiKeyStatus();
-  if (page === 'classes') { CLASS_WORKOUTS.forEach(w => renderClassTimesManager(w)); updateAllClassBadges(); }
+  if (page === 'classes') { CLASS_WORKOUTS.forEach(w => renderClassTimesManager(w)); RUN_WORKOUTS.forEach(w => renderRunTimesManager(w)); updateAllClassBadges(); updateAllRunBadges(); }
   if (page === 'supplements') { suppTab('stack'); }
   if (page === 'wellbeing-tools') { if (typeof renderWtGrid === 'function') renderWtGrid(); }
   if (page === 'routines') { if (typeof routinesTab === 'function') routinesTab('overview'); }
@@ -2901,6 +2913,7 @@ function launchApp() {
   if (typeof renderGymWorkouts === 'function') renderGymWorkouts();
   if (typeof renderShoppingTickList === 'function') renderShoppingTickList();
   if (typeof updateAllClassBadges === 'function') updateAllClassBadges();
+  if (typeof updateAllRunBadges === 'function') updateAllRunBadges();
   setSyncStatus('ok', 'Synced');
 }
 
@@ -3811,6 +3824,7 @@ function renderDayCards() {
   if (!strip) return;
 
   strip.innerHTML = '';
+  const cards = [];
   routine.forEach((day, idx) => {
     const card = document.createElement('div');
     card.className = 'day-card' + (idx === 0 ? ' selected' : '');
@@ -3885,13 +3899,24 @@ function renderDayCards() {
       }
     }
 
-    card.onclick = () => selectDay(firstType, card);
+    card.dataset.workoutTypes = JSON.stringify(workoutTypes);
+    card.onclick = () => selectDay(workoutTypes, card);
     card.innerHTML = `
       <div class="day-label-s">${day.dayKey.charAt(0).toUpperCase() + day.dayKey.slice(1)}</div>
       <div class="day-emoji">${combinedEmoji}</div>
       <div class="day-type" style="${dayTypeStyle}">${combinedName}</div>
     `;
-    strip.appendChild(card);
+    cards.push(card);
+  });
+
+  // Build row wrappers for 3-2-2 mobile layout
+  // On desktop, row wrappers are display:contents so they're invisible to the grid
+  const rowDefs = [[0,1,2],[3,4],[5,6]];
+  rowDefs.forEach((indices, rowIdx) => {
+    const row = document.createElement('div');
+    row.className = 'week-strip-row week-strip-row' + (rowIdx + 1);
+    indices.forEach(i => { if (cards[i]) row.appendChild(cards[i]); });
+    strip.appendChild(row);
   });
 
   // Auto-select the first day card so the detail panel is always populated on load
@@ -4047,7 +4072,12 @@ function renderRoutinesGrid() {
   if (typeof renderRoutinesTweaks === 'function') renderRoutinesTweaks();
 }
 
-function selectDay(workoutType, cardEl) {
+function selectDay(workoutTypesOrSingle, cardEl) {
+  // Accept either an array of types or a single type string (backwards compat)
+  const workoutTypes = Array.isArray(workoutTypesOrSingle)
+    ? workoutTypesOrSingle
+    : [workoutTypesOrSingle];
+
   const allCards = document.querySelectorAll('.day-card');
   allCards.forEach(c => c.classList.remove('selected'));
   cardEl.classList.add('selected');
@@ -4056,23 +4086,29 @@ function selectDay(workoutType, cardEl) {
   allDetails.forEach(d => d.style.display = 'none');
 
   const lib = getWorkoutLibrary();
-  const entry = lib[workoutType];
-  const targetId = entry && entry.id;
-  if (targetId) {
-    let targetEl = document.getElementById(targetId);
-    // For gym workouts that don't have a static div on this page, render one
-    // dynamically using the BUILTIN_GYM_WORKOUTS / custom workouts data.
-    if (!targetEl && targetId.indexOf('gym-') === 0) {
-      targetEl = renderDynamicGymDayDetail(workoutType, targetId);
-    }
-    if (targetEl) {
-      targetEl.style.display = 'block';
-      // Render class times only for class-based workouts
-      if (CLASS_WORKOUTS.includes(workoutType)) {
-        renderClassTimes(workoutType);
+
+  workoutTypes.forEach(workoutType => {
+    const entry = lib[workoutType];
+    const targetId = entry && entry.id;
+    if (targetId) {
+      let targetEl = document.getElementById(targetId);
+      // For gym workouts that don't have a static div on this page, render one dynamically
+      if (!targetEl && targetId.indexOf('gym-') === 0) {
+        targetEl = renderDynamicGymDayDetail(workoutType, targetId);
+      }
+      if (targetEl) {
+        targetEl.style.display = 'block';
+        // Render class times only for class-based workouts
+        if (CLASS_WORKOUTS.includes(workoutType)) {
+          renderClassTimes(workoutType);
+        }
+        // Render run times for run-based workouts
+        if (RUN_WORKOUTS && RUN_WORKOUTS.includes(workoutType)) {
+          renderRunTimes(workoutType);
+        }
       }
     }
-  }
+  });
 }
 
 // Build (or rebuild) a .day-detail card on the Weekly Schedule page for a gym workout
@@ -4147,6 +4183,7 @@ function renderDynamicGymDayDetail(workoutType, targetId) {
 
 const CLASS_TIMES_KEY = 'laura_class_times_v1';
 const CLASS_WORKOUTS = ['blaze', 'cyclone', 'rhythm']; // Only these can have class times
+const RUN_WORKOUTS  = ['interval_run', 'long_run', 'easy_run', 'runna']; // Runs with optional day/time slots
 
 // Load class times from storage
 function loadClassTimes() {
@@ -4191,6 +4228,189 @@ function removeClassTime(workoutType, timeId) {
     renderClassTimesManager(workoutType);
     showNotification('Class time removed');
   }
+}
+
+// ============================================================
+// RUN TIME MANAGEMENT (mirrors class time system)
+// ============================================================
+const RUN_TIMES_KEY     = 'laura_run_times_v1';
+const SELECTED_RUN_KEY  = 'laura_selected_run_v1';
+
+function loadRunTimes() {  return getData(RUN_TIMES_KEY, {}); }
+function saveRunTimes(d) { setData(RUN_TIMES_KEY, d); scheduleSave(); }
+function getRunTimes(workoutType) { return loadRunTimes()[workoutType] || []; }
+function getSelectedRunTime(workoutType) { return (getData(SELECTED_RUN_KEY, {}))[workoutType] || null; }
+function setSelectedRunTime(workoutType, timeId) {
+  const sel = getData(SELECTED_RUN_KEY, {});
+  sel[workoutType] = timeId;
+  setData(SELECTED_RUN_KEY, sel);
+  scheduleSave();
+}
+
+function addRunTime(workoutType, day, time) {
+  const runTimes = loadRunTimes();
+  if (!runTimes[workoutType]) runTimes[workoutType] = [];
+  const id = workoutType + '_' + Date.now();
+  runTimes[workoutType].push({ id, day, time: time || '' });
+  saveRunTimes(runTimes);
+  renderRunTimesManager(workoutType);
+  updateRunBadge(workoutType);
+}
+
+function removeRunTime(workoutType, timeId) {
+  const runTimes = loadRunTimes();
+  if (runTimes[workoutType]) {
+    runTimes[workoutType] = runTimes[workoutType].filter(t => t.id !== timeId);
+    saveRunTimes(runTimes);
+    const selId = getSelectedRunTime(workoutType);
+    if (selId === timeId) {
+      const sel = getData(SELECTED_RUN_KEY, {});
+      delete sel[workoutType];
+      setData(SELECTED_RUN_KEY, sel);
+    }
+    renderRunTimesManager(workoutType);
+    updateRunBadge(workoutType);
+    showNotification('Run slot removed');
+  }
+}
+
+function updateRunBadge(workoutType) {
+  // IDs: run-badge-{type} (day-detail), run-badge-page-{type} (classes page)
+  const detailBadge = document.getElementById('run-badge-' + workoutType);
+  const pageBadge   = document.getElementById('run-badge-page-' + workoutType);
+  const selId = getSelectedRunTime(workoutType);
+  let text = 'Flexible';
+  if (selId) {
+    const times = getRunTimes(workoutType);
+    const t = times.find(x => x.id === selId);
+    if (t) text = (DAY_SHORT[t.day] || t.day) + (t.time ? ' · ' + t.time : '');
+  }
+  if (detailBadge) detailBadge.textContent = text;
+  if (pageBadge)   pageBadge.textContent   = text;
+}
+
+function updateAllRunBadges() { RUN_WORKOUTS.forEach(updateRunBadge); }
+
+// Manager UI rendered into the Classes & Running page
+function renderRunTimesManager(workoutType) {
+  const managerEl = document.getElementById('run-times-manager-' + workoutType);
+  if (!managerEl) return;
+  const times = sortedClassTimes(getRunTimes(workoutType)); // reuse sorter
+  const selectedId = getSelectedRunTime(workoutType);
+  managerEl.innerHTML = '';
+  const container = document.createElement('div');
+  container.style.cssText = 'margin-top:14px;padding:14px;background:var(--bg2);border-radius:var(--radius-sm);';
+
+  if (times.length > 0) {
+    const header = document.createElement('div');
+    header.style.cssText = 'font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:\'Manrope\',sans-serif;margin-bottom:10px;';
+    header.textContent = 'Saved run slots';
+    container.appendChild(header);
+    const list = document.createElement('div');
+    list.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px;';
+    times.forEach(t => {
+      const isSelected = t.id === selectedId;
+      const item = document.createElement('div');
+      item.style.cssText = `display:flex;justify-content:space-between;align-items:flex-start;padding:8px 10px;background:var(--card);border-radius:var(--radius-sm);border:1.5px solid ${isSelected ? '#bf5fff' : 'var(--border)'};`;
+      const info = document.createElement('div');
+      info.style.cssText = 'flex:1;';
+      info.innerHTML = `<div style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:13px;">${isSelected ? '<span style="font-size:10px;background:#bf5fff;color:#fff;padding:2px 6px;border-radius:999px;font-weight:700;">MY SLOT</span>' : ''}${(DAY_SHORT[t.day] || t.day)}${t.time ? ' · ' + t.time : ''}</div>`;
+      const btns = document.createElement('div');
+      btns.style.cssText = 'display:flex;flex-direction:column;gap:4px;align-items:flex-end;';
+      if (!isSelected) {
+        const sel = document.createElement('button');
+        sel.style.cssText = 'padding:3px 8px;background:rgba(191,95,255,0.12);border:1px solid #bf5fff;border-radius:var(--radius-sm);color:#bf5fff;font-size:11px;cursor:pointer;font-weight:600;white-space:nowrap;';
+        sel.textContent = '★ Set as my slot';
+        sel.onclick = () => { setSelectedRunTime(workoutType, t.id); renderRunTimesManager(workoutType); updateRunBadge(workoutType); if (typeof renderDayCards === 'function') renderDayCards(); };
+        btns.appendChild(sel);
+      }
+      const del = document.createElement('button');
+      del.style.cssText = 'padding:3px 8px;background:none;border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text3);font-size:11px;cursor:pointer;';
+      del.textContent = 'Delete';
+      del.onclick = () => removeRunTime(workoutType, t.id);
+      btns.appendChild(del);
+      item.appendChild(info);
+      item.appendChild(btns);
+      list.appendChild(item);
+    });
+    container.appendChild(list);
+  }
+
+  const addBtn = document.createElement('button');
+  addBtn.style.cssText = `width:100%;margin-top:${times.length > 0 ? '10px' : '0'};padding:9px 12px;background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius-sm);color:var(--text2);font-size:13px;font-weight:500;cursor:pointer;transition:all 0.15s;font-family:'Manrope', sans-serif;`;
+  addBtn.textContent = '+ Add run slot';
+  addBtn.onmouseover = () => { addBtn.style.borderColor = '#bf5fff'; addBtn.style.color = '#bf5fff'; };
+  addBtn.onmouseout  = () => { addBtn.style.borderColor = 'var(--border)'; addBtn.style.color = 'var(--text2)'; };
+  addBtn.onclick = () => openRunTimeModal(workoutType);
+  container.appendChild(addBtn);
+  managerEl.appendChild(container);
+}
+
+// Compact read-only view rendered into Weekly Schedule day-detail cards
+function renderRunTimes(workoutType) {
+  const runIdMap = { interval_run:'day-run_wed', long_run:'day-long-run', easy_run:'day-easy-run', runna:'day-runna' };
+  const detailEl = document.getElementById(runIdMap[workoutType]);
+  if (!detailEl) return;
+  const existing = detailEl.querySelector('.run-times-readonly');
+  if (existing) existing.remove();
+  const times = sortedClassTimes(getRunTimes(workoutType));
+  if (times.length === 0) return;
+  const container = document.createElement('div');
+  container.className = 'run-times-readonly';
+  container.style.cssText = 'margin:10px 0 0;padding:10px 12px;background:var(--bg2);border-radius:var(--radius-sm);';
+  const label = document.createElement('div');
+  label.style.cssText = 'font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:\'Manrope\',sans-serif;margin-bottom:6px;';
+  label.textContent = 'Run slots';
+  container.appendChild(label);
+  const pills = document.createElement('div');
+  pills.style.cssText = 'display:flex;flex-wrap:wrap;gap:4px;';
+  times.forEach(t => {
+    const pill = document.createElement('div');
+    pill.style.cssText = 'padding:3px 8px;background:rgba(191,95,255,0.10);border:1px solid rgba(191,95,255,0.3);border-radius:999px;font-size:11px;color:#bf5fff;';
+    pill.textContent = `${DAY_SHORT[t.day] || t.day}${t.time ? ' ' + t.time : ''}`;
+    pills.appendChild(pill);
+  });
+  container.appendChild(pills);
+  if (detailEl.children[1]) detailEl.insertBefore(container, detailEl.children[1]);
+  else detailEl.appendChild(container);
+}
+
+function openRunTimeModal(workoutType) {
+  const workout = WORKOUT_LIBRARY[workoutType];
+  const name = workout ? workout.name : workoutType;
+  const days = ['mon','tue','wed','thu','fri','sat','sun'];
+  const modal = document.getElementById('modal-overlay');
+  const modalContent = document.getElementById('modal-content');
+  if (!modal || !modalContent) return;
+  modalContent.innerHTML = `
+    <div style="font-family:'Manrope', sans-serif;padding:4px;">
+      <div style="font-size:18px;font-weight:700;margin-bottom:4px;">Add run slot</div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:20px;">${name}</div>
+      <div style="margin-bottom:14px;">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:8px;">Day</div>
+        <select id="run-modal-day" style="width:100%;padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope',sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;">
+          ${days.map(d => `<option value="${d}">${DAY_FULL[d]}</option>`).join('')}
+        </select>
+      </div>
+      <div style="margin-bottom:20px;">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:8px;">Time <span style="font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></div>
+        <input type="time" id="run-modal-time" style="width:100%;padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope',sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;">
+      </div>
+      <div style="display:flex;gap:10px;">
+        <button onclick="closeModal()" style="flex:1;padding:11px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text2);font-family:'Manrope',sans-serif;font-size:14px;cursor:pointer;">Cancel</button>
+        <button onclick="confirmAddRunTime('${workoutType}')" style="flex:2;padding:11px;background:#bf5fff;border:none;border-radius:var(--radius-sm);color:#fff;font-family:'Manrope',sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Add slot</button>
+      </div>
+    </div>`;
+  modal.style.display = 'flex';
+}
+
+function confirmAddRunTime(workoutType) {
+  const day  = document.getElementById('run-modal-day')?.value;
+  const time = document.getElementById('run-modal-time')?.value || '';
+  if (!day) return;
+  addRunTime(workoutType, day, time);
+  closeModal();
+  showNotification('Run slot added');
 }
 
 // Get class times for a specific workout
@@ -6007,25 +6227,31 @@ function renderGymWorkouts() {
     var card = document.createElement('div');
     card.className = 'card gym-grid-card';
     card.id = cardId;
-    card.style.cssText = 'padding:14px;cursor:pointer;transition:border-color 0.15s;border:1.5px solid var(--border);';
+    card.style.cssText = 'padding:0;cursor:pointer;transition:all 0.15s;border:1.5px solid var(--border);overflow:hidden;';
 
-    // Header row
-    var headerHtml = '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">';
+    // Header section with teal accent top bar
+    var headerHtml = '<div style="border-top:3px solid var(--teal);padding:14px 14px 10px;">';
+    headerHtml += '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">';
     headerHtml += '<div style="flex:1;min-width:0;">';
-    headerHtml += '<div style="font-size:14px;font-weight:600;margin-bottom:3px;">' + escapeHtml(w.emoji || '💪') + ' ' + escapeHtml(w.name) + '</div>';
+    // Large emoji + name
+    headerHtml += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">';
+    headerHtml += '<span style="font-size:22px;line-height:1;">' + escapeHtml(w.emoji || '💪') + '</span>';
+    headerHtml += '<span style="font-size:14px;font-weight:700;">' + escapeHtml(w.name) + '</span>';
+    headerHtml += '</div>';
     if (w.meta) headerHtml += '<div style="font-size:11px;color:var(--text3);margin-bottom:6px;">' + escapeHtml(w.meta) + '</div>';
     headerHtml += '<div style="display:flex;flex-wrap:wrap;gap:4px;">';
-    if (exCount) headerHtml += '<span style="font-size:10px;padding:2px 7px;border-radius:10px;background:var(--bg2);color:var(--text3);">' + exCount + ' exercises</span>';
-    headerHtml += '<span class="badge badge-' + badgeColor + '" style="font-size:10px;padding:2px 7px;">' + escapeHtml(w.badge || w.name) + '</span>';
+    if (exCount) headerHtml += '<span style="font-size:10px;padding:2px 7px;border-radius:10px;background:var(--teal-light);color:var(--teal);font-weight:600;">' + exCount + ' exercises</span>';
+    if (w.badge && w.badge !== w.name) headerHtml += '<span style="font-size:10px;padding:2px 7px;border-radius:10px;background:var(--bg2);color:var(--text3);">' + escapeHtml(w.badge) + '</span>';
     headerHtml += '</div>';
     headerHtml += '</div>';
     if (isCustom) {
       headerHtml += '<button onclick="event.stopPropagation();deleteCustomGymWorkout(\'' + escapeHtml(w.id) + '\')" style="background:var(--red-light);color:var(--red);border:none;border-radius:6px;width:28px;height:28px;cursor:pointer;font-size:14px;font-weight:600;flex-shrink:0;" title="Delete">✕</button>';
     }
     headerHtml += '</div>';
+    headerHtml += '</div>';
 
-    // Expand hint
-    headerHtml += '<div class="gym-expand-hint" style="font-size:11px;color:var(--text3);margin-top:10px;text-align:center;">Tap to see exercises</div>';
+    // Expand hint bar
+    headerHtml += '<div class="gym-expand-hint" style="padding:7px 14px;background:var(--bg2);border-top:1px solid var(--border);font-size:11px;color:var(--text3);text-align:center;letter-spacing:0.03em;">▾ Tap to see exercises</div>';
 
     // Expandable section (hidden by default)
     var expandHtml = '<div class="gym-card-expand" style="display:none;margin-top:12px;border-top:1px solid var(--border);padding-top:12px;">';
