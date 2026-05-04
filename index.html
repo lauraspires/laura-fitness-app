@@ -4569,7 +4569,17 @@ function addWorkoutDay() {
 }
 
 function loadSupps() {
-  return getData(SUPP_KEY, JSON.parse(JSON.stringify(DEFAULT_SUPPLEMENTS)));
+  const supps = getData(SUPP_KEY, JSON.parse(JSON.stringify(DEFAULT_SUPPLEMENTS)));
+  // Migration: add any default supplements that are missing from saved data
+  let changed = false;
+  DEFAULT_SUPPLEMENTS.forEach(def => {
+    if (!supps.find(s => s.id === def.id)) {
+      supps.push(JSON.parse(JSON.stringify(def)));
+      changed = true;
+    }
+  });
+  if (changed) { setData(SUPP_KEY, supps); scheduleSave(); }
+  return supps;
 }
 function saveSupps(s) { setData(SUPP_KEY, s); scheduleSave(); }
 const ROUTINE_TIMES = [
