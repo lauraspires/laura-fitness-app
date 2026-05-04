@@ -4753,7 +4753,7 @@ function closeSuppSchedModal() {
 }
 document.getElementById('supp-sched-modal').addEventListener('click', function(e) { if (e.target === this) closeSuppSchedModal(); });
 
-let suppEditIndex = -1; // -1 = new
+let suppEditId = null; // null = new supplement
 
 function suppTab(which) {
   ['stack','schedule','checkin'].forEach(function(v) {
@@ -4762,9 +4762,9 @@ function suppTab(which) {
     if (!view || !btn) return;
     var active = (v === which);
     view.style.display    = active ? 'block' : 'none';
-    btn.style.background  = active ? 'var(--text)' : 'var(--card)';
-    btn.style.color       = active ? '#fff' : 'var(--text2)';
-    btn.style.borderColor = active ? 'var(--text)' : 'var(--border)';
+    btn.style.background  = active ? '#00f5d4' : 'var(--card)';
+    btn.style.color       = active ? '#00382f' : 'var(--text2)';
+    btn.style.borderColor = active ? '#00f5d4' : 'var(--border)';
   });
   if (which === 'schedule') renderSuppSchedule();
   if (which === 'checkin')  renderSuppCheckin();
@@ -4906,19 +4906,18 @@ function addSuppProduct() {
   renderSuppProductsList();
 }
 
-function openSuppEdit(index) {
+function openSuppEdit(id) {
   const supps = loadSupps();
-  suppEditIndex = index;
-  const isNew = index === -1;
-  const s = isNew ? { name:'', dose:'', time:'', why:'', cat:'general', active:true, products:[] } : supps[index];
+  suppEditId = id; // null = new
+  const isNew = id === null;
+  const s = isNew ? { name:'', dose:'', time:'', why:'', cat:'general', active:true, products:[] } : supps.find(x => x.id === id) || {};
   document.getElementById('supp-modal-title').textContent = isNew ? 'Add supplement' : 'Edit supplement';
-  document.getElementById('supp-edit-name').value = s.name;
-  document.getElementById('supp-edit-dose').value = s.dose;
-  document.getElementById('supp-edit-time').value = s.time;
-  document.getElementById('supp-edit-why').value  = s.why;
-  document.getElementById('supp-edit-cat').value  = s.cat || 'general';
+  document.getElementById('supp-edit-name').value = s.name || '';
+  document.getElementById('supp-edit-dose').value = s.dose || '';
+  document.getElementById('supp-edit-time').value = s.time || '';
+  document.getElementById('supp-edit-why').value  = s.why  || '';
+  document.getElementById('supp-edit-cat').value  = s.cat  || 'general';
   document.getElementById('supp-delete-btn').style.display = isNew ? 'none' : 'block';
-  // Load products into temp array
   suppEditProducts = (s.products || []).map(p => ({ ...p }));
   renderSuppProductsList();
   document.getElementById('supp-new-product').value = '';
@@ -4926,24 +4925,29 @@ function openSuppEdit(index) {
   document.body.style.overflow = 'hidden';
 }
 
-function openAddSupp() { openSuppEdit(-1); }
+function openAddSupp() { openSuppEdit(null); }
 
 function saveSuppEdit() {
   const supps = loadSupps();
-  const existing = suppEditIndex !== -1 ? supps[suppEditIndex] : {};
+  const isNew = suppEditId === null;
+  const existing = isNew ? {} : (supps.find(x => x.id === suppEditId) || {});
   const s = {
-    id:       suppEditIndex === -1 ? 's' + Date.now() : (existing.id || 's' + Date.now()),
+    id:       isNew ? 's' + Date.now() : suppEditId,
     name:     document.getElementById('supp-edit-name').value.trim(),
     dose:     document.getElementById('supp-edit-dose').value.trim(),
     time:     document.getElementById('supp-edit-time').value.trim(),
     why:      document.getElementById('supp-edit-why').value.trim(),
     cat:      document.getElementById('supp-edit-cat').value,
-    active:   existing.active !== false,
+    active:   isNew ? true : (existing.active !== false),
     products: suppEditProducts.slice(),
   };
   if (!s.name) { alert('Please enter a supplement name'); return; }
-  if (suppEditIndex === -1) { s.active = true; supps.push(s); }
-  else { supps[suppEditIndex] = s; }
+  if (isNew) {
+    supps.push(s);
+  } else {
+    const idx = supps.findIndex(x => x.id === suppEditId);
+    if (idx !== -1) supps[idx] = s;
+  }
   saveSupps(supps);
   closeSuppModal();
   renderSuppStack();
@@ -4953,7 +4957,8 @@ function saveSuppEdit() {
 function deleteSuppEdit() {
   if (!confirm('Remove this supplement from your stack?')) return;
   const supps = loadSupps();
-  supps.splice(suppEditIndex, 1);
+  const idx = supps.findIndex(x => x.id === suppEditId);
+  if (idx !== -1) supps.splice(idx, 1);
   saveSupps(supps);
   closeSuppModal();
   renderSuppStack();
@@ -6226,9 +6231,9 @@ function routinesTab(which) {
     if (!view || !btn) return;
     var active = (v === which);
     view.style.display    = active ? 'block' : 'none';
-    btn.style.background  = active ? 'var(--text)' : 'var(--card)';
-    btn.style.color       = active ? '#fff' : 'var(--text2)';
-    btn.style.borderColor = active ? 'var(--text)' : 'var(--border)';
+    btn.style.background  = active ? '#00f5d4' : 'var(--card)';
+    btn.style.color       = active ? '#00382f' : 'var(--text2)';
+    btn.style.borderColor = active ? '#00f5d4' : 'var(--border)';
   });
   if (which === 'checklist') renderRoutinesChecklist();
   if (which === 'tweaks')    renderRoutinesTweaks();
