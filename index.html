@@ -251,11 +251,11 @@
   .week-strip-row { display: contents; }
   .day-card {
     border-radius: var(--radius-sm); padding: 10px 6px; text-align: center;
-    cursor: pointer; border: 2px solid transparent; transition: all 0.15s;
-    background: var(--bg2);
+    cursor: pointer; border: 1px solid transparent; transition: all 0.15s;
+    position: relative; overflow: hidden;
   }
-  .day-card:hover { filter: brightness(1.1); }
-  .day-card.selected { border-color: rgba(255,255,255,0.35); }
+  .day-card:hover { filter: brightness(1.15); }
+  .day-card.selected { border-color: rgba(255,255,255,0.45) !important; box-shadow: 0 0 0 1px rgba(255,255,255,0.2) !important; }
   .day-label-s { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; font-family: 'Manrope', sans-serif; }
   .day-emoji { font-size: 20px; margin-bottom: 5px; }
   .day-type { font-size: 12px; font-weight: 600; }
@@ -367,7 +367,7 @@
   .overview-week { background: var(--card); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); border: 1px solid var(--border); margin-bottom: 20px; }
   .overview-week-title { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 500; margin-bottom: 14px; }
   .week-map { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
-  .wm-cell { border-radius: 8px; padding: 10px 4px; text-align: center; }
+  .wm-cell { border-radius: 8px; padding: 10px 4px; text-align: center; position: relative; overflow: hidden; border: 1px solid transparent; }
   .wm-day { font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); font-family: 'Manrope', sans-serif; margin-bottom: 4px; }
   .wm-emoji { font-size: 17px; margin-bottom: 3px; }
   .wm-label { font-size: 12px; font-weight: 600; }
@@ -3913,27 +3913,37 @@ function renderDayCards() {
       if (w.type === 'rest') return 'rest';
       return 'gym'; // strength, swim, anything else
     }
-    const CATEGORY_COLOR   = { gym:'#00f5d4', run:'#bf5fff', class:'#d4ff00', rest:'#888' };
-    const CATEGORY_BG      = { gym:'rgba(0,245,212,0.10)', run:'rgba(191,95,255,0.18)', class:'rgba(212,255,0,0.18)', rest:'rgba(136,136,136,0.08)' };
+    const CATEGORY_COLOR = { gym:'#00f5d4', run:'#bf5fff', class:'#d4ff00', rest:'#888' };
+    const CATEGORY_GRAD  = {
+      gym:   'linear-gradient(145deg,#021310 0%,#042e26 100%)',
+      run:   'linear-gradient(145deg,#130820 0%,#220a36 100%)',
+      class: 'linear-gradient(145deg,#141200 0%,#2a2600 100%)',
+      rest:  'linear-gradient(145deg,#141414 0%,#1e1e1e 100%)'
+    };
+    const CATEGORY_BORDER = { gym:'rgba(0,245,212,0.4)', run:'rgba(191,95,255,0.4)', class:'rgba(212,255,0,0.4)', rest:'rgba(136,136,136,0.2)' };
+    const CATEGORY_GLOW   = { gym:'rgba(0,245,212,0.12)', run:'rgba(191,95,255,0.12)', class:'rgba(212,255,0,0.08)', rest:'rgba(0,0,0,0)' };
 
     const cats = workoutTypes.map(t => getCardCategory(t));
     const primaryCat = cats[0] || 'gym';
     const secondaryCat = cats.length > 1 && cats[1] !== primaryCat ? cats[1] : null;
 
-    // Text colour: primary category colour
     const textColor = CATEGORY_COLOR[primaryCat];
     const dayTypeStyle = `color:${textColor};`;
 
-    // Background: diagonal gradient blend if two different categories, solid if one
+    // Apply Finance Hub card style
     if (secondaryCat) {
-      const c1 = CATEGORY_BG[primaryCat].replace('rgba(', '').replace(')', '').split(',');
-      const c2 = CATEGORY_BG[secondaryCat].replace('rgba(', '').replace(')', '').split(',');
-      // Use named colours for gradient clarity
-      const g1 = CATEGORY_COLOR[primaryCat] + '18';  // ~9% opacity hex
-      const g2 = CATEGORY_COLOR[secondaryCat] + '18';
-      card.style.background = `linear-gradient(135deg, ${g1} 0%, ${g1} 45%, ${g2} 55%, ${g2} 100%)`;
+      const g1 = CATEGORY_COLOR[primaryCat] + '22';
+      const g2 = CATEGORY_COLOR[secondaryCat] + '22';
+      card.style.background = `linear-gradient(135deg,#0d0d0d 0%,#0d0d0d 45%,#0d0d0d 100%)`;
+      card.style.borderImage = 'none';
+      card.style.border = `1px solid ${CATEGORY_BORDER[primaryCat]}`;
+      card.style.boxShadow = `0 0 20px ${CATEGORY_GLOW[primaryCat]}, 0 2px 8px rgba(0,0,0,0.5)`;
+      // Overlay gradient via pseudo-like inner div — use background shorthand with two gradients
+      card.style.background = `linear-gradient(135deg,${g1} 0%,${g1} 45%,${g2} 55%,${g2} 100%), linear-gradient(145deg,#0d0d0d,#1a1a1a)`;
     } else {
-      card.style.background = CATEGORY_BG[primaryCat];
+      card.style.background = CATEGORY_GRAD[primaryCat];
+      card.style.border = `1px solid ${CATEGORY_BORDER[primaryCat]}`;
+      card.style.boxShadow = `0 0 20px ${CATEGORY_GLOW[primaryCat]}, 0 2px 8px rgba(0,0,0,0.5)`;
     }
 
     const staticTag = firstWorkout?.tag || 'Workout';
@@ -4018,9 +4028,16 @@ function renderDashboardWeek() {
         }
       });
 
-      // Use the same category system as the week strip
-      const DW_CAT_COLOR = { gym:'#00f5d4', run:'#bf5fff', class:'#d4ff00', rest:'#888' };
-      const DW_CAT_BG    = { gym:'rgba(0,245,212,0.10)', run:'rgba(191,95,255,0.18)', class:'rgba(212,255,0,0.18)', rest:'rgba(136,136,136,0.08)' };
+      // Use the same Finance Hub card style as the week strip
+      const DW_CAT_COLOR  = { gym:'#00f5d4', run:'#bf5fff', class:'#d4ff00', rest:'#888' };
+      const DW_CAT_GRAD   = {
+        gym:   'linear-gradient(145deg,#021310 0%,#042e26 100%)',
+        run:   'linear-gradient(145deg,#130820 0%,#220a36 100%)',
+        class: 'linear-gradient(145deg,#141200 0%,#2a2600 100%)',
+        rest:  'linear-gradient(145deg,#141414 0%,#1e1e1e 100%)'
+      };
+      const DW_CAT_BORDER = { gym:'rgba(0,245,212,0.4)', run:'rgba(191,95,255,0.4)', class:'rgba(212,255,0,0.4)', rest:'rgba(136,136,136,0.2)' };
+      const DW_CAT_GLOW   = { gym:'rgba(0,245,212,0.12)', run:'rgba(191,95,255,0.12)', class:'rgba(212,255,0,0.08)', rest:'rgba(0,0,0,0)' };
       function getDwCat(type) {
         if (!type) return 'gym';
         const w = _libDw[type];
@@ -4034,17 +4051,21 @@ function renderDashboardWeek() {
       const dwPrimary = dwCats[0] || 'gym';
       const dwSecondary = dwCats.length > 1 && dwCats[1] !== dwPrimary ? dwCats[1] : null;
       const labelColor = DW_CAT_COLOR[dwPrimary];
-      let bgStyle;
+      let cellBg, cellBorder, cellShadow;
       if (dwSecondary) {
-        const g1 = DW_CAT_COLOR[dwPrimary] + '18';
-        const g2 = DW_CAT_COLOR[dwSecondary] + '18';
-        bgStyle = `background:linear-gradient(135deg,${g1} 0%,${g1} 45%,${g2} 55%,${g2} 100%);`;
+        const g1 = DW_CAT_COLOR[dwPrimary] + '22';
+        const g2 = DW_CAT_COLOR[dwSecondary] + '22';
+        cellBg = `linear-gradient(135deg,${g1} 0%,${g1} 45%,${g2} 55%,${g2} 100%), linear-gradient(145deg,#0d0d0d,#1a1a1a)`;
+        cellBorder = DW_CAT_BORDER[dwPrimary];
+        cellShadow = `0 0 20px ${DW_CAT_GLOW[dwPrimary]}, 0 2px 8px rgba(0,0,0,0.5)`;
       } else {
-        bgStyle = `background:${DW_CAT_BG[dwPrimary]};`;
+        cellBg = DW_CAT_GRAD[dwPrimary];
+        cellBorder = DW_CAT_BORDER[dwPrimary];
+        cellShadow = `0 0 20px ${DW_CAT_GLOW[dwPrimary]}, 0 2px 8px rgba(0,0,0,0.5)`;
       }
 
       html += `
-        <div class="wm-cell" style="${bgStyle}">
+        <div class="wm-cell" style="background:${cellBg};border:1px solid ${cellBorder};box-shadow:${cellShadow};">
           <div class="wm-day">${dayKey.charAt(0).toUpperCase() + dayKey.slice(1)}</div>
           <div class="wm-emoji">${combinedEmoji}</div>
           <div class="wm-label" style="color:${labelColor};">${combinedName}</div>
