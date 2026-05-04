@@ -79,7 +79,7 @@
     --text3:         #83948f;
     --border:        rgba(255,255,255,0.08);
     --teal:          #00f5d4;
-    --teal-light:    rgba(0,245,212,0.12);
+    --teal-light:    rgba(0,245,212,0.18);
     --teal-mid:      rgba(0,245,212,0.25);
     --coral:         #f4816a;
     --coral-light:   rgba(244,129,106,0.15);
@@ -790,17 +790,17 @@
       <div style="font-size:14px;font-weight:700;color:var(--teal);line-height:1.2;margin-bottom:4px;">3 gym sessions</div>
       <div class="stat-label">Push · Pull · Legs</div>
     </div>
-    <div class="stat-card" style="background:rgba(212,255,0,0.12);border-color:rgba(212,255,0,0.25);">
+    <div class="stat-card" style="background:rgba(212,255,0,0.18);border-color:rgba(212,255,0,0.25);">
       <div style="font-size:22px;margin-bottom:6px;">🔥</div>
       <div style="font-size:14px;font-weight:700;color:#d4ff00;line-height:1.2;margin-bottom:4px;">Blaze</div>
       <div class="stat-label">Primary fat-burn session</div>
     </div>
-    <div class="stat-card" style="background:rgba(212,255,0,0.12);border-color:rgba(212,255,0,0.25);">
+    <div class="stat-card" style="background:rgba(212,255,0,0.18);border-color:rgba(212,255,0,0.25);">
       <div style="font-size:22px;margin-bottom:6px;">🚴</div>
       <div style="font-size:14px;font-weight:700;color:#d4ff00;line-height:1.2;margin-bottom:4px;">Cyclone</div>
       <div class="stat-label">Low-impact cardio &amp; endurance</div>
     </div>
-    <div class="stat-card" style="background:rgba(191,95,255,0.08);border-color:rgba(191,95,255,0.25);">
+    <div class="stat-card" style="background:rgba(191,95,255,0.18);border-color:rgba(191,95,255,0.25);">
       <div style="font-size:22px;margin-bottom:6px;">🏃</div>
       <div style="font-size:14px;font-weight:700;color:#bf5fff;line-height:1.2;margin-bottom:4px;">2 runs/week</div>
       <div class="stat-label">Intervals + easy runs</div>
@@ -3376,7 +3376,7 @@ const COLOR_MAP = {
   gray:   { bg:'var(--bg2)',               text:'var(--text2)',  border:'var(--border)' },
   purple: { bg:'var(--purple-light)',       text:'var(--purple)', border:'#B0ABEC' },
   // Semantic colour keys for the workout category system
-  run:    { bg:'rgba(191,95,255,0.10)',     text:'#bf5fff',       border:'rgba(191,95,255,0.4)' },
+  run:    { bg:'rgba(191,95,255,0.18)',     text:'#bf5fff',       border:'rgba(191,95,255,0.4)' },
   class:  { bg:'rgba(212,255,0,0.08)',      text:'#d4ff00',       border:'rgba(212,255,0,0.4)' },
 };
 
@@ -3875,7 +3875,7 @@ function renderDayCards() {
       return 'gym'; // strength, swim, anything else
     }
     const CATEGORY_COLOR   = { gym:'#00f5d4', run:'#bf5fff', class:'#d4ff00', rest:'#888' };
-    const CATEGORY_BG      = { gym:'rgba(0,245,212,0.10)', run:'rgba(191,95,255,0.10)', class:'rgba(212,255,0,0.12)', rest:'rgba(136,136,136,0.08)' };
+    const CATEGORY_BG      = { gym:'rgba(0,245,212,0.10)', run:'rgba(191,95,255,0.18)', class:'rgba(212,255,0,0.18)', rest:'rgba(136,136,136,0.08)' };
 
     const cats = workoutTypes.map(t => getCardCategory(t));
     const primaryCat = cats[0] || 'gym';
@@ -3981,7 +3981,7 @@ function renderDashboardWeek() {
 
       // Use the same category system as the week strip
       const DW_CAT_COLOR = { gym:'#00f5d4', run:'#bf5fff', class:'#d4ff00', rest:'#888' };
-      const DW_CAT_BG    = { gym:'rgba(0,245,212,0.10)', run:'rgba(191,95,255,0.10)', class:'rgba(212,255,0,0.12)', rest:'rgba(136,136,136,0.08)' };
+      const DW_CAT_BG    = { gym:'rgba(0,245,212,0.10)', run:'rgba(191,95,255,0.18)', class:'rgba(212,255,0,0.18)', rest:'rgba(136,136,136,0.08)' };
       function getDwCat(type) {
         if (!type) return 'gym';
         const w = _libDw[type];
@@ -4053,7 +4053,7 @@ function renderRoutinesGrid() {
       });
 
       const RG_CAT_COLOR = { gym:'#00f5d4', run:'#bf5fff', class:'#d4ff00', rest:'#888' };
-      const RG_CAT_BG    = { gym:'rgba(0,245,212,0.10)', run:'rgba(191,95,255,0.10)', class:'rgba(212,255,0,0.08)', rest:'rgba(136,136,136,0.08)' };
+      const RG_CAT_BG    = { gym:'rgba(0,245,212,0.10)', run:'rgba(191,95,255,0.18)', class:'rgba(212,255,0,0.08)', rest:'rgba(136,136,136,0.08)' };
       function getRgCat(type) {
         if (!type) return 'gym';
         const w = _libRg[type];
@@ -4382,7 +4382,7 @@ function renderRunTimes(workoutType) {
   pills.style.cssText = 'display:flex;flex-wrap:wrap;gap:4px;';
   times.forEach(t => {
     const pill = document.createElement('div');
-    pill.style.cssText = 'padding:3px 8px;background:rgba(191,95,255,0.10);border:1px solid rgba(191,95,255,0.3);border-radius:999px;font-size:11px;color:#bf5fff;';
+    pill.style.cssText = 'padding:3px 8px;background:rgba(191,95,255,0.18);border:1px solid rgba(191,95,255,0.3);border-radius:999px;font-size:11px;color:#bf5fff;';
     pill.textContent = `${DAY_SHORT[t.day] || t.day}${t.time ? ' ' + t.time : ''}`;
     pills.appendChild(pill);
   });
@@ -6920,7 +6920,7 @@ function renderRoutinesTweaks() {
     var firstType    = workoutTypes[0];
     var firstWorkout = firstType ? lib[firstType] : null;
     var RT_CAT_COLOR = { gym:'#00f5d4', run:'#bf5fff', class:'#d4ff00', rest:'#888', gray:'#888' };
-    var RT_CAT_BG    = { gym:'rgba(0,245,212,0.10)', run:'rgba(191,95,255,0.10)', class:'rgba(212,255,0,0.08)', rest:'rgba(136,136,136,0.08)', gray:'rgba(136,136,136,0.08)' };
+    var RT_CAT_BG    = { gym:'rgba(0,245,212,0.10)', run:'rgba(191,95,255,0.18)', class:'rgba(212,255,0,0.08)', rest:'rgba(136,136,136,0.08)', gray:'rgba(136,136,136,0.08)' };
     var rtCat = !firstWorkout ? 'gray'
       : (firstWorkout.type === 'run' || firstWorkout.color === 'run') ? 'run'
       : (firstWorkout.type === 'class' || firstWorkout.color === 'class') ? 'class'
