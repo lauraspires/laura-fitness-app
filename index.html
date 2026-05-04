@@ -1705,10 +1705,10 @@
       <div id="pantry-cupboard" style="display:flex;flex-direction:column;gap:6px;"></div>
     </div>
     <!-- Counter -->
-    <div style="background:linear-gradient(145deg,#161616,#222222);border:1px dashed rgba(255,255,255,0.22);box-shadow:0 0 20px rgba(255,255,255,0.06),0 2px 8px rgba(0,0,0,0.5);border-radius:var(--radius);padding:18px;">
+    <div style="background:linear-gradient(145deg,#161000,#2a1f00);border:1px solid rgba(245,166,35,0.4);box-shadow:0 0 20px rgba(245,166,35,0.08),0 2px 8px rgba(0,0,0,0.5);border-radius:var(--radius);padding:18px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#e5e2e1;">🍎 Counter</div>
-        <button onclick="addPantryItem('counter')" style="font-size:12px;padding:5px 14px;background:rgba(255,255,255,0.06);color:#e5e2e1;border:1px solid rgba(255,255,255,0.2);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add item</button>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#f5a623;">🍎 Counter</div>
+        <button onclick="addPantryItem('counter')" style="font-size:12px;padding:5px 14px;background:rgba(245,166,35,0.12);color:#f5a623;border:1px solid rgba(245,166,35,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add item</button>
       </div>
       <div id="pantry-counter" style="display:flex;flex-direction:column;gap:6px;"></div>
     </div>
@@ -7305,17 +7305,17 @@ function renderPantry() {
     el.innerHTML = items.map((item, idx) => {
       const count = item.count || 1;
       const depleted = count <= 0;
-      return '<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(255,255,255,0.04);border-radius:8px;' + (depleted ? 'opacity:0.35;' : '') + '">'
-        + '<button onclick="decrementPantryItem(\'' + loc + '\',' + idx + ')" title="Use one" style="width:26px;height:26px;border-radius:50%;background:rgba(0,245,212,0.12);border:1px solid rgba(0,245,212,0.3);color:#00f5d4;font-size:14px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;">−</button>'
-        + '<div style="flex:1;min-width:0;">'
-        + '<div style="font-size:13px;font-weight:500;' + (depleted ? 'text-decoration:line-through;color:rgba(255,255,255,0.4);' : '') + '">' + escapeHtml(item.name) + '</div>'
-        + '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px;">'
+      return '<div style="display:flex;align-items:center;gap:6px;padding:6px 8px;background:rgba(255,255,255,0.04);border-radius:7px;' + (depleted ? 'opacity:0.35;' : '') + '">'
+        + '<button onclick="decrementPantryItem(\'' + loc + '\',' + idx + ')" title="Use one" style="width:20px;height:20px;border-radius:50%;background:rgba(0,245,212,0.10);border:1px solid rgba(0,245,212,0.25);color:#00f5d4;font-size:12px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;line-height:1;">−</button>'
+        + '<div style="flex:1;min-width:0;overflow:hidden;">'
+        + '<div style="font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;' + (depleted ? 'text-decoration:line-through;color:rgba(255,255,255,0.4);' : '') + '">' + escapeHtml(item.name) + '</div>'
+        + '<div style="font-size:10px;color:rgba(255,255,255,0.35);margin-top:1px;white-space:nowrap;">'
         + (item.size ? escapeHtml(item.size) + ' · ' : '')
-        + '<span style="color:' + (depleted ? 'rgba(255,80,80,0.7)' : 'rgba(0,245,212,0.7)') + ';font-weight:600;">' + count + ' left</span>'
+        + '<span style="color:' + (depleted ? 'rgba(255,80,80,0.6)' : 'rgba(0,245,212,0.6)') + ';font-weight:600;">' + count + '</span>'
         + '</div>'
         + '</div>'
-        + '<button onclick="editPantryItem(\'' + loc + '\',' + idx + ')" style="background:none;border:none;color:rgba(255,255,255,0.3);font-size:13px;cursor:pointer;padding:2px 4px;" title="Edit">✏️</button>'
-        + '<button onclick="removePantryItem(\'' + loc + '\',' + idx + ')" style="background:none;border:none;color:rgba(255,255,255,0.2);font-size:13px;cursor:pointer;padding:2px 4px;" title="Remove">✕</button>'
+        + '<button onclick="editPantryItem(\'' + loc + '\',' + idx + ')" style="background:none;border:none;color:rgba(255,255,255,0.25);font-size:11px;cursor:pointer;padding:1px 3px;flex-shrink:0;" title="Edit">✏️</button>'
+        + '<button onclick="removePantryItem(\'' + loc + '\',' + idx + ')" style="background:none;border:none;color:rgba(255,255,255,0.18);font-size:11px;cursor:pointer;padding:1px 3px;flex-shrink:0;" title="Remove">✕</button>'
         + '</div>';
     }).join('');
   });
@@ -7487,8 +7487,8 @@ function parseOcadoImport() {
 
 const LOC_CYCLE = ['fridge','freezer','cupboard','counter'];
 const LOC_ICONS = { fridge:'🧊', freezer:'❄️', cupboard:'🗄️', counter:'🍎' };
-const LOC_COLORS = { fridge:'rgba(0,245,212,0.15)', freezer:'rgba(191,95,255,0.15)', cupboard:'rgba(212,255,0,0.10)', counter:'rgba(255,255,255,0.08)' };
-const LOC_TEXT   = { fridge:'#00f5d4', freezer:'#bf5fff', cupboard:'#d4ff00', counter:'#e5e2e1' };
+const LOC_COLORS = { fridge:'rgba(0,245,212,0.15)', freezer:'rgba(191,95,255,0.15)', cupboard:'rgba(212,255,0,0.10)', counter:'rgba(245,166,35,0.15)' };
+const LOC_TEXT   = { fridge:'#00f5d4', freezer:'#bf5fff', cupboard:'#d4ff00', counter:'#f5a623' };
 
 function renderOcadoReview() {
   const list = document.getElementById('ocado-review-list');
