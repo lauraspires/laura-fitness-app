@@ -2993,7 +2993,7 @@ function goTo(page, el) {
   document.getElementById('page-' + page).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   if (el) el.classList.add('active');
-  if (page === 'progress') renderProgress();
+  if (page === 'progress') requestAnimationFrame(() => requestAnimationFrame(() => renderProgress()));
   if (page === 'pantry') { try { renderPantry(); } catch(e) {} }
   if (page === 'workouts') renderGymWorkouts();
   if (page === 'pantry') renderPantry();
@@ -3021,9 +3021,14 @@ function goTo(page, el) {
 }
 
 function switchEat(id, el) {
-  document.querySelectorAll('.etab-page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.etab').forEach(t => t.classList.remove('active'));
-  document.getElementById('eat-' + id).classList.add('active');
+  // Scope to the meals page only — never touch tabs on other pages
+  const mealsPage = document.getElementById('page-meals');
+  if (mealsPage) {
+    mealsPage.querySelectorAll('.etab-page').forEach(p => p.classList.remove('active'));
+    mealsPage.querySelectorAll('.etab').forEach(t => t.classList.remove('active'));
+  }
+  const target = document.getElementById('eat-' + id);
+  if (target) target.classList.add('active');
   if (el) el.classList.add('active');
   if (id === 'std') renderDynamicWeeklyOverview();
 }
@@ -7831,16 +7836,22 @@ async function generateSundayPrep() {
     'Items already in the pantry/fridge:',
     pantryItems.length ? pantryItems.join(', ') : '(Not specified)',
     '',
-    'Generate a practical Sunday prep list. Focus on:',
-    '1. Batch cooking tasks (what to cook in bulk)',
-    '2. Ingredient prep (chop, marinate, portion)',
-    '3. What to buy that\'s not in the pantry',
-    '4. Any specific prep tips for gym days vs rest days',
+    'Generate a practical Sunday prep list covering ALL aspects of the week ahead — not just food.',
+    'Include these sections (only include a section if there\'s something meaningful to say):',
     '',
-    'Format your response as a structured list with clear sections. Be specific and practical.',
-    'Keep it concise — this should take 30–60 minutes of actual prep time.',
-    'Write in second person ("Cook...", "Prep...", "Buy...").',
-    'Do NOT include any preamble or explanation — just the prep list itself.'
+    '🍳 Batch Cook — what to cook in bulk right now (be specific: quantities, method)',
+    '🥗 Ingredient Prep — chop, marinate, portion, or pre-pack anything that saves time later',
+    '🛒 Buy This Week — items needed that aren\'t in the pantry (be specific)',
+    '💪 Workout Prep — pack gym bag, check class bookings, lay out kit for early mornings, check running route',
+    '🔋 Recovery Setup — anything to prepare for rest days or heavy training days (e.g. Epsom salts, foam roller out, sleep schedule)',
+    '📋 Admin & Mindset — weekly intentions, any schedule conflicts to plan around, habit anchors to set',
+    '',
+    'Rules:',
+    '- Be specific and actionable. No vague advice.',
+    '- Write in second person imperative ("Cook...", "Pack...", "Book...", "Check...")',
+    '- Max 3–5 bullet points per section. Skip a section entirely if nothing applies.',
+    '- Total prep time should be realistic for a Sunday: 45–90 minutes.',
+    '- Do NOT include any preamble, intro, or explanation — just the sections and bullets.'
   ].join('\n');
 
   try {
