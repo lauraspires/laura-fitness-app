@@ -699,6 +699,9 @@
     <button class="nav-item" onclick="goTo('planner', this)">
       <span class="nav-icon">📋</span> Meal Planner
     </button>
+    <button class="nav-item" onclick="goTo('recime', this)">
+      <span class="nav-icon">📖</span> My Recipes
+    </button>
     <button class="nav-item" onclick="goTo('upf', this)">
       <span class="nav-icon">🧹</span> UPF & Sugar Audit
     </button>
@@ -707,9 +710,6 @@
     </button>
     <button class="nav-item" onclick="goTo('eatingout', this)">
       <span class="nav-icon">🍽️</span> Eating Out
-    </button>
-    <button class="nav-item" onclick="goTo('recime', this)">
-      <span class="nav-icon">📖</span> My Recipes
     </button>
   </div>
 
@@ -807,24 +807,7 @@
     <div class="card">
       <div class="card-title">This week's nutrition</div>
       <div class="card-sub" style="margin-bottom:14px;">Eating style by day</div>
-      <div style="display:flex;flex-direction:column;gap:7px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
-          <span style="color:var(--text2);">Mon, Wed, Sun</span>
-          <span class="badge badge-teal">Standard — 1,450 kcal</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
-          <span style="color:var(--text2);">Thu (WFH) · sometimes Tue</span>
-          <span class="badge badge-blue">Early finish by 6pm</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
-          <span style="color:var(--text2);">Saturday</span>
-          <span class="badge badge-amber">OMAD — 1,200 kcal</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
-          <span style="color:var(--text2);">Friday or Sunday</span>
-          <span class="badge badge-purple">Keto day</span>
-        </div>
-      </div>
+      <div id="dashboard-nutrition-widget" style="display:flex;flex-direction:column;gap:7px;"></div>
     </div>
   </div>
 
@@ -1327,30 +1310,11 @@
     <div class="etab" onclick="switchEat('early', this)">🕕 Early finish</div>
     <div class="etab" onclick="switchEat('omad', this)">🍽️ OMAD</div>
     <div class="etab" onclick="switchEat('keto', this)">🥑 Keto day</div>
-    <div class="etab" onclick="switchEat('suggestions', this)">✨ Meal suggestions</div>
   </div>
 
   <div id="eat-std" class="etab-page active">
-    <div class="grid-2" style="margin-bottom:16px;">
-      <div class="card card-sm" style="display:flex;justify-content:space-between;align-items:center;">
-        <div><div style="font-size:13px;font-weight:500;color:var(--text2);">Mon, Wed, Sun</div><div style="font-size:15px;font-weight:600;margin:2px 0;">Standard day</div><div class="card-sub">Three meals · ~1,450 kcal · 137g protein</div></div><span class="badge badge-teal">3 meals</span>
-      </div>
-      <div class="card card-sm" style="display:flex;justify-content:space-between;align-items:center;">
-        <div><div style="font-size:13px;font-weight:500;color:var(--text2);">Thu (WFH) · sometimes Tue</div><div style="font-size:15px;font-weight:600;margin:2px 0;">Early finish</div><div class="card-sub">Done by 6pm · ~1,240 kcal · 116g protein</div></div><span class="badge badge-blue">By 6pm</span>
-      </div>
-      <div class="card card-sm" style="display:flex;justify-content:space-between;align-items:center;">
-        <div><div style="font-size:13px;font-weight:500;color:var(--text2);">Saturday</div><div style="font-size:15px;font-weight:600;margin:2px 0;">OMAD</div><div class="card-sub">One big meal · ~1,200 kcal · 110g protein</div></div><span class="badge badge-amber">1 meal</span>
-      </div>
-      <div class="card card-sm" style="display:flex;justify-content:space-between;align-items:center;">
-        <div><div style="font-size:13px;font-weight:500;color:var(--text2);">Friday or Sunday</div><div style="font-size:15px;font-weight:600;margin:2px 0;">Keto day</div><div class="card-sub">No carbs · ~1,400 kcal · 121g protein</div></div><span class="badge badge-purple">Keto</span>
-      </div>
-    </div>
-    <div class="tip-box-f">
-      <div class="tip-box-title">The logic</div>
-      <div class="tip-item"><span class="tip-dot-f"></span>Training days get more calories to fuel performance and recovery</div>
-      <div class="tip-item"><span class="tip-dot-f"></span>Early-finish and OMAD days create the calorie deficit that drives weight loss</div>
-      <div class="tip-item"><span class="tip-dot-f"></span>Keto on Friday or Sunday pairs well with lower-intensity days — teaches your body to burn fat as fuel</div>
-    </div>
+    <div id="summary-weekly-overview" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;"></div>
+    <div id="summary-weekly-logic" class="tip-box-f"></div>
   </div>
 
   <div id="eat-standard" class="etab-page">
@@ -1456,29 +1420,6 @@
     <div style="background:var(--purple-light);border-radius:var(--radius-sm);padding:12px 16px;margin-top:12px;font-size:13px;color:var(--purple);"><strong>Keto rules:</strong> Eat freely from — eggs, meat, fish, cheese, cream, avocado, nuts, all non-starchy veg. Avoid — bread, rice, pasta, oats, fruit (except berries), anything with sugar.</div>
   </div>
 
-  <!-- ===== MEAL SUGGESTIONS TAB ===== -->
-  <div id="eat-suggestions" class="etab-page">
-    <div class="card" style="margin-bottom:14px;">
-      <div class="card-title" style="margin-bottom:8px;">What's in your pantry?</div>
-      <div style="font-size:13px;color:var(--text2);margin-bottom:14px;">Suggestions are generated from your saved pantry items + today's workout. Add items to your pantry first via the Pantry page.</div>
-      <div id="suggestions-pantry-preview" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;min-height:28px;"></div>
-      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
-        <div style="flex:1;min-width:180px;">
-          <label style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);display:block;margin-bottom:5px;">Today's workout</label>
-          <select id="suggestions-workout-select" style="width:100%;padding:9px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-family:'Manrope',sans-serif;font-size:13px;">
-            <option value="gym">💪 Gym (strength)</option>
-            <option value="run">🏃 Run</option>
-            <option value="class">🔥 Class (Blaze/Cyclone/Rhythm)</option>
-            <option value="rest">😴 Rest day</option>
-          </select>
-        </div>
-        <button onclick="getMealSuggestions()" style="padding:10px 22px;background:#00f5d4;color:#00382f;border:none;border-radius:999px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;margin-top:18px;">✨ Get suggestions</button>
-      </div>
-      <div id="suggestions-api-warning" style="display:none;margin-top:12px;padding:10px 14px;background:rgba(245,166,35,0.12);border:1px solid rgba(245,166,35,0.3);border-radius:8px;font-size:12.5px;color:#f5a623;">No API key found. Add your Anthropic API key in <button onclick="goTo('settings')" style="background:none;border:none;color:#f5a623;text-decoration:underline;cursor:pointer;font-family:'Manrope',sans-serif;font-size:12.5px;padding:0;">Settings</button> to use meal suggestions.</div>
-    </div>
-    <div id="suggestions-loading" style="display:none;text-align:center;padding:40px;color:var(--text3);font-size:13px;">✨ Thinking about what you could make…</div>
-    <div id="suggestions-results" style="display:flex;flex-direction:column;gap:10px;"></div>
-  </div>
 </div>
 
 <!-- ===================== UPF AUDIT ===================== -->
@@ -2178,9 +2119,15 @@ function showCuisine(id, el) {
   </div>
 
   <!-- Tip about linking pantry -->
-  <div style="background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.2);border-radius:var(--radius);padding:16px 20px;font-size:13px;color:var(--text2);line-height:1.6;">
+  <div style="background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.2);border-radius:var(--radius);padding:16px 20px;font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:20px;">
     <span style="color:#f5a623;font-weight:700;">💡 Tip —</span> When you find a recipe in ReciMe, cross-reference it with your pantry here to see what you already have and what you still need to buy.
   </div>
+
+  <!-- Saved suggestions from Meal Planner -->
+  <div style="margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);">Saved from suggestions</div>
+  </div>
+  <div id="saved-recipes-list" style="display:flex;flex-direction:column;gap:10px;"></div>
 </div>
 
 <!-- ===================== MEAL PLANNER ===================== -->
@@ -2191,20 +2138,61 @@ function showCuisine(id, el) {
     <div class="page-sub">Tap any meal to swap it · All options are clean, UPF-free and no added sugar</div>
   </div>
 
-  <!-- Summary totals bar -->
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;" id="planner-totals">
-    <div class="stat-card"><div class="stat-val" id="pt-avgcal">—</div><div class="stat-label">Avg daily calories</div></div>
-    <div class="stat-card"><div class="stat-val" id="pt-avgpro">—</div><div class="stat-label">Avg daily protein</div></div>
-    <div class="stat-card"><div class="stat-val" id="pt-ketodays">2</div><div class="stat-label">Keto days</div><div class="stat-sub">Fri & Sun</div></div>
-    <div class="stat-card"><div class="stat-val" id="pt-earldays">1</div><div class="stat-label">Early finish days</div><div class="stat-sub">Thu WFH</div></div>
+  <!-- Tab bar -->
+  <div class="etab-bar" style="margin-bottom:18px;">
+    <div class="etab active" id="ptab-planner" onclick="switchPlannerTab('planner',this)">📅 My plan</div>
+    <div class="etab" id="ptab-suggestions" onclick="switchPlannerTab('suggestions',this)">✨ Suggestions</div>
   </div>
 
-  <!-- 7-day grid -->
-  <div id="planner-grid" style="display:flex;flex-direction:column;gap:8px;"></div>
+  <!-- ── TAB: Planner ── -->
+  <div id="planner-tab-planner">
+    <!-- Summary totals bar -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;" id="planner-totals">
+      <div class="stat-card"><div class="stat-val" id="pt-avgcal">—</div><div class="stat-label">Avg daily calories</div></div>
+      <div class="stat-card"><div class="stat-val" id="pt-avgpro">—</div><div class="stat-label">Avg daily protein</div></div>
+      <div class="stat-card"><div class="stat-val" id="pt-ketodays">2</div><div class="stat-label">Keto days</div><div class="stat-sub">Fri & Sun</div></div>
+      <div class="stat-card"><div class="stat-val" id="pt-earldays">1</div><div class="stat-label">Early finish days</div><div class="stat-sub">Thu WFH</div></div>
+    </div>
 
-  <!-- Reset button -->
-  <div style="text-align:center;margin-top:20px;">
-    <button onclick="resetPlanner()" style="font-size:13px;color:var(--text3);background:none;border:1px solid var(--border);cursor:pointer;padding:8px 20px;border-radius:999px;font-family:'Manrope', sans-serif;" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text3)'">Reset to default plan</button>
+    <!-- 7-day grid -->
+    <div id="planner-grid" style="display:flex;flex-direction:column;gap:8px;"></div>
+
+    <!-- Reset button -->
+    <div style="text-align:center;margin-top:20px;">
+      <button onclick="resetPlanner()" style="font-size:13px;color:var(--text3);background:none;border:1px solid var(--border);cursor:pointer;padding:8px 20px;border-radius:999px;font-family:'Manrope', sans-serif;" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text3)'">Reset to default plan</button>
+    </div>
+  </div>
+
+  <!-- ── TAB: Suggestions ── -->
+  <div id="planner-tab-suggestions" style="display:none;">
+    <!-- API key warning -->
+    <div id="planner-suggestions-api-warning" style="display:none;background:rgba(255,107,107,0.12);border:1px solid rgba(255,107,107,0.3);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:16px;font-size:13px;color:var(--red);">
+      No Anthropic API key set — go to <strong>Settings → AI Features</strong> to add one.
+    </div>
+
+    <!-- Controls row -->
+    <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin-bottom:16px;align-items:end;">
+      <div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:6px;font-family:'Manrope',sans-serif;">Today's workout</div>
+        <select id="planner-suggestions-workout" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--card);color:var(--text);font-family:'Manrope',sans-serif;font-size:13px;outline:none;">
+          <option value="gym">🏋️ Gym / strength training</option>
+          <option value="run">🏃 Running</option>
+          <option value="class">🔥 Class (Blaze / Cyclone / Rhythm)</option>
+          <option value="rest">😴 Rest day</option>
+        </select>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:6px;font-family:'Manrope',sans-serif;">Pantry snapshot</div>
+        <div id="planner-pantry-preview" style="padding:9px 14px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg2);font-size:12px;color:var(--text2);min-height:40px;line-height:1.5;"></div>
+      </div>
+      <button onclick="getPlannerSuggestions()" style="padding:10px 20px;background:#00f5d4;color:#00382f;border:none;border-radius:var(--radius-sm);font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;height:40px;align-self:end;">Get suggestions</button>
+    </div>
+
+    <!-- Loading -->
+    <div id="planner-suggestions-loading" style="display:none;text-align:center;padding:32px;font-size:13px;color:var(--text3);">✨ Generating meal ideas from your pantry…</div>
+
+    <!-- Results -->
+    <div id="planner-suggestions-results" style="display:flex;flex-direction:column;gap:10px;"></div>
   </div>
 </div>
 
@@ -3036,7 +3024,9 @@ function goTo(page, el) {
   if (page === 'shop') { refreshPlannerShoppingList(); renderShoppingTickList(); }
   if (page === 'workouts') renderGymWorkouts();
   if (page === 'pantry') renderPantry();
-  if (page === 'meals') renderSuggestionsPantryPreview();
+  if (page === 'summary') renderDynamicWeeklyOverview();
+  if (page === 'dashboard') renderDashboardNutritionWidget(null);
+  if (page === 'recime') renderSavedRecipes();
   if (page === 'runningplans') {
     if (typeof renderRunningPlans === 'function') renderRunningPlans();
     updateRunningPlansSyncStatus();
@@ -3062,7 +3052,7 @@ function switchEat(id, el) {
   document.querySelectorAll('.etab').forEach(t => t.classList.remove('active'));
   document.getElementById('eat-' + id).classList.add('active');
   if (el) el.classList.add('active');
-  if (id === 'suggestions') renderSuggestionsPantryPreview();
+  if (id === 'std') renderDynamicWeeklyOverview();
 }
 
 // ============================================================
@@ -7712,6 +7702,321 @@ async function getMealSuggestions() {
     window._goToOrig = origGoTo;
   }
 })();
+
+// ─────────────────────────────────────────────
+//  PLANNER TAB SWITCHER
+// ─────────────────────────────────────────────
+function switchPlannerTab(id, el) {
+  ['planner','suggestions'].forEach(t => {
+    const pane = document.getElementById('planner-tab-' + t);
+    const tab  = document.getElementById('ptab-' + t);
+    if (pane) pane.style.display = (t === id) ? '' : 'none';
+    if (tab) { tab.classList.toggle('active', t === id); }
+  });
+  if (id === 'suggestions') {
+    renderPlannerPantryPreview();
+    autoDetectTodaysWorkout();
+  }
+}
+
+function renderPlannerPantryPreview() {
+  const el = document.getElementById('planner-pantry-preview');
+  if (!el) return;
+  const pantry = loadPantry();
+  const allItems = PANTRY_LOCATIONS.flatMap(loc => (pantry[loc] || []).filter(i => (i.count || 1) > 0).map(i => i.name));
+  if (allItems.length === 0) {
+    el.textContent = 'Pantry is empty — add items in the Pantry tab';
+    return;
+  }
+  el.textContent = allItems.slice(0, 8).join(', ') + (allItems.length > 8 ? ' + ' + (allItems.length - 8) + ' more' : '');
+}
+
+function autoDetectTodaysWorkout() {
+  const days = ['sun','mon','tue','wed','thu','fri','sat'];
+  const todayKey = days[new Date().getDay()];
+  const routine = loadWorkoutRoutine();
+  const today = routine.find(d => d.dayKey === todayKey);
+  if (!today || !today.workoutTypes || today.workoutTypes.length === 0) return;
+  const lib = getWorkoutLibrary();
+  const type = today.workoutTypes[0];
+  const info = lib[type];
+  const sel = document.getElementById('planner-suggestions-workout');
+  if (!sel || !info) return;
+  if (info.type === 'strength') sel.value = 'gym';
+  else if (info.type === 'run')      sel.value = 'run';
+  else if (info.type === 'class')    sel.value = 'class';
+  else if (info.type === 'rest')     sel.value = 'rest';
+}
+
+// ─────────────────────────────────────────────
+//  SAVED RECIPES STORE
+// ─────────────────────────────────────────────
+const SAVED_RECIPES_KEY = 'laura_saved_recipes_v1';
+
+function loadSavedRecipes() {
+  return getData(SAVED_RECIPES_KEY, []);
+}
+
+function saveSavedRecipesToStore(recipes) {
+  setData(SAVED_RECIPES_KEY, recipes);
+  scheduleSave();
+}
+
+function saveToMyRecipes(meal) {
+  const recipes = loadSavedRecipes();
+  const exists = recipes.some(r => r.name === meal.name);
+  if (exists) { showNotification('"' + meal.name + '" already saved'); return; }
+  recipes.unshift({ name: meal.name, slot: meal.slot, desc: meal.desc, kcal: meal.kcal, protein: meal.protein, savedAt: Date.now() });
+  saveSavedRecipesToStore(recipes);
+  showNotification('Saved "' + meal.name + '" to My Recipes ✓');
+  renderSavedRecipes();
+}
+
+function deleteFromMyRecipes(idx) {
+  const recipes = loadSavedRecipes();
+  recipes.splice(idx, 1);
+  saveSavedRecipesToStore(recipes);
+  renderSavedRecipes();
+  showNotification('Recipe removed');
+}
+
+function renderSavedRecipes() {
+  const el = document.getElementById('saved-recipes-list');
+  if (!el) return;
+  const recipes = loadSavedRecipes();
+  if (recipes.length === 0) {
+    el.innerHTML = '<div style="text-align:center;padding:32px 16px;color:var(--text3);font-size:13px;">No saved recipes yet — use the ✨ Suggestions tab in Meal Planner to find meals and save them here.</div>';
+    return;
+  }
+  el.innerHTML = recipes.map((r, idx) => {
+    const slotColors = { Breakfast:'#00f5d4', Lunch:'#bf5fff', Snack:'#f5a623', Dinner:'#00f5d4' };
+    const col = slotColors[r.slot] || '#00f5d4';
+    return '<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">'
+      + '<div style="flex:1;">'
+      + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">'
+      + (r.slot ? '<span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:' + col + ';">' + escapeHtml(r.slot) + '</span>' : '')
+      + '</div>'
+      + '<div style="font-size:15px;font-weight:700;margin-bottom:4px;">' + escapeHtml(r.name) + '</div>'
+      + (r.desc ? '<div style="font-size:13px;color:var(--text2);margin-bottom:8px;">' + escapeHtml(r.desc) + '</div>' : '')
+      + '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">'
+      + (r.kcal ? '<span style="font-size:11px;padding:3px 8px;border-radius:999px;background:rgba(245,90,60,0.12);color:#f55a3c;">' + r.kcal + ' kcal</span>' : '')
+      + (r.protein ? '<span style="font-size:11px;padding:3px 8px;border-radius:999px;background:rgba(0,245,212,0.10);color:#00f5d4;">' + r.protein + 'g protein</span>' : '')
+      + '<a href="https://www.recime.app" target="_blank" style="font-size:11px;padding:3px 10px;border-radius:999px;background:rgba(245,166,35,0.12);color:#f5a623;text-decoration:none;border:1px solid rgba(245,166,35,0.25);">Find on ReciMe →</a>'
+      + '</div>'
+      + '</div>'
+      + '<button onclick="deleteFromMyRecipes(' + idx + ')" title="Remove" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:18px;padding:2px 4px;line-height:1;flex-shrink:0;" onmouseover="this.style.color=\'var(--red)\'" onmouseout="this.style.color=\'var(--text3)\'">✕</button>'
+      + '</div>';
+  }).join('');
+}
+
+// ─────────────────────────────────────────────
+//  PLANNER SUGGESTIONS (new tab)
+// ─────────────────────────────────────────────
+async function getPlannerSuggestions() {
+  if (!hasAnthropicApiKey()) {
+    const warn = document.getElementById('planner-suggestions-api-warning');
+    if (warn) warn.style.display = 'block';
+    return;
+  }
+  const pantry = loadPantry();
+  const allItems = PANTRY_LOCATIONS.flatMap(loc => (pantry[loc] || []).filter(i => (i.count || 1) > 0).map(i => i.name + (i.size ? ' (' + i.size + ')' : '') + (i.count > 1 ? ' x' + i.count : '')));
+  if (allItems.length === 0) { showNotification('Add items to your pantry first'); return; }
+
+  const workoutEl = document.getElementById('planner-suggestions-workout');
+  const workoutType = workoutEl ? workoutEl.value : 'gym';
+  const workoutLabels = { gym:'gym/strength training', run:'a run', class:'a high-intensity class (Blaze/Cyclone/Rhythm)', rest:'a rest day' };
+  const workoutLabel = workoutLabels[workoutType] || workoutType;
+
+  const loading = document.getElementById('planner-suggestions-loading');
+  const results = document.getElementById('planner-suggestions-results');
+  if (loading) loading.style.display = 'block';
+  if (results) results.innerHTML = '';
+
+  const userPrompt = `I have these ingredients available: ${allItems.join(', ')}\n\nToday I am doing ${workoutLabel}. Suggest 4 meal ideas (breakfast, lunch, snack, dinner) using mainly these ingredients. Each should be UPF-free, no added sugar, high protein (30g+ per main meal), and quick to prepare.\n\nReturn ONLY a JSON array, no other text:\n[{"slot":"Breakfast","name":"Meal name","desc":"Short description","kcal":320,"protein":24,"time":"5 min"},{"slot":"Lunch",...},{"slot":"Snack",...},{"slot":"Dinner",...}]`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': getAnthropicApiKey(),
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true',
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 1200,
+        system: 'You are a clean-eating nutrition assistant. Always respond with valid JSON only — no markdown, no explanation, just the JSON array.',
+        messages: [{ role: 'user', content: userPrompt }]
+      })
+    });
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error('API error ' + res.status + ': ' + errText.slice(0, 200));
+    }
+    const data = await res.json();
+    const text = (data.content && data.content[0] && data.content[0].text) || '';
+    const jsonMatch = text.match(/\[[\s\S]*\]/);
+    if (!jsonMatch) throw new Error('No JSON found in response');
+    const meals = JSON.parse(jsonMatch[0]);
+    // Store meals in window cache so onclick can reference by index
+    window._plannerSuggestedMeals = meals;
+
+    if (loading) loading.style.display = 'none';
+    if (results) {
+      results.innerHTML = meals.map((m, idx) => {
+        const slotColors = { Breakfast:'#00f5d4', Lunch:'#bf5fff', Snack:'#f5a623', Dinner:'#00f5d4' };
+        const col = slotColors[m.slot] || '#00f5d4';
+        return '<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;">'
+          + '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">'
+          + '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:' + col + ';">' + escapeHtml(m.slot) + '</div>'
+          + '<div style="font-size:11px;color:var(--text3);">' + escapeHtml(m.time || '') + '</div>'
+          + '</div>'
+          + '<div style="font-size:15px;font-weight:700;margin-bottom:4px;">' + escapeHtml(m.name) + '</div>'
+          + '<div style="font-size:13px;color:var(--text2);margin-bottom:10px;">' + escapeHtml(m.desc) + '</div>'
+          + '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">'
+          + '<span style="font-size:11px;padding:3px 8px;border-radius:999px;background:rgba(245,90,60,0.12);color:#f55a3c;">' + (m.kcal || '—') + ' kcal</span>'
+          + '<span style="font-size:11px;padding:3px 8px;border-radius:999px;background:rgba(0,245,212,0.10);color:#00f5d4;">' + (m.protein || '—') + 'g protein</span>'
+          + '<button onclick="saveToMyRecipes(window._plannerSuggestedMeals[' + idx + '])" style="font-size:11px;padding:4px 12px;border-radius:999px;background:rgba(0,245,212,0.12);color:#00f5d4;border:1px solid rgba(0,245,212,0.25);cursor:pointer;font-family:\'Manrope\',sans-serif;font-weight:600;">＋ Save to My Recipes</button>'
+          + '</div>'
+          + '</div>';
+      }).join('');
+    }
+  } catch(err) {
+    if (loading) loading.style.display = 'none';
+    if (results) results.innerHTML = '<div style="padding:20px;text-align:center;color:var(--red);font-size:13px;">Could not get suggestions — check your API key in Settings.<br><small style="color:var(--text3);">' + escapeHtml(err.message) + '</small></div>';
+  }
+}
+
+// ─────────────────────────────────────────────
+//  DYNAMIC EATING STYLE LOGIC
+//  Assigns eating style to each day based on workout type
+// ─────────────────────────────────────────────
+function getDayEatingStyle(workoutTypes) {
+  if (!workoutTypes || workoutTypes.length === 0) return 'standard';
+  const lib = getWorkoutLibrary();
+  const types = workoutTypes.map(wt => (lib[wt] && lib[wt].type) || wt);
+
+  const hasRest   = types.includes('rest');
+  const hasRun    = types.includes('run');
+  const hasClass  = types.includes('class');
+  const hasStrength = types.includes('strength');
+  const hasDouble = workoutTypes.length > 1 && !hasRest;
+
+  // Saturday rest/volunteer → OMAD
+  // Pure rest → keto or omad (we use rest count logic: if first rest of week → keto, else → omad)
+  if (hasRest) return 'rest_keto';   // rest days → keto by default (good fat-burn day)
+  // Double session days get standard (high fuel needed)
+  if (hasDouble) return 'standard';
+  // Running alone → standard (needs carbs)
+  if (hasRun && !hasClass && !hasStrength) return 'standard';
+  // HIIT class → early finish (high intensity, done early)
+  if (hasClass && !hasStrength) return 'early';
+  // Strength alone → standard
+  if (hasStrength && !hasClass && !hasRun) return 'standard';
+  return 'standard';
+}
+
+const EATING_STYLES = {
+  standard:  { label:'Standard day',   sub:'Three meals · ~1,450 kcal · 137g protein', badge:'badge-teal',   badgeText:'3 meals',      why:'Training day — needs steady fuel and protein for recovery.' },
+  early:     { label:'Early finish',   sub:'Done by 6pm · ~1,240 kcal · 116g protein', badge:'badge-blue',   badgeText:'By 6pm',       why:'High-intensity session burns fast — close the eating window early to maximise the deficit.' },
+  rest_keto: { label:'Keto day',       sub:'No carbs · ~1,400 kcal · 121g protein',    badge:'badge-purple', badgeText:'Keto',         why:'Rest day — no carbs needed for performance. Teaches your body to burn fat as fuel.' },
+  omad:      { label:'OMAD',           sub:'One big meal · ~1,200 kcal · 110g protein', badge:'badge-amber',  badgeText:'1 meal',       why:'Rest/volunteer day — low activity means you can go longer without eating.' },
+};
+
+const DAY_LABELS_LONG = { mon:'Monday', tue:'Tuesday', wed:'Wednesday', thu:'Thursday', fri:'Friday', sat:'Saturday', sun:'Sunday' };
+
+function renderDynamicWeeklyOverview() {
+  const routine = loadWorkoutRoutine();
+  const lib = getWorkoutLibrary();
+
+  // Saturday is always OMAD (volunteer day)
+  const styleMap = {};
+  routine.forEach(day => {
+    if (day.dayKey === 'sat') { styleMap[day.dayKey] = 'omad'; return; }
+    styleMap[day.dayKey] = getDayEatingStyle(day.workoutTypes || []);
+  });
+
+  // Group days by eating style
+  const groups = {};
+  Object.entries(styleMap).forEach(([dayKey, style]) => {
+    if (!groups[style]) groups[style] = [];
+    groups[style].push(dayKey);
+  });
+
+  // Build overview cards
+  const overviewEl = document.getElementById('summary-weekly-overview');
+  if (overviewEl) {
+    overviewEl.innerHTML = Object.entries(groups).map(([style, dayKeys]) => {
+      const s = EATING_STYLES[style] || EATING_STYLES.standard;
+      const dayNames = dayKeys.map(d => DAY_LABELS_LONG[d] || d).join(', ');
+      return '<div class="card card-sm" style="display:flex;justify-content:space-between;align-items:center;">'
+        + '<div>'
+        + '<div style="font-size:13px;font-weight:500;color:var(--text2);">' + escapeHtml(dayNames) + '</div>'
+        + '<div style="font-size:15px;font-weight:600;margin:2px 0;">' + escapeHtml(s.label) + '</div>'
+        + '<div class="card-sub">' + escapeHtml(s.sub) + '</div>'
+        + '</div>'
+        + '<span class="badge ' + s.badge + '">' + s.badgeText + '</span>'
+        + '</div>';
+    }).join('');
+  }
+
+  // Build logic bullets
+  const logicEl = document.getElementById('summary-weekly-logic');
+  if (logicEl) {
+    const orderedDays = ['mon','tue','wed','thu','fri','sat','sun'];
+    const bullets = orderedDays.map(dayKey => {
+      const routineDay = routine.find(d => d.dayKey === dayKey);
+      if (!routineDay) return '';
+      const workoutTypes = routineDay.workoutTypes || [];
+      const style = styleMap[dayKey];
+      const s = EATING_STYLES[style] || EATING_STYLES.standard;
+      const dayName = DAY_LABELS_LONG[dayKey] || dayKey;
+      const workoutNames = workoutTypes.map(wt => (lib[wt] && lib[wt].name) || wt).join(' + ') || 'Rest';
+      return '<div class="tip-item"><span class="tip-dot-f"></span><strong>' + dayName + '</strong> — ' + workoutNames + ' → ' + escapeHtml(s.label) + '. ' + escapeHtml(s.why) + '</div>';
+    }).filter(Boolean).join('');
+    logicEl.innerHTML = '<div class="tip-box-title">The logic — this week</div>' + bullets;
+  }
+
+  // Update dashboard widget too
+  renderDashboardNutritionWidget(groups);
+}
+
+function renderDashboardNutritionWidget(groups) {
+  const el = document.getElementById('dashboard-nutrition-widget');
+  if (!el) return;
+  if (!groups) {
+    // Build groups fresh
+    const routine = loadWorkoutRoutine();
+    const gMap = {};
+    routine.forEach(day => {
+      const style = day.dayKey === 'sat' ? 'omad' : getDayEatingStyle(day.workoutTypes || []);
+      if (!gMap[style]) gMap[style] = [];
+      gMap[style].push(day.dayKey);
+    });
+    groups = gMap;
+  }
+  el.innerHTML = Object.entries(groups).map(([style, dayKeys]) => {
+    const s = EATING_STYLES[style] || EATING_STYLES.standard;
+    const dayNames = dayKeys.map(d => DAY_LABELS_LONG[d] || d).join(', ');
+    return '<div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">'
+      + '<span style="color:var(--text2);">' + escapeHtml(dayNames) + '</span>'
+      + '<span class="badge ' + s.badge + '">' + escapeHtml(s.label) + '</span>'
+      + '</div>';
+  }).join('');
+}
+
+// ─────────────────────────────────────────────
+//  WIRE UP: run dynamic renders on initial load
+// ─────────────────────────────────────────────
+setTimeout(function() {
+  try {
+    renderDashboardNutritionWidget(null);
+    const sumPage = document.getElementById('page-summary');
+    if (sumPage && sumPage.classList.contains('active')) renderDynamicWeeklyOverview();
+    renderSavedRecipes();
+  } catch(e) { console.warn('Dynamic render error on init:', e); }
+}, 700);
 
 </script>
 
