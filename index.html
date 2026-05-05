@@ -2488,8 +2488,9 @@ function launchApp() {
   document.getElementById('sync-indicator').style.display = gSyncEnabled ? 'flex' : 'none';
 
   const today = new Date().toISOString().split('T')[0];
-  document.getElementById('log-date').value = today;
-  renderDayCards();
+  const _logDateEl = document.getElementById('log-date');
+  if (_logDateEl) _logDateEl.value = today;
+  if (typeof renderDayCards === 'function') renderDayCards();
   updateDashboard();
   renderDashboardWeek();
   renderDashboardNutritionWidget(null);
@@ -3471,8 +3472,9 @@ function closeModal() {
   modalContext = null;
 }
 
-document.getElementById('swap-modal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
+document.addEventListener('DOMContentLoaded', function() {
+  var swapModal = document.getElementById('swap-modal');
+  if (swapModal) swapModal.addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 });
 
 // ============================================================
