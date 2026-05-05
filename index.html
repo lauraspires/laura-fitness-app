@@ -2363,36 +2363,29 @@ function showCuisine(id, el) {
 <!-- ===================== LONGEVITY ===================== -->
   </div>
   <div id="wb1-tab-supplements" class="etab-page">
-  <!-- SUPPLEMENT SUB-TABS -->
-  <div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;">
-    <button id="supp-tab-checkin"  onclick="suppTab('checkin')"  style="padding:6px 16px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--teal);background:var(--teal);color:#131313;">Today</button>
-    <button id="supp-tab-insights" onclick="suppTab('insights')" style="padding:6px 16px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--border);background:var(--card);color:var(--text2);">Insights</button>
-    <button id="supp-tab-stack"    onclick="suppTab('stack')"    style="padding:6px 16px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--border);background:var(--card);color:var(--text2);">My Stack</button>
-    <button id="supp-tab-schedule" onclick="suppTab('schedule')" style="padding:6px 16px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--border);background:var(--card);color:var(--text2);">Daily Schedule</button>
-  </div>
 <!-- CHECKIN VIEW -->
-  <div id="supp-view-checkin">
-    <div id="supp-checkin-grid" style="display:flex;flex-direction:column;gap:12px;"></div>
+  <div id="supp-view-checkin" style="display:none;">
+    <div id="supp-checkin-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:780px;"></div>
   </div>
 
   <!-- INSIGHTS VIEW -->
   <div id="supp-view-insights" style="display:none;">
-    <div id="supp-insights-grid" style="display:flex;flex-direction:column;gap:12px;"></div>
+    <div id="supp-insights-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:780px;"></div>
   </div>
 
   <!-- STACK VIEW -->
-  <div id="supp-view-stack" style="display:none;">
+  <div id="supp-view-stack">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
       <div style="font-size:13px;color:var(--text2);">Toggle active/inactive · <span style="color:var(--teal);font-weight:500;" id="supp-count"></span></div>
       <button onclick="openAddSupp()" style="padding:7px 16px;border-radius:999px;border:1.5px solid var(--teal);background:var(--teal-light);color:var(--teal);font-family:'Manrope', sans-serif;font-size:13px;font-weight:600;cursor:pointer;">+ Add supplement</button>
     </div>
-    <div id="supp-stack-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"></div>
+    <div id="supp-stack-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:780px;"></div>
   </div>
 
   <!-- DAILY ROUTINE VIEW -->
   <div id="supp-view-schedule" style="display:none;">
     <div style="font-size:13px;color:var(--text2);margin-bottom:16px;">Your daily supplement routine — same every day. Only active supplements appear here. Tap a time window to move supplements in or out.</div>
-    <div id="supp-schedule-grid" style="display:flex;flex-direction:column;gap:12px;"></div>
+    <div id="supp-schedule-grid" style="display:flex;flex-direction:column;gap:12px;max-width:580px;"></div>
   </div>
 </div>
 
@@ -2748,7 +2741,7 @@ function showCuisine(id, el) {
       </div>
     </div>
     <div style="position:relative;height:180px;width:100%;display:block;" id="chart-wrap">
-      <canvas id="weightChart" style="width:100%;height:180px;display:none;"></canvas>
+      <canvas id="weightChart" style="width:100%;height:180px;"></canvas>
       <div id="chart-empty" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;">
         <div style="font-size:28px;">📉</div>
         <div style="font-size:14px;font-weight:500;color:var(--text2);">No data yet</div>
@@ -3010,8 +3003,33 @@ function goTo(page, el) {
   document.getElementById('page-' + page).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   if (el) el.classList.add('active');
+  // Reset all etab-pages that aren't inside the current page — prevents supp/routines bleeding
+  if (page !== 'routines') {
+    ['wb1-tab-routines','wb1-tab-supplements'].forEach(function(id) {
+      var el2 = document.getElementById(id);
+      if (el2) el2.classList.remove('active');
+    });
+    // Re-add active to routines default so it's correct when user returns
+    var wb1r = document.getElementById('wb1-tab-routines');
+    if (wb1r) wb1r.classList.add('active');
+  }
+  if (page !== 'wellbeing-ref') {
+    ['wb2-tab-whoop','wb2-tab-longevity','wb2-tab-tools'].forEach(function(id) {
+      var el2 = document.getElementById(id);
+      if (el2) el2.classList.remove('active');
+    });
+    var wb2t = document.getElementById('wb2-tab-tools');
+    if (wb2t) wb2t.classList.add('active');
+  }
   if (page === 'progress') {
+    // Render stats immediately (no canvas dependency), then retry chart until layout is ready
     renderProgress();
+    (function retryChart(attempts) {
+      var wrap = document.getElementById('chart-wrap');
+      var w = wrap ? wrap.getBoundingClientRect().width : 0;
+      if (w > 10) { renderChart(loadEntries()); return; }
+      if (attempts > 0) requestAnimationFrame(function() { retryChart(attempts - 1); });
+    })(20);
   }
   if (page === 'pantry') { try { renderPantry(); } catch(e) {} }
   if (page === 'workouts') renderGymWorkouts();
@@ -3027,7 +3045,7 @@ function goTo(page, el) {
   if (page === 'settings') updateApiKeyStatus();
   if (page === 'classes') { CLASS_WORKOUTS.forEach(w => renderClassTimesManager(w)); RUN_WORKOUTS.forEach(w => renderRunTimesManager(w)); updateAllClassBadges(); updateAllRunBadges(); }
   if (page === 'routines') { if (typeof routinesTab === 'function') routinesTab('overview'); }
-  if (page === 'wellbeing-ref') { if (typeof renderWtGrid === 'function') renderWtGrid(); }
+  if (page === 'wellbeing-ref') { /* tabs handle their own init */ }
   if (window.innerWidth <= 900) closeSidebar();
   // Scroll to the top of the page on every navigation
   try {
@@ -5564,9 +5582,9 @@ function suppTab(which) {
   ['stack','schedule','checkin','insights'].forEach(function(v) {
     var view = document.getElementById('supp-view-' + v);
     var btn  = document.getElementById('supp-tab-' + v);
-    if (!view || !btn) return;
     var active = (v === which);
-    view.style.display    = active ? 'block' : 'none';
+    if (view) view.style.display = active ? 'block' : 'none';
+    if (!btn) return;
     btn.style.background  = active ? '#00f5d4' : 'var(--card)';
     btn.style.color       = active ? '#00382f' : 'var(--text2)';
     btn.style.borderColor = active ? '#00f5d4' : 'var(--border)';
@@ -8052,7 +8070,7 @@ function switchWellbeingTab1(id, el) {
     if (tab)  tab.classList.toggle('active', t === id);
   });
   if (id === 'routines' && typeof routinesTab === 'function') routinesTab('overview');
-  if (id === 'supplements' && typeof suppTab === 'function') suppTab('checkin');
+  if (id === 'supplements' && typeof suppTab === 'function') suppTab('stack');
 }
 
 function switchWellbeingTab2(id, el) {
