@@ -1310,6 +1310,7 @@
     <div class="etab" onclick="switchEat('early', this)">🕕 Early finish</div>
     <div class="etab" onclick="switchEat('omad', this)">🍽️ OMAD</div>
     <div class="etab" onclick="switchEat('keto', this)">🥑 Keto day</div>
+    <div class="etab" onclick="switchEat('guide', this)">📚 Nutrition guide</div>
   </div>
 
   <div id="eat-std" class="etab-page active">
@@ -1418,6 +1419,179 @@
       </div>
     </div>
     <div style="background:var(--purple-light);border-radius:var(--radius-sm);padding:12px 16px;margin-top:12px;font-size:13px;color:var(--purple);"><strong>Keto rules:</strong> Eat freely from — eggs, meat, fish, cheese, cream, avocado, nuts, all non-starchy veg. Avoid — bread, rice, pasta, oats, fruit (except berries), anything with sugar.</div>
+  </div>
+
+  <!-- ===== NUTRITION GUIDE TAB ===== -->
+  <div id="eat-guide" class="etab-page">
+
+    <!-- Section: Eating approaches -->
+    <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;font-family:'Manrope',sans-serif;">Eating approaches in your plan</div>
+
+    <!-- Keto -->
+    <div style="background:linear-gradient(145deg,#0e0118,#1a0030);border:1px solid rgba(191,95,255,0.35);border-radius:var(--radius);padding:22px;margin-bottom:12px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+        <div style="font-size:28px;">🥑</div>
+        <div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#bf5fff;">Ketogenic (Keto)</div>
+          <div style="font-size:12px;color:var(--text3);margin-top:2px;">Under 20–50g carbs per day</div>
+        </div>
+      </div>
+      <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Keto switches your body's fuel source from glucose (sugar/carbs) to ketones (fat). When you cut carbs low enough, your liver starts converting fat into ketone bodies that your brain and muscles can use instead. This state is called ketosis.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+        <div style="background:rgba(191,95,255,0.08);border-radius:var(--radius-sm);padding:12px;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#bf5fff;margin-bottom:6px;">Why it works for you</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Scheduled on rest days when you don't need carbs for fuel. Keeps insulin low, maximises fat burning, and teaches your body metabolic flexibility — the ability to switch between fuel sources.</div>
+        </div>
+        <div style="background:rgba(191,95,255,0.08);border-radius:var(--radius-sm);padding:12px;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#bf5fff;margin-bottom:6px;">What to expect</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">First 2–3 weeks: possible headaches and fatigue ("keto flu") as your body adapts. Drink plenty of water and add salt. After adaptation: stable energy, reduced hunger, and clearer thinking.</div>
+        </div>
+      </div>
+      <div style="border-top:1px solid rgba(191,95,255,0.2);padding-top:10px;font-size:12.5px;color:var(--text2);line-height:1.6;">
+        <span style="color:#bf5fff;font-weight:600;">Eat freely:</span> Eggs · Meat · Fish · Cheese · Cream · Butter · Avocado · Nuts · All leafy/non-starchy veg<br>
+        <span style="color:var(--red);font-weight:600;">Avoid:</span> Bread · Rice · Pasta · Oats · Potatoes · Fruit (berries OK in small amounts) · Anything with sugar
+      </div>
+    </div>
+
+    <!-- OMAD -->
+    <div style="background:linear-gradient(145deg,#161000,#2a1f00);border:1px solid rgba(245,166,35,0.35);border-radius:var(--radius);padding:22px;margin-bottom:12px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+        <div style="font-size:28px;">🍽️</div>
+        <div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#f5a623;">OMAD — One Meal a Day</div>
+          <div style="font-size:12px;color:var(--text3);margin-top:2px;">Extended fast of 20–23 hours</div>
+        </div>
+      </div>
+      <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">OMAD is an extreme form of intermittent fasting where you eat once in a day. During the fasting window your body depletes glycogen stores, lowers insulin, and shifts into fat-burning mode. You then eat a single large, nutrient-dense meal.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+        <div style="background:rgba(245,166,35,0.08);border-radius:var(--radius-sm);padding:12px;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#f5a623;margin-bottom:6px;">Why Saturday works</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">You're volunteering all morning — busy, distracted, not sitting near a kitchen. The fast happens almost by accident. You eat a big satisfying meal around 1–2pm after volunteering, then you're done.</div>
+        </div>
+        <div style="background:rgba(245,166,35,0.08);border-radius:var(--radius-sm);padding:12px;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#f5a623;margin-bottom:6px;">Benefits</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Significant calorie deficit without tracking. Autophagy (cellular repair) increases after 16+ hours fasted. Insulin sensitivity improves. Works especially well on low-activity days.</div>
+        </div>
+      </div>
+      <div style="background:rgba(245,166,35,0.08);border-radius:var(--radius-sm);padding:10px 14px;font-size:12.5px;color:var(--text2);line-height:1.6;">
+        <span style="color:#f5a623;font-weight:600;">Key rule:</span> OMAD only works on rest days. Never OMAD before a training session — you'll bonk. Black coffee and tea are fine during the fast. Drink lots of water.
+      </div>
+    </div>
+
+    <!-- Early finish / time-restricted eating -->
+    <div style="background:linear-gradient(145deg,#00050f,#001030);border:1px solid rgba(96,165,250,0.35);border-radius:var(--radius);padding:22px;margin-bottom:12px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+        <div style="font-size:28px;">🕕</div>
+        <div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#60a5fa;">Early finish / Time-restricted eating</div>
+          <div style="font-size:12px;color:var(--text3);margin-top:2px;">Eating window closes by 6pm</div>
+        </div>
+      </div>
+      <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Time-restricted eating (TRE) means fitting all your food into a defined window — here, 7am to 6pm (11 hours). After 6pm, nothing but water, black coffee, or herbal tea. It's a mild form of intermittent fasting that's very sustainable because you're sleeping through most of the fast.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div style="background:rgba(96,165,250,0.08);border-radius:var(--radius-sm);padding:12px;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#60a5fa;margin-bottom:6px;">Why Thursday works</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">WFH gives you control. No commute, no office snacks, no client lunches that run late. You can plan exactly when your last meal is and stick to it. Evenings at home make it easy to just not eat.</div>
+        </div>
+        <div style="background:rgba(96,165,250,0.08);border-radius:var(--radius-sm);padding:12px;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#60a5fa;margin-bottom:6px;">The evening hack</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Peppermint tea or sparkling water genuinely kills evening hunger. The carbonation triggers satiety signals. Chamomile tea helps if you find evenings hard — it reduces cortisol and relaxes you toward sleep.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Key nutrients -->
+    <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin:20px 0 10px;font-family:'Manrope',sans-serif;">Key nutrients</div>
+
+    <!-- Protein -->
+    <div style="background:linear-gradient(145deg,#001a13,#002a1f);border:1px solid rgba(0,245,212,0.3);border-radius:var(--radius);padding:22px;margin-bottom:12px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+        <div style="font-size:28px;">💪</div>
+        <div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#00f5d4;">Protein — the most important macro</div>
+          <div style="font-size:12px;color:var(--text3);margin-top:2px;">Target: 120–140g per day</div>
+        </div>
+      </div>
+      <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Protein is the building block of muscle. When you lift weights or do cardio, you create micro-tears in muscle fibres. Protein repairs and rebuilds them bigger and stronger. Without enough protein, you lose muscle instead of fat — even in a calorie deficit. Protein also has the highest thermic effect of any macro, meaning you burn more calories just digesting it.</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;">
+        <div style="background:rgba(0,245,212,0.06);border-radius:var(--radius-sm);padding:12px;text-align:center;">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:#00f5d4;">30%</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:4px;">of protein calories are burned digesting it (thermic effect)</div>
+        </div>
+        <div style="background:rgba(0,245,212,0.06);border-radius:var(--radius-sm);padding:12px;text-align:center;">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:#00f5d4;">2× longer</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:4px;">protein keeps you full compared to carbs</div>
+        </div>
+        <div style="background:rgba(0,245,212,0.06);border-radius:var(--radius-sm);padding:12px;text-align:center;">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:#00f5d4;">1.6–2.2g</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:4px;">per kg bodyweight is optimal for muscle building</div>
+        </div>
+      </div>
+      <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">
+        <span style="color:#00f5d4;font-weight:600;">Best sources in your plan:</span> Greek yogurt (17g/100g) · Tuna (25g/100g) · Chicken breast (31g/100g) · Eggs (6g each) · Cottage cheese (12g/100g) · Salmon (25g/100g)
+      </div>
+    </div>
+
+    <!-- Fibre -->
+    <div style="background:linear-gradient(145deg,#0a1200,#152200);border:1px solid rgba(132,204,22,0.3);border-radius:var(--radius);padding:22px;margin-bottom:12px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+        <div style="font-size:28px;">🥦</div>
+        <div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#84cc16;">Fibre — the overlooked superstar</div>
+          <div style="font-size:12px;color:var(--text3);margin-top:2px;">Target: 25–35g per day</div>
+        </div>
+      </div>
+      <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Fibre is the indigestible part of plant foods. It slows digestion (keeping you fuller for longer), feeds the good bacteria in your gut, blunts blood sugar spikes after meals, and reduces inflammation. Most people eat far too little — the average UK adult gets under 20g/day, against a target of 30g.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+        <div style="background:rgba(132,204,22,0.06);border-radius:var(--radius-sm);padding:12px;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#84cc16;margin-bottom:6px;">Soluble fibre</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Dissolves in water, forms a gel in your gut. Slows sugar absorption and lowers LDL cholesterol. Found in oats, chia seeds, avocado, and most fruit.</div>
+        </div>
+        <div style="background:rgba(132,204,22,0.06);border-radius:var(--radius-sm);padding:12px;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#84cc16;margin-bottom:6px;">Insoluble fibre</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Doesn't dissolve — adds bulk and speeds transit through your gut. Keeps digestion regular. Found in vegetables, nuts, and wholegrains.</div>
+        </div>
+      </div>
+      <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">
+        <span style="color:#84cc16;font-weight:600;">Easy wins in your plan:</span> Spinach (2g/100g) · Avocado (7g each) · Chia seeds (10g/tbsp) · Oats (4g/40g serving) · Frozen veg bags (3–5g per portion) · Cucumber (0.5g/half)
+      </div>
+    </div>
+
+    <!-- Fasting types -->
+    <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin:20px 0 10px;font-family:'Manrope',sans-serif;">Fasting approaches compared</div>
+
+    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:grid;grid-template-columns:140px 1fr auto;gap:12px;align-items:center;">
+        <div style="font-weight:600;font-size:13px;">16:8</div>
+        <div style="font-size:12.5px;color:var(--text2);">Fast 16 hours, eat within an 8-hour window (e.g. 12pm–8pm). Most popular approach. Easy to sustain long-term. Works on any day.</div>
+        <span class="badge badge-teal" style="white-space:nowrap;">Most popular</span>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:grid;grid-template-columns:140px 1fr auto;gap:12px;align-items:center;">
+        <div style="font-weight:600;font-size:13px;">18:6</div>
+        <div style="font-size:12.5px;color:var(--text2);">Fast 18 hours, eat within 6 hours. Deeper ketosis and more fat burning than 16:8. Your Early Finish days are roughly this (7am–6pm = 11h window, but dinner finishing at 5:30pm gets you close).</div>
+        <span class="badge badge-blue" style="white-space:nowrap;">Your Thu</span>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:grid;grid-template-columns:140px 1fr auto;gap:12px;align-items:center;">
+        <div style="font-weight:600;font-size:13px;">OMAD (23:1)</div>
+        <div style="font-size:12.5px;color:var(--text2);">Fast 23 hours, one meal only. Most aggressive. Best for fat loss on low-activity days. Significant autophagy benefits. Can be tiring if overused.</div>
+        <span class="badge badge-amber" style="white-space:nowrap;">Your Sat</span>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:grid;grid-template-columns:140px 1fr auto;gap:12px;align-items:center;">
+        <div style="font-weight:600;font-size:13px;">5:2</div>
+        <div style="font-size:12.5px;color:var(--text2);">Eat normally 5 days, restrict to ~500 kcal on 2 days. Very effective for weight loss. Harder to stick to on training days. Not what you're doing currently.</div>
+        <span class="badge" style="background:var(--bg2);color:var(--text3);white-space:nowrap;">Not in plan</span>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:grid;grid-template-columns:140px 1fr auto;gap:12px;align-items:center;">
+        <div style="font-weight:600;font-size:13px;">Warrior diet</div>
+        <div style="font-size:12.5px;color:var(--text2);">Small amounts of raw food during the day (fruit, veg), then one big cooked meal in the evening. 20-hour fast window. Similar to OMAD but slightly more flexible.</div>
+        <span class="badge" style="background:var(--bg2);color:var(--text3);white-space:nowrap;">Not in plan</span>
+      </div>
+    </div>
+
+    <div style="background:rgba(0,245,212,0.06);border:1px solid rgba(0,245,212,0.15);border-radius:var(--radius);padding:16px 20px;font-size:13px;color:var(--text2);line-height:1.7;">
+      <span style="color:#00f5d4;font-weight:700;">💡 The key insight —</span> Fasting works because it lowers insulin. When insulin is low, your body can access stored body fat for energy. When insulin is high (from eating carbs and sugar), fat stores are locked away. The approaches above are just different ways of keeping insulin low for longer periods each day.
+    </div>
+
   </div>
 
 </div>
@@ -2139,7 +2313,7 @@ function showCuisine(id, el) {
   </div>
 
   <!-- Tab bar -->
-  <div class="etab-bar" style="margin-bottom:18px;">
+  <div class="eating-tabs" style="margin-bottom:18px;">
     <div class="etab active" id="ptab-planner" onclick="switchPlannerTab('planner',this)">📅 My plan</div>
     <div class="etab" id="ptab-suggestions" onclick="switchPlannerTab('suggestions',this)">✨ Suggestions</div>
   </div>
@@ -7892,36 +8066,28 @@ async function getPlannerSuggestions() {
 //  DYNAMIC EATING STYLE LOGIC
 //  Assigns eating style to each day based on workout type
 // ─────────────────────────────────────────────
-function getDayEatingStyle(workoutTypes) {
+function getDayEatingStyle(dayKey, workoutTypes) {
   if (!workoutTypes || workoutTypes.length === 0) return 'standard';
   const lib = getWorkoutLibrary();
   const types = workoutTypes.map(wt => (lib[wt] && lib[wt].type) || wt);
 
-  const hasRest   = types.includes('rest');
-  const hasRun    = types.includes('run');
-  const hasClass  = types.includes('class');
-  const hasStrength = types.includes('strength');
-  const hasDouble = workoutTypes.length > 1 && !hasRest;
+  const hasRest = types.includes('rest');
 
-  // Saturday rest/volunteer → OMAD
-  // Pure rest → keto or omad (we use rest count logic: if first rest of week → keto, else → omad)
-  if (hasRest) return 'rest_keto';   // rest days → keto by default (good fat-burn day)
-  // Double session days get standard (high fuel needed)
-  if (hasDouble) return 'standard';
-  // Running alone → standard (needs carbs)
-  if (hasRun && !hasClass && !hasStrength) return 'standard';
-  // HIIT class → early finish (high intensity, done early)
-  if (hasClass && !hasStrength) return 'early';
-  // Strength alone → standard
-  if (hasStrength && !hasClass && !hasRun) return 'standard';
+  // Saturday is always OMAD (handled separately in renderDynamicWeeklyOverview)
+  // Rest days → Keto (great fat-burn day, no performance fuel needed)
+  if (hasRest) return 'rest_keto';
+  // Thursday is WFH → Early finish eating window
+  if (dayKey === 'thu') return 'early';
+  // Everything else — gym, runs, classes, doubles — gets Standard
+  // (all active training days need good fuel and protein)
   return 'standard';
 }
 
 const EATING_STYLES = {
-  standard:  { label:'Standard day',   sub:'Three meals · ~1,450 kcal · 137g protein', badge:'badge-teal',   badgeText:'3 meals',      why:'Training day — needs steady fuel and protein for recovery.' },
-  early:     { label:'Early finish',   sub:'Done by 6pm · ~1,240 kcal · 116g protein', badge:'badge-blue',   badgeText:'By 6pm',       why:'High-intensity session burns fast — close the eating window early to maximise the deficit.' },
-  rest_keto: { label:'Keto day',       sub:'No carbs · ~1,400 kcal · 121g protein',    badge:'badge-purple', badgeText:'Keto',         why:'Rest day — no carbs needed for performance. Teaches your body to burn fat as fuel.' },
-  omad:      { label:'OMAD',           sub:'One big meal · ~1,200 kcal · 110g protein', badge:'badge-amber',  badgeText:'1 meal',       why:'Rest/volunteer day — low activity means you can go longer without eating.' },
+  standard:  { label:'Standard day',   sub:'Three meals · ~1,450 kcal · 137g protein', badge:'badge-teal',   badgeText:'3 meals',      why:'Training day — steady fuel across three meals supports performance and muscle recovery.' },
+  early:     { label:'Early finish',   sub:'Done by 6pm · ~1,240 kcal · 116g protein', badge:'badge-blue',   badgeText:'By 6pm',       why:'WFH Thursday — eating window closes by 6pm. More control over your environment means it\'s easier to stick to. Creates a deficit without feeling deprived.' },
+  rest_keto: { label:'Keto day',       sub:'No carbs · ~1,400 kcal · 121g protein',    badge:'badge-purple', badgeText:'Keto',         why:'Rest day — no performance carbs needed. Going keto on a low-activity day teaches your body to burn fat as fuel and keeps insulin low.' },
+  omad:      { label:'OMAD',           sub:'One big meal · ~1,200 kcal · 110g protein', badge:'badge-amber',  badgeText:'1 meal',       why:'Volunteer Saturday — busy morning means you\'re naturally not thinking about food. One big satisfying meal in the afternoon works with that rhythm.' },
 };
 
 const DAY_LABELS_LONG = { mon:'Monday', tue:'Tuesday', wed:'Wednesday', thu:'Thursday', fri:'Friday', sat:'Saturday', sun:'Sunday' };
@@ -7934,7 +8100,7 @@ function renderDynamicWeeklyOverview() {
   const styleMap = {};
   routine.forEach(day => {
     if (day.dayKey === 'sat') { styleMap[day.dayKey] = 'omad'; return; }
-    styleMap[day.dayKey] = getDayEatingStyle(day.workoutTypes || []);
+    styleMap[day.dayKey] = getDayEatingStyle(day.dayKey, day.workoutTypes || []);
   });
 
   // Group days by eating style
@@ -7990,7 +8156,7 @@ function renderDashboardNutritionWidget(groups) {
     const routine = loadWorkoutRoutine();
     const gMap = {};
     routine.forEach(day => {
-      const style = day.dayKey === 'sat' ? 'omad' : getDayEatingStyle(day.workoutTypes || []);
+      const style = day.dayKey === 'sat' ? 'omad' : getDayEatingStyle(day.dayKey, day.workoutTypes || []);
       if (!gMap[style]) gMap[style] = [];
       gMap[style].push(day.dayKey);
     });
@@ -8009,14 +8175,17 @@ function renderDashboardNutritionWidget(groups) {
 // ─────────────────────────────────────────────
 //  WIRE UP: run dynamic renders on initial load
 // ─────────────────────────────────────────────
-setTimeout(function() {
+// Initial render — run at 500ms and again at 2s to catch late Drive data loads
+function _runInitDynamicRenders() {
+  try { renderDashboardNutritionWidget(null); } catch(e) {}
+  try { renderSavedRecipes(); } catch(e) {}
   try {
-    renderDashboardNutritionWidget(null);
     const sumPage = document.getElementById('page-summary');
     if (sumPage && sumPage.classList.contains('active')) renderDynamicWeeklyOverview();
-    renderSavedRecipes();
-  } catch(e) { console.warn('Dynamic render error on init:', e); }
-}, 700);
+  } catch(e) {}
+}
+setTimeout(_runInitDynamicRenders, 500);
+setTimeout(_runInitDynamicRenders, 2500);
 
 </script>
 
