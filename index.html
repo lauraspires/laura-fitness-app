@@ -719,17 +719,17 @@
       <span class="nav-icon">🥗</span> Nutrition
     </button>
     <button class="nav-item" onclick="goTo('pantry', this)">
-      <span class="nav-icon">🥕</span> Pantry & Shopping
+      <span class="nav-icon">🥕</span> Kitchen / Shopping
     </button>
   </div>
 
   <div class="nav-section">
     <div class="nav-label">Wellbeing</div>
     <button class="nav-item" onclick="goTo('routines', this)">
-      <span class="nav-icon">🌅</span> Routines & Supplements
+      <span class="nav-icon">🌅</span> Routines / Supplements
     </button>
     <button class="nav-item" onclick="goTo('wellbeing-ref', this)">
-      <span class="nav-icon">❤️</span> Health & Recovery
+      <span class="nav-icon">❤️</span> Health / Recovery
     </button>
   </div>
 
@@ -827,7 +827,7 @@
     <div class="stat-card card-class" style="border-color:rgba(212,255,0,0.4);box-shadow:0 0 20px rgba(212,255,0,0.08),0 2px 8px rgba(0,0,0,0.5);">
       <div style="font-size:22px;margin-bottom:6px;">🚴</div>
       <div style="font-size:14px;font-weight:700;color:#d4ff00;line-height:1.2;margin-bottom:4px;">Cyclone</div>
-      <div class="stat-label">Low-impact cardio &amp; endurance</div>
+      <div class="stat-label">Low-impact cardio and endurance</div>
     </div>
     <div class="stat-card card-run" style="border-color:rgba(191,95,255,0.4);box-shadow:0 0 20px rgba(191,95,255,0.12),0 2px 8px rgba(0,0,0,0.5);">
       <div style="font-size:22px;margin-bottom:6px;">🏃</div>
@@ -864,7 +864,7 @@
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;gap:12px;flex-wrap:wrap;">
       <div>
         <div class="card-title" style="margin-bottom:4px;">☀️ Sunday Prep</div>
-        <div style="font-size:13px;color:var(--text3);">AI-generated prep list based on this week's meals &amp; workouts</div>
+        <div style="font-size:13px;color:var(--text3);">AI-generated prep list based on this week's meals and workouts</div>
       </div>
       <button onclick="generateSundayPrep()" id="sunday-prep-btn" style="padding:9px 18px;background:var(--teal);color:#131313;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap;flex-shrink:0;">Generate ✨</button>
     </div>
@@ -1026,7 +1026,6 @@
     <div class="etab active" id="nutr-tab-btn-guide" onclick="nutritionTab('guide', this)">📚 Nutrition Guide</div>
     <div class="etab" id="nutr-tab-btn-planner" onclick="nutritionTab('planner', this)">📅 Meal Planner</div>
     <div class="etab" id="nutr-tab-btn-eatingout" onclick="nutritionTab('eatingout', this)">🍽️ Eating Out</div>
-    <a href="https://www.recime.app" target="_blank" style="margin-left:auto;display:inline-flex;align-items:center;gap:7px;padding:8px 16px;background:var(--teal);color:#00382f;border-radius:999px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;">📖 ReciMe →</a>
   </div>
 
   <!-- ── TAB: Nutrition Guide ── -->
@@ -1112,8 +1111,89 @@
     </div>
 
     <div id="eat-guide" class="etab-page active">
-      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;font-family:'Manrope',sans-serif;">Eating approaches in your plan</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:12px;font-family:'Manrope',sans-serif;">Your eating approaches</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;max-width:780px;">
+        <div class="card" style="border-left:3px solid #bf5fff;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="font-size:24px;">🥑</div><div><div style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;">Keto</div><div style="font-size:11px;color:var(--text3);">Under 20–50g carbs · Rest days</div></div></div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.6;margin-bottom:10px;">Switches your fuel source from glucose to fat (ketones). Keeps insulin low, maximises fat burning, teaches metabolic flexibility.</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.6;"><span style="color:#bf5fff;font-weight:600;">Eat:</span> Eggs · Meat · Fish · Cheese · Avocado · Non-starchy veg<br><span style="color:var(--red);font-weight:600;">Avoid:</span> Bread · Rice · Pasta · Oats · Fruit (berries OK) · Sugar</div>
+        </div>
+        <div class="card" style="border-left:3px solid #f5a623;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="font-size:24px;">🍽️</div><div><div style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;">OMAD — One Meal a Day</div><div style="font-size:11px;color:var(--text3);">20–23 hour fast · Saturdays</div></div></div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.6;margin-bottom:10px;">Fast all day, eat one large nutrient-dense meal around 1–2pm. Your volunteering makes the fast happen naturally. Big calorie deficit, autophagy kicks in after 16 hours.</div>
+          <div style="font-size:12px;color:#f5a623;font-weight:600;">Never OMAD before a training session.</div>
+        </div>
+        <div class="card" style="border-left:3px solid #60a5fa;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="font-size:24px;">🕕</div><div><div style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;">Early Finish</div><div style="font-size:11px;color:var(--text3);">Eating window closes by 6pm · Thursdays</div></div></div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.6;margin-bottom:10px;">All food done by 6pm. No commute, full control. Improves deep sleep and HRV — eating early is a longevity act, not just a diet trick.</div>
+          <div style="font-size:12px;color:var(--text2);">After 6pm: water, black coffee, or herbal tea only.</div>
+        </div>
+        <div class="card" style="border-left:3px solid var(--teal);">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="font-size:24px;">🥗</div><div><div style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;">Standard Day</div><div style="font-size:11px;color:var(--text3);">Training days · High protein</div></div></div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.6;margin-bottom:10px;">Balanced meals timed around your workouts. Protein at every meal, carbs earned through training. 120–140g protein target daily.</div>
+          <div style="font-size:12px;color:var(--text2);">See the Standard Day tab for your full meal structure.</div>
+        </div>
+      </div>
+
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:12px;font-family:'Manrope',sans-serif;">Key nutrients</div>
+      <div style="display:flex;flex-direction:column;gap:0;margin-bottom:20px;max-width:780px;" class="card">
+        <div style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
+          <div style="font-size:20px;flex-shrink:0;">💪</div>
+          <div><div style="font-size:13px;font-weight:600;margin-bottom:3px;">Protein — 120–140g per day</div><div style="font-size:12.5px;color:var(--text2);line-height:1.6;">The building block of muscle. Without enough, you lose muscle instead of fat even in a deficit. Top sources: Greek yogurt · Chicken · Eggs · Tuna · Salmon · Cottage cheese</div></div>
+        </div>
+        <div style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
+          <div style="font-size:20px;flex-shrink:0;">🥦</div>
+          <div><div style="font-size:13px;font-weight:600;margin-bottom:3px;">Fibre — 25–35g per day</div><div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Slows digestion, feeds gut bacteria, blunts blood sugar spikes. UK average is under 20g/day. Easy wins: spinach, avocado, chia seeds, frozen veg.</div></div>
+        </div>
+        <div style="display:flex;gap:14px;padding:12px 0;align-items:flex-start;">
+          <div style="font-size:20px;flex-shrink:0;">💧</div>
+          <div><div style="font-size:13px;font-weight:600;margin-bottom:3px;">Hydration — 2–3L per day</div><div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Add 500ml per gym session or Blaze. Electrolytes matter on keto days — salt your food, add a pinch of sea salt to water if training hard.</div></div>
+        </div>
+      </div>
+
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:12px;font-family:'Manrope',sans-serif;">Fasting approaches</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:20px;max-width:780px;">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;display:grid;grid-template-columns:100px 1fr auto;gap:12px;align-items:center;"><div style="font-weight:600;font-size:13px;">16:8</div><div style="font-size:12.5px;color:var(--text2);">Fast 16 hours, eat within an 8-hour window. Most popular approach. Easy to sustain long-term.</div><span class="badge badge-teal" style="white-space:nowrap;">Most popular</span></div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;display:grid;grid-template-columns:100px 1fr auto;gap:12px;align-items:center;"><div style="font-weight:600;font-size:13px;">18:6</div><div style="font-size:12.5px;color:var(--text2);">Fast 18 hours, eat within 6. Deeper ketosis than 16:8. Your Early Finish days are roughly this.</div><span class="badge badge-blue" style="white-space:nowrap;">Your Thursdays</span></div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;display:grid;grid-template-columns:100px 1fr auto;gap:12px;align-items:center;"><div style="font-weight:600;font-size:13px;">OMAD (23:1)</div><div style="font-size:12.5px;color:var(--text2);">Fast 23 hours, one meal. Best for fat loss on low-activity days. Significant autophagy benefits.</div><span class="badge badge-amber" style="white-space:nowrap;">Your Saturdays</span></div>
+      </div>
+      <div style="background:rgba(0,245,212,0.06);border:1px solid rgba(0,245,212,0.15);border-radius:var(--radius);padding:14px 18px;font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:20px;max-width:780px;"><span style="color:#00f5d4;font-weight:700;">The key insight — </span>Fasting works because it lowers insulin. When insulin is low, your body can access stored body fat for energy.</div>
+
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:12px;font-family:'Manrope',sans-serif;">UPF and sugar — what to cut</div>
+      <div class="card" style="margin-bottom:12px;max-width:780px;">
+        <div style="font-size:14px;font-weight:700;margin-bottom:14px;">5 swaps to make</div>
+        <div class="swap-row-f"><div><div class="swap-old">Protein powder</div><div class="swap-reason">Emulsifiers, sweeteners, artificial flavours</div></div><div class="swap-arrow">→</div><div><div class="swap-new">2 boiled eggs + 100g cottage cheese</div><div class="swap-new-why">Same protein, zero additives.</div></div></div>
+        <div class="swap-row-f"><div><div class="swap-old">Pre-marinated chicken</div><div class="swap-reason">Sugar, modified starch, flavour enhancers</div></div><div class="swap-arrow">→</div><div><div class="swap-new">Plain chicken + olive oil, garlic, lemon</div><div class="swap-new-why">Season yourself. 30 seconds.</div></div></div>
+        <div class="swap-row-f"><div><div class="swap-old">Soy sauce</div><div class="swap-reason">High sodium, additives and sugar</div></div><div class="swap-arrow">→</div><div><div class="swap-new">Coconut aminos</div><div class="swap-new-why">Just coconut sap and salt.</div></div></div>
+        <div class="swap-row-f" style="border-bottom:none;"><div><div class="swap-old">Philadelphia cream cheese</div><div class="swap-reason">Contains guar gum, carob gum, additives</div></div><div class="swap-arrow">→</div><div><div class="swap-new">Full-fat crème fraîche or Boursin</div><div class="swap-new-why">Just cream and cultures.</div></div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;max-width:780px;">
+        <div class="card">
+          <div class="card-title" style="margin-bottom:12px;">Always clean — keep these</div>
+          <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Eggs, plain meat, plain fish</div><div class="clean-why-f">Never need to check a label</div></div></div>
+          <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Fage Total Greek yogurt</div><div class="clean-why-f">Just milk and live cultures</div></div></div>
+          <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Tinned tuna or salmon</div><div class="clean-why-f">Avoid flavoured varieties</div></div></div>
+          <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Proper cheese (cheddar, feta)</div><div class="clean-why-f">Milk, salt and cultures only</div></div></div>
+          <div class="clean-row-f" style="border-bottom:none;"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Olive oil, butter, lemon, herbs</div><div class="clean-why-f">Your seasoning toolkit</div></div></div>
+        </div>
+        <div class="card">
+          <div class="card-title" style="margin-bottom:12px;">Cut these — hidden sugar</div>
+          <div style="display:flex;flex-direction:column;">
+            <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">All added sugar, honey, maple syrup</span></div>
+            <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Fruit juice — even fresh-squeezed</span></div>
+            <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Flavoured yogurts and oat packs</span></div>
+            <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Granola — almost always sugar-heavy</span></div>
+            <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Protein bars — sugar in disguise</span></div>
+            <div class="sugar-item" style="padding:8px 0;"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Bottled sauces (ketchup, BBQ, sweet chilli)</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="tip-box-f" style="max-width:780px;">
+        <div class="tip-box-title">The one-ingredient rule</div>
+        <div class="tip-item"><span class="tip-dot-f"></span>If a product has more ingredients than you can count on one hand, put it back</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Sugar cravings peak at days 3–7 then drop sharply — push through the first week</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>1–2 squares of 85%+ dark chocolate is a clean, low-sugar way to satisfy a sweet craving</div>
+      </div>
         <div style="background:linear-gradient(145deg,#0e0118,#1a0030);border:1px solid rgba(191,95,255,0.35);border-radius:var(--radius);padding:20px;">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;"><div style="font-size:28px;">🥑</div><div><div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#bf5fff;">Ketogenic (Keto)</div><div style="font-size:12px;color:var(--text3);margin-top:2px;">Under 20–50g carbs per day</div></div></div>
           <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Keto switches your body's fuel source from glucose (sugar/carbs) to ketones (fat). When you cut carbs low enough, your liver starts converting fat into ketone bodies. This state is called ketosis.</div>
@@ -1206,20 +1286,41 @@
 
   <!-- ── TAB: Meal Planner ── -->
   <div id="nutr-tab-planner" class="etab-page">
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;" id="planner-totals">
-      <div class="stat-card"><div class="stat-val" id="pt-avgcal">—</div><div class="stat-label">Avg daily calories</div></div>
-      <div class="stat-card"><div class="stat-val" id="pt-avgpro">—</div><div class="stat-label">Avg daily protein</div></div>
-      <div class="stat-card"><div class="stat-val" id="pt-ketodays">2</div><div class="stat-label">Keto days</div><div class="stat-sub">Fri & Sun</div></div>
-      <div class="stat-card"><div class="stat-val" id="pt-earldays">1</div><div class="stat-label">Early finish days</div><div class="stat-sub">Thu WFH</div></div>
+    <!-- Planner sub-tab bar -->
+    <div class="eating-tabs" style="margin-bottom:16px;">
+      <div class="etab active" id="ptab-planner" onclick="switchPlannerTab('planner', this)">📅 Meal Plan</div>
+      <div class="etab" id="ptab-recipes" onclick="switchPlannerTab('recipes', this)">📖 My Recipes</div>
     </div>
-    <div id="planner-grid" style="display:flex;flex-direction:column;gap:8px;"></div>
-    <div style="text-align:center;margin-top:20px;">
-      <button onclick="resetPlanner()" style="font-size:13px;color:var(--text3);background:none;border:1px solid var(--border);cursor:pointer;padding:8px 20px;border-radius:999px;font-family:'Manrope', sans-serif;" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text3)'">Reset to default plan</button>
-    </div>
+
+    <!-- Sub-tab: Meal Plan -->
+    <div id="planner-tab-planner">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;" id="planner-totals">
+        <div class="stat-card"><div class="stat-val" id="pt-avgcal">—</div><div class="stat-label">Avg daily calories</div></div>
+        <div class="stat-card"><div class="stat-val" id="pt-avgpro">—</div><div class="stat-label">Avg daily protein</div></div>
+        <div class="stat-card"><div class="stat-val" id="pt-ketodays">2</div><div class="stat-label">Keto days</div><div class="stat-sub">Fri / Sun</div></div>
+        <div class="stat-card"><div class="stat-val" id="pt-earldays">1</div><div class="stat-label">Early finish days</div><div class="stat-sub">Thu WFH</div></div>
+      </div>
+      <div id="planner-grid" style="display:flex;flex-direction:column;gap:8px;"></div>
+      <div style="text-align:center;margin-top:20px;">
+        <button onclick="resetPlanner()" style="font-size:13px;color:var(--text3);background:none;border:1px solid var(--border);cursor:pointer;padding:8px 20px;border-radius:999px;font-family:'Manrope', sans-serif;" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text3)'">Reset to default plan</button>
+      </div>
+    </div><!-- end planner-tab-planner -->
+
+    <!-- Sub-tab: My Recipes -->
+    <div id="planner-tab-recipes" style="display:none;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);font-family:'Manrope',sans-serif;">Saved recipes</div>
+        <a href="https://www.recime.app" target="_blank" style="display:inline-flex;align-items:center;gap:7px;padding:8px 16px;background:var(--teal);color:#00382f;border-radius:999px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;">📖 Open ReciMe</a>
+      </div>
+      <div id="saved-recipes-list"></div>
+    </div><!-- end planner-tab-recipes -->
   </div>
 
   <!-- ── TAB: Eating Out ── -->
   <div id="nutr-tab-eatingout" class="etab-page">
+    <div style="margin-bottom:16px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);font-family:'Manrope',sans-serif;">Eating out guide</div>
+    </div>
     <div class="card" style="margin-bottom:20px;">
       <div class="card-title" style="margin-bottom:16px;">The golden rules — apply anywhere</div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
@@ -1276,12 +1377,12 @@
 <div id="page-pantry" class="page">
   <div class="page-header">
     <div class="page-eyebrow">Nutrition</div>
-    <div class="page-title">Pantry & Shopping</div>
+    <div class="page-title">Kitchen / Shopping</div>
     <div class="page-sub">What you have at home · What to buy this week</div>
   </div>
 
   <div class="eating-tabs" style="margin-bottom:20px;">
-    <div class="etab active" id="ptab-pantry" onclick="switchPantryTab('pantry',this)">🥕 My pantry</div>
+    <div class="etab active" id="ptab-pantry" onclick="switchPantryTab('pantry',this)">🥕 My kitchen</div>
     <div class="etab" id="ptab-shop" onclick="switchPantryTab('shop',this)">🛒 Shopping list</div>
   </div>
 
@@ -1304,7 +1405,7 @@
         <div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.06em;">Assign locations — tap each item to change</div>
         <div id="ocado-review-list" style="display:flex;flex-direction:column;gap:6px;max-height:320px;overflow-y:auto;"></div>
         <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
-          <button onclick="confirmOcadoImport()" style="padding:8px 18px;background:var(--teal);color:#00382f;border:none;border-radius:999px;font-family:'Manrope',sans-serif;font-size:12px;font-weight:700;cursor:pointer;">Save to pantry</button>
+          <button onclick="confirmOcadoImport()" style="padding:8px 18px;background:var(--teal);color:#00382f;border:none;border-radius:999px;font-family:'Manrope',sans-serif;font-size:12px;font-weight:700;cursor:pointer;">Save to kitchen</button>
           <button onclick="document.getElementById('ocado-review-panel').style.display='none'" style="padding:8px 14px;background:none;border:1px solid var(--border);border-radius:999px;font-family:'Manrope',sans-serif;font-size:12px;color:var(--text2);cursor:pointer;">Back</button>
         </div>
       </div>
@@ -1351,7 +1452,7 @@
   <!-- Add / Edit item modal -->
   <div id="pantry-add-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:999;align-items:center;justify-content:center;">
     <div style="background:var(--card);border-radius:var(--radius);padding:26px;max-width:400px;width:90%;box-shadow:var(--shadow-lg);">
-      <div id="pantry-modal-title" style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;margin-bottom:16px;">Add pantry item</div>
+      <div id="pantry-modal-title" style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;margin-bottom:16px;">Add kitchen item</div>
       <input id="pantry-add-name" type="text" placeholder="Item name (e.g. Chicken breast)" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-family:'Manrope',sans-serif;font-size:13px;box-sizing:border-box;margin-bottom:10px;">
       <input id="pantry-add-size" type="text" placeholder="Size / description (e.g. 500g, large bag) — optional" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-family:'Manrope',sans-serif;font-size:13px;box-sizing:border-box;margin-bottom:10px;">
       <select id="pantry-add-location" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-family:'Manrope',sans-serif;font-size:13px;box-sizing:border-box;margin-bottom:10px;">
@@ -1429,7 +1530,7 @@
 
     <div>
       <div class="shop-section-f">
-        <div class="shop-section-title">Carbs & pantry</div>
+        <div class="shop-section-title">Carbs & kitchen</div>
         <div class="shop-grid-f">
           <div class="shop-item-f"><div class="shop-item-name">Plain rolled oats</div><div class="shop-item-note">Just oats — nothing else</div></div>
           <div class="shop-item-f"><div class="shop-item-name">Tilda Steamed Basmati</div><div class="shop-item-note">Ingredient: just rice</div></div>
@@ -1471,7 +1572,7 @@
 <div id="page-routines" class="page">
   <div class="page-header">
     <div class="page-eyebrow">Wellbeing</div>
-    <div class="page-title">Routines & Supplements</div>
+    <div class="page-title">Routines / Supplements</div>
     <div class="page-sub">Your daily rituals, AM/PM checklist, and supplement stack</div>
   </div>
   <div class="eating-tabs" style="margin-bottom:20px;">
@@ -1690,7 +1791,7 @@
 <div id="page-wellbeing-ref" class="page">
   <div class="page-header">
     <div class="page-eyebrow">Wellbeing</div>
-    <div class="page-title">Health &amp; Recovery</div>
+    <div class="page-title">Health and Recovery</div>
     <div class="page-sub">Whoop recovery guide · Longevity protocols · Wellness kit</div>
   </div>
   <div class="eating-tabs" style="margin-bottom:20px;">
@@ -1905,7 +2006,7 @@
       </div>
       <div>
         <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:6px;">When / how to use</div>
-        <input id="wt-edit-when" type="text" placeholder="e.g. 10 min, morning &mdash; face &amp; body" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+        <input id="wt-edit-when" type="text" placeholder="e.g. 10 min, morning — face and body" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
       </div>
       <div>
         <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:6px;">Benefits</div>
@@ -1915,7 +2016,7 @@
         <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:6px;">Category</div>
         <select id="wt-edit-cat" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;">
           <option value="recovery">Recovery</option>
-          <option value="skin">Skin &amp; Beauty</option>
+          <option value="skin">Skin and Beauty</option>
           <option value="metabolism">Metabolism</option>
           <option value="sleep">Sleep</option>
           <option value="breathwork">Breathwork</option>
@@ -2200,8 +2301,8 @@ function goTo(page, el) {
   }
   if (page === 'thisweek') renderThisWeekPage();
   if (page === 'settings') updateApiKeyStatus();
-  if (page === 'routines') { if (typeof routinesTab === 'function') routinesTab('today'); }
-  if (page === 'wellbeing-ref') { /* tabs handle their own init */ }
+  if (page === 'routines') { if (typeof routinesTab === 'function') routinesTab('checklist'); }
+  if (page === 'wellbeing-ref') { if (typeof renderWtGrid === 'function') renderWtGrid(); }
   if (window.innerWidth <= 900) closeSidebar();
   // Scroll to top on every navigation
   try {
@@ -2261,11 +2362,14 @@ function nutritionTab(tab, el) {
 
 
 function switchEat(id, el) {
-  // Scope to the meals page only — never touch tabs on other pages
-  const mealsPage = document.getElementById('page-nutrition');
-  if (mealsPage) {
-    mealsPage.querySelectorAll('.etab-page').forEach(p => p.classList.remove('active'));
-    mealsPage.querySelectorAll('.etab').forEach(t => t.classList.remove('active'));
+  // Scope ONLY to the nutr-tab-guide container — never touch top-level nutrition tabs
+  const guideTab = document.getElementById('nutr-tab-guide');
+  if (guideTab) {
+    // Only clear the eating sub-tab panes (eat-guide, eat-standard, etc.)
+    guideTab.querySelectorAll(':scope > .etab-page, :scope > div > .etab-page').forEach(p => p.classList.remove('active'));
+    // Only clear tabs inside the eating-tabs bar within nutr-tab-guide
+    const eatBar = guideTab.querySelector('.eating-tabs');
+    if (eatBar) eatBar.querySelectorAll('.etab').forEach(t => t.classList.remove('active'));
   }
   const target = document.getElementById('eat-' + id);
   if (target) target.classList.add('active');
@@ -2388,9 +2492,12 @@ function launchApp() {
   renderDayCards();
   updateDashboard();
   renderDashboardWeek();
+  renderDashboardNutritionWidget(null);
   renderLongevityChecks();
   renderPlanner();
   renderSuppStack();
+  if (typeof renderThisWeekPage === 'function') renderThisWeekPage();
+  if (typeof renderWtGrid === 'function') renderWtGrid();
   // Re-render data-driven views so they pick up data loaded from Drive
   if (typeof renderRunningPlans === 'function') renderRunningPlans();
   if (typeof renderGymWorkouts === 'function') renderGymWorkouts();
@@ -6821,7 +6928,7 @@ function addPantryItem(loc) {
   _pantryEditIdx = null;
   const modal = document.getElementById('pantry-add-modal');
   if (!modal) return;
-  document.getElementById('pantry-modal-title').textContent = 'Add pantry item';
+  document.getElementById('pantry-modal-title').textContent = 'Add kitchen item';
   document.getElementById('pantry-add-name').value = '';
   document.getElementById('pantry-add-size').value = '';
   document.getElementById('pantry-add-count').value = '1';
@@ -7014,7 +7121,7 @@ function confirmOcadoImport() {
   _ocadoParsedItems = [];
   document.getElementById('ocado-review-panel').style.display = 'none';
   toggleOcadoImport();
-  showNotificationWithUndo('✓ ' + n + ' items added to pantry', undoOcadoImport);
+  showNotificationWithUndo('✓ ' + n + ' items added to kitchen', undoOcadoImport);
 }
 
 function undoOcadoImport() {
@@ -7113,7 +7220,7 @@ async function generateSundayPrep() {
     'This week\'s meal plan:',
     mealsLines.length ? mealsLines.join('\n') : '(No meals planned yet)',
     '',
-    'Items already in the pantry/fridge:',
+    'Items already in the kitchen/fridge:',
     pantryItems.length ? pantryItems.join(', ') : '(Not specified)',
     '',
     'Generate a practical Sunday prep list covering ALL aspects of the week ahead — not just food.',
@@ -7183,7 +7290,7 @@ async function generateSundayPrep() {
 
     // Add a regenerate affordance
     html += '<div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px;">'
-          + '<div style="font-size:11.5px;color:var(--text3);">Generated from your current meal plan &amp; workout schedule</div>'
+          + '<div style="font-size:11.5px;color:var(--text3);">Generated from your current meal plan and workout schedule</div>'
           + '<button onclick="generateSundayPrep()" style="font-size:12px;color:var(--teal);background:none;border:1px solid var(--teal);border-radius:var(--radius-sm);padding:5px 12px;cursor:pointer;font-family:\'Manrope\',sans-serif;font-weight:600;">↻ Regenerate</button>'
           + '</div>';
 
@@ -7205,7 +7312,7 @@ function renderSuggestionsPantryPreview() {
   const pantry = loadPantry();
   const allItems = PANTRY_LOCATIONS.flatMap(loc => (pantry[loc] || []).filter(i => !i.used));
   if (allItems.length === 0) {
-    el.innerHTML = '<span style="font-size:12.5px;color:var(--text3);">Your pantry is empty — <button onclick="goTo(\'pantry\')" style="background:none;border:none;color:var(--teal);text-decoration:underline;cursor:pointer;font-family:\'Manrope\',sans-serif;font-size:12.5px;padding:0;">add items first</button></span>';
+    el.innerHTML = '<span style="font-size:12.5px;color:var(--text3);">Your kitchen is empty — <button onclick="goTo(\'pantry\')" style="background:none;border:none;color:var(--teal);text-decoration:underline;cursor:pointer;font-family:\'Manrope\',sans-serif;font-size:12.5px;padding:0;">add items first</button></span>';
     return;
   }
   el.innerHTML = allItems.slice(0, 20).map(i =>
@@ -7222,7 +7329,7 @@ async function getMealSuggestions() {
   }
   const pantry = loadPantry();
   const allItems = PANTRY_LOCATIONS.flatMap(loc => (pantry[loc] || []).filter(i => (i.count || 1) > 0).map(i => i.name + (i.size ? ' (' + i.size + ')' : '') + (i.count > 1 ? ' x' + i.count : '')));
-  if (allItems.length === 0) { showNotification('Add items to your pantry first'); return; }
+  if (allItems.length === 0) { showNotification('Add items to your kitchen first'); return; }
 
   const workoutEl = document.getElementById('suggestions-workout-select');
   const workoutType = workoutEl ? workoutEl.value : 'gym';
@@ -7336,15 +7443,14 @@ function switchPantryTab(id, el) {
 }
 
 function switchPlannerTab(id, el) {
-  ['planner','suggestions'].forEach(t => {
+  ['planner','recipes'].forEach(t => {
     const pane = document.getElementById('planner-tab-' + t);
     const tab  = document.getElementById('ptab-' + t);
     if (pane) pane.style.display = (t === id) ? '' : 'none';
     if (tab) { tab.classList.toggle('active', t === id); }
   });
-  if (id === 'suggestions') {
-    renderPlannerPantryPreview();
-    autoDetectTodaysWorkout();
+  if (id === 'recipes') {
+    if (typeof renderSavedRecipes === 'function') renderSavedRecipes();
   }
 }
 
@@ -7354,7 +7460,7 @@ function renderPlannerPantryPreview() {
   const pantry = loadPantry();
   const allItems = PANTRY_LOCATIONS.flatMap(loc => (pantry[loc] || []).filter(i => (i.count || 1) > 0).map(i => i.name));
   if (allItems.length === 0) {
-    el.textContent = 'Pantry is empty — add items in the Pantry tab';
+    el.textContent = 'Pantry is empty — add items in the Kitchen tab';
     return;
   }
   el.textContent = allItems.slice(0, 8).join(', ') + (allItems.length > 8 ? ' + ' + (allItems.length - 8) + ' more' : '');
@@ -7449,7 +7555,7 @@ async function getPlannerSuggestions() {
   }
   const pantry = loadPantry();
   const allItems = PANTRY_LOCATIONS.flatMap(loc => (pantry[loc] || []).filter(i => (i.count || 1) > 0).map(i => i.name + (i.size ? ' (' + i.size + ')' : '') + (i.count > 1 ? ' x' + i.count : '')));
-  if (allItems.length === 0) { showNotification('Add items to your pantry first'); return; }
+  if (allItems.length === 0) { showNotification('Add items to your kitchen first'); return; }
 
   const workoutEl = document.getElementById('planner-suggestions-workout');
   const workoutType = workoutEl ? workoutEl.value : 'gym';
