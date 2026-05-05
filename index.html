@@ -629,19 +629,13 @@
     </div>
 
 
-    <!-- Sign in button (shown when client ID is set) -->
+    <!-- Sign in button -->
     <div id="signin-btn-wrap">
-      <button class="sync-btn" onclick="signIn()">
+      <button class="sync-btn" onclick="signIn()" id="google-signin-btn">
         <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#fff" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#fff" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#fff" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#fff" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
         Sign in with Google
       </button>
-      <button class="sync-btn-secondary" onclick="usePlanOnly()">Use plan without sync</button>
       <div style="font-size:11px;color:var(--text3);margin-top:10px;">Your data is stored only in your own Google Drive.<br>No data is shared with anyone.</div>
-      <div style="margin-top:10px;">
-        <button onclick="showClientIdSetup()" style="background:none;border:none;font-size:12px;color:var(--text3);cursor:pointer;text-decoration:underline;">Change Client ID</button>
-        <span style="color:var(--text3);">•</span>
-        <button onclick="document.getElementById('api-key-setup').style.display='block'; document.getElementById('signin-btn-wrap').style.display='none';" style="background:none;border:none;font-size:12px;color:var(--text3);cursor:pointer;text-decoration:underline;">Add API Key</button>
-      </div>
     </div>
   </div>
 </div>
@@ -730,6 +724,12 @@
       <div class="stat-mini-item"><div class="stat-mini-val">64kg</div><div class="stat-mini-label">Current</div></div>
       <div class="stat-mini-item"><div class="stat-mini-val">→</div><div class="stat-mini-label"></div></div>
       <div class="stat-mini-item"><div class="stat-mini-val">57kg</div><div class="stat-mini-label">Goal</div></div>
+    </div>
+    <div id="sidebar-sync-btn-wrap" style="padding:10px 12px 0;">
+      <button onclick="signIn()" id="sidebar-signin-btn" style="width:100%;padding:8px 12px;background:var(--teal);color:#131313;border:none;border-radius:var(--radius-sm);font-family:'Manrope',sans-serif;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
+        <svg width="13" height="13" viewBox="0 0 24 24"><path fill="#131313" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#131313" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#131313" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#131313" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Sync with Google Drive
+      </button>
     </div>
   </div>
 </nav>
@@ -2373,26 +2373,26 @@ function showCuisine(id, el) {
   </div>
 
   <!-- CHECKIN VIEW (default) -->
-  <div id="supp-view-checkin" style="max-width:780px;">
-    <div id="supp-checkin-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
+  <div id="supp-view-checkin">
+    <div id="supp-checkin-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"></div>
   </div>
 
   <!-- INSIGHTS VIEW -->
-  <div id="supp-view-insights" style="display:none;max-width:780px;">
-    <div id="supp-insights-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
+  <div id="supp-view-insights" style="display:none;">
+    <div id="supp-insights-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"></div>
   </div>
 
   <!-- STACK VIEW -->
-  <div id="supp-view-stack" style="display:none;max-width:780px;">
+  <div id="supp-view-stack" style="display:none;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
       <div style="font-size:13px;color:var(--text2);">Toggle active/inactive · <span style="color:var(--teal);font-weight:500;" id="supp-count"></span></div>
       <button onclick="openAddSupp()" style="padding:7px 16px;border-radius:999px;border:1.5px solid var(--teal);background:var(--teal-light);color:var(--teal);font-family:'Manrope', sans-serif;font-size:13px;font-weight:600;cursor:pointer;">+ Add supplement</button>
     </div>
-    <div id="supp-stack-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
+    <div id="supp-stack-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"></div>
   </div>
 
   <!-- DAILY SCHEDULE VIEW -->
-  <div id="supp-view-schedule" style="display:none;max-width:580px;">
+  <div id="supp-view-schedule" style="display:none;">
     <div style="font-size:13px;color:var(--text2);margin-bottom:16px;">Your daily supplement routine — same every day. Only active supplements appear here.</div>
     <div id="supp-schedule-grid" style="display:flex;flex-direction:column;gap:12px;"></div>
   </div>
@@ -3095,7 +3095,8 @@ let gSyncEnabled  = false;
 let gSaveQueue    = false;
 
 // ---- Client ID management ----
-function getClientId() { return localStorage.getItem(CLIENT_ID_STORAGE) || ''; }
+const DEFAULT_CLIENT_ID = '56935101632-caejt9kn3bp3t3c8t3cc1csk7m6h4d3h.apps.googleusercontent.com';
+function getClientId() { return localStorage.getItem(CLIENT_ID_STORAGE) || DEFAULT_CLIENT_ID; }
 function saveClientId() {
   const v = document.getElementById('client-id-input').value.trim();
   if (!v || !v.includes('.apps.googleusercontent.com')) {
@@ -3187,6 +3188,8 @@ function usePlanOnly() {
 function launchApp() {
   document.getElementById('sync-overlay').classList.add('hidden');
   document.getElementById('sync-indicator').style.display = gSyncEnabled ? 'flex' : 'none';
+  var sidebarSyncWrap = document.getElementById('sidebar-sync-btn-wrap');
+  if (sidebarSyncWrap) sidebarSyncWrap.style.display = gSyncEnabled ? 'none' : 'block';
   const today = new Date().toISOString().split('T')[0];
   document.getElementById('log-date').value = today;
   renderDayCards();
@@ -5900,23 +5903,44 @@ window.addEventListener('load', () => {
   // Initialize default class times on first load
   initializeDefaultClassTimes();
 
-  // If user previously chose "plan only", skip the overlay entirely
-  if (localStorage.getItem('laura_plan_only') === '1') {
-    usePlanOnly();
-    return;
-  }
+  // Always launch the app immediately with local data so pages are never blank.
+  // Google sign-in runs in background — if successful, data upgrades from Drive.
+  gSyncEnabled = false;
+  gAppData = loadLocalFallback();
+  launchApp();
 
-  // Show sign-in overlay
-  const overlay = document.getElementById('sync-overlay');
-  const clientId = getClientId();
-  if (clientId) {
-    document.getElementById('client-id-setup').style.display = 'none';
-    document.getElementById('signin-btn-wrap').style.display = 'block';
-  } else {
-    document.getElementById('client-id-setup').style.display = 'block';
-    document.getElementById('signin-btn-wrap').style.display = 'none';
+  // Then attempt silent Google sign-in if the API is ready
+  function tryAutoSignIn() {
+    if (typeof google !== 'undefined' && google.accounts && google.accounts.oauth2) {
+      try {
+        const clientId = getClientId();
+        const client = google.accounts.oauth2.initTokenClient({
+          client_id: clientId,
+          scope: 'https://www.googleapis.com/auth/drive.file',
+          prompt: '',  // empty = silent if already consented
+          callback: async function(resp) {
+            if (resp && resp.access_token) {
+              gAccessToken = resp.access_token;
+              gSyncEnabled = true;
+              localStorage.removeItem('laura_plan_only');
+              setSyncStatus('saving', 'Syncing…');
+              try {
+                await loadFromDrive();
+                // Re-render whatever page is active with fresh data
+                var activePage = document.querySelector('.page.active');
+                if (activePage && activePage.id === 'page-progress') renderProgress();
+                if (activePage && activePage.id === 'page-overview') updateDashboard();
+                setSyncStatus('ok', 'Synced');
+              } catch(e) { setSyncStatus('error', 'Sync error'); }
+            }
+          },
+        });
+        client.requestAccessToken();
+      } catch(e) {}
+    }
   }
-  overlay.classList.remove('hidden');
+  // Give the Google script time to load, then try silent sign-in
+  setTimeout(tryAutoSignIn, 1500);
 });
 
 function renderLongevityChecks() {
