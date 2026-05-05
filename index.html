@@ -8378,6 +8378,10 @@ function clearFutureWeek(offsetWeeks) {
   } catch(e) {}
 }
 
+// ─── state vars must be declared BEFORE any IIFE that reads them ───
+let _currentWeekOffset = 0;
+let _displayRoutine = null;
+
 // Inject the week picker bar into the Weekly Schedule page
 (function injectWeekPicker() {
   const page = document.getElementById('page-training');
@@ -8391,8 +8395,6 @@ function clearFutureWeek(offsetWeeks) {
   page.insertBefore(pickerEl, weekStrip);
   renderWeekPickerBar();
 })();
-
-let _currentWeekOffset = 0;
 
 function renderWeekPickerBar() {
   const el = document.getElementById('week-picker-bar');
@@ -8452,9 +8454,6 @@ function clearFutureWeekCurrent() {
   renderDayCards();
   showNotification('Plan cleared — will follow base routine');
 }
-
-// Track display routine override
-let _displayRoutine = null;
 
 // Patch loadWorkoutRoutine to return display override when set
 const _origLoadWorkoutRoutine = loadWorkoutRoutine;
