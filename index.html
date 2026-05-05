@@ -2569,9 +2569,21 @@ async function loadFromDrive() {
       const raw = await driveRequest('GET', `https://www.googleapis.com/drive/v3/files/${gDriveFileId}?alt=media`);
       gAppData = typeof raw === 'string' ? JSON.parse(raw) : raw;
     } else {
-      // First time — migrate from localStorage if anything exists
-      gAppData = loadLocalFallback();
-      await saveToDrive();
+      // Check for old filename (laura_app_data.json) and migrate if found
+      const oldQ = encodeURIComponent(`name='laura_app_data.json' and trashed=false`);
+      const oldR = await driveRequest('GET', `https://www.googleapis.com/drive/v3/files?q=${oldQ}&spaces=drive&fields=files(id,name)`);
+      const oldId = oldR.files && oldR.files.length ? oldR.files[0].id : null;
+      if (oldId) {
+        const raw = await driveRequest('GET', `https://www.googleapis.com/drive/v3/files/${oldId}?alt=media`);
+        gAppData = typeof raw === 'string' ? JSON.parse(raw) : raw;
+        // Save under new name
+        await saveToDrive();
+        setSyncStatus('ok', 'Data migrated ✓');
+      } else {
+        // Fresh start
+        gAppData = loadLocalFallback();
+        await saveToDrive();
+      }
     }
     setSyncStatus('ok', 'Synced');
   } catch(e) {
@@ -3803,6 +3815,9 @@ function loadWorkoutRoutine() {
 function saveWorkoutRoutine(routine) {
   setData(CUSTOM_WORKOUT_KEY, routine);
   scheduleSave();
+  // Keep dashboard and This Week in sync immediately
+  if (typeof renderDashboardWeek === 'function') renderDashboardWeek();
+  if (typeof renderThisWeekPage === 'function') try { renderThisWeekPage(); } catch(e) {}
 }
 
 function revertWorkoutRoutine() {
@@ -4881,6 +4896,10 @@ function closeWorkoutEditor() {
     modal.style.display = 'none';
     document.body.style.overflow = '';
   }
+  // Re-render everything that shows the routine
+  if (typeof renderDayCards === 'function') renderDayCards();
+  if (typeof renderDashboardWeek === 'function') renderDashboardWeek();
+  if (typeof renderThisWeekPage === 'function') try { renderThisWeekPage(); } catch(e) {}
 }
 
 function addWorkoutDay() {
