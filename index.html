@@ -476,6 +476,21 @@
       grid-template-columns: repeat(4, 1fr) !important;
     }
 
+    /* Routines tweaks 7-day grid: scroll horizontally rather than overflow */
+    #routines-tweaks-grid {
+      grid-template-columns: repeat(4, 1fr) !important;
+    }
+
+    /* Supplement schedule grid: single col on small screens */
+    #supp-schedule-grid {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* Supplement tabs: wrap so they don't push past screen edge */
+    #wb1-tab-supplements > div:first-child {
+      flex-wrap: wrap !important;
+    }
+
     /* Supplement stack grid: single column */
     #supp-stack-grid {
       grid-template-columns: 1fr !important;
@@ -620,10 +635,57 @@
 
     /* Main padding tighter on small phones */
     .main { padding: 16px 14px 60px !important; }
+
+    /* ── THIS WEEK: horizontal scroll strip on mobile ── */
+    #thisweek-grid > div {
+      display: flex !important;
+      flex-direction: row !important;
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      gap: 8px !important;
+      padding-bottom: 8px !important;
+    }
+    #thisweek-grid > div > div {
+      flex: 0 0 110px !important;
+      min-width: 110px !important;
+      max-width: 110px !important;
+    }
+
+    /* ── THIS WEEK day panel: stack workout + food vertically ── */
+    .tw-day-panel-grid {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* ── KITCHEN / SHOPPING: single column ── */
+    #pantry-sections {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* ── ROUTINES / SUPPLEMENTS: remove narrow max-width constraints ── */
+    #routines-checklist-list label,
+    .routines-step-item,
+    .routine-checklist-item {
+      max-width: 100% !important;
+    }
+    .shopping-item,
+    .shopping-tick-item {
+      max-width: 100% !important;
+    }
+    .pantry-item {
+      max-width: 100% !important;
+    }
+    .tip-box-f {
+      max-width: 100% !important;
+    }
+    #wb1-tab-routines,
+    #wb1-tab-supplements {
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
   }
 
-  /* ── WIDTH CONSTRAINTS (content should only be as wide as it needs to be) ── */
-
+  /* ── WIDTH CONSTRAINTS (desktop only — content should only be as wide as it needs to be) ── */
+  @media (min-width: 601px) {
   /* Routines checklist — daily ritual items are narrow, never full width */
   #routines-checklist-list label,
   .routines-step-item,
@@ -663,6 +725,7 @@
   /* Waiter scripts and narrow prose blocks */
   .sync-card {
     max-width: 440px;
+  }
   }
 </style>
 </head>
@@ -8554,7 +8617,7 @@ function renderTWDayPanel(dayKey) {
       + '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:22px;font-weight:700;">' + DAY_LABELS[dayKey] + '</div>'
       + '<button onclick="document.getElementById(\'thisweek-day-panel\').style.display=\'none\'" style="background:none;border:none;color:var(--text3);font-size:20px;cursor:pointer;padding:4px 8px;line-height:1;">✕</button>'
     + '</div>'
-    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">'
+    + '<div class="tw-day-panel-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">'
       + '<div>'
         + '<div style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);font-family:\'Manrope\',sans-serif;margin-bottom:12px;font-weight:700;">Workout</div>'
         + workoutSection
