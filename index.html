@@ -677,9 +677,6 @@
 
   <div class="nav-section">
     <div class="nav-label">Training</div>
-    <button class="nav-item" onclick="goTo('training', this)">
-      <span class="nav-icon">🗓️</span> Schedule
-    </button>
     <button class="nav-item" onclick="goTo('workouts', this)">
       <span class="nav-icon">💪</span> Gym Workouts
     </button>
@@ -697,16 +694,13 @@
       <span class="nav-icon">📚</span> Nutrition Guide
     </button>
     <button class="nav-item" onclick="goTo('pantry', this)">
-      <span class="nav-icon">🥕</span> Pantry
+      <span class="nav-icon">🥕</span> Pantry & Shopping
     </button>
     <button class="nav-item" onclick="goTo('planner', this)">
       <span class="nav-icon">📋</span> Meal Planner
     </button>
     <button class="nav-item" onclick="goTo('recime', this)">
       <span class="nav-icon">📖</span> My Recipes
-    </button>
-    <button class="nav-item" onclick="goTo('shop', this)">
-      <span class="nav-icon">🛒</span> Shopping List
     </button>
     <button class="nav-item" onclick="goTo('eatingout', this)">
       <span class="nav-icon">🍽️</span> Eating Out
@@ -716,19 +710,10 @@
   <div class="nav-section">
     <div class="nav-label">Wellbeing</div>
     <button class="nav-item" onclick="goTo('routines', this)">
-      <span class="nav-icon">🌅</span> Daily Rituals
+      <span class="nav-icon">🌅</span> Routines & Supps
     </button>
-    <button class="nav-item" onclick="goTo('supplements', this)">
-      <span class="nav-icon">💊</span> Supplements
-    </button>
-    <button class="nav-item" onclick="goTo('wellbeing-tools', this)">
-      <span class="nav-icon">🔴</span> Wellbeing Tools
-    </button>
-    <button class="nav-item" onclick="goTo('whoop', this)">
-      <span class="nav-icon">🫀</span> Whoop Guide
-    </button>
-    <button class="nav-item" onclick="goTo('longevity', this)">
-      <span class="nav-icon">🌿</span> Longevity
+    <button class="nav-item" onclick="goTo('wellbeing-ref', this)">
+      <span class="nav-icon">📋</span> Wellbeing Reference
     </button>
   </div>
 
@@ -912,232 +897,22 @@
 
   <!-- Day detail panel -->
   <div id="thisweek-day-panel" style="display:none;"></div>
-</div>
 
-<div id="page-training" class="page">
-  <div class="page-header">
-    <div style="display:flex;align-items:center;justify-content:space-between;width:100%;">
+  <!-- Sunday Prep Generator -->
+  <div class="card" id="sunday-prep-card" style="margin-top:20px;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;gap:12px;flex-wrap:wrap;">
       <div>
-        <div class="page-eyebrow">Training</div>
-        <div class="page-title">Weekly schedule</div>
-        <div class="page-sub">Tap a day to see details</div>
+        <div class="card-title" style="margin-bottom:4px;">☀️ Sunday Prep</div>
+        <div style="font-size:13px;color:var(--text3);">AI-generated prep list based on this week's meals &amp; workouts</div>
       </div>
-      <button onclick="openWorkoutEditor()" style="padding:10px 16px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:600;cursor:pointer;font-size:14px;white-space:nowrap;">Edit Routine</button>
+      <button onclick="generateSundayPrep()" id="sunday-prep-btn" style="padding:9px 18px;background:var(--teal);color:#131313;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap;flex-shrink:0;">Generate ✨</button>
     </div>
-  </div>
-
-  <div class="week-strip" id="weekStrip"></div>
-
-  <!-- Day detail cards — compact summaries. Full exercise detail lives in Gym Workouts tab. -->
-
-  <div id="day-push" class="card card-gym day-detail" style="display:none;">
-    <div class="workout-header">
-      <span class="badge badge-teal">Strength · Push</span>
-      <div><div class="workout-title">Push day</div>
-      <div class="workout-meta">Chest · Shoulders · Triceps &nbsp;|&nbsp; ~55 min · David Lloyd</div></div>
-    </div>
-    <div class="day-detail-preview">
-      <div class="ddp-row"><span>Barbell bench press</span><span>4 × 8–10</span></div>
-      <div class="ddp-row"><span>Overhead press</span><span>3 × 10–12</span></div>
-      <div class="ddp-row"><span>Lateral raises</span><span>3 × 12–15</span></div>
-    </div>
-    <button class="ddp-link" onclick="goTo('workouts')">View full workout in Gym workouts →</button>
-    <div class="tip-box-f" style="margin-top:14px;">
-      <div class="tip-box-title">Prep</div>
-      <div class="tip-item"><span class="tip-dot-f"></span>2 warm-up sets before working weight on bench press</div>
-      <div class="tip-item"><span class="tip-dot-f"></span>Control the lowering phase — 2–3 seconds down on every rep</div>
-      <div class="tip-item"><span class="tip-dot-f"></span>Add 2.5kg when you hit the top of the rep range for 2 sessions running</div>
-    </div>
-  </div>
-
-  <div id="day-cyclone" class="card card-class day-detail" style="display:none;">
-    <div class="workout-header">
-      <span class="badge badge-class" id="class-badge-weekly-cyclone">Spin class · David Lloyd</span>
-      <div><div class="workout-title">Cyclone</div>
-      <div class="workout-meta">45 min · ~400 kcal · 75–90% HR</div></div>
-    </div>
-    <div class="tip-box-f">
-      <div class="tip-box-title">Prep</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Book your slot via the David Lloyd app in advance — Cyclone fills up fast</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Eat a small snack the night before or a banana before leaving — no time for breakfast at early sessions</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Adjust saddle height before the warm-up — knee should be soft at the bottom of the pedal stroke</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Bring a full water bottle — spin is sweatier than it looks</div>
-    </div>
-  </div>
-
-  <div id="day-run_wed" class="card card-run day-detail" style="display:none;">
-    <div class="workout-header">
-      <span class="badge badge-run" id="run-badge-interval_run">Flexible</span>
-      <div><div class="workout-title">Interval run</div>
-      <div class="workout-meta">30–35 min · 6 × 2 min hard efforts</div></div>
-    </div>
-    <div class="tip-box-f">
-      <div class="tip-box-title">Prep</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Check Runna for today's session — effort may vary from the default</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>No gym needed — run from home or wherever you are mid-week</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>If legs are sore from a class, dial the effort back to 5/10</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Lay kit out the night before so there are no excuses in the morning</div>
-    </div>
-  </div>
-
-  <div id="day-legs" class="card card-gym day-detail" style="display:none;">
-    <div class="workout-header">
-      <span class="badge badge-teal">Strength · Legs</span>
-      <div><div class="workout-title">Legs day</div>
-      <div class="workout-meta">Quads · Hamstrings · Glutes &nbsp;|&nbsp; ~55 min · David Lloyd</div></div>
-    </div>
-    <div class="day-detail-preview">
-      <div class="ddp-row"><span>Barbell back squat</span><span>4 × 8–10</span></div>
-      <div class="ddp-row"><span>Romanian deadlift</span><span>3 × 10–12</span></div>
-      <div class="ddp-row"><span>Leg press</span><span>3 × 12–15</span></div>
-    </div>
-    <button class="ddp-link" onclick="goTo('workouts')">View full workout in Gym workouts →</button>
-    <div class="tip-box-f" style="margin-top:14px;">
-      <div class="tip-box-title">Prep</div>
-      <div class="tip-item"><span class="tip-dot-f"></span>Warm up with bodyweight squats and hip openers before loading the bar</div>
-      <div class="tip-item"><span class="tip-dot-f"></span>Brace your core hard before every squat rep</div>
-      <div class="tip-item"><span class="tip-dot-f"></span>Romanian deadlifts: hinge from the hips, keep knees only soft</div>
-    </div>
-  </div>
-
-  <div id="day-blaze_fri" class="card card-class day-detail" style="display:none;">
-    <div class="workout-header">
-      <span class="badge badge-class" id="class-badge-weekly-blaze">HIIT class · David Lloyd</span>
-      <div><div class="workout-title">Blaze</div>
-      <div class="workout-meta">45 min · ~500 kcal · 85–95% HR</div></div>
-    </div>
-    <div class="tip-box-f">
-      <div class="tip-box-title">Prep</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Book in advance via the David Lloyd app — Friday Blaze fills up fast</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Legs will be heavy from Thursday — that's normal, the cardio stations will carry you</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Eat something small the night before if early sessions are hard on an empty stomach</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>On a red Whoop day, skip Blaze and do a 30 min walk instead — recovery wins long-term</div>
-    </div>
-  </div>
-
-  <div id="day-vol" class="card day-detail" style="display:none;">
-    <div style="text-align:center;padding:28px 20px;">
-      <div style="font-size:36px;margin-bottom:12px;">🤝</div>
-      <div style="font-family:'Space Grotesk', sans-serif;font-size:20px;margin-bottom:8px;">Rest &amp; volunteer</div>
-      <div style="font-size:14px;color:var(--text2);max-width:480px;margin:0 auto;line-height:1.7;">Your muscles grow when you rest. Volunteering keeps you active without training pressure. Keep protein up, stay hydrated, and get to bed early.</div>
-    </div>
-  </div>
-
-  <div id="day-run_sun" class="card day-detail" style="display:none;">
-    <div class="workout-header">
-      <span class="badge badge-purple">Flex day</span>
-      <div><div class="workout-title">Pull gym + optional long run</div>
-      <div class="workout-meta">Pull strength · then easy long run if feeling good</div></div>
-    </div>
-    <div class="day-detail-preview">
-      <div class="ddp-row"><span>Pull-ups / Lat pulldown</span><span>4 × 8–10</span></div>
-      <div class="ddp-row"><span>Seated cable row</span><span>3 × 10–12</span></div>
-      <div class="ddp-row"><span>Face pulls</span><span>3 × 15</span></div>
-    </div>
-    <button class="ddp-link" onclick="goTo('workouts')">View full Pull day in Gym workouts →</button>
-    <div class="tip-box-f" style="margin-top:14px;">
-      <div class="tip-box-title">Prep</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>If Thu + Fri left you drained, do Pull only or take full rest — both are valid</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>Always gym before run — lifting on pre-fatigued legs risks injury</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>Sunday bridges to Monday Push — don't leave yourself wrecked for the week ahead</div>
-    </div>
-  </div>
-
-  <div id="day-pull" class="card card-gym day-detail" style="display:none;">
-    <div class="workout-header">
-      <span class="badge badge-teal">Strength · Pull</span>
-      <div><div class="workout-title">Pull day</div>
-      <div class="workout-meta">Back · Biceps · Rear delts &nbsp;|&nbsp; ~55 min · David Lloyd</div></div>
-    </div>
-    <div class="day-detail-preview">
-      <div class="ddp-row"><span>Pull-ups / Lat pulldown</span><span>4 × 8–10</span></div>
-      <div class="ddp-row"><span>Seated cable row</span><span>3 × 10–12</span></div>
-      <div class="ddp-row"><span>Barbell bicep curl</span><span>3 × 10–12</span></div>
-    </div>
-    <button class="ddp-link" onclick="goTo('workouts')">View full workout in Gym workouts →</button>
-    <div class="tip-box-f" style="margin-top:14px;">
-      <div class="tip-box-title">Prep</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--teal);"></span>Lat pulldown: chest up, pull elbows to hips — avoid hunching shoulders</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--teal);"></span>Rows: squeeze shoulder blades together at the top of each rep</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--teal);"></span>Add 2.5kg every 2 sessions when you hit the top of the rep range</div>
-    </div>
-  </div>
-
-  <div id="day-rhythm" class="card card-class day-detail" style="display:none;">
-    <div class="workout-header">
-      <span class="badge badge-class" id="class-badge-weekly-rhythm">Spin class · David Lloyd</span>
-      <div><div class="workout-title">Rhythm</div>
-      <div class="workout-meta">Music-driven · 45 min · ~350–400 kcal · 70–85% HR</div></div>
-    </div>
-    <div class="tip-box-f">
-      <div class="tip-box-title">Prep</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Book in advance — check the David Lloyd app for available slots</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Rhythm is music-led — follow the instructor's choreography and stay relaxed</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Great recovery session after a hard Cyclone or Blaze — less intense but still effective</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Adjust resistance to match the instructor — don't go too heavy on climbs, focus on form</div>
-    </div>
-  </div>
-
-  <div id="day-long-run" class="card card-run day-detail" style="display:none;">
-    <div class="workout-header">
-      <span class="badge badge-run" id="run-badge-long_run">Flexible</span>
-      <div><div class="workout-title">Long easy run</div>
-      <div class="workout-meta">45–90 min · Easy conversational pace · Aerobic base</div></div>
-    </div>
-    <div class="tip-box-f">
-      <div class="tip-box-title">Prep</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Check Runna for this week's long run distance and structure</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Eat well 2–3 hours before. Bring water and a gel if going over 60 min</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Skip if your Whoop is red — rest wins over forced mileage</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Build distance gradually — add no more than 10% per week to avoid injury</div>
-    </div>
-  </div>
-
-  <div id="day-easy-run" class="card card-run day-detail" style="display:none;">
-    <div class="workout-header">
-      <span class="badge badge-run" id="run-badge-easy_run">Flexible</span>
-      <div><div class="workout-title">Easy run</div>
-      <div class="workout-meta">20–30 min · Conversational pace · Active recovery</div></div>
-    </div>
-    <div class="tip-box-f">
-      <div class="tip-box-title">Prep</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Check Runna — this might be a structured easy session rather than free running</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>If you can't hold a conversation, you're going too fast — slow down</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>After gym: leave at least an hour before running to avoid nausea</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Great filler session between hard training days</div>
-    </div>
-  </div>
-
-  <div id="day-runna" class="card card-run day-detail" style="display:none;">
-    <div class="workout-header">
-      <span class="badge badge-run" id="run-badge-runna">Flexible</span>
-      <div><div class="workout-title">Runna</div>
-      <div class="workout-meta">App-guided session · Follow coach instructions</div></div>
-    </div>
-    <div class="tip-box-f">
-      <div class="tip-box-title">Prep</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Open Runna before you head out — check session type, distance, and effort level</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Lay kit out the night before so there's nothing to think about in the morning</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>It's fine to modify if the session doesn't match how you feel — Runna adapts over time</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Log every session in the app so it can adjust future workouts to your progress</div>
-    </div>
-  </div>
-
-  <div id="day-swim" class="card card-gym day-detail" style="display:none;">
-    <div class="workout-header">
-      <span class="badge badge-cyan">Low-impact cardio</span>
-      <div><div class="workout-title">Swimming</div>
-      <div class="workout-meta">30–45 min · Full-body · ~350 kcal · David Lloyd pool</div></div>
-    </div>
-    <div class="tip-box-f">
-      <div class="tip-box-title">Prep</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--cyan);"></span>Pack kit the night before — goggles, cap, and a towel you don't mind chlorine on</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--cyan);"></span>Mix strokes — freestyle and backstroke alternating prevents shoulder fatigue</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--cyan);"></span>Focus on technique over speed — smooth strokes are more efficient than splashing fast</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--cyan);"></span>Perfect after Blaze or a hard run — zero impact lets you recover while staying active</div>
+    <div id="sunday-prep-output" style="font-size:13.5px;color:var(--text2);min-height:40px;">
+      <em style="color:var(--text3);">Hit Generate to build your Sunday prep list from this week's plan.</em>
     </div>
   </div>
 </div>
+
 
 <!-- ===================== WORKOUTS ===================== -->
 <div id="page-workouts" class="page">
@@ -1682,190 +1457,21 @@
 </div>
 
 <!-- ===================== UPF AUDIT (hidden — content merged into Nutrition Guide) ===================== -->
-<div id="page-upf" class="page">
-  <div class="page-header">
-    <div class="page-eyebrow">Nutrition</div>
-    <div class="page-title">UPF & sugar audit</div>
-    <div class="page-sub">Content merged into the Nutrition Guide tab</div>
-  </div>
-  <div class="card" style="text-align:center;padding:40px;">
-    <div style="font-size:32px;margin-bottom:12px;">📚</div>
-    <div style="font-size:15px;font-weight:600;margin-bottom:8px;">This content has moved</div>
-    <div style="font-size:13px;color:var(--text2);margin-bottom:20px;">UPF & sugar information is now in the Nutrition Guide under "The guide" tab.</div>
-    <button onclick="goTo('meals',null);setTimeout(()=>switchEat('guide',document.querySelector('.eating-tabs .etab:nth-child(2)')),100)" style="padding:10px 24px;background:#00f5d4;color:#00382f;border:none;border-radius:999px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;cursor:pointer;">Go to Nutrition Guide →</button>
-  </div>
-  <div class="page-header">
-    <div class="page-eyebrow">Nutrition</div>
-    <div class="page-title">UPF & sugar audit</div>
-    <div class="page-sub">Everything in the plan checked — only 5 swaps needed</div>
-  </div>
 
-  <div class="card" style="margin-bottom:16px;">
-    <div class="card-title" style="margin-bottom:14px;">5 swaps to make</div>
-    <div class="swap-row-f">
-      <div><div class="swap-old">Protein powder</div><div class="swap-reason">UPF · Emulsifiers, sweeteners, artificial flavours</div></div>
-      <div class="swap-arrow">→</div>
-      <div><div class="swap-new">2 boiled eggs + 100g cottage cheese</div><div class="swap-new-why">Same protein, zero additives. Cottage cheese = 25g protein per 200g.</div></div>
-    </div>
-    <div class="swap-row-f">
-      <div><div class="swap-old">Pre-marinated chicken</div><div class="swap-reason">UPF · Sugar, modified starch, flavour enhancers in marinades</div></div>
-      <div class="swap-arrow">→</div>
-      <div><div class="swap-new">Plain chicken + olive oil, garlic, lemon, herbs</div><div class="swap-new-why">Season it yourself. 30 seconds. Tastes better anyway.</div></div>
-    </div>
-    <div class="swap-row-f">
-      <div><div class="swap-old">Soy sauce</div><div class="swap-reason">UPF · High sodium, often contains additives and sugar</div></div>
-      <div class="swap-arrow">→</div>
-      <div><div class="swap-new">Coconut aminos</div><div class="swap-new-why">Just coconut sap + salt. Closest clean equivalent.</div></div>
-    </div>
-    <div class="swap-row-f">
-      <div><div class="swap-old">Philadelphia cream cheese</div><div class="swap-reason">Often contains guar gum, carob gum and other additives</div></div>
-      <div class="swap-arrow">→</div>
-      <div><div class="swap-new">Full-fat crème fraîche or Boursin</div><div class="swap-new-why">Crème fraîche: just cream + cultures. Boursin: cream, herbs, garlic.</div></div>
-    </div>
-    <div class="swap-row-f" style="border-bottom:none;">
-      <div><div class="swap-old">Supermarket microwave rice (some brands)</div><div class="swap-reason">Some add sunflower oil, flavourings — check the label</div></div>
-      <div class="swap-arrow">→</div>
-      <div><div class="swap-new">Tilda Pure Steamed Basmati</div><div class="swap-new-why">Ingredient list: just rice. Or batch-cook plain rice on Sunday.</div></div>
-    </div>
-  </div>
-
-  <div class="grid-2" style="margin-bottom:16px;">
-    <div class="card">
-      <div class="card-title" style="margin-bottom:12px;">✅ Already clean — keep these</div>
-      <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Eggs, plain meat, plain fish</div><div class="clean-why-f">Never need to check a label</div></div></div>
-      <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Fage Total Greek yogurt</div><div class="clean-why-f">Just milk + live cultures</div></div></div>
-      <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Tinned tuna/salmon (in olive oil or spring water)</div><div class="clean-why-f">Just fish + water/oil + salt — avoid flavoured varieties</div></div></div>
-      <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Plain rolled oats</div><div class="clean-why-f">Just oats. Quaker Original or supermarket plain.</div></div></div>
-      <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Proper cheese (cheddar, feta, parmesan)</div><div class="clean-why-f">Traditional cheese: milk + salt + cultures only</div></div></div>
-      <div class="clean-row-f" style="border-bottom:none;"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Olive oil, butter, lemon, garlic, herbs, spices</div><div class="clean-why-f">Your new seasoning toolkit — use instead of bottled sauces</div></div></div>
-    </div>
-    <div class="card">
-      <div class="card-title" style="margin-bottom:12px;">🚫 Cut these — hidden sugar</div>
-      <div style="display:flex;flex-direction:column;">
-        <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">All added sugar, honey, maple syrup, agave</span></div>
-        <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Fruit juice — even fresh-squeezed</span></div>
-        <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Flavoured yogurts and flavoured oat packs</span></div>
-        <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Granola — almost always sugar-heavy</span></div>
-        <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Protein bars — most are sugar in disguise</span></div>
-        <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Bottled sauces (ketchup, BBQ, sweet chilli)</span></div>
-        <div class="sugar-item" style="padding:8px 0;"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Anything ending in -ose: glucose, fructose, maltose</span></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="tip-box-f">
-    <div class="tip-box-title">The one-ingredient rule</div>
-    <div class="tip-item"><span class="tip-dot-f"></span>If a product has more ingredients than you can count on one hand, put it back</div>
-    <div class="tip-item"><span class="tip-dot-f"></span>If you can't pronounce an ingredient, it's almost certainly a UPF additive</div>
-    <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Sugar cravings peak at days 3–7 then drop sharply — push through the first week</div>
-    <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>1–2 squares of 85%+ dark chocolate is a clean, low-sugar way to satisfy a sweet craving</div>
-  </div>
-</div>
-
-<!-- ===================== SHOPPING LIST ===================== -->
-<div id="page-shop" class="page">
-  <div class="page-header">
-    <div class="page-eyebrow">Nutrition</div>
-    <div class="page-title">Clean shopping list</div>
-    <div class="page-sub">Everything whole or minimally processed · No added sugar · Buy once, eat all week</div>
-  </div>
-
-  <div class="card" style="margin-bottom:20px;" id="planner-shopping-card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-      <div>
-        <div class="card-title" style="margin-bottom:2px;">This week's meal planner ingredients</div>
-        <div style="font-size:12.5px;color:var(--text3);">Auto-generated from your current meal planner — updates when you change meals</div>
-      </div>
-      <button onclick="refreshPlannerShoppingList()" style="background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Manrope', sans-serif;">↻ Refresh</button>
-    </div>
-    <div id="planner-ingredients-list" style="font-size:13.5px;color:var(--text2);"><em style="color:var(--text3);">Visit your Meal Planner first, then come back and hit Refresh.</em></div>
-  </div>
-
-  <div id="shop-tick-controls">
-    <button class="pill-btn" onclick="clearShoppingTicks()">Clear ticks</button>
-    <button class="pill-btn" onclick="tickAllShopping()">Tick all</button>
-    <div class="shop-tick-progress" id="shop-tick-progress">0 / 0 ticked</div>
-  </div>
-
-  <div class="grid-2">
-    <div>
-      <div class="shop-section-f">
-        <div class="shop-section-title">Protein</div>
-        <div class="shop-grid-f">
-          <div class="shop-item-f"><div class="shop-item-name">Plain chicken breast</div><div class="shop-item-note">Fresh or frozen, no marinade</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Chicken thighs</div><div class="shop-item-note">Skin on for keto days</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Plain turkey mince</div><div class="shop-item-note">Lean, quick to cook</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Salmon fillets</div><div class="shop-item-note">Fresh or plain frozen</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Tinned tuna</div><div class="shop-item-note">In olive oil or spring water</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Smoked salmon</div><div class="shop-item-note">For keto breakfasts</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Eggs (12+)</div><div class="shop-item-note">Free-range · Use freely</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Cottage cheese</div><div class="shop-item-note">Replaces protein powder</div></div>
-        </div>
-      </div>
-
-      <div class="shop-section-f">
-        <div class="shop-section-title">Dairy & fats</div>
-        <div class="shop-grid-f">
-          <div class="shop-item-f"><div class="shop-item-name">Fage Total Greek yogurt</div><div class="shop-item-note">Just milk + cultures</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Whole milk</div><div class="shop-item-note">Check: just milk</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Full-fat crème fraîche</div><div class="shop-item-note">Replaces cream cheese</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Cheddar (block)</div><div class="shop-item-note">Not processed slices</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Feta</div><div class="shop-item-note">Milk, salt, cultures only</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Unsalted butter</div><div class="shop-item-note">Just cream</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Avocados ×4</div><div class="shop-item-note">Buy at different ripeness</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Extra virgin olive oil</div><div class="shop-item-note">Main cooking fat</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <div class="shop-section-f">
-        <div class="shop-section-title">Carbs & pantry</div>
-        <div class="shop-grid-f">
-          <div class="shop-item-f"><div class="shop-item-name">Plain rolled oats</div><div class="shop-item-note">Just oats — nothing else</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Tilda Steamed Basmati</div><div class="shop-item-note">Ingredient: just rice</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Coconut aminos</div><div class="shop-item-note">Replaces soy sauce</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Chia seeds</div><div class="shop-item-note">Add to overnight oats</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Plain mixed nuts</div><div class="shop-item-note">Almonds, walnuts — unsalted</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Peanut butter (100%)</div><div class="shop-item-note">Just peanuts — check label</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Sesame oil</div><div class="shop-item-note">Just sesame — for stir-fry</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">85%+ dark chocolate</div><div class="shop-item-note">1–2 squares for cravings</div></div>
-        </div>
-      </div>
-
-      <div class="shop-section-f">
-        <div class="shop-section-title">Veg & fruit</div>
-        <div class="shop-grid-f">
-          <div class="shop-item-f"><div class="shop-item-name">Frozen berries</div><div class="shop-item-note">100% fruit, no sugar added</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Frozen stir-fry veg</div><div class="shop-item-note">Check: just vegetables</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Frozen steam-bag veg</div><div class="shop-item-note">Broccoli, green beans etc</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Baby spinach (bag)</div><div class="shop-item-note">Use all week</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Cucumber & tomatoes</div><div class="shop-item-note">Salad base</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Courgettes ×2</div><div class="shop-item-note">For keto dinners</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Garlic bulb</div><div class="shop-item-note">Seasoning base</div></div>
-          <div class="shop-item-f"><div class="shop-item-name">Lemons ×4</div><div class="shop-item-note">On everything</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="tip-box-f" style="margin-top:4px;">
-    <div class="tip-box-title">Supermarket shortcuts</div>
-    <div class="tip-item"><span class="tip-dot-f"></span>Meat, fish, eggs, veg — never need to check a label. Just buy and cook.</div>
-    <div class="tip-item"><span class="tip-dot-f"></span>Dairy: label should say milk (or cream) + cultures. Nothing else.</div>
-    <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Tinned fish: fish + water or olive oil + salt only. Reject anything else.</div>
-    <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>Batch-boil 6 eggs on Sunday — grab them cold all week as zero-prep protein</div>
-  </div>
-</div>
-
-<!-- ===================== EATING OUT ===================== -->
-<!-- ===================== PANTRY ===================== -->
 <div id="page-pantry" class="page">
   <div class="page-header">
-    <div class="page-eyebrow">Nutrition · Pantry</div>
-    <div class="page-title">My pantry</div>
-    <div class="page-sub">Track what you have at home · Tick items off as you use them</div>
+    <div class="page-eyebrow">Nutrition</div>
+    <div class="page-title">Pantry & Shopping</div>
+    <div class="page-sub">What you have at home · What to buy this week</div>
   </div>
+
+  <div class="eating-tabs" style="margin-bottom:20px;">
+    <div class="etab active" id="ptab-pantry" onclick="switchPantryTab('pantry',this)">🥕 My pantry</div>
+    <div class="etab" id="ptab-shop" onclick="switchPantryTab('shop',this)">🛒 Shopping list</div>
+  </div>
+
+  <div id="pantry-tab-pantry" class="etab-page active">
+</div>
 
   <!-- Import bar -->
   <div class="card" style="margin-bottom:16px;">
@@ -1956,6 +1562,103 @@
     </div>
   </div>
 </div>
+  </div>
+
+  <div id="pantry-tab-shop" class="etab-page">
+</div>
+
+  <div class="card" style="margin-bottom:20px;" id="planner-shopping-card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <div>
+        <div class="card-title" style="margin-bottom:2px;">This week's meal planner ingredients</div>
+        <div style="font-size:12.5px;color:var(--text3);">Auto-generated from your current meal planner — updates when you change meals</div>
+      </div>
+      <button onclick="refreshPlannerShoppingList()" style="background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Manrope', sans-serif;">↻ Refresh</button>
+    </div>
+    <div id="planner-ingredients-list" style="font-size:13.5px;color:var(--text2);"><em style="color:var(--text3);">Visit your Meal Planner first, then come back and hit Refresh.</em></div>
+  </div>
+
+  <div id="shop-tick-controls">
+    <button class="pill-btn" onclick="clearShoppingTicks()">Clear ticks</button>
+    <button class="pill-btn" onclick="tickAllShopping()">Tick all</button>
+    <div class="shop-tick-progress" id="shop-tick-progress">0 / 0 ticked</div>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <div class="shop-section-f">
+        <div class="shop-section-title">Protein</div>
+        <div class="shop-grid-f">
+          <div class="shop-item-f"><div class="shop-item-name">Plain chicken breast</div><div class="shop-item-note">Fresh or frozen, no marinade</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Chicken thighs</div><div class="shop-item-note">Skin on for keto days</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Plain turkey mince</div><div class="shop-item-note">Lean, quick to cook</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Salmon fillets</div><div class="shop-item-note">Fresh or plain frozen</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Tinned tuna</div><div class="shop-item-note">In olive oil or spring water</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Smoked salmon</div><div class="shop-item-note">For keto breakfasts</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Eggs (12+)</div><div class="shop-item-note">Free-range · Use freely</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Cottage cheese</div><div class="shop-item-note">Replaces protein powder</div></div>
+        </div>
+      </div>
+
+      <div class="shop-section-f">
+        <div class="shop-section-title">Dairy & fats</div>
+        <div class="shop-grid-f">
+          <div class="shop-item-f"><div class="shop-item-name">Fage Total Greek yogurt</div><div class="shop-item-note">Just milk + cultures</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Whole milk</div><div class="shop-item-note">Check: just milk</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Full-fat crème fraîche</div><div class="shop-item-note">Replaces cream cheese</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Cheddar (block)</div><div class="shop-item-note">Not processed slices</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Feta</div><div class="shop-item-note">Milk, salt, cultures only</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Unsalted butter</div><div class="shop-item-note">Just cream</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Avocados ×4</div><div class="shop-item-note">Buy at different ripeness</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Extra virgin olive oil</div><div class="shop-item-note">Main cooking fat</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="shop-section-f">
+        <div class="shop-section-title">Carbs & pantry</div>
+        <div class="shop-grid-f">
+          <div class="shop-item-f"><div class="shop-item-name">Plain rolled oats</div><div class="shop-item-note">Just oats — nothing else</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Tilda Steamed Basmati</div><div class="shop-item-note">Ingredient: just rice</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Coconut aminos</div><div class="shop-item-note">Replaces soy sauce</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Chia seeds</div><div class="shop-item-note">Add to overnight oats</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Plain mixed nuts</div><div class="shop-item-note">Almonds, walnuts — unsalted</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Peanut butter (100%)</div><div class="shop-item-note">Just peanuts — check label</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Sesame oil</div><div class="shop-item-note">Just sesame — for stir-fry</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">85%+ dark chocolate</div><div class="shop-item-note">1–2 squares for cravings</div></div>
+        </div>
+      </div>
+
+      <div class="shop-section-f">
+        <div class="shop-section-title">Veg & fruit</div>
+        <div class="shop-grid-f">
+          <div class="shop-item-f"><div class="shop-item-name">Frozen berries</div><div class="shop-item-note">100% fruit, no sugar added</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Frozen stir-fry veg</div><div class="shop-item-note">Check: just vegetables</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Frozen steam-bag veg</div><div class="shop-item-note">Broccoli, green beans etc</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Baby spinach (bag)</div><div class="shop-item-note">Use all week</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Cucumber & tomatoes</div><div class="shop-item-note">Salad base</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Courgettes ×2</div><div class="shop-item-note">For keto dinners</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Garlic bulb</div><div class="shop-item-note">Seasoning base</div></div>
+          <div class="shop-item-f"><div class="shop-item-name">Lemons ×4</div><div class="shop-item-note">On everything</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip-box-f" style="margin-top:4px;">
+    <div class="tip-box-title">Supermarket shortcuts</div>
+    <div class="tip-item"><span class="tip-dot-f"></span>Meat, fish, eggs, veg — never need to check a label. Just buy and cook.</div>
+    <div class="tip-item"><span class="tip-dot-f"></span>Dairy: label should say milk (or cream) + cultures. Nothing else.</div>
+    <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Tinned fish: fish + water or olive oil + salt only. Reject anything else.</div>
+    <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>Batch-boil 6 eggs on Sunday — grab them cold all week as zero-prep protein</div>
+  </div>
+</div>
+
+<!-- ===================== EATING OUT ===================== -->
+  </div>
+</div>
+
 
 <div id="page-eatingout" class="page">
   <div class="page-header">
@@ -2483,138 +2186,18 @@ function showCuisine(id, el) {
 </div>
 
 <!-- ===================== WHOOP GUIDE ===================== -->
-<div id="page-whoop" class="page">
-  <div class="page-header">
-    <div class="page-eyebrow">Wellbeing · Whoop</div>
-    <div class="page-title">Whoop recovery guide</div>
-    <div class="page-sub">How to adjust your training based on your daily recovery score</div>
-  </div>
-
-  <!-- Recovery colour cards -->
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:20px;">
-
-    <div style="background:linear-gradient(145deg,#021310 0%,#042e26 100%);border-radius:var(--radius);padding:22px;border:1px solid rgba(0,245,212,0.4);box-shadow:0 0 28px rgba(0,245,212,0.10),0 2px 10px rgba(0,0,0,0.5);">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
-        <div style="width:18px;height:18px;border-radius:50%;background:#00f5d4;flex-shrink:0;"></div>
-        <div style="font-family:'Space Grotesk', sans-serif;font-size:18px;font-weight:700;color:#00f5d4;">Green · 67–100%</div>
-      </div>
-      <div style="font-size:13px;font-weight:600;color:#00f5d4;margin-bottom:6px;">Well recovered — go for it</div>
-      <div style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Your HRV is high, sleep debt is low, and your body is primed to perform and adapt. This is your day to push hard.</div>
-      <div style="border-top:1px solid rgba(0,245,212,0.2);padding-top:12px;">
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#00f5d4;margin-bottom:8px;font-family:'Manrope', sans-serif;">Do this</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.8;">
-          ✓ Gym: this is your day to attempt progressive overload — add weight<br>
-          ✓ Blaze: go all out on every cardio station<br>
-          ✓ Running: push the pace on intervals, extend the long run<br>
-          ✓ Try a new lift, heavier set, or longer run than last week<br>
-          ✓ Good nights follow good days — protect sleep anyway
-        </div>
-      </div>
-    </div>
-
-    <div style="background:linear-gradient(145deg,#181200 0%,#2e2100 100%);border-radius:var(--radius);padding:22px;border:1px solid rgba(245,166,35,0.4);box-shadow:0 0 28px rgba(245,166,35,0.10),0 2px 10px rgba(0,0,0,0.5);">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
-        <div style="width:18px;height:18px;border-radius:50%;background:#f5a623;flex-shrink:0;"></div>
-        <div style="font-family:'Space Grotesk', sans-serif;font-size:18px;font-weight:700;color:#f5a623;">Yellow · 34–66%</div>
-      </div>
-      <div style="font-size:13px;font-weight:600;color:#f5a623;margin-bottom:6px;">Moderate recovery</div>
-      <div style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Your body is coping but not fully restored. Train, but be smart about intensity. This is your most common score.</div>
-      <div style="border-top:1px solid rgba(245,166,35,0.2);padding-top:12px;">
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#f5a623;margin-bottom:8px;font-family:'Manrope', sans-serif;">Do this</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.8;">
-          ✓ Gym sessions: proceed as planned, but don't chase PRs<br>
-          ✓ Blaze: attend — but hold back 10–15% on cardio stations<br>
-          ✓ Running: complete the session at the lower end of your effort range<br>
-          ✓ Prioritise 8h sleep tonight and hit protein target<br>
-          ✓ Extra focus on warm-up and cool-down
-        </div>
-      </div>
-    </div>
-
-    <div style="background:linear-gradient(145deg,#1a0505 0%,#2e0a0a 100%);border-radius:var(--radius);padding:22px;border:1px solid rgba(220,60,60,0.4);box-shadow:0 0 28px rgba(220,60,60,0.10),0 2px 10px rgba(0,0,0,0.5);">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
-        <div style="width:18px;height:18px;border-radius:50%;background:#e05252;flex-shrink:0;"></div>
-        <div style="font-family:'Space Grotesk', sans-serif;font-size:18px;font-weight:700;color:#e05252;">Red · 0–33%</div>
-      </div>
-      <div style="font-size:13px;font-weight:600;color:#e05252;margin-bottom:6px;">Poor recovery — protect the body</div>
-      <div style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Your body is still repairing. Training hard today risks injury, illness and sets back progress. A lighter day now means a better week overall.</div>
-      <div style="border-top:1px solid rgba(220,60,60,0.2);padding-top:12px;">
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#e05252;margin-bottom:8px;font-family:'Manrope', sans-serif;">Do this instead</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.8;">
-          ✗ Skip heavy lifting — swap for a 20–30 min walk outside<br>
-          ✗ Skip Blaze — attend Cyclone at 60% effort instead, or rest<br>
-          ✗ Skip interval run — do an easy 20 min jog or walk only<br>
-          ✓ Foam roll, stretch, or do 15 min of yoga / mobility work<br>
-          ✓ Eat at or slightly above your calorie target to aid repair<br>
-          ✓ Get to bed an hour earlier than usual — sleep is the fix
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Whoop metrics explained -->
-  <div class="card" style="margin-bottom:16px;">
-    <div class="card-title" style="margin-bottom:16px;">Understanding your Whoop numbers</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;">
-        <div style="font-size:13px;font-weight:600;margin-bottom:5px;">HRV (Heart Rate Variability)</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">The most important metric. Higher HRV = better recovered nervous system. Your personal baseline matters more than absolute numbers — look for trends over time, not day-to-day comparison.</div>
-      </div>
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;">
-        <div style="font-size:13px;font-weight:600;margin-bottom:5px;">Resting Heart Rate (RHR)</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Measured during sleep. A spike of 3–5+ bpm above your baseline means your body is stressed — illness, alcohol, bad sleep, or overtraining. Red flag if it stays elevated for multiple days.</div>
-      </div>
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;">
-        <div style="font-size:13px;font-weight:600;margin-bottom:5px;">Strain score</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Blaze will register 15–18+ strain. Cyclone 12–16. Gym sessions 8–14. Running 10–16 depending on effort. Aim for a weekly strain of 50–70 — above 80 without rest risks overtraining.</div>
-      </div>
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;">
-        <div style="font-size:13px;font-weight:600;margin-bottom:5px;">Sleep performance</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Aim for 85%+ sleep performance consistently. Deep sleep and REM are where muscle repair and fat metabolism happen. Early eating (your 6pm days) directly improves sleep quality and HRV.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Whoop tips -->
-  <div class="card">
-    <div class="card-title" style="margin-bottom:14px;">Making Whoop work for your plan</div>
-    <div style="display:flex;flex-direction:column;gap:0;">
-      <div style="display:flex;gap:14px;padding:11px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
-        <div style="font-size:18px;flex-shrink:0;">📍</div>
-        <div style="font-size:13.5px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Wear placement:</strong> Upper arm bicep band gives more accurate readings during wrist-heavy workouts (Blaze, lifting). Wrist is fine for running and rest days. Switch between them as needed.</div>
-      </div>
-      <div style="display:flex;gap:14px;padding:11px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
-        <div style="font-size:18px;flex-shrink:0;">⏰</div>
-        <div style="font-size:13.5px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Check score on waking:</strong> Look at your recovery before deciding how hard to push that day. It takes 2 minutes and prevents training into a hole.</div>
-      </div>
-      <div style="display:flex;gap:14px;padding:11px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
-        <div style="font-size:18px;flex-shrink:0;">🍽️</div>
-        <div style="font-size:13.5px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Early eating improves HRV:</strong> Your Thursday WFH early-finish day directly benefits your Whoop score — eating by 6pm gives your gut time to settle before sleep, improving deep sleep duration and HRV.</div>
-      </div>
-      <div style="display:flex;gap:14px;padding:11px 0;align-items:flex-start;">
-        <div style="font-size:18px;flex-shrink:0;">📈</div>
-        <div style="font-size:13.5px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Track trends not days:</strong> One red day is fine. Three or more red days in a row is a signal to reduce training volume for the week and prioritise recovery before pushing again.</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===================== AM/PM ROUTINES ===================== -->
 <div id="page-routines" class="page">
   <div class="page-header">
-    <div class="page-eyebrow">Wellbeing · Routines</div>
-    <div class="page-title">Daily Rituals</div>
-    <div class="page-sub">Your AM & PM routines — overview, live checklist, and day-specific workout tips</div>
+    <div class="page-eyebrow">Wellbeing</div>
+    <div class="page-title">Routines & Supplements</div>
+    <div class="page-sub">Your daily rituals, AM/PM checklist, and supplement stack</div>
   </div>
-
-  <!-- Tab bar -->
-  <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;">
-    <button id="routines-tab-overview" onclick="routinesTab('overview')" style="padding:8px 20px;border-radius:999px;border:1.5px solid var(--text);background:#00f5d4;color:#00382f;font-family:'Manrope', sans-serif;font-size:13px;font-weight:500;cursor:pointer;">Overview</button>
-    <button id="routines-tab-checklist" onclick="routinesTab('checklist')" style="padding:8px 20px;border-radius:999px;border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-family:'Manrope', sans-serif;font-size:13px;font-weight:500;cursor:pointer;">&#x2705; Today</button>
-    <button id="routines-tab-tweaks" onclick="routinesTab('tweaks')" style="padding:8px 20px;border-radius:999px;border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-family:'Manrope', sans-serif;font-size:13px;font-weight:500;cursor:pointer;">&#x1F4C5; By Day</button>
+  <div class="eating-tabs" style="margin-bottom:20px;">
+    <div class="etab active" id="wtab-routines" onclick="switchWellbeingTab1('routines',this)">🌅 Daily Rituals</div>
+    <div class="etab" id="wtab-supplements" onclick="switchWellbeingTab1('supplements',this)">💊 Supplements</div>
   </div>
-
-  <!-- OVERVIEW TAB -->
+  <div id="wb1-tab-routines" class="etab-page active">
+<!-- OVERVIEW TAB -->
   <div id="routines-view-overview">
     <div id="routines-main-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">
 
@@ -2776,18 +2359,158 @@ function showCuisine(id, el) {
 </div>
 
 <!-- ===================== LONGEVITY ===================== -->
-<div id="page-longevity" class="page">
-  <div class="page-header">
-    <div class="page-eyebrow">Wellbeing · Longevity</div>
-    <div class="page-title">Longevity protocols</div>
-    <div class="page-sub">Habits built for long-term health — not just short-term fat loss</div>
+  </div>
+  <div id="wb1-tab-supplements" class="etab-page">
+<!-- CHECKIN VIEW -->
+  <div id="supp-view-checkin" style="display:none;">
+    <div id="supp-checkin-grid" style="display:flex;flex-direction:column;gap:12px;"></div>
   </div>
 
-  <!-- Pillars -->
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:20px;">
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);">
-      <div style="font-size:24px;margin-bottom:10px;">🏃</div>
-      <div style="font-family:'Space Grotesk', sans-serif;font-size:16px;font-weight:600;margin-bottom:6px;">Zone 2 cardio</div>
+  <!-- INSIGHTS VIEW -->
+  <div id="supp-view-insights" style="display:none;">
+    <div id="supp-insights-grid" style="display:flex;flex-direction:column;gap:12px;"></div>
+  </div>
+
+  <!-- STACK VIEW -->
+  <div id="supp-view-stack">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+      <div style="font-size:13px;color:var(--text2);">Toggle active/inactive · <span style="color:var(--teal);font-weight:500;" id="supp-count"></span></div>
+      <button onclick="openAddSupp()" style="padding:7px 16px;border-radius:999px;border:1.5px solid var(--teal);background:var(--teal-light);color:var(--teal);font-family:'Manrope', sans-serif;font-size:13px;font-weight:600;cursor:pointer;">+ Add supplement</button>
+    </div>
+    <div id="supp-stack-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"></div>
+  </div>
+
+  <!-- DAILY ROUTINE VIEW -->
+  <div id="supp-view-schedule" style="display:none;">
+    <div style="font-size:13px;color:var(--text2);margin-bottom:16px;">Your daily supplement routine — same every day. Only active supplements appear here. Tap a time window to move supplements in or out.</div>
+    <div id="supp-schedule-grid" style="display:flex;flex-direction:column;gap:12px;"></div>
+  </div>
+</div>
+
+
+<!-- ===================== WELLBEING TOOLS ===================== -->
+  </div>
+</div>
+
+<div id="page-wellbeing-ref" class="page">
+  <div class="page-header">
+    <div class="page-eyebrow">Wellbeing</div>
+    <div class="page-title">Wellbeing Reference</div>
+    <div class="page-sub">Whoop recovery guide · Longevity protocols · Wellness kit</div>
+  </div>
+  <div class="eating-tabs" style="margin-bottom:20px;">
+    <div class="etab active" id="wtab-whoop" onclick="switchWellbeingTab2('whoop',this)">🫀 Whoop</div>
+    <div class="etab" id="wtab-longevity" onclick="switchWellbeingTab2('longevity',this)">🌿 Longevity</div>
+    <div class="etab" id="wtab-tools" onclick="switchWellbeingTab2('tools',this)">🔴 My Kit</div>
+  </div>
+  <div id="wb2-tab-whoop" class="etab-page active">
+<div style="font-family:'Space Grotesk', sans-serif;font-size:18px;font-weight:700;color:#00f5d4;">Green · 67–100%</div>
+      </div>
+      <div style="font-size:13px;font-weight:600;color:#00f5d4;margin-bottom:6px;">Well recovered — go for it</div>
+      <div style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Your HRV is high, sleep debt is low, and your body is primed to perform and adapt. This is your day to push hard.</div>
+      <div style="border-top:1px solid rgba(0,245,212,0.2);padding-top:12px;">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#00f5d4;margin-bottom:8px;font-family:'Manrope', sans-serif;">Do this</div>
+        <div style="font-size:12.5px;color:var(--text2);line-height:1.8;">
+          ✓ Gym: this is your day to attempt progressive overload — add weight<br>
+          ✓ Blaze: go all out on every cardio station<br>
+          ✓ Running: push the pace on intervals, extend the long run<br>
+          ✓ Try a new lift, heavier set, or longer run than last week<br>
+          ✓ Good nights follow good days — protect sleep anyway
+        </div>
+      </div>
+    </div>
+
+    <div style="background:linear-gradient(145deg,#181200 0%,#2e2100 100%);border-radius:var(--radius);padding:22px;border:1px solid rgba(245,166,35,0.4);box-shadow:0 0 28px rgba(245,166,35,0.10),0 2px 10px rgba(0,0,0,0.5);">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+        <div style="width:18px;height:18px;border-radius:50%;background:#f5a623;flex-shrink:0;"></div>
+        <div style="font-family:'Space Grotesk', sans-serif;font-size:18px;font-weight:700;color:#f5a623;">Yellow · 34–66%</div>
+      </div>
+      <div style="font-size:13px;font-weight:600;color:#f5a623;margin-bottom:6px;">Moderate recovery</div>
+      <div style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Your body is coping but not fully restored. Train, but be smart about intensity. This is your most common score.</div>
+      <div style="border-top:1px solid rgba(245,166,35,0.2);padding-top:12px;">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#f5a623;margin-bottom:8px;font-family:'Manrope', sans-serif;">Do this</div>
+        <div style="font-size:12.5px;color:var(--text2);line-height:1.8;">
+          ✓ Gym sessions: proceed as planned, but don't chase PRs<br>
+          ✓ Blaze: attend — but hold back 10–15% on cardio stations<br>
+          ✓ Running: complete the session at the lower end of your effort range<br>
+          ✓ Prioritise 8h sleep tonight and hit protein target<br>
+          ✓ Extra focus on warm-up and cool-down
+        </div>
+      </div>
+    </div>
+
+    <div style="background:linear-gradient(145deg,#1a0505 0%,#2e0a0a 100%);border-radius:var(--radius);padding:22px;border:1px solid rgba(220,60,60,0.4);box-shadow:0 0 28px rgba(220,60,60,0.10),0 2px 10px rgba(0,0,0,0.5);">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+        <div style="width:18px;height:18px;border-radius:50%;background:#e05252;flex-shrink:0;"></div>
+        <div style="font-family:'Space Grotesk', sans-serif;font-size:18px;font-weight:700;color:#e05252;">Red · 0–33%</div>
+      </div>
+      <div style="font-size:13px;font-weight:600;color:#e05252;margin-bottom:6px;">Poor recovery — protect the body</div>
+      <div style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Your body is still repairing. Training hard today risks injury, illness and sets back progress. A lighter day now means a better week overall.</div>
+      <div style="border-top:1px solid rgba(220,60,60,0.2);padding-top:12px;">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#e05252;margin-bottom:8px;font-family:'Manrope', sans-serif;">Do this instead</div>
+        <div style="font-size:12.5px;color:var(--text2);line-height:1.8;">
+          ✗ Skip heavy lifting — swap for a 20–30 min walk outside<br>
+          ✗ Skip Blaze — attend Cyclone at 60% effort instead, or rest<br>
+          ✗ Skip interval run — do an easy 20 min jog or walk only<br>
+          ✓ Foam roll, stretch, or do 15 min of yoga / mobility work<br>
+          ✓ Eat at or slightly above your calorie target to aid repair<br>
+          ✓ Get to bed an hour earlier than usual — sleep is the fix
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Whoop metrics explained -->
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-title" style="margin-bottom:16px;">Understanding your Whoop numbers</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;">
+        <div style="font-size:13px;font-weight:600;margin-bottom:5px;">HRV (Heart Rate Variability)</div>
+        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">The most important metric. Higher HRV = better recovered nervous system. Your personal baseline matters more than absolute numbers — look for trends over time, not day-to-day comparison.</div>
+      </div>
+      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;">
+        <div style="font-size:13px;font-weight:600;margin-bottom:5px;">Resting Heart Rate (RHR)</div>
+        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Measured during sleep. A spike of 3–5+ bpm above your baseline means your body is stressed — illness, alcohol, bad sleep, or overtraining. Red flag if it stays elevated for multiple days.</div>
+      </div>
+      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;">
+        <div style="font-size:13px;font-weight:600;margin-bottom:5px;">Strain score</div>
+        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Blaze will register 15–18+ strain. Cyclone 12–16. Gym sessions 8–14. Running 10–16 depending on effort. Aim for a weekly strain of 50–70 — above 80 without rest risks overtraining.</div>
+      </div>
+      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;">
+        <div style="font-size:13px;font-weight:600;margin-bottom:5px;">Sleep performance</div>
+        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Aim for 85%+ sleep performance consistently. Deep sleep and REM are where muscle repair and fat metabolism happen. Early eating (your 6pm days) directly improves sleep quality and HRV.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Whoop tips -->
+  <div class="card">
+    <div class="card-title" style="margin-bottom:14px;">Making Whoop work for your plan</div>
+    <div style="display:flex;flex-direction:column;gap:0;">
+      <div style="display:flex;gap:14px;padding:11px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
+        <div style="font-size:18px;flex-shrink:0;">📍</div>
+        <div style="font-size:13.5px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Wear placement:</strong> Upper arm bicep band gives more accurate readings during wrist-heavy workouts (Blaze, lifting). Wrist is fine for running and rest days. Switch between them as needed.</div>
+      </div>
+      <div style="display:flex;gap:14px;padding:11px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
+        <div style="font-size:18px;flex-shrink:0;">⏰</div>
+        <div style="font-size:13.5px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Check score on waking:</strong> Look at your recovery before deciding how hard to push that day. It takes 2 minutes and prevents training into a hole.</div>
+      </div>
+      <div style="display:flex;gap:14px;padding:11px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
+        <div style="font-size:18px;flex-shrink:0;">🍽️</div>
+        <div style="font-size:13.5px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Early eating improves HRV:</strong> Your Thursday WFH early-finish day directly benefits your Whoop score — eating by 6pm gives your gut time to settle before sleep, improving deep sleep duration and HRV.</div>
+      </div>
+      <div style="display:flex;gap:14px;padding:11px 0;align-items:flex-start;">
+        <div style="font-size:18px;flex-shrink:0;">📈</div>
+        <div style="font-size:13.5px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Track trends not days:</strong> One red day is fine. Three or more red days in a row is a signal to reduce training volume for the week and prioritise recovery before pushing again.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== AM/PM ROUTINES ===================== -->
+  </div>
+  <div id="wb2-tab-longevity" class="etab-page">
+<div style="font-family:'Space Grotesk', sans-serif;font-size:16px;font-weight:600;margin-bottom:6px;">Zone 2 cardio</div>
       <div style="font-size:12.5px;color:var(--text2);line-height:1.7;">Your Thursday lunchtime run and Sunday optional run are Zone 2 — the single most researched form of exercise for longevity. It builds mitochondrial density, improves insulin sensitivity, and trains your heart. At 5ft, your Zone 2 heart rate is roughly <strong style="color:var(--text);">120–140 bpm</strong>. If you can hold a conversation, you're in Zone 2.</div>
     </div>
     <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);">
@@ -2856,168 +2579,9 @@ function showCuisine(id, el) {
 </div>
 
 <!-- ===================== PROGRESS TRACKER ===================== -->
-<div id="page-progress" class="page">
-  <div class="page-header">
-    <div class="page-eyebrow">Progress tracker</div>
-    <div class="page-title">Log your weight</div>
-    <div class="page-sub">Saved in this browser — log each week to track your journey to 57kg</div>
   </div>
-
-  <!-- LOG ENTRY -->
-  <div class="card" style="margin-bottom:20px;">
-    <div id="weight-form-row" style="display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;">
-      <div style="flex:1;min-width:140px;">
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:8px;">Date</div>
-        <input type="date" id="log-date" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
-      </div>
-      <div style="flex:1;min-width:120px;">
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:8px;">Weight (kg)</div>
-        <input type="number" id="log-weight" placeholder="e.g. 63.5" step="0.1" min="40" max="150" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
-      </div>
-      <div style="flex:2;min-width:180px;">
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:8px;">Note (optional)</div>
-        <input type="text" id="log-note" placeholder="e.g. After Blaze week, feeling good" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
-      </div>
-      <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:transparent;font-family:'Manrope', sans-serif;margin-bottom:8px;">‌</div>
-        <button onclick="logWeight()" style="padding:10px 24px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:opacity 0.15s;white-space:nowrap;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Save entry</button>
-      </div>
-    </div>
-    <div id="log-msg" style="margin-top:12px;font-size:13px;display:none;"></div>
-  </div>
-
-  <!-- STATS ROW -->
-  <div class="grid-4" style="margin-bottom:20px;">
-    <div class="stat-card">
-      <div class="stat-val" id="prog-current">64.0<span style="font-size:16px;color:var(--text3);"> kg</span></div>
-      <div class="stat-label">Current weight</div>
-      <div class="stat-sub" id="prog-current-date">Starting point</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val" id="prog-lost" style="color:var(--teal);">0.0<span style="font-size:16px;color:var(--teal);"> kg</span></div>
-      <div class="stat-label">Total lost</div>
-      <div class="stat-sub">Since you started</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val" id="prog-togo">7.0<span style="font-size:16px;color:var(--text3);"> kg</span></div>
-      <div class="stat-label">To reach goal</div>
-      <div class="stat-sub">Goal: 57kg</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val" id="prog-pct">0<span style="font-size:16px;color:var(--text3);">%</span></div>
-      <div class="stat-label">Of goal achieved</div>
-      <div class="stat-sub" id="prog-weeks-left">~14 weeks to go</div>
-    </div>
-  </div>
-
-  <!-- PROGRESS BAR -->
-  <div class="card" style="margin-bottom:20px;">
-    <div style="display:flex;justify-content:space-between;margin-bottom:10px;align-items:center;">
-      <div style="font-size:14px;font-weight:500;">Journey to 57kg</div>
-      <div style="font-size:12px;color:var(--text3);font-family:'Manrope', sans-serif;" id="prog-bar-label">0% complete</div>
-    </div>
-    <div style="height:12px;background:var(--bg2);border-radius:999px;overflow:hidden;margin-bottom:8px;">
-      <div id="prog-bar-fill" style="height:100%;background:linear-gradient(90deg,var(--teal),#2ECC9A);border-radius:999px;width:0%;transition:width 0.6s ease;"></div>
-    </div>
-    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text3);">
-      <span>64kg (start)</span><span>57kg (goal)</span>
-    </div>
-  </div>
-
-  <!-- CHART -->
-  <div class="card" style="margin-bottom:20px;">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-      <div class="card-title">Weight over time</div>
-      <div style="font-size:12px;color:var(--text3);" id="chart-range-label"></div>
-    </div>
-    <div style="position:relative;height:200px;" id="chart-wrap">
-      <canvas id="weightChart" style="width:100%;height:200px;"></canvas>
-      <div id="chart-empty" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;">
-        <div style="font-size:28px;">📉</div>
-        <div style="font-size:14px;font-weight:500;color:var(--text2);">No data yet</div>
-        <div style="font-size:12px;color:var(--text3);">Log your first weight above to see your chart</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- LOG TABLE -->
-  <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-      <div class="card-title">All entries</div>
-      <button onclick="clearAll()" style="font-size:12px;color:var(--text3);background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:6px;" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--text3)'">Clear all</button>
-    </div>
-    <div id="log-table-wrap">
-      <div id="log-empty" style="text-align:center;padding:32px;color:var(--text3);font-size:13px;">No entries yet — log your first weight above</div>
-      <table id="log-table" style="width:100%;border-collapse:collapse;display:none;">
-        <thead>
-          <tr>
-            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Date</th>
-            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Weight</th>
-            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Change</th>
-            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Note</th>
-            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;padding:8px 12px;text-align:center;border-bottom:1px solid var(--border);font-weight:500;"></th>
-          </tr>
-        </thead>
-        <tbody id="log-tbody"></tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-<!-- ===================== SUPPLEMENTS ===================== -->
-<div id="page-supplements" class="page" style="padding-bottom:80px;">
-  <div class="page-header">
-    <div class="page-eyebrow">Wellbeing · Supplements</div>
-    <div class="page-title">Supplement planner</div>
-    <div class="page-sub">Your stack with all the details · Daily routine shows exactly what to take and when</div>
-  </div>
-
-  <!-- View toggle -->
-  <div id="supp-tabs" style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;">
-    <button id="supp-tab-stack" onclick="suppTab('stack')" style="padding:8px 20px;border-radius:999px;border:1.5px solid #00f5d4;background:#00f5d4;color:#00382f;font-family:'Manrope', sans-serif;font-size:13px;font-weight:500;cursor:pointer;">My Stack</button>
-    <button id="supp-tab-schedule" onclick="suppTab('schedule')" style="padding:8px 20px;border-radius:999px;border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-family:'Manrope', sans-serif;font-size:13px;font-weight:500;cursor:pointer;">Daily Routine</button>
-    <button id="supp-tab-checkin" onclick="suppTab('checkin')" style="padding:8px 20px;border-radius:999px;border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-family:'Manrope', sans-serif;font-size:13px;font-weight:500;cursor:pointer;">✅ Today</button>
-    <button id="supp-tab-insights" onclick="suppTab('insights')" style="padding:8px 20px;border-radius:999px;border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-family:'Manrope', sans-serif;font-size:13px;font-weight:500;cursor:pointer;">📊 Insights</button>
-  </div>
-
-  <!-- CHECKIN VIEW -->
-  <div id="supp-view-checkin" style="display:none;">
-    <div id="supp-checkin-grid" style="display:flex;flex-direction:column;gap:12px;"></div>
-  </div>
-
-  <!-- INSIGHTS VIEW -->
-  <div id="supp-view-insights" style="display:none;">
-    <div id="supp-insights-grid" style="display:flex;flex-direction:column;gap:12px;"></div>
-  </div>
-
-  <!-- STACK VIEW -->
-  <div id="supp-view-stack">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-      <div style="font-size:13px;color:var(--text2);">Toggle active/inactive · <span style="color:var(--teal);font-weight:500;" id="supp-count"></span></div>
-      <button onclick="openAddSupp()" style="padding:7px 16px;border-radius:999px;border:1.5px solid var(--teal);background:var(--teal-light);color:var(--teal);font-family:'Manrope', sans-serif;font-size:13px;font-weight:600;cursor:pointer;">+ Add supplement</button>
-    </div>
-    <div id="supp-stack-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"></div>
-  </div>
-
-  <!-- DAILY ROUTINE VIEW -->
-  <div id="supp-view-schedule" style="display:none;">
-    <div style="font-size:13px;color:var(--text2);margin-bottom:16px;">Your daily supplement routine — same every day. Only active supplements appear here. Tap a time window to move supplements in or out.</div>
-    <div id="supp-schedule-grid" style="display:flex;flex-direction:column;gap:12px;"></div>
-  </div>
-</div>
-
-
-<!-- ===================== WELLBEING TOOLS ===================== -->
-<div id="page-wellbeing-tools" class="page" style="padding-bottom:80px;">
-  <div class="page-header">
-    <div class="page-eyebrow">Wellbeing &middot; Tools &amp; Devices</div>
-    <div class="page-title">My Wellness Kit</div>
-    <div class="page-sub">Your biohacking toolkit &mdash; what each device does, when to use it, and why it works</div>
-  </div>
-
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-    <div style="font-size:13px;color:var(--text2);">Tap to edit &middot; <span style="color:var(--teal);font-weight:500;" id="wt-count"></span></div>
-    <button onclick="openAddWellbeingTool()" style="padding:7px 16px;border-radius:999px;border:1.5px solid var(--teal);background:var(--teal-light);color:var(--teal);font-family:'Manrope', sans-serif;font-size:13px;font-weight:600;cursor:pointer;">+ Add tool</button>
+  <div id="wb2-tab-tools" class="etab-page">
+<button onclick="openAddWellbeingTool()" style="padding:7px 16px;border-radius:999px;border:1.5px solid var(--teal);background:var(--teal-light);color:var(--teal);font-family:'Manrope', sans-serif;font-size:13px;font-weight:600;cursor:pointer;">+ Add tool</button>
   </div>
   <div id="wt-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"></div>
 </div>
@@ -3063,6 +2627,145 @@ function showCuisine(id, el) {
   </div>
 </div>
 <!-- ===================== SETTINGS ===================== -->
+  </div>
+</div>
+
+
+<div id="page-progress" class="page">
+  <div class="page-header">
+    <div class="page-eyebrow">Progress tracker</div>
+    <div class="page-title">Progress tracker</div>
+    <div class="page-sub">Weight · Measurements · How you feel — log weekly to track your journey</div>
+  </div>
+
+  <!-- LOG ENTRY -->
+  <div class="card" style="margin-bottom:20px;">
+    <div class="card-title" style="margin-bottom:16px;">Log this week</div>
+    <div id="weight-form-row" style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;flex-wrap:wrap;">
+      <div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:8px;">Date</div>
+        <input type="date" id="log-date" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:8px;">Weight (kg)</div>
+        <input type="number" id="log-weight" placeholder="e.g. 63.5" step="0.1" min="40" max="150" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:8px;">Waist (cm)</div>
+        <input type="number" id="log-waist" placeholder="e.g. 76" step="0.5" min="50" max="130" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:8px;">Hips (cm)</div>
+        <input type="number" id="log-hips" placeholder="e.g. 94" step="0.5" min="50" max="150" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+      </div>
+    </div>
+    <div style="margin-top:12px;display:grid;grid-template-columns:1fr 2fr auto;gap:12px;align-items:end;">
+      <div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:8px;">Feeling (1–5)</div>
+        <div style="display:flex;gap:6px;" id="feeling-picker">
+          <button onclick="selectFeeling(1)" id="feel-1" class="feel-btn" style="flex:1;padding:8px 4px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-size:16px;cursor:pointer;">😞</button>
+          <button onclick="selectFeeling(2)" id="feel-2" class="feel-btn" style="flex:1;padding:8px 4px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-size:16px;cursor:pointer;">😕</button>
+          <button onclick="selectFeeling(3)" id="feel-3" class="feel-btn" style="flex:1;padding:8px 4px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-size:16px;cursor:pointer;">😐</button>
+          <button onclick="selectFeeling(4)" id="feel-4" class="feel-btn" style="flex:1;padding:8px 4px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-size:16px;cursor:pointer;">🙂</button>
+          <button onclick="selectFeeling(5)" id="feel-5" class="feel-btn" style="flex:1;padding:8px 4px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-size:16px;cursor:pointer;">😄</button>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:8px;">Note (optional)</div>
+        <input type="text" id="log-note" placeholder="e.g. After Blaze week, feeling strong" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+      </div>
+      <div>
+        <button onclick="logWeight()" style="padding:10px 24px;background:var(--teal);color:#131313;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;">Save entry</button>
+      </div>
+    </div>
+    <div id="log-msg" style="margin-top:12px;font-size:13px;display:none;"></div>
+  </div>
+
+  <!-- STATS ROW -->
+  <div class="grid-4" style="margin-bottom:20px;">
+    <div class="stat-card">
+      <div class="stat-val" id="prog-current">–<span style="font-size:16px;color:var(--text3);"> kg</span></div>
+      <div class="stat-label">Current weight</div>
+      <div class="stat-sub" id="prog-current-date">No entries yet</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="prog-lost" style="color:var(--teal);">–<span style="font-size:16px;color:var(--teal);"> kg</span></div>
+      <div class="stat-label">Total lost</div>
+      <div class="stat-sub">Since you started</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="prog-waist">–<span style="font-size:16px;color:var(--text3);"> cm</span></div>
+      <div class="stat-label">Waist</div>
+      <div class="stat-sub" id="prog-waist-change">Latest measurement</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="prog-hips">–<span style="font-size:16px;color:var(--text3);"> cm</span></div>
+      <div class="stat-label">Hips</div>
+      <div class="stat-sub" id="prog-hips-change">Latest measurement</div>
+    </div>
+  </div>
+
+  <!-- PROGRESS BAR -->
+  <div class="card" style="margin-bottom:20px;">
+    <div style="display:flex;justify-content:space-between;margin-bottom:10px;align-items:center;">
+      <div style="font-size:14px;font-weight:600;font-family:'Space Grotesk',sans-serif;">Journey to 57kg</div>
+      <div style="font-size:12px;color:var(--text3);font-family:'Manrope', sans-serif;" id="prog-bar-label">0% complete</div>
+    </div>
+    <div style="height:12px;background:var(--bg2);border-radius:999px;overflow:hidden;margin-bottom:8px;">
+      <div id="prog-bar-fill" style="height:100%;background:linear-gradient(90deg,var(--teal),#2ECC9A);border-radius:999px;width:0%;transition:width 0.6s ease;"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text3);">
+      <span id="prog-bar-start">64kg (start)</span><span>57kg (goal)</span>
+    </div>
+  </div>
+
+  <!-- CHART TABS -->
+  <div class="card" style="margin-bottom:20px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+      <div class="card-title">Trends</div>
+      <div style="display:flex;gap:6px;">
+        <button onclick="setChartMetric('weight')" id="chart-btn-weight" style="padding:4px 12px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--teal);background:var(--teal);color:#131313;">Weight</button>
+        <button onclick="setChartMetric('waist')" id="chart-btn-waist" style="padding:4px 12px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--border);background:var(--card);color:var(--text2);">Waist</button>
+        <button onclick="setChartMetric('hips')" id="chart-btn-hips" style="padding:4px 12px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--border);background:var(--card);color:var(--text2);">Hips</button>
+        <button onclick="setChartMetric('feeling')" id="chart-btn-feeling" style="padding:4px 12px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--border);background:var(--card);color:var(--text2);">Feeling</button>
+      </div>
+    </div>
+    <div style="position:relative;height:180px;" id="chart-wrap">
+      <canvas id="weightChart" style="width:100%;height:180px;"></canvas>
+      <div id="chart-empty" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;">
+        <div style="font-size:28px;">📉</div>
+        <div style="font-size:14px;font-weight:500;color:var(--text2);">No data yet</div>
+        <div style="font-size:12px;color:var(--text3);">Log your first entry above to see trends</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOG TABLE -->
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <div class="card-title">All entries</div>
+      <button onclick="clearAll()" style="font-size:12px;color:var(--text3);background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:6px;" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--text3)'">Clear all</button>
+    </div>
+    <div id="log-table-wrap">
+      <div id="log-empty" style="text-align:center;padding:32px;color:var(--text3);font-size:13px;">No entries yet — log your first entry above</div>
+      <table id="log-table" style="width:100%;border-collapse:collapse;display:none;">
+        <thead>
+          <tr>
+            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;padding:8px 8px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Date</th>
+            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;padding:8px 8px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Weight</th>
+            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;padding:8px 8px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Waist</th>
+            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;padding:8px 8px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Hips</th>
+            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;padding:8px 8px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Feel</th>
+            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;padding:8px 8px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Note</th>
+            <th style="border-bottom:1px solid var(--border);padding:8px;"></th>
+          </tr>
+        </thead>
+        <tbody id="log-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 <div id="page-settings" class="page">
   <div class="page-header">
     <div class="page-eyebrow">Configuration</div>
@@ -3291,7 +2994,7 @@ function goTo(page, el) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   if (el) el.classList.add('active');
   if (page === 'progress') renderProgress();
-  if (page === 'shop') { refreshPlannerShoppingList(); renderShoppingTickList(); }
+  if (page === 'pantry') { try { renderPantry(); } catch(e) {} }
   if (page === 'workouts') renderGymWorkouts();
   if (page === 'pantry') renderPantry();
   if (page === 'thisweek') renderThisWeekPage();
@@ -3304,9 +3007,8 @@ function goTo(page, el) {
   }
   if (page === 'settings') updateApiKeyStatus();
   if (page === 'classes') { CLASS_WORKOUTS.forEach(w => renderClassTimesManager(w)); RUN_WORKOUTS.forEach(w => renderRunTimesManager(w)); updateAllClassBadges(); updateAllRunBadges(); }
-  if (page === 'supplements') { suppTab('stack'); }
-  if (page === 'wellbeing-tools') { if (typeof renderWtGrid === 'function') renderWtGrid(); }
   if (page === 'routines') { if (typeof routinesTab === 'function') routinesTab('overview'); }
+  if (page === 'wellbeing-ref') { /* tabs handle their own init */ }
   if (window.innerWidth <= 900) closeSidebar();
   // Scroll to the top of the page on every navigation
   try {
@@ -3580,33 +3282,95 @@ const STORAGE_KEY  = 'laura_weight_log';
 function loadEntries()        { return getData(STORAGE_KEY, []); }
 function saveEntries(entries) { setData(STORAGE_KEY, entries); scheduleSave(); }
 
+let _selectedFeeling = null;
+
+function selectFeeling(n) {
+  _selectedFeeling = n;
+  for (let i = 1; i <= 5; i++) {
+    const btn = document.getElementById('feel-' + i);
+    if (!btn) continue;
+    if (i === n) {
+      btn.style.background = 'var(--teal)';
+      btn.style.borderColor = 'var(--teal)';
+      btn.style.color = '#131313';
+    } else {
+      btn.style.background = 'var(--card)';
+      btn.style.borderColor = 'var(--border)';
+      btn.style.color = 'var(--text2)';
+    }
+  }
+}
+
+let _currentChartMetric = 'weight';
+
+function setChartMetric(metric) {
+  _currentChartMetric = metric;
+  ['weight','waist','hips','feeling'].forEach(function(m) {
+    const btn = document.getElementById('chart-btn-' + m);
+    if (!btn) return;
+    if (m === metric) {
+      btn.style.background = 'var(--teal)';
+      btn.style.borderColor = 'var(--teal)';
+      btn.style.color = '#131313';
+    } else {
+      btn.style.background = 'var(--card)';
+      btn.style.borderColor = 'var(--border)';
+      btn.style.color = 'var(--text2)';
+    }
+  });
+  const entries = loadEntries();
+  renderChart(entries);
+}
+
 function logWeight() {
   const dateEl   = document.getElementById('log-date');
   const weightEl = document.getElementById('log-weight');
+  const waistEl  = document.getElementById('log-waist');
+  const hipsEl   = document.getElementById('log-hips');
   const noteEl   = document.getElementById('log-note');
   const msgEl    = document.getElementById('log-msg');
 
   const date   = dateEl.value;
-  const weight = parseFloat(weightEl.value);
+  const weight = weightEl.value ? parseFloat(weightEl.value) : null;
+  const waist  = waistEl && waistEl.value ? parseFloat(waistEl.value) : null;
+  const hips   = hipsEl && hipsEl.value ? parseFloat(hipsEl.value) : null;
+  const feeling = _selectedFeeling || null;
   const note   = noteEl.value.trim();
 
   if (!date) { showMsg(msgEl, 'Please pick a date.', false); return; }
-  if (isNaN(weight) || weight < 30 || weight > 200) { showMsg(msgEl, 'Please enter a valid weight in kg.', false); return; }
+  if (weight !== null && (isNaN(weight) || weight < 30 || weight > 200)) {
+    showMsg(msgEl, 'Please enter a valid weight in kg.', false); return;
+  }
+  if (!weight && !waist && !hips && !feeling) {
+    showMsg(msgEl, 'Please enter at least one measurement.', false); return;
+  }
 
   const entries = loadEntries();
-  const existing = entries.findIndex(e => e.date === date);
+  const existing = entries.findIndex(function(e) { return e.date === date; });
+  const newEntry = { date: date, weight: weight, waist: waist, hips: hips, feeling: feeling, note: note };
+
   if (existing > -1) {
-    entries[existing] = { date, weight, note };
-    showMsg(msgEl, `Entry for ${formatDate(date)} updated to ${weight}kg.`, true);
+    // merge — keep existing values if new ones are null
+    const prev = entries[existing];
+    newEntry.weight  = weight  !== null ? weight  : prev.weight;
+    newEntry.waist   = waist   !== null ? waist   : prev.waist;
+    newEntry.hips    = hips    !== null ? hips    : prev.hips;
+    newEntry.feeling = feeling !== null ? feeling : prev.feeling;
+    entries[existing] = newEntry;
+    showMsg(msgEl, 'Entry for ' + formatDate(date) + ' updated.', true);
   } else {
-    entries.push({ date, weight, note });
-    showMsg(msgEl, `Logged ${weight}kg on ${formatDate(date)} ✓`, true);
+    entries.push(newEntry);
+    showMsg(msgEl, 'Entry saved for ' + formatDate(date) + ' ✓', true);
   }
-  entries.sort((a,b) => a.date.localeCompare(b.date));
+  entries.sort(function(a,b) { return a.date.localeCompare(b.date); });
   saveEntries(entries);
 
-  weightEl.value = '';
-  noteEl.value   = '';
+  if (weightEl) weightEl.value = '';
+  if (waistEl)  waistEl.value  = '';
+  if (hipsEl)   hipsEl.value   = '';
+  if (noteEl)   noteEl.value   = '';
+  selectFeeling(null); // reset
+  _selectedFeeling = null;
   renderProgress();
   updateDashboard();
 }
@@ -3615,50 +3379,87 @@ function showMsg(el, text, ok) {
   el.textContent = text;
   el.style.color = ok ? 'var(--teal)' : 'var(--red)';
   el.style.display = 'block';
-  setTimeout(() => { el.style.display = 'none'; }, 3500);
+  setTimeout(function() { el.style.display = 'none'; }, 3500);
 }
 
 function deleteEntry(date) {
   if (!confirm('Delete entry for ' + formatDate(date) + '?')) return;
-  const entries = loadEntries().filter(e => e.date !== date);
+  const entries = loadEntries().filter(function(e) { return e.date !== date; });
   saveEntries(entries);
   renderProgress();
   updateDashboard();
 }
 
 function clearAll() {
-  if (!confirm('Delete ALL weight entries? This cannot be undone.')) return;
+  if (!confirm('Delete ALL progress entries? This cannot be undone.')) return;
   setData(STORAGE_KEY, []);
   renderProgress();
   updateDashboard();
 }
 
 function formatDate(iso) {
-  const [y,m,d] = iso.split('-');
+  const parts = iso.split('-');
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  return `${parseInt(d)} ${months[parseInt(m)-1]} ${y}`;
+  return parseInt(parts[2]) + ' ' + months[parseInt(parts[1])-1] + ' ' + parts[0];
 }
+
+const FEEL_EMOJI = ['','😞','😕','😐','🙂','😄'];
 
 function renderProgress() {
   const entries = loadEntries();
-  const current = entries.length ? entries[entries.length-1].weight : START_WEIGHT;
+
+  // --- weight stats ---
+  const weightEntries = entries.filter(function(e) { return e.weight !== null && e.weight !== undefined; });
+  const current = weightEntries.length ? weightEntries[weightEntries.length-1].weight : START_WEIGHT;
   const lost     = parseFloat((START_WEIGHT - current).toFixed(1));
   const togo     = parseFloat((current - GOAL_WEIGHT).toFixed(1));
   const totalRange = START_WEIGHT - GOAL_WEIGHT;
   const pct      = Math.min(100, Math.max(0, Math.round((START_WEIGHT - current) / totalRange * 100)));
   const weeksLeft = togo > 0 ? Math.ceil(togo / 0.5) : 0;
 
-  // stat cards
-  document.getElementById('prog-current').innerHTML = current.toFixed(1) + '<span style="font-size:16px;color:var(--text3);"> kg</span>';
-  document.getElementById('prog-current-date').textContent = entries.length ? 'Logged ' + formatDate(entries[entries.length-1].date) : 'Starting point';
-  document.getElementById('prog-lost').innerHTML = (lost > 0 ? lost.toFixed(1) : '0.0') + '<span style="font-size:16px;color:var(--teal);"> kg</span>';
-  document.getElementById('prog-togo').innerHTML = (togo > 0 ? togo.toFixed(1) : '0.0') + '<span style="font-size:16px;color:var(--text3);"> kg</span>';
-  document.getElementById('prog-pct').innerHTML = pct + '<span style="font-size:16px;color:var(--text3);">%</span>';
-  document.getElementById('prog-weeks-left').textContent = togo > 0 ? `~${weeksLeft} week${weeksLeft !== 1 ? 's' : ''} to go` : '🎉 Goal reached!';
+  // weight stat card
+  const progCurrent = document.getElementById('prog-current');
+  if (progCurrent) progCurrent.innerHTML = current.toFixed(1) + '<span style="font-size:16px;color:var(--text3);"> kg</span>';
+  const progCurrentDate = document.getElementById('prog-current-date');
+  if (progCurrentDate) progCurrentDate.textContent = weightEntries.length ? 'Logged ' + formatDate(weightEntries[weightEntries.length-1].date) : 'Starting point';
+  const progLost = document.getElementById('prog-lost');
+  if (progLost) progLost.innerHTML = (lost > 0 ? lost.toFixed(1) : '0.0') + '<span style="font-size:16px;color:var(--teal);"> kg</span>';
+  const progTogo = document.getElementById('prog-togo');
+  if (progTogo) progTogo.innerHTML = (togo > 0 ? togo.toFixed(1) : '0.0') + '<span style="font-size:16px;color:var(--text3);"> kg</span>';
+  const progPct = document.getElementById('prog-pct');
+  if (progPct) progPct.innerHTML = pct + '<span style="font-size:16px;color:var(--text3);">%</span>';
+  const progWeeks = document.getElementById('prog-weeks-left');
+  if (progWeeks) progWeeks.textContent = togo > 0 ? '~' + weeksLeft + ' week' + (weeksLeft !== 1 ? 's' : '') + ' to go' : '🎉 Goal reached!';
+
+  // --- waist stat ---
+  const waistEntries = entries.filter(function(e) { return e.waist !== null && e.waist !== undefined; });
+  const progWaist = document.getElementById('prog-waist');
+  if (progWaist) {
+    if (waistEntries.length) {
+      const lastWaist = waistEntries[waistEntries.length-1].waist;
+      progWaist.innerHTML = lastWaist.toFixed(1) + '<span style="font-size:16px;color:var(--text3);"> cm</span>';
+    } else {
+      progWaist.innerHTML = '<span style="font-size:16px;color:var(--text3);">—</span>';
+    }
+  }
+
+  // --- hips stat ---
+  const hipsEntries = entries.filter(function(e) { return e.hips !== null && e.hips !== undefined; });
+  const progHips = document.getElementById('prog-hips');
+  if (progHips) {
+    if (hipsEntries.length) {
+      const lastHips = hipsEntries[hipsEntries.length-1].hips;
+      progHips.innerHTML = lastHips.toFixed(1) + '<span style="font-size:16px;color:var(--text3);"> cm</span>';
+    } else {
+      progHips.innerHTML = '<span style="font-size:16px;color:var(--text3);">—</span>';
+    }
+  }
 
   // progress bar
-  document.getElementById('prog-bar-fill').style.width = pct + '%';
-  document.getElementById('prog-bar-label').textContent = pct + '% complete';
+  const barFill = document.getElementById('prog-bar-fill');
+  if (barFill) barFill.style.width = pct + '%';
+  const barLabel = document.getElementById('prog-bar-label');
+  if (barLabel) barLabel.textContent = pct + '% complete';
 
   // chart
   renderChart(entries);
@@ -3670,52 +3471,64 @@ function renderProgress() {
   const rangeLabel = document.getElementById('chart-range-label');
 
   if (!entries.length) {
-    table.style.display = 'none';
-    empty.style.display = 'block';
-    rangeLabel.textContent = '';
+    if (table) table.style.display = 'none';
+    if (empty) empty.style.display = 'block';
+    if (rangeLabel) rangeLabel.textContent = '';
     return;
   }
-  table.style.display = 'table';
-  empty.style.display = 'none';
-  rangeLabel.textContent = formatDate(entries[0].date) + ' → ' + formatDate(entries[entries.length-1].date);
+  if (table) table.style.display = 'table';
+  if (empty) empty.style.display = 'none';
+  if (rangeLabel) rangeLabel.textContent = formatDate(entries[0].date) + ' → ' + formatDate(entries[entries.length-1].date);
 
-  const reversed = [...entries].reverse();
-  tbody.innerHTML = reversed.map((e, i) => {
+  const reversed = entries.slice().reverse();
+  if (tbody) tbody.innerHTML = reversed.map(function(e, i) {
     const prev = reversed[i+1];
     let changeHTML = '<span style="color:var(--text3);">—</span>';
-    if (prev) {
+    if (prev && e.weight !== null && prev.weight !== null) {
       const diff = parseFloat((e.weight - prev.weight).toFixed(1));
-      if (diff < 0)      changeHTML = `<span style="color:var(--teal);font-weight:600;">▼ ${Math.abs(diff)}kg</span>`;
-      else if (diff > 0) changeHTML = `<span style="color:var(--red);font-weight:600;">▲ ${diff}kg</span>`;
-      else               changeHTML = `<span style="color:var(--text3);">= same</span>`;
+      if (diff < 0)      changeHTML = '<span style="color:var(--teal);font-weight:600;">▼ ' + Math.abs(diff) + 'kg</span>';
+      else if (diff > 0) changeHTML = '<span style="color:var(--red);font-weight:600;">▲ ' + diff + 'kg</span>';
+      else               changeHTML = '<span style="color:var(--text3);">= same</span>';
     }
-    return `<tr>
-      <td style="padding:11px 12px;border-bottom:1px solid var(--border);font-size:13.5px;">${formatDate(e.date)}</td>
-      <td style="padding:11px 12px;border-bottom:1px solid var(--border);font-size:13.5px;font-family:'Manrope', sans-serif;font-weight:600;">${e.weight.toFixed(1)} kg</td>
-      <td style="padding:11px 12px;border-bottom:1px solid var(--border);font-size:13px;">${changeHTML}</td>
-      <td style="padding:11px 12px;border-bottom:1px solid var(--border);font-size:12.5px;color:var(--text2);">${e.note || '—'}</td>
-      <td style="padding:11px 12px;border-bottom:1px solid var(--border);text-align:center;">
-        <button onclick="deleteEntry('${e.date}')" style="font-size:12px;color:var(--text3);background:none;border:none;cursor:pointer;padding:3px 7px;border-radius:5px;" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--text3)'">✕</button>
-      </td>
-    </tr>`;
+    const weightStr  = e.weight  !== null && e.weight  !== undefined ? e.weight.toFixed(1) + ' kg' : '—';
+    const waistStr   = e.waist   !== null && e.waist   !== undefined ? e.waist.toFixed(1) + ' cm'  : '—';
+    const hipsStr    = e.hips    !== null && e.hips    !== undefined ? e.hips.toFixed(1)  + ' cm'  : '—';
+    const feelStr    = e.feeling ? FEEL_EMOJI[e.feeling] : '—';
+    return '<tr>' +
+      '<td style="padding:11px 12px;border-bottom:1px solid var(--border);font-size:13.5px;">' + formatDate(e.date) + '</td>' +
+      '<td style="padding:11px 12px;border-bottom:1px solid var(--border);font-size:13.5px;font-weight:600;">' + weightStr + '</td>' +
+      '<td style="padding:11px 12px;border-bottom:1px solid var(--border);font-size:13px;">' + changeHTML + '</td>' +
+      '<td style="padding:11px 12px;border-bottom:1px solid var(--border);font-size:13.5px;">' + waistStr + '</td>' +
+      '<td style="padding:11px 12px;border-bottom:1px solid var(--border);font-size:13.5px;">' + hipsStr + '</td>' +
+      '<td style="padding:11px 12px;border-bottom:1px solid var(--border);font-size:16px;text-align:center;">' + feelStr + '</td>' +
+      '<td style="padding:11px 12px;border-bottom:1px solid var(--border);font-size:12.5px;color:var(--text2);">' + (e.note || '—') + '</td>' +
+      '<td style="padding:11px 12px;border-bottom:1px solid var(--border);text-align:center;">' +
+        '<button onclick="deleteEntry(\'' + e.date + '\')" style="font-size:12px;color:var(--text3);background:none;border:none;cursor:pointer;padding:3px 7px;border-radius:5px;" onmouseover="this.style.color=\'var(--red)\'" onmouseout="this.style.color=\'var(--text3)\'">✕</button>' +
+      '</td></tr>';
   }).join('');
 }
 
 function renderChart(entries) {
-  const wrap  = document.getElementById('chart-wrap');
-  const empty = document.getElementById('chart-empty');
+  const wrap   = document.getElementById('chart-wrap');
+  const empty  = document.getElementById('chart-empty');
   const canvas = document.getElementById('weightChart');
+  if (!canvas) return;
 
-  if (entries.length < 2) {
+  const metric  = _currentChartMetric || 'weight';
+  const validEntries = entries.filter(function(e) {
+    return e[metric] !== null && e[metric] !== undefined;
+  });
+
+  if (validEntries.length < 2) {
     canvas.style.display = 'none';
-    empty.style.display = 'flex';
+    if (empty) empty.style.display = 'flex';
     return;
   }
   canvas.style.display = 'block';
-  empty.style.display = 'none';
+  if (empty) empty.style.display = 'none';
 
   const dpr = window.devicePixelRatio || 1;
-  const W   = wrap.clientWidth;
+  const W   = wrap ? wrap.clientWidth : 400;
   const H   = 200;
   canvas.width  = W * dpr;
   canvas.height = H * dpr;
@@ -3730,23 +3543,26 @@ function renderChart(entries) {
   const cW   = W - PAD.left - PAD.right;
   const cH   = H - PAD.top  - PAD.bottom;
 
-  const weights = entries.map(e => e.weight);
-  const allVals = [...weights, GOAL_WEIGHT, START_WEIGHT];
-  const minW    = Math.min(...allVals) - 0.5;
-  const maxW    = Math.max(...allVals) + 0.5;
+  const vals   = validEntries.map(function(e) { return e[metric]; });
+  const minV   = Math.min.apply(null, vals);
+  const maxV   = Math.max.apply(null, vals);
+  const pad    = metric === 'feeling' ? 0.5 : 0.5;
+  const minVal = minV - pad;
+  const maxVal = maxV + pad;
 
-  const xScale = i => PAD.left + (i / (entries.length - 1)) * cW;
-  const yScale = v => PAD.top  + ((maxW - v) / (maxW - minW)) * cH;
+  const xScale = function(i) { return PAD.left + (i / (validEntries.length - 1)) * cW; };
+  const yScale = function(v) { return PAD.top  + ((maxVal - v) / (maxVal - minVal)) * cH; };
 
   // grid lines & y labels
   ctx.textAlign = 'right';
   ctx.font = '11px Manrope, sans-serif';
   ctx.fillStyle = '#9C9890';
-  const ticks = 5;
+  const ticks = metric === 'feeling' ? 5 : 5;
   for (let i = 0; i <= ticks; i++) {
-    const v   = minW + (maxW - minW) * (i / ticks);
-    const y   = yScale(v);
-    ctx.fillText(v.toFixed(1), PAD.left - 6, y + 4);
+    const v = minVal + (maxVal - minVal) * (i / ticks);
+    const y = yScale(v);
+    const label = metric === 'feeling' ? (FEEL_EMOJI[Math.round(v)] || v.toFixed(0)) : v.toFixed(1);
+    ctx.fillText(label, PAD.left - 6, y + 4);
     ctx.strokeStyle = 'rgba(255,255,255,0.08)';
     ctx.lineWidth   = 1;
     ctx.setLineDash([3, 3]);
@@ -3754,68 +3570,69 @@ function renderChart(entries) {
   }
   ctx.setLineDash([]);
 
-  // goal line
-  const goalY = yScale(GOAL_WEIGHT);
-  ctx.strokeStyle = '#0E7A61';
-  ctx.lineWidth   = 1.5;
-  ctx.setLineDash([6, 4]);
-  ctx.beginPath(); ctx.moveTo(PAD.left, goalY); ctx.lineTo(PAD.left + cW, goalY); ctx.stroke();
-  ctx.setLineDash([]);
-  ctx.fillStyle   = '#0E7A61';
-  ctx.textAlign   = 'left';
-  ctx.font        = '10px Manrope, sans-serif';
-  ctx.fillText('Goal 57kg', PAD.left + 4, goalY - 5);
-
-  // gradient fill under line
-  if (entries.length > 1) {
-    const grad = ctx.createLinearGradient(0, PAD.top, 0, PAD.top + cH);
-    grad.addColorStop(0, 'rgba(14,122,97,0.18)');
-    grad.addColorStop(1, 'rgba(14,122,97,0.01)');
-    ctx.beginPath();
-    ctx.moveTo(xScale(0), yScale(weights[0]));
-    entries.forEach((_, i) => { if (i > 0) ctx.lineTo(xScale(i), yScale(weights[i])); });
-    ctx.lineTo(xScale(entries.length-1), PAD.top + cH);
-    ctx.lineTo(xScale(0), PAD.top + cH);
-    ctx.closePath();
-    ctx.fillStyle = grad;
-    ctx.fill();
+  // goal line (weight only)
+  if (metric === 'weight') {
+    const goalY = yScale(GOAL_WEIGHT);
+    ctx.strokeStyle = '#0E7A61';
+    ctx.lineWidth   = 1.5;
+    ctx.setLineDash([6, 4]);
+    ctx.beginPath(); ctx.moveTo(PAD.left, goalY); ctx.lineTo(PAD.left + cW, goalY); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#0E7A61';
+    ctx.textAlign = 'left';
+    ctx.font = '10px Manrope, sans-serif';
+    ctx.fillText('Goal 57kg', PAD.left + 4, goalY - 5);
   }
+
+  // gradient fill
+  const grad = ctx.createLinearGradient(0, PAD.top, 0, PAD.top + cH);
+  grad.addColorStop(0, 'rgba(14,122,97,0.18)');
+  grad.addColorStop(1, 'rgba(14,122,97,0.01)');
+  ctx.beginPath();
+  ctx.moveTo(xScale(0), yScale(vals[0]));
+  vals.forEach(function(v, i) { if (i > 0) ctx.lineTo(xScale(i), yScale(v)); });
+  ctx.lineTo(xScale(validEntries.length-1), PAD.top + cH);
+  ctx.lineTo(xScale(0), PAD.top + cH);
+  ctx.closePath();
+  ctx.fillStyle = grad;
+  ctx.fill();
 
   // main line
   ctx.strokeStyle = '#0E7A61';
   ctx.lineWidth   = 2.5;
   ctx.lineJoin    = 'round';
   ctx.beginPath();
-  entries.forEach((e, i) => {
-    i === 0 ? ctx.moveTo(xScale(i), yScale(e.weight)) : ctx.lineTo(xScale(i), yScale(e.weight));
+  vals.forEach(function(v, i) {
+    i === 0 ? ctx.moveTo(xScale(i), yScale(v)) : ctx.lineTo(xScale(i), yScale(v));
   });
   ctx.stroke();
 
   // dots + x labels
-  entries.forEach((e, i) => {
-    const x = xScale(i), y = yScale(e.weight);
+  validEntries.forEach(function(e, i) {
+    const x = xScale(i);
+    const y = yScale(e[metric]);
     ctx.fillStyle = '#fff';
     ctx.beginPath(); ctx.arc(x, y, 5, 0, Math.PI*2); ctx.fill();
-    ctx.fillStyle   = '#0E7A61';
+    ctx.fillStyle = '#0E7A61';
     ctx.strokeStyle = '#0E7A61';
-    ctx.lineWidth   = 2;
+    ctx.lineWidth = 2;
     ctx.beginPath(); ctx.arc(x, y, 5, 0, Math.PI*2); ctx.stroke();
 
-    // x-axis label (every label if ≤6 entries, else every other)
-    if (entries.length <= 6 || i % 2 === 0 || i === entries.length-1) {
-      const [,m,d] = e.date.split('-');
+    if (validEntries.length <= 6 || i % 2 === 0 || i === validEntries.length-1) {
+      const parts = e.date.split('-');
       const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-      ctx.fillStyle   = '#9C9890';
-      ctx.textAlign   = 'center';
-      ctx.font        = '10px Manrope, sans-serif';
-      ctx.fillText(`${parseInt(d)} ${months[parseInt(m)-1]}`, x, PAD.top + cH + 20);
+      ctx.fillStyle = '#9C9890';
+      ctx.textAlign = 'center';
+      ctx.font = '10px Manrope, sans-serif';
+      ctx.fillText(parseInt(parts[2]) + ' ' + months[parseInt(parts[1])-1], x, PAD.top + cH + 20);
     }
   });
 }
 
 function updateDashboard() {
   const entries = loadEntries();
-  const current  = entries.length ? entries[entries.length-1].weight : START_WEIGHT;
+  const weightEntries = entries.filter(function(e) { return e.weight !== null && e.weight !== undefined; });
+  const current  = weightEntries.length ? weightEntries[weightEntries.length-1].weight : START_WEIGHT;
   const lost     = parseFloat((START_WEIGHT - current).toFixed(1));
   const togo     = parseFloat((current - GOAL_WEIGHT).toFixed(1));
   const totalRange = START_WEIGHT - GOAL_WEIGHT;
@@ -3826,13 +3643,12 @@ function updateDashboard() {
   const lostEl = document.getElementById('dash-lost');
   const togoEl = document.getElementById('dash-togo');
   const entriesEl = document.getElementById('dash-entries');
-  if (cl)  cl.textContent  = `Current: ${current.toFixed(1)}kg`;
+  if (cl)  cl.textContent  = 'Current: ' + current.toFixed(1) + 'kg';
   if (bar) bar.style.width = pct + '%';
   if (lostEl) lostEl.textContent = (lost > 0 ? lost.toFixed(1) : '0.0') + 'kg';
   if (togoEl) togoEl.textContent = (togo > 0 ? togo.toFixed(1) : '0.0') + 'kg';
-  if (entriesEl) entriesEl.textContent = entries.length;
+  if (entriesEl) entriesEl.textContent = weightEntries.length;
 
-  // also update sidebar footer
   const sbCurrent = document.querySelector('.stat-mini-item:first-child .stat-mini-val');
   if (sbCurrent) sbCurrent.textContent = current.toFixed(1) + 'kg';
 }
@@ -3952,6 +3768,8 @@ function loadPlannerState() {
 function savePlannerState() {
   setData(PLANNER_KEY, plannerState);
   scheduleSave();
+  // Keep shopping list in sync whenever meals change
+  try { refreshPlannerShoppingList(); } catch(e) {}
 }
 function resetPlanner() {
   if (!confirm('Reset all meals to the default plan?')) return;
@@ -4004,35 +3822,85 @@ function refreshPlannerShoppingList() {
   const DAYS = buildPlannerDays();
   const el = document.getElementById('planner-ingredients-list');
   if (!el) return;
+
   const state = loadPlannerState();
   const mealSet = new Set();
-  DAYS.forEach(day => { SLOTS.forEach(slot => { const n = state[day.key] && state[day.key][slot]; if (n) mealSet.add(n); }); });
-  if (!mealSet.size) {
-    el.innerHTML = '<em style="color:var(--text3)">No meals planned yet — go to the Meal Planner to fill in your week, then hit Refresh.</em>';
-    return;
-  }
-  const allOpts = [...(MEAL_OPTIONS.breakfast||[]),...(MEAL_OPTIONS.lunch||[]),...(MEAL_OPTIONS.snack||[]),...(MEAL_OPTIONS.dinner||[])];
-  const ingMap = {};
-  mealSet.forEach(mn => {
-    const opt = allOpts.find(o => o.name === mn);
-    if (!opt) return;
-    (opt.desc||'').split(/,|;/).map(p=>p.trim()).filter(Boolean).forEach(p => {
-      const k = p.toLowerCase().replace(/\d+[gml]?\s*/g,'').trim();
-      if (!ingMap[k]) ingMap[k] = { label:p, meals:[] };
-      ingMap[k].meals.push(mn);
+  DAYS.forEach(function(day) {
+    SLOTS.forEach(function(slot) {
+      const n = state[day.key] && state[day.key][slot];
+      if (n) mealSet.add(n);
     });
   });
-  const sorted = Object.values(ingMap).sort((a,b)=>a.label.localeCompare(b.label));
-  if (!sorted.length) { el.innerHTML = '<em style="color:var(--text3)">No ingredient details available for your selected meals.</em>'; return; }
-  let h = '<div style="margin-bottom:10px;font-size:12px;color:var(--text3);">From ' + mealSet.size + ' meal' + (mealSet.size!==1?'s':'') + ' this week:</div>';
-  h += '<div style="columns:2;column-gap:20px;">';
-  sorted.forEach(it => {
-    h += '<div style="break-inside:avoid;display:flex;gap:8px;margin-bottom:6px;"><div style="width:8px;height:8px;border-radius:50%;background:var(--teal);margin-top:5px;flex-shrink:0;"></div>'
-       + '<div><div style="font-weight:500;color:var(--text);">' + it.label + '</div>'
-       + '<div style="font-size:11px;color:var(--text3);">' + it.meals.join(', ') + '</div></div></div>';
+
+  if (!mealSet.size) {
+    el.innerHTML = '<em style="color:var(--text3)">No meals planned yet — fill in your Meal Planner and hit Refresh.</em>';
+    renderShoppingTickList();
+    return;
+  }
+
+  // Build custom meals lookup (from plannerState custom meals if any)
+  function getAllMealOptions() {
+    const all = [];
+    SLOTS.forEach(function(s) { (MEAL_OPTIONS[s] || []).forEach(function(o) { all.push(o); }); });
+    return all;
+  }
+
+  const allOpts = getAllMealOptions();
+  const ingMap = {};
+
+  mealSet.forEach(function(mn) {
+    const opt = allOpts.find(function(o) { return o.name === mn; });
+    if (!opt) return;
+    (opt.desc || '').split(/,|;/).map(function(p) { return p.trim(); }).filter(Boolean).forEach(function(p) {
+      // strip leading quantities like "200g", "1 tbsp", "2 slices", "half"
+      const clean = p.replace(/^\d+[gml]?\s+/i, '').replace(/^\d+\s+/,'').replace(/^half\s+/i,'').trim();
+      const k = clean.toLowerCase();
+      if (!ingMap[k]) ingMap[k] = { label: clean, meals: [] };
+      if (ingMap[k].meals.indexOf(mn) < 0) ingMap[k].meals.push(mn);
+    });
+  });
+
+  const sorted = Object.values(ingMap).sort(function(a, b) { return a.label.localeCompare(b.label); });
+
+  if (!sorted.length) {
+    el.innerHTML = '<em style="color:var(--text3)">No ingredient details available for your selected meals.</em>';
+    renderShoppingTickList();
+    return;
+  }
+
+  // Render as tickable shop-item-f elements so they participate in the tick system
+  const ticks = getShoppingTicks();
+  let h = '<div style="margin-bottom:12px;font-size:12px;color:var(--text3);">'
+        + 'From ' + mealSet.size + ' meal' + (mealSet.size !== 1 ? 's' : '') + ' this week — tap to tick off as you shop'
+        + '</div>';
+  h += '<div style="display:flex;flex-direction:column;gap:6px;">';
+  sorted.forEach(function(it) {
+    const key = 'planner::' + it.label.toLowerCase();
+    const checked = ticks[key] ? ' shop-item-tickable checked' : ' shop-item-tickable';
+    const checkmark = ticks[key]
+      ? '<div class="shop-tick-box" style="background:var(--teal);border-color:var(--teal);display:flex;align-items:center;justify-content:center;"><span style="color:#fff;font-size:13px;font-weight:700;line-height:1;">✓</span></div>'
+      : '<div class="shop-tick-box"></div>';
+    h += '<div class="shop-item-f' + checked + '" data-planner-key="' + key.replace(/"/g, '&quot;') + '" onclick="togglePlannerIngredient(this)">'
+       + checkmark
+       + '<div class="shop-tick-content">'
+       + '<div class="shop-item-name" style="' + (ticks[key] ? 'text-decoration:line-through;' : '') + '">' + it.label + '</div>'
+       + '<div class="shop-item-note" style="font-size:11px;color:var(--text3);">' + it.meals.join(', ') + '</div>'
+       + '</div></div>';
   });
   h += '</div>';
   el.innerHTML = h;
+
+  // Update the tick counter to include planner items
+  renderShoppingTickList();
+}
+
+function togglePlannerIngredient(el) {
+  const key = el.getAttribute('data-planner-key');
+  if (!key) return;
+  const ticks = getShoppingTicks();
+  ticks[key] = !ticks[key];
+  setShoppingTicks(ticks);
+  refreshPlannerShoppingList();
 }
 
 function renderPlanner() {
@@ -6551,7 +6419,7 @@ function shopItemKey(el) {
 
 function renderShoppingTickList() {
   // Convert each shop-item-f inside #page-shop into a tickable structure (idempotent)
-  var page = document.getElementById('page-shop');
+  var page = document.getElementById('pantry-tab-shop');
   if (!page) return;
 
   var ticks = getShoppingTicks();
@@ -6591,6 +6459,15 @@ function renderShoppingTickList() {
     }
   });
 
+  // Also count planner ingredients in the progress total
+  var plannerItems = page.querySelectorAll('#planner-ingredients-list .shop-item-f');
+  plannerItems.forEach(function(item) {
+    var key = item.getAttribute('data-planner-key');
+    if (!key) return;
+    total++;
+    if (ticks[key]) ticked++;
+  });
+
   var prog = document.getElementById('shop-tick-progress');
   if (prog) prog.textContent = ticked + ' / ' + total + ' ticked';
 }
@@ -6598,19 +6475,27 @@ function renderShoppingTickList() {
 function clearShoppingTicks() {
   setShoppingTicks({});
   renderShoppingTickList();
+  try { refreshPlannerShoppingList(); } catch(e) {}
 }
 
 function tickAllShopping() {
-  var page = document.getElementById('page-shop');
+  var page = document.getElementById('pantry-tab-shop');
   if (!page) return;
-  var t = {};
+  var t = getShoppingTicks();
+  // Tick static items
   page.querySelectorAll('.shop-item-f').forEach(function(item) {
     if (item.closest('#planner-ingredients-list')) return;
     var k = shopItemKey(item);
     if (k) t[k] = true;
   });
+  // Tick planner items
+  page.querySelectorAll('#planner-ingredients-list .shop-item-f').forEach(function(item) {
+    var k = item.getAttribute('data-planner-key');
+    if (k) t[k] = true;
+  });
   setShoppingTicks(t);
   renderShoppingTickList();
+  try { refreshPlannerShoppingList(); } catch(e) {}
 }
 
 // Initialize on load
@@ -7876,6 +7761,151 @@ function showNotificationWithUndo(msg, undoFn) {
 }
 
 // ============================================================
+// SUNDAY PREP GENERATOR
+// ============================================================
+async function generateSundayPrep() {
+  const btn = document.getElementById('sunday-prep-btn');
+  const out = document.getElementById('sunday-prep-output');
+  if (!out) return;
+
+  const apiKey = getAnthropicApiKey ? getAnthropicApiKey() : '';
+  if (!apiKey) {
+    out.innerHTML = '<div style="color:var(--red);font-size:13px;">⚠️ No API key found. Add your Anthropic API key in <strong>Settings</strong> first.</div>';
+    return;
+  }
+
+  if (btn) { btn.disabled = true; btn.textContent = 'Generating…'; }
+  out.innerHTML = '<div style="color:var(--text3);font-size:13px;">Building your prep list…</div>';
+
+  // Gather this week's meals
+  const planState = (typeof loadPlannerState === 'function') ? loadPlannerState() : {};
+  const DAYS_LOCAL = (typeof buildPlannerDays === 'function') ? buildPlannerDays() : [];
+  const SLOTS_LOCAL = ['breakfast','lunch','snack','dinner'];
+  const SLOT_LABELS_LOCAL = { breakfast:'Breakfast', lunch:'Lunch', snack:'Snack', dinner:'Dinner' };
+
+  const allMealOpts = [];
+  if (typeof MEAL_OPTIONS !== 'undefined') {
+    ['breakfast','lunch','snack','dinner'].forEach(function(s) {
+      (MEAL_OPTIONS[s] || []).forEach(function(o) { allMealOpts.push(o); });
+    });
+  }
+
+  const mealsLines = [];
+  DAYS_LOCAL.forEach(function(day) {
+    const dayMeals = [];
+    SLOTS_LOCAL.forEach(function(slot) {
+      const name = planState[day.key] && planState[day.key][slot];
+      if (name) dayMeals.push(SLOT_LABELS_LOCAL[slot] + ': ' + name);
+    });
+    if (dayMeals.length) {
+      mealsLines.push(day.label + ' (' + day.tag + '): ' + dayMeals.join(', '));
+    }
+  });
+
+  // Gather workout schedule summary
+  const workoutLines = [];
+  DAYS_LOCAL.forEach(function(day) {
+    workoutLines.push(day.label + ': ' + day.tag);
+  });
+
+  // Gather pantry items
+  const pantryItems = [];
+  if (typeof loadPantry === 'function' && typeof PANTRY_LOCATIONS !== 'undefined') {
+    const pantry = loadPantry();
+    PANTRY_LOCATIONS.forEach(function(loc) {
+      (pantry[loc] || []).forEach(function(i) {
+        if (!i.used && (i.count || 1) > 0) pantryItems.push(i.name);
+      });
+    });
+  }
+
+  const prompt = [
+    'You are a helpful meal prep assistant. Laura is preparing for the week ahead.',
+    '',
+    'This week\'s workout schedule:',
+    workoutLines.join('\n'),
+    '',
+    'This week\'s meal plan:',
+    mealsLines.length ? mealsLines.join('\n') : '(No meals planned yet)',
+    '',
+    'Items already in the pantry/fridge:',
+    pantryItems.length ? pantryItems.join(', ') : '(Not specified)',
+    '',
+    'Generate a practical Sunday prep list. Focus on:',
+    '1. Batch cooking tasks (what to cook in bulk)',
+    '2. Ingredient prep (chop, marinate, portion)',
+    '3. What to buy that\'s not in the pantry',
+    '4. Any specific prep tips for gym days vs rest days',
+    '',
+    'Format your response as a structured list with clear sections. Be specific and practical.',
+    'Keep it concise — this should take 30–60 minutes of actual prep time.',
+    'Write in second person ("Cook...", "Prep...", "Buy...").',
+    'Do NOT include any preamble or explanation — just the prep list itself.'
+  ].join('\n');
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 800,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error((err.error && err.error.message) || 'API error ' + res.status);
+    }
+
+    const data = await res.json();
+    const text = (data.content && data.content[0] && data.content[0].text) || '';
+
+    if (!text) throw new Error('Empty response from API');
+
+    // Render as formatted HTML
+    const lines = text.split('\n');
+    let html = '<div style="display:flex;flex-direction:column;gap:4px;">';
+    lines.forEach(function(line) {
+      const trimmed = line.trim();
+      if (!trimmed) { html += '<div style="height:6px;"></div>'; return; }
+      // Section headings (lines ending with : or starting with #/number+.)
+      if (/^(#{1,3}\s|\d+\.|\*\*.*\*\*$)/.test(trimmed) || /^[A-Z][^a-z]{0,30}:$/.test(trimmed)) {
+        const clean = trimmed.replace(/^#+\s*/, '').replace(/\*\*/g, '').replace(/:$/, '');
+        html += '<div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--teal);margin-top:10px;margin-bottom:2px;">' + clean + '</div>';
+      } else if (/^[-•*]\s/.test(trimmed) || /^\d+\.\s/.test(trimmed)) {
+        const clean = trimmed.replace(/^[-•*\d.]\s*/, '').replace(/\*\*/g, '');
+        html += '<div style="display:flex;gap:10px;padding:5px 0;">'
+              + '<div style="color:var(--teal);margin-top:1px;flex-shrink:0;">·</div>'
+              + '<div>' + clean + '</div></div>';
+      } else {
+        html += '<div style="color:var(--text2);padding:3px 0;">' + trimmed.replace(/\*\*/g, '') + '</div>';
+      }
+    });
+    html += '</div>';
+
+    // Add a regenerate affordance
+    html += '<div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px;">'
+          + '<div style="font-size:11.5px;color:var(--text3);">Generated from your current meal plan &amp; workout schedule</div>'
+          + '<button onclick="generateSundayPrep()" style="font-size:12px;color:var(--teal);background:none;border:1px solid var(--teal);border-radius:var(--radius-sm);padding:5px 12px;cursor:pointer;font-family:\'Manrope\',sans-serif;font-weight:600;">↻ Regenerate</button>'
+          + '</div>';
+
+    out.innerHTML = html;
+
+  } catch(e) {
+    out.innerHTML = '<div style="color:var(--red);font-size:13px;">⚠️ ' + (e.message || 'Something went wrong') + '</div>';
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'Generate ✨'; }
+  }
+}
+
+// ============================================================
 // MEAL SUGGESTIONS
 // ============================================================
 function renderSuggestionsPantryPreview() {
@@ -7977,6 +8007,43 @@ async function getMealSuggestions() {
 // ─────────────────────────────────────────────
 //  PLANNER TAB SWITCHER
 // ─────────────────────────────────────────────
+function switchWellbeingTab1(id, el) {
+  ['routines','supplements'].forEach(t => {
+    const pane = document.getElementById('wb1-tab-' + t);
+    const tab  = document.getElementById('wtab-' + t);
+    if (pane) pane.classList.toggle('active', t === id);
+    if (tab)  tab.classList.toggle('active', t === id);
+  });
+  if (id === 'routines' && typeof routinesTab === 'function') routinesTab('overview');
+  if (id === 'supplements' && typeof suppTab === 'function') suppTab('stack');
+}
+
+function switchWellbeingTab2(id, el) {
+  ['whoop','longevity','tools'].forEach(t => {
+    const pane = document.getElementById('wb2-tab-' + t);
+    const tab  = document.getElementById('wtab-' + t);
+    if (pane) pane.classList.toggle('active', t === id);
+    if (tab)  tab.classList.toggle('active', t === id);
+  });
+  if (id === 'tools' && typeof renderWtGrid === 'function') renderWtGrid();
+}
+
+function switchPantryTab(id, el) {
+  ['pantry','shop'].forEach(t => {
+    const pane = document.getElementById('pantry-tab-' + t);
+    const tab  = document.getElementById('ptab-' + t);
+    if (pane) pane.classList.toggle('active', t === id);
+    if (tab)  tab.classList.toggle('active', t === id);
+  });
+  if (id === 'shop') {
+    try { refreshPlannerShoppingList(); } catch(e) {}
+    try { renderShoppingTickList(); } catch(e) {}
+  }
+  if (id === 'pantry') {
+    try { renderPantry(); } catch(e) {}
+  }
+}
+
 function switchPlannerTab(id, el) {
   ['planner','suggestions'].forEach(t => {
     const pane = document.getElementById('planner-tab-' + t);
@@ -8689,50 +8756,99 @@ function renderTWDayPanel(dayKey) {
   const styleInfo = (typeof EATING_STYLES !== 'undefined' && EATING_STYLES[style]) || { label: EATING_STYLE_LABELS[style], sub:'', why:'' };
   const styleColor = EATING_STYLE_COLOR[style] || '#888';
   const DAY_LABELS = {mon:'Monday',tue:'Tuesday',wed:'Wednesday',thu:'Thursday',fri:'Friday',sat:'Saturday',sun:'Sunday'};
+  const CAT_COLOR = {gym:'#00f5d4',run:'#bf5fff',class:'#d4ff00',rest:'#888'};
+
+  function getWCat(type) {
+    const w = lib[type];
+    if (!w) return 'gym';
+    if (w.type === 'run' || w.color === 'run') return 'run';
+    if (w.type === 'class' || w.color === 'class') return 'class';
+    if (w.type === 'rest') return 'rest';
+    return 'gym';
+  }
+
+  function buildWorkoutDetail(t) {
+    const w = lib[t];
+    if (!w) return '';
+    const cat = getWCat(t);
+    const accent = CAT_COLOR[cat];
+    let exerciseHtml = '';
+    if (typeof BUILTIN_GYM_WORKOUTS !== 'undefined') {
+      const data = BUILTIN_GYM_WORKOUTS.find(function(gw) { return gw.id === t; });
+      if (data && data.exercises && data.exercises.length) {
+        exerciseHtml = '<table style="width:100%;border-collapse:collapse;margin-top:10px;">'
+          + '<thead><tr>'
+          + '<th style="text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);padding:4px 0;font-family:\'Manrope\',sans-serif;font-weight:600;">Exercise</th>'
+          + '<th style="text-align:center;font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);padding:4px 0;width:40px;">Sets</th>'
+          + '<th style="text-align:center;font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);padding:4px 0;width:60px;">Reps</th>'
+          + '</tr></thead><tbody>';
+        data.exercises.forEach(function(ex) {
+          exerciseHtml += '<tr style="border-top:1px solid var(--border);">'
+            + '<td style="padding:7px 0;font-size:13px;color:var(--text);">' + ex.name
+            + (ex.focus ? '<div style="font-size:11px;color:var(--text3);margin-top:1px;">' + ex.focus + '</div>' : '')
+            + '</td>'
+            + '<td style="text-align:center;font-size:13px;font-weight:700;color:' + accent + ';padding:7px 4px;">' + ex.sets + '</td>'
+            + '<td style="text-align:center;font-size:13px;color:var(--text2);padding:7px 0;">' + ex.reps + '</td>'
+            + '</tr>';
+        });
+        exerciseHtml += '</tbody></table>';
+        if (data.tips && data.tips.length) {
+          exerciseHtml += '<div style="margin-top:10px;padding:10px;background:' + accent + '0d;border-radius:var(--radius-sm);border-left:2px solid ' + accent + ';">'
+            + data.tips.map(function(tip) { return '<div style="font-size:12px;color:var(--text2);margin-bottom:4px;">· ' + tip + '</div>'; }).join('')
+            + '</div>';
+        }
+      }
+    }
+    return '<div style="margin-bottom:16px;">'
+      + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">'
+        + '<span style="font-size:20px;">' + w.emoji + '</span>'
+        + '<div><div style="font-size:15px;font-weight:700;font-family:\'Space Grotesk\',sans-serif;">' + w.name + '</div>'
+        + '<div style="font-size:11px;color:var(--text3);">' + (w.tag || '') + '</div></div>'
+      + '</div>'
+      + (exerciseHtml || '<div style="font-size:13px;color:var(--text2);padding:8px 0;">' + (w.meta || '') + '</div>')
+    + '</div>';
+  }
 
   const workoutSection = wts.length === 0
-    ? '<div style="color:var(--text3);font-size:14px;">Rest day</div>'
-    : wts.map(t => {
-        const w = lib[t];
-        if (!w) return '';
-        return '<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);">'
-          + '<span style="font-size:22px;">' + w.emoji + '</span>'
-          + '<div><div style="font-size:15px;font-weight:700;">' + w.name + '</div>'
-          + '<div style="font-size:12px;color:var(--text3);">' + (w.tag || '') + '</div></div>'
-          + '</div>';
-      }).join('');
+    ? '<div style="color:var(--text3);font-size:14px;padding:12px 0;">Rest day — recover well.</div>'
+    : wts.map(buildWorkoutDetail).join('');
 
-  // Eating tips based on style
   const STYLE_TIPS = {
-    standard: ['Three meals — breakfast, lunch, dinner','Protein at every meal (aim for 40g+ per meal)','Carbs are welcome — you need them for training','Stay hydrated, especially on gym and class days'],
-    early:    ['Eating window closes by 6pm','Finish dinner by 5:30–6pm','Herbal tea in the evening handles hunger well','Works well with WFH — more kitchen control'],
-    omad:     ['One large meal, typically 1–2pm','Fast naturally through the morning','Make it high protein and nutrient-dense','Black coffee or tea is fine during the fast'],
-    rest_keto:['No carbs today — eggs, meat, fish, cheese, avocado, nuts','Keep meals satisfying with healthy fats','Good day for intermittent fasting if you want','Helps your body become fat-adapted over time'],
+    standard:  ['Three meals — breakfast, lunch, dinner','Protein at every meal (aim 40g+)','Carbs welcome — you need them today','Stay hydrated'],
+    early:     ['Eating window closes by 6pm','Finish dinner by 5:30–6pm','Herbal tea kills evening hunger','More kitchen control = easier to stick to'],
+    omad:      ['One large meal, typically 1–2pm','Fast through the morning naturally','Make it high protein and nutrient-dense','Black coffee/tea fine during the fast'],
+    rest_keto: ['No carbs — eggs, meat, fish, cheese, avocado, nuts','Keep meals satisfying with healthy fats','Good day for intermittent fasting','Builds metabolic flexibility over time'],
   };
   const tips = STYLE_TIPS[style] || STYLE_TIPS.standard;
-
   const overrides = loadDayStyleOverrides();
   const isOverridden = !!overrides[dayKey];
 
   el.style.display = 'block';
-  el.innerHTML = '<div class="card" style="border:1px solid ' + styleColor + '33;">'
-    + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">'
-      + '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:20px;font-weight:700;">' + DAY_LABELS[dayKey] + '</div>'
-      + '<button onclick="twSelectDay(null);document.getElementById(\'thisweek-day-panel\').style.display=\'none\'" style="background:none;border:none;color:var(--text3);font-size:18px;cursor:pointer;padding:4px 8px;">✕</button>'
+  el.innerHTML = '<div class="card" style="border:1px solid ' + styleColor + '33;margin-bottom:8px;">'
+    + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">'
+      + '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:22px;font-weight:700;">' + DAY_LABELS[dayKey] + '</div>'
+      + '<button onclick="document.getElementById(\'thisweek-day-panel\').style.display=\'none\'" style="background:none;border:none;color:var(--text3);font-size:20px;cursor:pointer;padding:4px 8px;line-height:1;">✕</button>'
     + '</div>'
-    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">'
+    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">'
       + '<div>'
-          + '<div style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:\'Manrope\',sans-serif;margin-bottom:10px;">Workout</div>'
-          + workoutSection
-        + '</div>'
+        + '<div style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);font-family:\'Manrope\',sans-serif;margin-bottom:12px;font-weight:700;">Workout</div>'
+        + workoutSection
+      + '</div>'
       + '<div>'
-          + '<div style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:\'Manrope\',sans-serif;margin-bottom:10px;">Food plan' + (isOverridden ? ' <span style="color:var(--teal);font-size:10px;">· custom</span>' : '') + '</div>'
-          + '<div style="padding:12px;border-radius:var(--radius-sm);background:' + styleColor + '12;border:1px solid ' + styleColor + '33;margin-bottom:12px;">'
-            + '<div style="font-weight:700;color:' + styleColor + ';margin-bottom:4px;">' + EATING_STYLE_EMOJI[style] + ' ' + styleInfo.label + '</div>'
-            + '<div style="font-size:12px;color:var(--text2);">' + (styleInfo.sub || '') + '</div>'
-          + '</div>'
-          + tips.map(t => '<div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;"><span style="color:' + styleColor + ';flex-shrink:0;margin-top:2px;">·</span><span style="font-size:13px;color:var(--text2);line-height:1.5;">' + t + '</span></div>').join('')
+        + '<div style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);font-family:\'Manrope\',sans-serif;margin-bottom:12px;font-weight:700;">Food plan'
+        + (isOverridden ? ' <span style="color:var(--teal);font-size:10px;text-transform:none;letter-spacing:0;">· custom</span>' : '')
         + '</div>'
+        + '<div style="padding:12px 14px;border-radius:var(--radius-sm);background:' + styleColor + '12;border:1px solid ' + styleColor + '33;margin-bottom:14px;">'
+          + '<div style="font-weight:700;color:' + styleColor + ';margin-bottom:4px;font-size:15px;">' + EATING_STYLE_EMOJI[style] + ' ' + styleInfo.label + '</div>'
+          + '<div style="font-size:12px;color:var(--text2);">' + (styleInfo.sub || '') + '</div>'
+        + '</div>'
+        + tips.map(function(t) {
+            return '<div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:7px;">'
+              + '<span style="color:' + styleColor + ';flex-shrink:0;margin-top:3px;font-size:12px;">·</span>'
+              + '<span style="font-size:13px;color:var(--text2);line-height:1.5;">' + t + '</span>'
+            + '</div>';
+          }).join('')
+      + '</div>'
     + '</div>'
   + '</div>';
 }
