@@ -1713,7 +1713,7 @@
 
   <!-- CHECKIN VIEW (default) -->
   <div id="supp-view-checkin" style="display:none;">
-    <div id="supp-checkin-grid" style="display:flex;flex-direction:column;gap:12px;"></div>
+    <div id="supp-checkin-grid" style="display:flex;flex-direction:column;gap:12px;width:100%;"></div>
   </div>
 
   <!-- INSIGHTS VIEW -->
@@ -2274,26 +2274,29 @@ function goTo(page, el) {
     if (wb2t) wb2t.classList.add('active');
   }
 
-  // Per-page init
+  // Per-page init — always reset to first sub-tab on every navigation
   if (page === 'pantry') { try { renderPantry(); } catch(e) {} }
   if (page === 'training') {
-    renderGymWorkouts();
-    CLASS_WORKOUTS.forEach(w => renderClassTimesManager(w));
-    RUN_WORKOUTS.forEach(w => renderRunTimesManager(w));
-    updateAllClassBadges();
-    updateAllRunBadges();
-    if (typeof renderRunningPlans === 'function') renderRunningPlans();
-    updateRunningPlansSyncStatus();
+    // Always reset to first (Gym) sub-tab
+    try { trainingTab('gym', document.querySelector('#page-training .etab')); } catch(e) {}
   }
   if (page === 'nutrition') {
-    renderPlanner();
     nutritionTab('guide', document.getElementById('nutr-tab-btn-guide'));
-    switchEat('guide', document.querySelector('#nutr-tab-guide .eating-tabs .etab'));
+    try { switchEat('guide', document.querySelector('#nutr-tab-guide .eating-tabs .etab')); } catch(e) {}
+    // Reset planner sub-tab to Meal Plan
+    try { switchPlannerTab('planner', document.getElementById('ptab-planner')); } catch(e) {}
   }
   if (page === 'thisweek') renderThisWeekPage();
   if (page === 'settings') { updateApiKeyStatus(); populateProfileSettingsInputs(); }
-  if (page === 'routines') { if (typeof routinesTab === 'function') routinesTab('overview'); }
-  if (page === 'wellbeing-ref') { if (typeof renderWtGrid === 'function') renderWtGrid(); }
+  if (page === 'routines') {
+    // Always reset to Daily Rituals, then Overview inside it
+    try { switchWellbeingTab1('routines', document.getElementById('wtab-routines')); } catch(e) {}
+  }
+  if (page === 'wellbeing-ref') {
+    // Always reset to My Kit tab
+    try { switchWellbeingTab2('tools', document.getElementById('wtab-tools')); } catch(e) {}
+    if (typeof renderWtGrid === 'function') renderWtGrid();
+  }
   if (window.innerWidth <= 900) closeSidebar();
   // Scroll to top on every navigation
   try {
@@ -3161,6 +3164,27 @@ function saveEoData(dayKey, slot, data) {
   saveEatingOutData(eo);
 }
 
+const RECIME_SENTINEL_PREFIX = '__RECIME__';
+const RECIME_DATA_KEY = 'laura_recime_data_v1';
+
+function loadReciMeData() { return getData(RECIME_DATA_KEY, {}); }
+function saveReciMeDataStore(d) { setData(RECIME_DATA_KEY, d); scheduleSave(); }
+function getReciMeData(dayKey, slot) { return loadReciMeData()[dayKey + '_' + slot] || { name:'ReciMe', kcal:0, pro:0 }; }
+
+function saveReciMeEntry(dayKey, slot) {
+  const nameVal = (document.getElementById('recime-name') || {}).value || '';
+  const kcalVal = parseFloat((document.getElementById('recime-kcal') || {}).value) || 0;
+  const proVal  = parseFloat((document.getElementById('recime-pro')  || {}).value) || 0;
+  const label   = nameVal.trim() || 'ReciMe meal';
+  const d = loadReciMeData();
+  d[dayKey + '_' + slot] = { name: label, kcal: kcalVal, pro: proVal };
+  saveReciMeDataStore(d);
+  plannerState[dayKey][slot] = RECIME_SENTINEL_PREFIX + dayKey + '_' + slot;
+  savePlannerState();
+  closeModal();
+  renderPlanner();
+}
+
 function getMealData(slot, name) {
   if (name === EATING_OUT_SENTINEL) {
     return { name: EATING_OUT_SENTINEL, desc:'', kcal:0, pro:0, cook:'—', tags:['eating-out'] };
@@ -3422,37 +3446,10 @@ function openModal(dayKey, slot) {
   const optionsEl = document.getElementById('modal-options');
   optionsEl.innerHTML = '';
 
-  // ---- Eating Out option at top ----
-  const isCurrentlyEo = currentName === EATING_OUT_SENTINEL;
-  const eoBtn = document.createElement('div');
-  eoBtn.style.cssText = `border:2px solid ${isCurrentlyEo ? 'var(--amber)' : 'var(--border)'};background:${isCurrentlyEo ? 'linear-gradient(135deg,#FBF0DC,#FAE8E3)' : 'var(--bg)'};border-radius:var(--radius-sm);padding:14px 16px;cursor:pointer;transition:all 0.15s;margin-bottom:4px;`;
-  eoBtn.innerHTML = `
-    <div style="display:flex;justify-content:space-between;align-items:center;">
-      <div style="display:flex;align-items:center;gap:10px;">
-        <span style="font-size:22px;">🍽️</span>
-        <div>
-          <div style="font-size:14px;font-weight:700;color:var(--amber);">Eating out${isCurrentlyEo ? ' ✓' : ''}</div>
-          <div style="font-size:12px;color:var(--text2);margin-top:2px;">Mark this meal as eating out — add calories from the menu when you know</div>
-        </div>
-      </div>
-      ${isCurrentlyEo ? '<span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--amber-light);color:var(--amber);">Selected</span>' : ''}
-    </div>`;
-  if (!isCurrentlyEo) {
-    eoBtn.addEventListener('mouseenter', () => { eoBtn.style.borderColor = 'var(--amber)'; eoBtn.style.background = 'var(--amber-light)'; });
-    eoBtn.addEventListener('mouseleave', () => { eoBtn.style.borderColor = 'var(--border)'; eoBtn.style.background = 'var(--bg)'; });
-  }
-  eoBtn.addEventListener('click', () => {
-    plannerState[dayKey][slot] = EATING_OUT_SENTINEL;
-    savePlannerState();
-    closeModal();
-    renderPlanner();
-  });
-  optionsEl.appendChild(eoBtn);
-
-  // Divider
+  // Divider — home meals first
   const divider = document.createElement('div');
-  divider.style.cssText = 'display:flex;align-items:center;gap:10px;margin:8px 0;';
-  divider.innerHTML = '<div style="flex:1;height:1px;background:var(--border);"></div><div style="font-size:11px;color:var(--text3);font-family:Manrope, sans-serif;white-space:nowrap;">or choose a home meal</div><div style="flex:1;height:1px;background:var(--border);"></div>';
+  divider.style.cssText = 'display:flex;align-items:center;gap:10px;margin:0 0 8px 0;';
+  divider.innerHTML = '<div style="flex:1;height:1px;background:var(--border);"></div><div style="font-size:11px;color:var(--text3);font-family:Manrope, sans-serif;white-space:nowrap;">choose a home meal</div><div style="flex:1;height:1px;background:var(--border);"></div>';
   optionsEl.appendChild(divider);
 
   const allMeals = getAllMealsForSlot(slot);
@@ -3582,6 +3579,38 @@ function openModal(dayKey, slot) {
   }
   optionsEl.appendChild(reciMeBtn);
 
+  // ---- Eating Out (at bottom) ----
+  const eoDivider = document.createElement('div');
+  eoDivider.style.cssText = 'display:flex;align-items:center;gap:10px;margin:8px 0;';
+  eoDivider.innerHTML = '<div style="flex:1;height:1px;background:var(--border);"></div><div style="font-size:11px;color:var(--text3);font-family:Manrope, sans-serif;white-space:nowrap;">or not eating at home</div><div style="flex:1;height:1px;background:var(--border);"></div>';
+  optionsEl.appendChild(eoDivider);
+
+  const isCurrentlyEo = currentName === EATING_OUT_SENTINEL;
+  const eoBtn = document.createElement('div');
+  eoBtn.style.cssText = `border:2px solid ${isCurrentlyEo ? 'var(--amber)' : 'var(--border)'};background:${isCurrentlyEo ? 'linear-gradient(135deg,#FBF0DC,#FAE8E3)' : 'var(--bg)'};border-radius:var(--radius-sm);padding:14px 16px;cursor:pointer;transition:all 0.15s;margin-bottom:4px;`;
+  eoBtn.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:22px;">🍽️</span>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--amber);">Eating out${isCurrentlyEo ? ' ✓' : ''}</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:2px;">Mark this meal as eating out — add calories from the menu when you know</div>
+        </div>
+      </div>
+      ${isCurrentlyEo ? '<span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--amber-light);color:var(--amber);">Selected</span>' : ''}
+    </div>`;
+  if (!isCurrentlyEo) {
+    eoBtn.addEventListener('mouseenter', () => { eoBtn.style.borderColor = 'var(--amber)'; eoBtn.style.background = 'var(--amber-light)'; });
+    eoBtn.addEventListener('mouseleave', () => { eoBtn.style.borderColor = 'var(--border)'; eoBtn.style.background = 'var(--bg)'; });
+  }
+  eoBtn.addEventListener('click', () => {
+    plannerState[dayKey][slot] = EATING_OUT_SENTINEL;
+    savePlannerState();
+    closeModal();
+    renderPlanner();
+  });
+  optionsEl.appendChild(eoBtn);
+
   // Add your own button
   const addBtn = document.createElement('button');
   addBtn.style.cssText = 'width:100%;margin-top:6px;padding:11px;border:1.5px dashed var(--border);background:none;border-radius:var(--radius-sm);font-family:"Manrope",sans-serif;font-size:13px;font-weight:600;color:var(--teal);cursor:pointer;transition:border-color 0.15s;';
@@ -3599,27 +3628,6 @@ function closeModal() {
   document.getElementById('swap-modal').style.display = 'none';
   document.body.style.overflow = '';
   modalContext = null;
-}
-
-const RECIME_SENTINEL_PREFIX = '__RECIME__';
-const RECIME_DATA_KEY = 'laura_recime_data_v1';
-
-function loadReciMeData() { return getData(RECIME_DATA_KEY, {}); }
-function saveReciMeDataStore(d) { setData(RECIME_DATA_KEY, d); scheduleSave(); }
-function getReciMeData(dayKey, slot) { return loadReciMeData()[dayKey + '_' + slot] || { name:'ReciMe', kcal:0, pro:0 }; }
-
-function saveReciMeEntry(dayKey, slot) {
-  const nameVal = (document.getElementById('recime-name') || {}).value || '';
-  const kcalVal = parseFloat((document.getElementById('recime-kcal') || {}).value) || 0;
-  const proVal  = parseFloat((document.getElementById('recime-pro')  || {}).value) || 0;
-  const label   = nameVal.trim() || 'ReciMe meal';
-  const d = loadReciMeData();
-  d[dayKey + '_' + slot] = { name: label, kcal: kcalVal, pro: proVal };
-  saveReciMeDataStore(d);
-  plannerState[dayKey][slot] = RECIME_SENTINEL_PREFIX + dayKey + '_' + slot;
-  savePlannerState();
-  closeModal();
-  renderPlanner();
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -4953,39 +4961,51 @@ function renderSuppSchedule() {
 
     if (active.length > 0) {
       const list = document.createElement('div');
-      list.style.cssText = 'display:flex;flex-direction:column;gap:8px;margin-bottom:14px;';
+      list.style.cssText = 'display:flex;flex-direction:column;gap:8px;';
       active.forEach(s => {
+        const isPaused = s.paused === true;
         const meta = CAT_META[s.cat] || CAT_META.general;
         const cm   = COLOR_MAP[meta.color] || COLOR_MAP.gray;
         const row  = document.createElement('div');
-        row.style.cssText = 'display:flex;justify-content:space-between;align-items:center;padding:11px 16px;background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--border);';
+        row.style.cssText = `display:flex;justify-content:space-between;align-items:center;padding:11px 16px;background:var(--bg);border-radius:var(--radius-sm);border:1px solid ${isPaused ? 'rgba(255,255,255,0.08)' : 'var(--border)'};opacity:${isPaused ? '0.5' : '1'};transition:opacity 0.2s;`;
+        const pauseBtn = document.createElement('button');
+        pauseBtn.style.cssText = `font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid ${isPaused ? 'var(--teal)' : 'rgba(255,255,255,0.15)'};background:${isPaused ? 'var(--teal-light)' : 'transparent'};color:${isPaused ? 'var(--teal)' : 'var(--text3)'};white-space:nowrap;flex-shrink:0;`;
+        pauseBtn.textContent = isPaused ? '▶ Resume' : '⏸ Pause';
+        pauseBtn.title = isPaused ? 'Resume — will appear in Today check-in' : 'Pause — keeps time slot, hides from Today';
+        pauseBtn.addEventListener('click', () => toggleSuppPaused(s.id));
         row.innerHTML = `
-          <div style="display:flex;align-items:center;gap:12px;">
-            <div style="width:10px;height:10px;border-radius:50%;background:${cm.text};flex-shrink:0;"></div>
-            <div>
-              <div style="font-size:14px;font-weight:600;">${s.name}</div>
+          <div style="display:flex;align-items:center;gap:12px;min-width:0;">
+            <div style="width:10px;height:10px;border-radius:50%;background:${isPaused ? 'var(--text3)' : cm.text};flex-shrink:0;"></div>
+            <div style="min-width:0;">
+              <div style="font-size:14px;font-weight:600;${isPaused ? 'color:var(--text3);text-decoration:line-through;' : ''}">${s.name}</div>
               <div style="font-size:11px;color:var(--text3);margin-top:2px;font-family:'Manrope', sans-serif;">${s.dose}</div>
             </div>
-          </div>
-          <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;background:${cm.bg};color:${cm.text};">${meta.label}</span>`;
+          </div>`;
+        row.appendChild(pauseBtn);
         list.appendChild(row);
       });
       body.appendChild(list);
     } else {
       const empty = document.createElement('div');
-      empty.style.cssText = 'font-size:13px;color:var(--text3);font-style:italic;padding:6px 0;margin-bottom:14px;';
-      empty.textContent = 'Nothing assigned here — tap Edit to add';
+      empty.style.cssText = 'font-size:13px;color:var(--text3);font-style:italic;padding:6px 0;';
+      empty.textContent = 'Nothing assigned to this window yet';
       body.appendChild(empty);
     }
-
-    const editBtn = document.createElement('button');
-    editBtn.style.cssText = 'font-size:13px;font-weight:600;color:var(--teal);background:var(--teal-light);border:none;border-radius:var(--radius-sm);padding:10px 20px;cursor:pointer;font-family:"Manrope",sans-serif;';
-    editBtn.textContent = '✏️ Edit this window';
-    editBtn.addEventListener('click', () => openDailyRoutineModal(rt.key, rt.label, rt.icon));
-    body.appendChild(editBtn);
     block.appendChild(body);
     grid.appendChild(block);
   });
+}
+
+function toggleSuppPaused(suppId) {
+  const supps = loadSupps();
+  const idx = supps.findIndex(s => s.id === suppId);
+  if (idx < 0) return;
+  supps[idx].paused = !(supps[idx].paused === true);
+  saveSupps(supps);
+  renderSuppSchedule();
+  // If Today tab is visible, re-render it too
+  const todayView = document.getElementById('supp-view-checkin');
+  if (todayView && todayView.style.display !== 'none') renderSuppCheckin();
 }
 
 function openDailyRoutineModal(timeKey, timeLabel, icon) {
@@ -5464,7 +5484,7 @@ function toggleSuppCheckin(suppId) {
 function renderSuppCheckin() {
   var grid = document.getElementById('supp-checkin-grid');
   if (!grid) return;
-  var supps   = loadSupps().filter(function(s){ return s.active !== false; });
+  var supps   = loadSupps().filter(function(s){ return s.active !== false && s.paused !== true; });
   var routine = loadDailyRoutine();
   var checked = loadCheckin();
   var today   = new Date().toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long' });
@@ -5507,9 +5527,9 @@ function renderSuppCheckin() {
   barWrap.appendChild(barFill);
   grid.appendChild(barWrap);
 
-  // Slots — wrap in 2-column grid
+  // Slots — responsive grid matching Daily Schedule layout
   var slotsGrid = document.createElement('div');
-  slotsGrid.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:12px;';
+  slotsGrid.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;';
   ROUTINE_TIMES.forEach(function(rt) {
     var ids    = routine[rt.key] || [];
     var active = supps.filter(function(s){ return ids.includes(s.id); });
@@ -5517,29 +5537,24 @@ function renderSuppCheckin() {
     var slotDone = active.filter(function(s){ return checked[s.id]; }).length;
 
     var block = document.createElement('div');
-    block.style.cssText = 'background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);';
+    block.style.cssText = 'background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;';
 
     var hdr = document.createElement('div');
-    hdr.style.cssText = 'padding:14px 20px;border-bottom:1px solid var(--border);background:var(--bg2);display:flex;justify-content:space-between;align-items:center;';
+    hdr.style.cssText = 'padding:16px 20px;border-bottom:1px solid var(--border);background:var(--bg2);display:flex;justify-content:space-between;align-items:center;';
     var hdrLeft = document.createElement('div');
-    hdrLeft.style.cssText = 'display:flex;align-items:center;gap:10px;';
-    var hdrIcon = document.createElement('span');
-    hdrIcon.style.fontSize = '20px';
-    hdrIcon.textContent = rt.icon;
-    var hdrLabel = document.createElement('div');
-    hdrLabel.style.cssText = 'font-size:15px;font-weight:600;';
-    hdrLabel.textContent = rt.label;
-    hdrLeft.appendChild(hdrIcon);
-    hdrLeft.appendChild(hdrLabel);
+    hdrLeft.innerHTML = '<div style="font-size:22px;margin-bottom:4px;">' + rt.icon + '</div>'
+      + '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:18px;font-weight:700;">' + rt.label + '</div>'
+      + '<div style="font-size:12px;color:var(--text3);margin-top:2px;">' + rt.note + '</div>';
     var hdrRight = document.createElement('div');
-    hdrRight.style.cssText = 'font-size:13px;color:' + (slotDone === active.length ? 'var(--teal)' : 'var(--text3)') + ';';
-    hdrRight.textContent = slotDone === active.length ? '✓ Done' : slotDone + '/' + active.length;
+    hdrRight.style.cssText = 'text-align:right;';
+    hdrRight.innerHTML = '<div style="font-size:26px;font-weight:700;font-family:\'Manrope\',sans-serif;color:' + (slotDone === active.length ? 'var(--teal)' : 'var(--text3)') + ';">' + slotDone + '/' + active.length + '</div>'
+      + '<div style="font-size:11px;color:var(--text3);">' + (slotDone === active.length ? '✓ all done' : 'taken') + '</div>';
     hdr.appendChild(hdrLeft);
     hdr.appendChild(hdrRight);
     block.appendChild(hdr);
 
     var body = document.createElement('div');
-    body.style.cssText = 'padding:12px 16px;display:flex;flex-direction:column;gap:8px;';
+    body.style.cssText = 'padding:16px 20px;flex:1;display:flex;flex-direction:column;gap:8px;';
 
     active.forEach(function(s) {
       var isTaken = !!checked[s.id];
@@ -7681,7 +7696,7 @@ function switchWellbeingTab1(id, el) {
     if (tab)  tab.classList.toggle('active', t === id);
   });
   if (id === 'routines' && typeof routinesTab === 'function') routinesTab('overview');
-  if (id === 'supplements' && typeof suppTab === 'function') suppTab('checkin');
+  if (id === 'supplements' && typeof suppTab === 'function') suppTab('stack');
 }
 
 function switchWellbeingTab2(id, el) {
