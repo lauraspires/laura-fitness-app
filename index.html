@@ -595,6 +595,49 @@
     /* Main padding tighter on small phones */
     .main { padding: 16px 14px 60px !important; }
   }
+
+  /* ── WIDTH CONSTRAINTS (content should only be as wide as it needs to be) ── */
+
+  /* Routines checklist — daily ritual items are narrow, never full width */
+  #routines-checklist-list label,
+  .routines-step-item,
+  .routine-checklist-item {
+    max-width: 560px;
+  }
+
+  /* Supplement cards — 2-col grid is correct, but cap overall container */
+  #supp-today-list,
+  #supp-insights-list,
+  #supp-stack-list,
+  #supp-schedule-list {
+    max-width: 100%;
+  }
+
+  /* Shopping list items — compact, readable */
+  .shopping-item,
+  .shopping-tick-item {
+    max-width: 600px;
+  }
+
+  /* Pantry ingredient items */
+  .pantry-item {
+    max-width: 600px;
+  }
+
+  /* Fasting table, tips boxes — don't need full width */
+  .tip-box-f {
+    max-width: 780px;
+  }
+
+  /* Running plans list — 2-col grid fine, no extra constraint needed */
+  #running-plans-list {
+    max-width: 100%;
+  }
+
+  /* Waiter scripts and narrow prose blocks */
+  .sync-card {
+    max-width: 440px;
+  }
 </style>
 </head>
 <body>
@@ -661,43 +704,22 @@
     <button class="nav-item" onclick="goTo('thisweek', this)">
       <span class="nav-icon">📅</span> This Week
     </button>
-    <button class="nav-item" onclick="goTo('stats', this)">
-      <span class="nav-icon">📊</span> My Stats
-    </button>
-    <button class="nav-item" onclick="goTo('progress', this)">
-      <span class="nav-icon">⚖️</span> Progress Tracker
-    </button>
   </div>
 
   <div class="nav-section">
     <div class="nav-label">Training</div>
-    <button class="nav-item" onclick="goTo('workouts', this)">
-      <span class="nav-icon">💪</span> Gym Workouts
-    </button>
-    <button class="nav-item" onclick="goTo('classes', this)">
-      <span class="nav-icon">🔥</span> Classes & Running
-    </button>
-    <button class="nav-item" onclick="goTo('runningplans', this)">
-      <span class="nav-icon">🏃</span> Running Plans
+    <button class="nav-item" onclick="goTo('training', this)">
+      <span class="nav-icon">💪</span> Training
     </button>
   </div>
 
   <div class="nav-section">
     <div class="nav-label">Nutrition</div>
-    <button class="nav-item" onclick="goTo('meals', this)">
-      <span class="nav-icon">📚</span> Nutrition Guide
+    <button class="nav-item" onclick="goTo('nutrition', this)">
+      <span class="nav-icon">🥗</span> Nutrition
     </button>
     <button class="nav-item" onclick="goTo('pantry', this)">
       <span class="nav-icon">🥕</span> Pantry & Shopping
-    </button>
-    <button class="nav-item" onclick="goTo('planner', this)">
-      <span class="nav-icon">📋</span> Meal Planner
-    </button>
-    <button class="nav-item" onclick="goTo('recime', this)">
-      <span class="nav-icon">📖</span> My Recipes
-    </button>
-    <button class="nav-item" onclick="goTo('eatingout', this)">
-      <span class="nav-icon">🍽️</span> Eating Out
     </button>
   </div>
 
@@ -707,7 +729,7 @@
       <span class="nav-icon">🌅</span> Routines & Supplements
     </button>
     <button class="nav-item" onclick="goTo('wellbeing-ref', this)">
-      <span class="nav-icon">📋</span> Health & Recovery
+      <span class="nav-icon">❤️</span> Health & Recovery
     </button>
   </div>
 
@@ -725,12 +747,7 @@
       <div class="stat-mini-item"><div class="stat-mini-val">→</div><div class="stat-mini-label"></div></div>
       <div class="stat-mini-item"><div class="stat-mini-val">57kg</div><div class="stat-mini-label">Goal</div></div>
     </div>
-    <div id="sidebar-sync-btn-wrap" style="padding:10px 12px 0;">
-      <button onclick="signIn()" id="sidebar-signin-btn" style="width:100%;padding:8px 12px;background:var(--teal);color:#131313;border:none;border-radius:var(--radius-sm);font-family:'Manrope',sans-serif;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
-        <svg width="13" height="13" viewBox="0 0 24 24"><path fill="#131313" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#131313" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#131313" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#131313" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-        Sync with Google Drive
-      </button>
-    </div>
+    
   </div>
 </nav>
 
@@ -774,10 +791,9 @@
   </div>
 
   <div class="grid-2" style="margin-bottom:20px;">
-    <div class="card" style="cursor:pointer;" onclick="goTo('progress', document.querySelectorAll('.nav-item')[2])">
+    <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
-        <div><div class="card-title">Weight loss progress</div><div class="card-sub">Tap to log a new weight</div></div>
-        <span style="font-size:11px;font-weight:600;color:var(--teal);background:var(--teal-light);padding:4px 10px;border-radius:999px;">+ Log</span>
+        <div><div class="card-title">Weight loss progress</div><div class="card-sub">Log your weight in Settings</div></div>
       </div>
       <div class="goal-bar-wrap">
         <div class="goal-bar-label"><span id="dash-current-label">Current: 64.0kg</span><span>Goal: 57kg</span></div>
@@ -822,61 +838,6 @@
 </div>
 
 <!-- ===================== STATS ===================== -->
-<div id="page-stats" class="page">
-  <div class="page-header">
-    <div class="page-eyebrow">My Stats</div>
-    <div class="page-title">Body & goals</div>
-    <div class="page-sub">Based on your measurements — update these as you progress</div>
-  </div>
-
-  <div class="grid-4" style="margin-bottom:20px;">
-    <div class="stat-card"><div class="stat-val">5ft</div><div class="stat-label">Height</div><div class="stat-sub">152 cm</div></div>
-    <div class="stat-card"><div class="stat-val">64kg</div><div class="stat-label">Starting weight</div><div class="stat-sub">BMI: 27.6</div></div>
-    <div class="stat-card"><div class="stat-val">57kg</div><div class="stat-label">Goal weight</div><div class="stat-sub">BMI: ~24.7</div></div>
-    <div class="stat-card"><div class="stat-val">14wk</div><div class="stat-label">Estimated time</div><div class="stat-sub">0.5kg/week</div></div>
-  </div>
-
-  <div class="grid-2" style="margin-bottom:20px;">
-    <div class="card">
-      <div class="card-title" style="margin-bottom:16px;">Calorie targets</div>
-      <div style="display:flex;flex-direction:column;gap:10px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:13.5px;">
-          <div><div style="font-weight:500;">Standard days</div><div style="font-size:11px;color:var(--text3);">Mon, Tue, Fri</div></div>
-          <div style="font-family:'Manrope', sans-serif;font-size:15px;font-weight:600;">1,450 kcal</div>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:13.5px;">
-          <div><div style="font-weight:500;">Early finish days</div><div style="font-size:11px;color:var(--text3);">Wed, Thu</div></div>
-          <div style="font-family:'Manrope', sans-serif;font-size:15px;font-weight:600;">1,240 kcal</div>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:13.5px;">
-          <div><div style="font-weight:500;">OMAD day</div><div style="font-size:11px;color:var(--text3);">Saturday</div></div>
-          <div style="font-family:'Manrope', sans-serif;font-size:15px;font-weight:600;">1,200 kcal</div>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;font-size:13.5px;">
-          <div><div style="font-weight:500;">Keto day</div><div style="font-size:11px;color:var(--text3);">Sunday</div></div>
-          <div style="font-family:'Manrope', sans-serif;font-size:15px;font-weight:600;">1,400 kcal</div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title" style="margin-bottom:16px;">Protein targets</div>
-      <div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.5;">At 5ft / 64kg, aim for <strong style="color:var(--text);">1.8–2g protein per kg</strong> of bodyweight daily. That's roughly 115–128g per day.</div>
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div style="display:flex;justify-content:space-between;font-size:13px;padding:7px 0;border-bottom:1px solid var(--border);"><span style="color:var(--text2);">Training days</span><span style="font-weight:600;">125–137g</span></div>
-        <div style="display:flex;justify-content:space-between;font-size:13px;padding:7px 0;border-bottom:1px solid var(--border);"><span style="color:var(--text2);">Early finish days</span><span style="font-weight:600;">~116g</span></div>
-        <div style="display:flex;justify-content:space-between;font-size:13px;padding:7px 0;border-bottom:1px solid var(--border);"><span style="color:var(--text2);">OMAD / rest day</span><span style="font-weight:600;">~100g</span></div>
-        <div style="display:flex;justify-content:space-between;font-size:13px;padding:7px 0;"><span style="color:var(--text2);">Keto day</span><span style="font-weight:600;">~121g</span></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title" style="margin-bottom:12px;">Your Whoop & training</div>
-    <div style="font-size:13.5px;color:var(--text2);line-height:1.7;">You use a Whoop tracker — use it to monitor your <strong style="color:var(--text);">HRV and recovery score</strong> each morning. On days where recovery is below 33% (red), consider swapping a strength session for a walk or lighter activity. Blaze and Cyclone will register as high-strain activities (strain 15–18+). Log your workouts via the Whoop app for the most accurate calorie data and recovery tracking.</div>
-  </div>
-</div>
-
-<!-- ===================== WEEKLY SCHEDULE ===================== -->
 <div id="page-thisweek" class="page">
   <div class="page-header">
     <div style="display:flex;align-items:center;justify-content:space-between;width:100%;">
@@ -915,548 +876,402 @@
 
 
 <!-- ===================== WORKOUTS ===================== -->
-<div id="page-workouts" class="page">
-  <div class="page-header">
-    <div style="display:flex;align-items:center;justify-content:space-between;width:100%;flex-wrap:wrap;gap:12px;">
-      <div>
-        <div class="page-eyebrow">Training</div>
-        <div class="page-title">Gym workouts</div>
-        <div class="page-sub">Browse your workouts and add new ones · Pick any of these for any day</div>
-      </div>
-      <button onclick="openAddGymWorkoutModal()" style="padding:10px 18px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:600;cursor:pointer;font-size:14px;white-space:nowrap;">+ Add workout</button>
-    </div>
-  </div>
-  <div class="card" style="margin-bottom:16px;">
-    <div style="font-size:13.5px;color:var(--text2);line-height:1.7;"><strong style="color:var(--text);">Progressive overload is the key.</strong> Track your weights every session. When you hit the top of the rep range for 2 sessions in a row, add 2.5kg and work back up. This consistent progression drives strength and muscle gain over time. David Lloyd Purley and Beckenham both have full free weights and cable areas.</div>
-  </div>
-  <div id="gym-workouts-list"></div>
-</div>
 
-<!-- ADD GYM WORKOUT MODAL -->
-<div id="add-gym-workout-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:999;align-items:center;justify-content:center;">
-  <div style="background:var(--card);border-radius:var(--radius);padding:28px;max-width:600px;width:92%;max-height:88vh;overflow-y:auto;box-shadow:var(--shadow-lg);">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-      <div style="font-family:'Space Grotesk', sans-serif;font-size:22px;font-weight:700;">Add a custom gym workout</div>
-      <button onclick="closeAddGymWorkoutModal()" style="font-size:22px;background:none;border:none;cursor:pointer;color:var(--text3);line-height:1;">✕</button>
-    </div>
-    <div style="font-size:13px;color:var(--text2);margin-bottom:16px;">Define a workout you can pick for any day. Exercises are entered one per line, fields separated by <code style="background:var(--bg2);padding:1px 6px;border-radius:4px;">|</code>:<br><code style="background:var(--bg2);padding:2px 6px;border-radius:4px;font-size:12px;">Exercise name | Focus | Type | Sets | Reps | Rest</code></div>
-
-    <div style="display:flex;flex-direction:column;gap:14px;">
-      <div>
-        <label style="display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:5px;">Workout name</label>
-        <input type="text" id="newGymWorkoutName" placeholder="e.g. Shoulders & Abs" style="width:100%;padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
-      </div>
-
-      <div>
-        <label style="display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:5px;">Subtitle (optional)</label>
-        <input type="text" id="newGymWorkoutMeta" placeholder="e.g. Shoulders + core focus | ~40 min" style="width:100%;padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
-      </div>
-
-      <div>
-        <label style="display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:5px;">Exercises (one per line)</label>
-        <textarea id="newGymWorkoutExercises" rows="6" placeholder="Overhead press | Shoulders · Compound | Primary | 4 | 8-10 | 90s&#10;Lateral raises | Side delts | Isolation | 3 | 12-15 | 60s" style="width:100%;padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:12.5px;background:var(--bg);color:var(--text);outline:none;resize:vertical;"></textarea>
-      </div>
-
-      <div>
-        <label style="display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:5px;">Tips (one per line, optional)</label>
-        <textarea id="newGymWorkoutTips" rows="3" placeholder="Pause at the top of every rep&#10;Keep core tight throughout" style="width:100%;padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:13px;background:var(--bg);color:var(--text);outline:none;resize:vertical;"></textarea>
-      </div>
-
-      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px;">
-        <button onclick="closeAddGymWorkoutModal()" style="padding:10px 18px;background:none;color:var(--text2);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:500;cursor:pointer;font-size:14px;">Cancel</button>
-        <button onclick="saveCustomGymWorkout()" style="padding:10px 22px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:600;cursor:pointer;font-size:14px;">Save workout</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===================== CLASSES & RUNNING ===================== -->
-<div id="page-classes" class="page">
+<!-- ===================== TRAINING ===================== -->
+<div id="page-training" class="page">
   <div class="page-header">
     <div class="page-eyebrow">Training</div>
-    <div class="page-title">Classes & running</div>
-    <div class="page-sub">Blaze · Cyclone · Rhythm · Interval runs · Easy run · Runna · Swim</div>
+    <div class="page-title">Training</div>
+    <div class="page-sub">Gym workouts, classes and running plans — all in one place</div>
   </div>
-  <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">Classes</div>
-  <div class="grid-2" style="margin-bottom:20px;">
-    <div class="card-class">
-      <div class="workout-header"><span class="badge badge-class" id="class-badge-blaze">Flexible</span><div><div class="workout-title">Blaze</div><div class="workout-meta">45 min · ~500 kcal · 85–95% HR</div></div></div>
-      <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Your primary fat-burning session. Treadmill sprints, sled, punch bags and strength stations. Friday morning — gets the weekend off to a great start and your metabolism firing all day.</div>
-      <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Book the 7:20am Purley slot in advance via David Lloyd app — fills fast</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Small snack the night before if you struggle with fasted morning sessions</div>
+
+  <!-- Tab bar -->
+  <div class="eating-tabs" style="margin-bottom:20px;">
+    <div class="etab active" id="training-tab-btn-gym" onclick="trainingTab('gym', this)">🏋️ Gym Workouts</div>
+    <div class="etab" id="training-tab-btn-classes" onclick="trainingTab('classes', this)">🔥 Classes & Running</div>
+    <div class="etab" id="training-tab-btn-plans" onclick="trainingTab('plans', this)">📋 Running Plans</div>
+  </div>
+
+  <!-- ── TAB: Gym Workouts ── -->
+  <div id="training-tab-gym" class="etab-page active">
+    <div class="card" style="margin-bottom:16px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+        <div style="font-size:13.5px;color:var(--text2);line-height:1.7;max-width:680px;"><strong style="color:var(--text);">Progressive overload is the key.</strong> Track your weights every session. When you hit the top of the rep range for 2 sessions in a row, add 2.5kg and work back up. David Lloyd Purley and Beckenham both have full free weights and cable areas.</div>
+        <button onclick="openAddGymWorkoutModal()" style="padding:10px 18px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:600;cursor:pointer;font-size:14px;white-space:nowrap;flex-shrink:0;">+ Add workout</button>
       </div>
-      <div id="class-times-manager-blaze"></div>
     </div>
-    <div class="card-class">
-      <div class="workout-header"><span class="badge badge-class" id="class-badge-cyclone">Tue 7:00am · Purley</span><div><div class="workout-title">Cyclone</div><div class="workout-meta">45 min · ~400 kcal · 75–90% HR</div></div></div>
-      <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Tuesday 7am at Purley. Low-impact, high calorie burn. A great start to the working day — you'll be done by 8am. Match resistance to the instructor on all climbs.</div>
-      <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Banana or small snack 30 min before — no time for a full breakfast at 7am</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Adjust saddle height before the warm-up starts</div>
+    <div id="gym-workouts-list"></div>
+  </div>
+
+  <!-- ── TAB: Classes & Running ── -->
+  <div id="training-tab-classes" class="etab-page">
+    <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">Classes</div>
+    <div class="grid-2" style="margin-bottom:20px;">
+      <div class="card-class">
+        <div class="workout-header"><span class="badge badge-class" id="class-badge-blaze">Flexible</span><div><div class="workout-title">Blaze</div><div class="workout-meta">45 min · ~500 kcal · 85–95% HR</div></div></div>
+        <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Your primary fat-burning session. Treadmill sprints, sled, punch bags and strength stations. Friday morning — gets the weekend off to a great start and your metabolism firing all day.</div>
+        <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Book the 7:20am Purley slot in advance via David Lloyd app — fills fast</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Small snack the night before if you struggle with fasted morning sessions</div>
+        </div>
+        <div id="class-times-manager-blaze"></div>
       </div>
-      <div id="class-times-manager-cyclone"></div>
+      <div class="card-class">
+        <div class="workout-header"><span class="badge badge-class" id="class-badge-cyclone">Tue 7:00am · Purley</span><div><div class="workout-title">Cyclone</div><div class="workout-meta">45 min · ~400 kcal · 75–90% HR</div></div></div>
+        <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Tuesday 7am at Purley. Low-impact, high calorie burn. A great start to the working day — you'll be done by 8am. Match resistance to the instructor on all climbs.</div>
+        <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Banana or small snack 30 min before — no time for a full breakfast at 7am</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Adjust saddle height before the warm-up starts</div>
+        </div>
+        <div id="class-times-manager-cyclone"></div>
+      </div>
+      <div class="card-class">
+        <div class="workout-header"><span class="badge badge-class" id="class-badge-rhythm">Flexible</span><div><div class="workout-title">Rhythm</div><div class="workout-meta">45 min · ~400 kcal · 75–90% HR</div></div></div>
+        <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Indoor cycling class option. Low-impact, high calorie burn. Can be scheduled flexibly throughout the week based on class availability.</div>
+        <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Adjust resistance to match the instructor cues</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Bring water — you'll sweat more than Cyclone</div>
+        </div>
+        <div id="class-times-manager-rhythm"></div>
+      </div>
     </div>
-    <div class="card-class">
-      <div class="workout-header"><span class="badge badge-class" id="class-badge-rhythm">Flexible</span><div><div class="workout-title">Rhythm</div><div class="workout-meta">45 min · ~400 kcal · 75–90% HR</div></div></div>
-      <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Indoor cycling class option. Low-impact, high calorie burn. Can be scheduled flexibly throughout the week based on class availability.</div>
-      <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Adjust resistance to match the instructor cues</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Bring water — you'll sweat more than Cyclone</div>
+
+    <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">Running</div>
+    <div class="grid-2" style="margin-bottom:20px;">
+      <div class="card-run">
+        <div class="workout-header"><span class="badge badge-run" id="run-badge-page-interval_run">Flexible</span><div><div class="workout-title">Interval run</div><div class="workout-meta">30–35 min · 6 × 2 min efforts</div></div></div>
+        <div style="font-size:13.5px;color:var(--text2);line-height:1.7;">Run hard for 2 min, recover for 1 min easy jog. Repeat 6 times. Start with 4 and build. No gym needed — run local wherever you are. Burns more fat in less time than steady jogging.</div>
+        <div id="run-times-manager-interval_run"></div>
       </div>
-      <div id="class-times-manager-rhythm"></div>
+      <div class="card-run">
+        <div class="workout-header"><span class="badge badge-run" id="run-badge-page-long_run">Flexible</span><div><div class="workout-title">Easy long run</div><div class="workout-meta">30–45 min · Conversational pace · 5–6/10</div></div></div>
+        <div style="font-size:13.5px;color:var(--text2);line-height:1.7;">Thursday lunchtime run from home (WFH), and optionally Sunday after gym. Run slow enough to hold a full sentence. Beckenham Place Park and Purley Way are both ideal flat routes.</div>
+        <div id="run-times-manager-long_run"></div>
+      </div>
+      <div class="card-run">
+        <div class="workout-header"><span class="badge badge-run" id="run-badge-page-easy_run">Flexible</span><div><div class="workout-title">Easy run</div><div class="workout-meta">20–30 min · Easy pace · 4–5/10 effort</div></div></div>
+        <div style="font-size:13.5px;color:var(--text2);line-height:1.7;">A gentle, conversational-pace run. Great for active recovery or adding volume without stress. No watch pressure — just move at a pace that feels comfortable.</div>
+        <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>If you can't hold a sentence, slow down — this is meant to be easy</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Perfect substitute when legs are too heavy for intervals</div>
+        </div>
+        <div id="run-times-manager-easy_run"></div>
+      </div>
+      <div class="card-run">
+        <div class="workout-header"><span class="badge badge-run" id="run-badge-page-runna">Flexible</span><div><div class="workout-title">Runna</div><div class="workout-meta">20–40 min · Varies · Tracking via app</div></div></div>
+        <div style="font-size:13.5px;color:var(--text2);line-height:1.7;">Run tracking and training through the Runna app. Flexible duration and intensity — perfect for building running consistency without fixed gym times.</div>
+        <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Use app for GPS tracking and pacing feedback</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Can be done anytime, anywhere</div>
+        </div>
+        <div id="run-times-manager-runna"></div>
+      </div>
+    </div>
+
+    <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">Other</div>
+    <div class="grid-2">
+      <div class="card-gym">
+        <div class="workout-header"><span class="badge badge-teal" id="class-badge-swim">Flexible</span><div><div class="workout-title">Swimming</div><div class="workout-meta">30–45 min · ~350 kcal · Low impact</div></div></div>
+        <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Full-body low-impact cardio. Great for recovery days and joint health. Can be added as a flexible cross-training option.</div>
+        <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:var(--teal);"></span>Great for recovery and active rest days</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:var(--teal);"></span>Low impact on joints — ideal for building volume without injury risk</div>
+        </div>
+        <div id="class-times-manager-swim"></div>
+      </div>
     </div>
   </div>
 
-  <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">Running</div>
-  <div class="grid-2" style="margin-bottom:20px;">
-    <div class="card-run">
-      <div class="workout-header"><span class="badge badge-run" id="run-badge-page-interval_run">Flexible</span><div><div class="workout-title">Interval run</div><div class="workout-meta">30–35 min · 6 × 2 min efforts</div></div></div>
-      <div style="font-size:13.5px;color:var(--text2);line-height:1.7;">Run hard for 2 min, recover for 1 min easy jog. Repeat 6 times. Start with 4 and build. No gym needed — run local wherever you are. Burns more fat in less time than steady jogging.</div>
-      <div id="run-times-manager-interval_run"></div>
-    </div>
-    <div class="card-run">
-      <div class="workout-header"><span class="badge badge-run" id="run-badge-page-long_run">Flexible</span><div><div class="workout-title">Easy long run</div><div class="workout-meta">30–45 min · Conversational pace · 5–6/10</div></div></div>
-      <div style="font-size:13.5px;color:var(--text2);line-height:1.7;">Thursday lunchtime run from home (WFH), and optionally Sunday after gym. Run slow enough to hold a full sentence. Beckenham Place Park and Purley Way are both ideal flat routes.</div>
-      <div id="run-times-manager-long_run"></div>
-    </div>
-    <div class="card-run">
-      <div class="workout-header"><span class="badge badge-run" id="run-badge-page-easy_run">Flexible</span><div><div class="workout-title">Easy run</div><div class="workout-meta">20–30 min · Easy pace · 4–5/10 effort</div></div></div>
-      <div style="font-size:13.5px;color:var(--text2);line-height:1.7;">A gentle, conversational-pace run. Great for active recovery or adding volume without stress. No watch pressure — just move at a pace that feels comfortable.</div>
-      <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>If you can't hold a sentence, slow down — this is meant to be easy</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Perfect substitute when legs are too heavy for intervals</div>
+  <!-- ── TAB: Running Plans ── -->
+  <div id="training-tab-plans" class="etab-page">
+    <div class="card" style="margin-bottom:16px;background:var(--bg2);border:1px dashed var(--border);">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+        <div>
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;">Sync status</div>
+          <div id="rp-sync-status" style="font-size:14px;color:var(--text2);margin-top:4px;">Checking…</div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button onclick="forceBackupNow()" style="padding:8px 14px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:600;cursor:pointer;font-size:13px;">↑ Backup to Drive</button>
+          <button onclick="restoreLocalBackup()" style="padding:8px 14px;background:var(--card);color:var(--text2);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:500;cursor:pointer;font-size:13px;">↻ Restore from this device</button>
+        </div>
       </div>
-      <div id="run-times-manager-easy_run"></div>
     </div>
-    <div class="card-run">
-      <div class="workout-header"><span class="badge badge-run" id="run-badge-page-runna">Flexible</span><div><div class="workout-title">Runna</div><div class="workout-meta">20–40 min · Varies · Tracking via app</div></div></div>
-      <div style="font-size:13.5px;color:var(--text2);line-height:1.7;">Run tracking and training through the Runna app. Flexible duration and intensity — perfect for building running consistency without fixed gym times.</div>
-      <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Use app for GPS tracking and pacing feedback</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Can be done anytime, anywhere</div>
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-title" style="margin-bottom:16px;">Add a new running plan</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+        <input type="text" id="planName" placeholder="Plan name (e.g. 10K Training)" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
+        <input type="number" id="planDuration" placeholder="Duration (weeks)" min="1" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
+        <input type="date" id="planStartDate" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
+        <input type="date" id="planEndDate" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
       </div>
-      <div id="run-times-manager-runna"></div>
+      <button onclick="addRunningPlan()" style="width:100%;padding:12px 16px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:600;cursor:pointer;font-size:14px;">+ Add plan</button>
     </div>
-  </div>
-
-  <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">Other</div>
-  <div class="grid-2">
-    <div class="card-gym">
-      <div class="workout-header"><span class="badge badge-teal" id="class-badge-swim">Flexible</span><div><div class="workout-title">Swimming</div><div class="workout-meta">30–45 min · ~350 kcal · Low impact</div></div></div>
-      <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Full-body low-impact cardio. Great for recovery days and joint health. Can be added as a flexible cross-training option.</div>
-      <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:var(--teal);"></span>Great for recovery and active rest days</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:var(--teal);"></span>Low impact on joints — ideal for building volume without injury risk</div>
-      </div>
-      <div id="class-times-manager-swim"></div>
+    <div id="running-plans-list" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div style="text-align:center;color:var(--text3);padding:40px 20px;font-size:14px;">No running plans yet. Add one to get started!</div>
     </div>
   </div>
 </div>
 
-<!-- ===================== RUNNING PLANS ===================== -->
-<div id="page-runningplans" class="page">
-  <div class="page-header">
-    <div class="page-eyebrow">Training</div>
-    <div class="page-title">Running plans</div>
-    <div class="page-sub">Track and manage your training blocks · See what's done and what's in progress</div>
-  </div>
 
-  <!-- Sync status & controls -->
-  <div class="card" style="margin-bottom:16px;background:var(--bg2);border:1px dashed var(--border);">
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
-      <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;">Sync status</div>
-        <div id="rp-sync-status" style="font-size:14px;color:var(--text2);margin-top:4px;">Checking…</div>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <button onclick="forceBackupNow()" title="Save the current data on this device to Google Drive immediately" style="padding:8px 14px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:600;cursor:pointer;font-size:13px;">↑ Backup to Drive</button>
-        <button onclick="restoreLocalBackup()" title="If Drive lost your data, restore it from this device's offline backup" style="padding:8px 14px;background:var(--card);color:var(--text2);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:500;cursor:pointer;font-size:13px;">↻ Restore from this device</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="card" style="margin-bottom:20px;">
-    <div class="card-title" style="margin-bottom:16px;">Add a new running plan</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-      <input type="text" id="planName" placeholder="Plan name (e.g. 10K Training)" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
-      <input type="number" id="planDuration" placeholder="Duration (weeks)" min="1" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
-      <input type="date" id="planStartDate" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
-      <input type="date" id="planEndDate" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
-    </div>
-    <button onclick="addRunningPlan()" style="width:100%;padding:12px 16px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:600;cursor:pointer;font-size:14px;transition:opacity 0.15s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">+ Add plan</button>
-  </div>
-
-  <div id="running-plans-list" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-    <div style="text-align:center;color:var(--text3);padding:40px 20px;font-size:14px;">No running plans yet. Add one to get started!</div>
-  </div>
-</div>
-
-<!-- ===================== UPF AUDIT ===================== -->
-<!-- ===================== MEAL PLAN ===================== -->
-<div id="page-meals" class="page">
+<!-- ===================== NUTRITION ===================== -->
+<div id="page-nutrition" class="page">
   <div class="page-header">
     <div class="page-eyebrow">Nutrition</div>
-    <div class="page-title">Nutrition Guide</div>
-    <div class="page-sub">Your eating plan, eating styles explained, and everything you need to know</div>
+    <div class="page-title">Nutrition</div>
+    <div class="page-sub">Your eating guide, meal planner and eating-out rules</div>
   </div>
 
-  <div class="eating-tabs">
-    <div class="etab active" onclick="switchEat('guide', this)">📚 The guide</div>
-    <div class="etab" onclick="switchEat('standard', this)">🥗 Standard day</div>
-    <div class="etab" onclick="switchEat('early', this)">🕕 Early finish</div>
-    <div class="etab" onclick="switchEat('omad', this)">🍽️ OMAD</div>
-    <div class="etab" onclick="switchEat('keto', this)">🥑 Keto day</div>
+  <!-- Tab bar -->
+  <div class="eating-tabs" style="margin-bottom:20px;display:flex;align-items:center;gap:0;flex-wrap:wrap;">
+    <div class="etab active" id="nutr-tab-btn-guide" onclick="nutritionTab('guide', this)">📚 Nutrition Guide</div>
+    <div class="etab" id="nutr-tab-btn-planner" onclick="nutritionTab('planner', this)">📅 Meal Planner</div>
+    <div class="etab" id="nutr-tab-btn-eatingout" onclick="nutritionTab('eatingout', this)">🍽️ Eating Out</div>
+    <a href="https://www.recime.app" target="_blank" style="margin-left:auto;display:inline-flex;align-items:center;gap:7px;padding:8px 16px;background:var(--teal);color:#00382f;border-radius:999px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;">📖 ReciMe →</a>
   </div>
 
-  <div id="eat-std" class="etab-page">
-    <!-- Early-finish day picker -->
-    <div style="background:rgba(96,165,250,0.07);border:1px solid rgba(96,165,250,0.2);border-radius:var(--radius);padding:14px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
-      <div style="font-size:13px;font-weight:600;color:#60a5fa;white-space:nowrap;">🕕 Early finish this week</div>
-      <div style="font-size:12px;color:var(--text2);">Thursday is always early finish (WFH). Any other days this week?</div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;" id="early-finish-day-pills"></div>
-    </div>
-    <!-- Weekly overview cards (dynamic) -->
-    <div id="summary-weekly-overview" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;"></div>
-    <!-- Generic tips by type -->
-    <div class="tip-box-f" id="summary-weekly-logic">
-      <div class="tip-box-title">Eating by activity type</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#00f5d4;"></span><strong>Gym / strength days</strong> — Standard three-meal plan. Protein priority. Keep carbs moderate to fuel the session and top up glycogen after.</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span><strong>Run days</strong> — Standard plan. Carbs matter more here — eat a small carb snack 30–60 min before a long run if needed. Replenish after.</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span><strong>Class days (Blaze / Cyclone / Rhythm)</strong> — Standard plan. High intensity burns through glycogen fast. Don't skip meals on class days.</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#60a5fa;"></span><strong>WFH / Early finish days</strong> — Eating window closes by 6pm. More control over your environment. Herbal tea in the evening kills hunger without calories.</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span><strong>Rest days</strong> — Keto. No performance carbs needed. Low insulin all day means your body burns stored fat. Eggs, meat, fish, cheese, avocado, nuts.</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:#f5a623;"></span><strong>Saturday (volunteer)</strong> — OMAD. You're busy all morning, so the fast happens naturally. One big meal ~1–2pm, then done for the day.</div>
-    </div>
-  </div>
+  <!-- ── TAB: Nutrition Guide ── -->
+  <div id="nutr-tab-guide" class="etab-page active">
 
-  <div id="eat-standard" class="etab-page">
-    <div class="card">
-      <div class="meal-row">
-        <div class="meal-time-col">7–8am<br>Breakfast</div>
-        <div><div class="meal-name-main">Greek yogurt bowl</div><div class="meal-desc-col">200g Fage Total Greek yogurt, handful of frozen berries (thawed), 1 tbsp peanut butter. Stir and go.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">320 kcal</span><span class="badge badge-teal" style="font-size:11px;">22g protein</span><span class="badge" style="background:var(--bg2);color:var(--text2);font-size:11px;">2 min</span></div></div>
-        <div class="meal-icon-col">🍓</div>
-      </div>
-      <div class="meal-row">
-        <div class="meal-time-col">12–1pm<br>Lunch</div>
-        <div><div class="meal-name-main">Tuna rice bowl</div><div class="meal-desc-col">1 Tilda steamed basmati pouch, 1 tin tuna in olive oil (drained), half a cucumber sliced, squeeze of lemon, black pepper. Microwave rice, mix, done.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">420 kcal</span><span class="badge badge-teal" style="font-size:11px;">42g protein</span><span class="badge" style="background:var(--bg2);color:var(--text2);font-size:11px;">5 min</span></div></div>
-        <div class="meal-icon-col">🍚</div>
-      </div>
-      <div class="meal-row">
-        <div class="meal-time-col">3–4pm<br>Snack</div>
-        <div><div class="meal-name-main">Boiled eggs + cottage cheese</div><div class="meal-desc-col">2 boiled eggs (batch-boil on Sunday), 100g cottage cheese. Zero cooking. Replaces protein powder entirely.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">220 kcal</span><span class="badge badge-teal" style="font-size:11px;">25g protein</span><span class="badge" style="background:var(--bg2);color:var(--text2);font-size:11px;">0 min</span></div></div>
-        <div class="meal-icon-col">🥚</div>
-      </div>
-      <div class="meal-row" style="border-bottom:none;">
-        <div class="meal-time-col">6:30–7:30pm<br>Dinner</div>
-        <div><div class="meal-name-main">Chicken breast + microwave veg</div><div class="meal-desc-col">1 plain chicken breast, pan-fried in olive oil + garlic + lemon 8 min each side. 1 bag microwave steam veg. Season with herbs and black pepper.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">490 kcal</span><span class="badge badge-teal" style="font-size:11px;">48g protein</span><span class="badge" style="background:var(--bg2);color:var(--text2);font-size:11px;">15 min</span></div></div>
-        <div class="meal-icon-col">🍗</div>
-      </div>
+    <div class="eating-tabs" style="margin-bottom:16px;">
+      <div class="etab active" onclick="switchEat('guide', this)">📚 The guide</div>
+      <div class="etab" onclick="switchEat('standard', this)">🥗 Standard day</div>
+      <div class="etab" onclick="switchEat('early', this)">🕕 Early finish</div>
+      <div class="etab" onclick="switchEat('omad', this)">🍽️ OMAD</div>
+      <div class="etab" onclick="switchEat('keto', this)">🥑 Keto day</div>
     </div>
-    <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px 16px;margin-top:12px;display:flex;gap:20px;justify-content:center;">
-      <div style="text-align:center;"><div style="font-family:'Space Grotesk', sans-serif;font-size:22px;font-weight:700;">1,450</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Total kcal</div></div>
-      <div style="text-align:center;"><div style="font-family:'Space Grotesk', sans-serif;font-size:22px;font-weight:700;">137g</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Protein</div></div>
-      <div style="text-align:center;"><div style="font-family:'Space Grotesk', sans-serif;font-size:22px;font-weight:700;">~22 min</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Cook time</div></div>
-    </div>
-  </div>
 
-  <div id="eat-early" class="etab-page">
-    <div class="card">
-      <div class="meal-row">
-        <div class="meal-time-col">7am<br>Breakfast</div>
-        <div><div class="meal-name-main">Overnight oats</div><div class="meal-desc-col">40g plain rolled oats, 150ml whole milk, 1 tbsp chia seeds. Mix the night before, grab from the fridge. Zero morning effort.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">320 kcal</span><span class="badge badge-teal" style="font-size:11px;">14g protein</span><span class="badge" style="background:var(--bg2);color:var(--text2);font-size:11px;">2 min (night before)</span></div></div>
-        <div class="meal-icon-col">🥣</div>
+    <div id="eat-std" class="etab-page">
+      <div style="background:rgba(96,165,250,0.07);border:1px solid rgba(96,165,250,0.2);border-radius:var(--radius);padding:14px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+        <div style="font-size:13px;font-weight:600;color:#60a5fa;white-space:nowrap;">🕕 Early finish this week</div>
+        <div style="font-size:12px;color:var(--text2);">Thursday is always early finish (WFH). Any other days this week?</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;" id="early-finish-day-pills"></div>
       </div>
-      <div class="meal-row">
-        <div class="meal-time-col">12:30pm<br>Lunch</div>
-        <div><div class="meal-name-main">Salmon + rice pouch</div><div class="meal-desc-col">1 plain salmon fillet (pan-fried 4 min each side in butter), 1 Tilda rice pouch, large handful of spinach with olive oil and lemon. Simple and filling.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">510 kcal</span><span class="badge badge-teal" style="font-size:11px;">40g protein</span><span class="badge" style="background:var(--bg2);color:var(--text2);font-size:11px;">8 min</span></div></div>
-        <div class="meal-icon-col">🐟</div>
-      </div>
-      <div class="meal-row" style="border-bottom:none;">
-        <div class="meal-time-col">5–5:30pm<br>Dinner</div>
-        <div><div class="meal-name-main">Turkey mince stir-fry</div><div class="meal-desc-col">150g plain turkey mince, 1 bag frozen stir-fry veg. Cook mince 8 min, add frozen veg 4 min. Season with coconut aminos + sesame oil. No rice — keeps it lighter.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">410 kcal</span><span class="badge badge-teal" style="font-size:11px;">42g protein</span><span class="badge" style="background:var(--bg2);color:var(--text2);font-size:11px;">12 min</span></div></div>
-        <div class="meal-icon-col">🥢</div>
-      </div>
-    </div>
-    <div style="background:var(--blue-light);border-radius:var(--radius-sm);padding:12px 16px;margin-top:12px;font-size:13px;color:var(--blue);"><strong>After 6pm:</strong> Herbal tea or sparkling water only. Peppermint or chamomile. Sparkling water genuinely curbs evening hunger.</div>
-    <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px 16px;margin-top:10px;display:flex;gap:20px;justify-content:center;">
-      <div style="text-align:center;"><div style="font-family:'Space Grotesk', sans-serif;font-size:22px;font-weight:700;">1,240</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Total kcal</div></div>
-      <div style="text-align:center;"><div style="font-family:'Space Grotesk', sans-serif;font-size:22px;font-weight:700;">96g</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Protein</div></div>
-      <div style="text-align:center;"><div style="font-family:'Space Grotesk', sans-serif;font-size:22px;font-weight:700;">Done by 6pm ✓</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Eating window</div></div>
-    </div>
-  </div>
-
-  <div id="eat-omad" class="etab-page">
-    <div class="card" style="margin-bottom:14px;">
-      <div style="font-size:14px;font-weight:500;margin-bottom:12px;">One meal · Around 1–2pm after volunteering</div>
-      <div class="grid-2" style="gap:8px;">
-        <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:12px;"><div style="font-size:13px;font-weight:500;">200g plain chicken breast</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Pan-fried · 45g protein · ~300 kcal</div></div>
-        <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:12px;"><div style="font-size:13px;font-weight:500;">2 Tilda rice pouches</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Carbs + energy · ~360 kcal</div></div>
-        <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:12px;"><div style="font-size:13px;font-weight:500;">Large mixed salad</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Spinach, cucumber, tomato · ~50 kcal</div></div>
-        <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:12px;"><div style="font-size:13px;font-weight:500;">1 whole avocado + olive oil</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Healthy fats · Keeps you full · ~250 kcal</div></div>
-        <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:12px;"><div style="font-size:13px;font-weight:500;">200g Greek yogurt</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Dessert · 20g protein · ~160 kcal</div></div>
-        <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:12px;"><div style="font-size:13px;font-weight:500;">Boiled eggs (optional top-up)</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">If protein feels short · 2 eggs = 12g protein</div></div>
-      </div>
-    </div>
-    <div class="tip-box-f">
-      <div class="tip-box-title">OMAD tips</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Black coffee or tea in the morning is fine — won't break your fast</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Drink plenty of water beforehand to take the edge off hunger</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Only use OMAD on rest days — training days need steady fuel</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Eat slowly — one big meal can feel overwhelming if you rush it</div>
-    </div>
-  </div>
-
-  <div id="eat-keto" class="etab-page">
-    <div class="card">
-      <div class="meal-row">
-        <div class="meal-time-col">8am<br>Breakfast</div>
-        <div><div class="meal-name-main">Scrambled eggs + smoked salmon + avocado</div><div class="meal-desc-col">3 eggs scrambled in butter, 2 slices smoked salmon, half an avocado. No toast. Pan takes 5 minutes.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">480 kcal</span><span class="badge badge-teal" style="font-size:11px;">35g protein</span><span class="badge badge-purple" style="font-size:11px;">Keto</span><span class="badge" style="background:var(--bg2);color:var(--text2);font-size:11px;">5 min</span></div></div>
-        <div class="meal-icon-col">🥑</div>
-      </div>
-      <div class="meal-row">
-        <div class="meal-time-col">1pm<br>Lunch</div>
-        <div><div class="meal-name-main">Chicken thigh + feta salad</div><div class="meal-desc-col">2 plain chicken thighs (air fryer 12 min or oven 20 min), big bowl of spinach, 40g feta crumbled, olive oil + lemon dressing. No carbs, very filling.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">450 kcal</span><span class="badge badge-teal" style="font-size:11px;">40g protein</span><span class="badge badge-purple" style="font-size:11px;">Keto</span><span class="badge" style="background:var(--bg2);color:var(--text2);font-size:11px;">12–20 min</span></div></div>
-        <div class="meal-icon-col">🥗</div>
-      </div>
-      <div class="meal-row">
-        <div class="meal-time-col">4pm<br>Snack (opt)</div>
-        <div><div class="meal-name-main">Cheese + plain nuts</div><div class="meal-desc-col">30g cheddar, small handful of almonds or walnuts. Zero effort. Keeps fat and protein up.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">200 kcal</span><span class="badge badge-teal" style="font-size:11px;">8g protein</span><span class="badge badge-purple" style="font-size:11px;">Keto</span><span class="badge" style="background:var(--bg2);color:var(--text2);font-size:11px;">0 min</span></div></div>
-        <div class="meal-icon-col">🧀</div>
-      </div>
-      <div class="meal-row" style="border-bottom:none;">
-        <div class="meal-time-col">6:30pm<br>Dinner</div>
-        <div><div class="meal-name-main">Salmon + courgette in crème fraîche</div><div class="meal-desc-col">1 salmon fillet pan-fried 4 min each side in butter, 1 courgette sliced and sautéed with garlic, full-fat crème fraîche dolloped on top. Rich, filling, no carbs.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">430 kcal</span><span class="badge badge-teal" style="font-size:11px;">38g protein</span><span class="badge badge-purple" style="font-size:11px;">Keto</span><span class="badge" style="background:var(--bg2);color:var(--text2);font-size:11px;">10 min</span></div></div>
-        <div class="meal-icon-col">🐟</div>
-      </div>
-    </div>
-    <div style="background:var(--purple-light);border-radius:var(--radius-sm);padding:12px 16px;margin-top:12px;font-size:13px;color:var(--purple);"><strong>Keto rules:</strong> Eat freely from — eggs, meat, fish, cheese, cream, avocado, nuts, all non-starchy veg. Avoid — bread, rice, pasta, oats, fruit (except berries), anything with sugar.</div>
-  </div>
-
-  <!-- ===== NUTRITION GUIDE TAB ===== -->
-  <div id="eat-guide" class="etab-page active">
-
-    <!-- Section: Eating approaches — 2 column grid -->
-    <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;font-family:'Manrope',sans-serif;">Eating approaches in your plan</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-
-    <!-- Keto -->
-    <div style="background:linear-gradient(145deg,#0e0118,#1a0030);border:1px solid rgba(191,95,255,0.35);border-radius:var(--radius);padding:20px;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-        <div style="font-size:28px;">🥑</div>
-        <div>
-          <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#bf5fff;">Ketogenic (Keto)</div>
-          <div style="font-size:12px;color:var(--text3);margin-top:2px;">Under 20–50g carbs per day</div>
-        </div>
-      </div>
-      <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Keto switches your body's fuel source from glucose (sugar/carbs) to ketones (fat). When you cut carbs low enough, your liver starts converting fat into ketone bodies that your brain and muscles can use instead. This state is called ketosis.</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
-        <div style="background:rgba(191,95,255,0.08);border-radius:var(--radius-sm);padding:12px;">
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#bf5fff;margin-bottom:6px;">Why it works for you</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.6;">Rest days — no carbs needed for performance. Keeps insulin low, maximises fat burning, teaches metabolic flexibility.</div>
-        </div>
-        <div style="background:rgba(191,95,255,0.08);border-radius:var(--radius-sm);padding:12px;">
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#bf5fff;margin-bottom:6px;">What to expect</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.6;">First 2–3 weeks: possible headaches ("keto flu"). Drink water, add salt. After: stable energy, reduced hunger, clearer thinking.</div>
-        </div>
-      </div>
-      <div style="border-top:1px solid rgba(191,95,255,0.2);padding-top:10px;font-size:12px;color:var(--text2);line-height:1.6;">
-        <span style="color:#bf5fff;font-weight:600;">Eat freely:</span> Eggs · Meat · Fish · Cheese · Cream · Avocado · Nuts · Non-starchy veg<br>
-        <span style="color:var(--red);font-weight:600;">Avoid:</span> Bread · Rice · Pasta · Oats · Potatoes · Fruit (berries OK) · Sugar
+      <div id="summary-weekly-overview" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;"></div>
+      <div class="tip-box-f" id="summary-weekly-logic">
+        <div class="tip-box-title">Eating by activity type</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:#00f5d4;"></span><strong>Gym / strength days</strong> — Standard three-meal plan. Protein priority. Keep carbs moderate to fuel the session and top up glycogen after.</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span><strong>Run days</strong> — Standard plan. Carbs matter more here — eat a small carb snack 30–60 min before a long run if needed. Replenish after.</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span><strong>Class days (Blaze / Cyclone / Rhythm)</strong> — Standard plan. High intensity burns through glycogen fast. Don't skip meals on class days.</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:#60a5fa;"></span><strong>WFH / Early finish days</strong> — Eating window closes by 6pm. More control over your environment. Herbal tea in the evening kills hunger without calories.</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span><strong>Rest days</strong> — Keto. No performance carbs needed. Low insulin all day means your body burns stored fat. Eggs, meat, fish, cheese, avocado, nuts.</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:#f5a623;"></span><strong>Saturday (volunteer)</strong> — OMAD. You're busy all morning, so the fast happens naturally. One big meal ~1–2pm, then done for the day.</div>
       </div>
     </div>
 
-    <!-- OMAD -->
-    <div style="background:linear-gradient(145deg,#161000,#2a1f00);border:1px solid rgba(245,166,35,0.35);border-radius:var(--radius);padding:20px;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-        <div style="font-size:24px;">🍽️</div>
-        <div>
-          <div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#f5a623;">OMAD — One Meal a Day</div>
-          <div style="font-size:11px;color:var(--text3);margin-top:2px;">20–23 hour fast</div>
-        </div>
-      </div>
-      <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px;">Fast all day, eat one large nutrient-dense meal. Your body depletes glycogen, lowers insulin, and shifts to fat-burning mode.</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;">
-        <div style="background:rgba(245,166,35,0.08);border-radius:var(--radius-sm);padding:10px;">
-          <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#f5a623;margin-bottom:4px;">Why Saturday</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.5;">Busy volunteering all morning — fast happens naturally. Big meal ~1–2pm, done for the day.</div>
-        </div>
-        <div style="background:rgba(245,166,35,0.08);border-radius:var(--radius-sm);padding:10px;">
-          <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#f5a623;margin-bottom:4px;">Benefits</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.5;">Big calorie deficit. Autophagy kicks in after 16h. Improved insulin sensitivity on low-activity days.</div>
-        </div>
-      </div>
-      <div style="font-size:12px;color:#f5a623;font-weight:600;">Never OMAD before a training session — you need fuel.</div>
-    </div>
-
-    <!-- Early finish -->
-    <div style="background:linear-gradient(145deg,#00050f,#001030);border:1px solid rgba(96,165,250,0.35);border-radius:var(--radius);padding:20px;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-        <div style="font-size:24px;">🕕</div>
-        <div>
-          <div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#60a5fa;">Early finish / Time-restricted</div>
-          <div style="font-size:11px;color:var(--text3);margin-top:2px;">Eating window closes by 6pm</div>
-        </div>
-      </div>
-      <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px;">All food done by 6pm. After that: water, black coffee, or herbal tea only. Mild fasting that's very sustainable — you sleep through most of it.</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-        <div style="background:rgba(96,165,250,0.08);border-radius:var(--radius-sm);padding:10px;">
-          <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#60a5fa;margin-bottom:4px;">Why WFH works</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.5;">No commute, no office snacks, no late client lunches. Full control. Easy to close the window on schedule.</div>
-        </div>
-        <div style="background:rgba(96,165,250,0.08);border-radius:var(--radius-sm);padding:10px;">
-          <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#60a5fa;margin-bottom:4px;">Evening hack</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.5;">Peppermint tea or sparkling water kills evening hunger. Chamomile lowers cortisol and aids sleep.</div>
-        </div>
-      </div>
-    </div>
-
-    </div><!-- end 2-col eating-approaches grid -->
-
-    <!-- Section: Key nutrients — 2 columns -->
-    <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin:20px 0 10px;font-family:'Manrope',sans-serif;">Key nutrients</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-
-    <!-- Protein -->
-    <div style="background:linear-gradient(145deg,#001a13,#002a1f);border:1px solid rgba(0,245,212,0.3);border-radius:var(--radius);padding:20px;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-        <div style="font-size:24px;">💪</div>
-        <div>
-          <div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#00f5d4;">Protein</div>
-          <div style="font-size:11px;color:var(--text3);margin-top:2px;">Target: 120–140g per day</div>
-        </div>
-      </div>
-      <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px;">The building block of muscle. Repairs micro-tears from training. Without enough, you lose muscle instead of fat — even in a deficit. Highest thermic effect of any macro (burn 30% just digesting it).</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px;">
-        <div style="background:rgba(0,245,212,0.06);border-radius:var(--radius-sm);padding:8px;text-align:center;">
-          <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#00f5d4;">30%</div>
-          <div style="font-size:10px;color:var(--text3);margin-top:2px;">thermic effect</div>
-        </div>
-        <div style="background:rgba(0,245,212,0.06);border-radius:var(--radius-sm);padding:8px;text-align:center;">
-          <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#00f5d4;">2×</div>
-          <div style="font-size:10px;color:var(--text3);margin-top:2px;">more filling than carbs</div>
-        </div>
-        <div style="background:rgba(0,245,212,0.06);border-radius:var(--radius-sm);padding:8px;text-align:center;">
-          <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#00f5d4;">2g/kg</div>
-          <div style="font-size:10px;color:var(--text3);margin-top:2px;">optimal for muscle</div>
-        </div>
-      </div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.6;">
-        <span style="color:#00f5d4;font-weight:600;">Top sources:</span> Greek yogurt (17g/100g) · Tuna (25g) · Chicken (31g) · Eggs (6g ea) · Cottage cheese (12g) · Salmon (25g)
-      </div>
-    </div>
-
-    <!-- Fibre -->
-    <div style="background:linear-gradient(145deg,#0a1200,#152200);border:1px solid rgba(132,204,22,0.3);border-radius:var(--radius);padding:20px;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-        <div style="font-size:24px;">🥦</div>
-        <div>
-          <div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#84cc16;">Fibre</div>
-          <div style="font-size:11px;color:var(--text3);margin-top:2px;">Target: 25–35g per day</div>
-        </div>
-      </div>
-      <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px;">Indigestible plant matter that slows digestion, feeds gut bacteria, blunts blood sugar spikes, and reduces inflammation. UK average is under 20g/day — most people are deficient.</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;">
-        <div style="background:rgba(132,204,22,0.06);border-radius:var(--radius-sm);padding:10px;">
-          <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#84cc16;margin-bottom:4px;">Soluble</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.5;">Dissolves in water, forms a gel. Slows sugar absorption, lowers LDL. Found in oats, chia, avocado, fruit.</div>
-        </div>
-        <div style="background:rgba(132,204,22,0.06);border-radius:var(--radius-sm);padding:10px;">
-          <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#84cc16;margin-bottom:4px;">Insoluble</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.5;">Adds bulk, speeds gut transit. Keeps digestion regular. Found in veg, nuts, wholegrains.</div>
-        </div>
-      </div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.6;">
-        <span style="color:#84cc16;font-weight:600;">Easy wins:</span> Spinach · Avocado (7g each) · Chia seeds · Oats · Frozen veg bags · Cucumber
-      </div>
-    </div>
-
-    </div><!-- end 2-col nutrients grid -->
-
-    <!-- Fasting types -->
-    <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin:20px 0 10px;font-family:'Manrope',sans-serif;">Fasting approaches compared</div>
-
-    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:grid;grid-template-columns:140px 1fr auto;gap:12px;align-items:center;">
-        <div style="font-weight:600;font-size:13px;">16:8</div>
-        <div style="font-size:12.5px;color:var(--text2);">Fast 16 hours, eat within an 8-hour window (e.g. 12pm–8pm). Most popular approach. Easy to sustain long-term. Works on any day.</div>
-        <span class="badge badge-teal" style="white-space:nowrap;">Most popular</span>
-      </div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:grid;grid-template-columns:140px 1fr auto;gap:12px;align-items:center;">
-        <div style="font-weight:600;font-size:13px;">18:6</div>
-        <div style="font-size:12.5px;color:var(--text2);">Fast 18 hours, eat within 6 hours. Deeper ketosis and more fat burning than 16:8. Your Early Finish days are roughly this (7am–6pm = 11h window, but dinner finishing at 5:30pm gets you close).</div>
-        <span class="badge badge-blue" style="white-space:nowrap;">Your Thu</span>
-      </div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:grid;grid-template-columns:140px 1fr auto;gap:12px;align-items:center;">
-        <div style="font-weight:600;font-size:13px;">OMAD (23:1)</div>
-        <div style="font-size:12.5px;color:var(--text2);">Fast 23 hours, one meal only. Most aggressive. Best for fat loss on low-activity days. Significant autophagy benefits. Can be tiring if overused.</div>
-        <span class="badge badge-amber" style="white-space:nowrap;">Your Sat</span>
-      </div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:grid;grid-template-columns:140px 1fr auto;gap:12px;align-items:center;">
-        <div style="font-weight:600;font-size:13px;">5:2</div>
-        <div style="font-size:12.5px;color:var(--text2);">Eat normally 5 days, restrict to ~500 kcal on 2 days. Very effective for weight loss. Harder to stick to on training days. Not what you're doing currently.</div>
-        <span class="badge" style="background:var(--bg2);color:var(--text3);white-space:nowrap;">Not in plan</span>
-      </div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:grid;grid-template-columns:140px 1fr auto;gap:12px;align-items:center;">
-        <div style="font-weight:600;font-size:13px;">Warrior diet</div>
-        <div style="font-size:12.5px;color:var(--text2);">Small amounts of raw food during the day (fruit, veg), then one big cooked meal in the evening. 20-hour fast window. Similar to OMAD but slightly more flexible.</div>
-        <span class="badge" style="background:var(--bg2);color:var(--text3);white-space:nowrap;">Not in plan</span>
-      </div>
-    </div>
-
-    <div style="background:rgba(0,245,212,0.06);border:1px solid rgba(0,245,212,0.15);border-radius:var(--radius);padding:16px 20px;font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:24px;">
-      <span style="color:#00f5d4;font-weight:700;">💡 The key insight —</span> Fasting works because it lowers insulin. When insulin is low, your body can access stored body fat for energy. When insulin is high (from eating carbs and sugar), fat stores are locked away. The approaches above are just different ways of keeping insulin low for longer periods each day.
-    </div>
-
-    <!-- ── UPF & Sugar section ── -->
-    <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;font-family:'Manrope',sans-serif;">UPF & sugar — what to avoid</div>
-
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px;">
-      <div style="font-size:15px;font-weight:700;margin-bottom:14px;">5 swaps to make</div>
-      <div class="swap-row-f"><div><div class="swap-old">Protein powder</div><div class="swap-reason">UPF · Emulsifiers, sweeteners, artificial flavours</div></div><div class="swap-arrow">→</div><div><div class="swap-new">2 boiled eggs + 100g cottage cheese</div><div class="swap-new-why">Same protein, zero additives.</div></div></div>
-      <div class="swap-row-f"><div><div class="swap-old">Pre-marinated chicken</div><div class="swap-reason">UPF · Sugar, modified starch, flavour enhancers</div></div><div class="swap-arrow">→</div><div><div class="swap-new">Plain chicken + olive oil, garlic, lemon, herbs</div><div class="swap-new-why">Season yourself. 30 seconds. Tastes better.</div></div></div>
-      <div class="swap-row-f"><div><div class="swap-old">Soy sauce</div><div class="swap-reason">UPF · High sodium, additives and sugar</div></div><div class="swap-arrow">→</div><div><div class="swap-new">Coconut aminos</div><div class="swap-new-why">Just coconut sap + salt.</div></div></div>
-      <div class="swap-row-f"><div><div class="swap-old">Philadelphia cream cheese</div><div class="swap-reason">Contains guar gum, carob gum, additives</div></div><div class="swap-arrow">→</div><div><div class="swap-new">Full-fat crème fraîche or Boursin</div><div class="swap-new-why">Crème fraîche: just cream + cultures.</div></div></div>
-      <div class="swap-row-f" style="border-bottom:none;"><div><div class="swap-old">Some supermarket microwave rice</div><div class="swap-reason">Some add sunflower oil, flavourings</div></div><div class="swap-arrow">→</div><div><div class="swap-new">Tilda Pure Steamed Basmati</div><div class="swap-new-why">Ingredient list: just rice.</div></div></div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+    <div id="eat-standard" class="etab-page">
       <div class="card">
-        <div class="card-title" style="margin-bottom:12px;">✅ Always clean — keep these</div>
-        <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Eggs, plain meat, plain fish</div><div class="clean-why-f">Never need to check a label</div></div></div>
-        <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Fage Total Greek yogurt</div><div class="clean-why-f">Just milk + live cultures</div></div></div>
-        <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Tinned tuna/salmon (in oil or water)</div><div class="clean-why-f">Avoid flavoured varieties</div></div></div>
-        <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Plain rolled oats</div><div class="clean-why-f">Quaker Original or plain supermarket</div></div></div>
-        <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Proper cheese (cheddar, feta, parmesan)</div><div class="clean-why-f">Milk + salt + cultures only</div></div></div>
-        <div class="clean-row-f" style="border-bottom:none;"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Olive oil, butter, lemon, garlic, herbs</div><div class="clean-why-f">Your seasoning toolkit</div></div></div>
+        <div class="meal-row"><div class="meal-time-col">7–8am<br>Breakfast</div><div><div class="meal-name-main">Greek yogurt bowl</div><div class="meal-desc-col">200g Fage Total Greek yogurt, handful of frozen berries (thawed), 1 tbsp peanut butter. Stir and go.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">320 kcal</span><span class="badge badge-teal" style="font-size:11px;">22g protein</span><span class="badge" style="background:var(--bg2);color:var(--text2);font-size:11px;">2 min</span></div></div><div class="meal-icon-col">🍓</div></div>
+        <div class="meal-row"><div class="meal-time-col">12–1pm<br>Lunch</div><div><div class="meal-name-main">Tuna rice bowl</div><div class="meal-desc-col">1 Tilda steamed basmati pouch, 1 tin tuna in olive oil (drained), half a cucumber sliced, squeeze of lemon, black pepper. Microwave rice, mix, done.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">420 kcal</span><span class="badge badge-teal" style="font-size:11px;">42g protein</span><span class="badge" style="background:var(--bg2);color:var(--text2);font-size:11px;">5 min</span></div></div><div class="meal-icon-col">🍚</div></div>
+        <div class="meal-row"><div class="meal-time-col">3–4pm<br>Snack</div><div><div class="meal-name-main">Boiled eggs + cottage cheese</div><div class="meal-desc-col">2 boiled eggs (batch-boil on Sunday), 100g cottage cheese. Zero cooking. Replaces protein powder entirely.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">220 kcal</span><span class="badge badge-teal" style="font-size:11px;">25g protein</span><span class="badge" style="background:var(--bg2);color:var(--text2);font-size:11px;">0 min</span></div></div><div class="meal-icon-col">🥚</div></div>
+        <div class="meal-row" style="border-bottom:none;"><div class="meal-time-col">6:30–7:30pm<br>Dinner</div><div><div class="meal-name-main">Chicken breast + microwave veg</div><div class="meal-desc-col">1 plain chicken breast, pan-fried in olive oil + garlic + lemon 8 min each side. 1 bag microwave steam veg.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">490 kcal</span><span class="badge badge-teal" style="font-size:11px;">48g protein</span><span class="badge" style="background:var(--bg2);color:var(--text2);font-size:11px;">15 min</span></div></div><div class="meal-icon-col">🍗</div></div>
       </div>
+      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px 16px;margin-top:12px;display:flex;gap:20px;justify-content:center;">
+        <div style="text-align:center;"><div style="font-family:'Space Grotesk', sans-serif;font-size:22px;font-weight:700;">1,450</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Total kcal</div></div>
+        <div style="text-align:center;"><div style="font-family:'Space Grotesk', sans-serif;font-size:22px;font-weight:700;">137g</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Protein</div></div>
+        <div style="text-align:center;"><div style="font-family:'Space Grotesk', sans-serif;font-size:22px;font-weight:700;">~22 min</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Cook time</div></div>
+      </div>
+    </div>
+
+    <div id="eat-early" class="etab-page">
       <div class="card">
-        <div class="card-title" style="margin-bottom:12px;">🚫 Cut these — hidden sugar</div>
-        <div style="display:flex;flex-direction:column;">
-          <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">All added sugar, honey, maple syrup, agave</span></div>
-          <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Fruit juice — even fresh-squeezed</span></div>
-          <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Flavoured yogurts and flavoured oat packs</span></div>
-          <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Granola — almost always sugar-heavy</span></div>
-          <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Protein bars — most are sugar in disguise</span></div>
-          <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Bottled sauces (ketchup, BBQ, sweet chilli)</span></div>
-          <div class="sugar-item" style="padding:8px 0;"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Anything ending in -ose: glucose, fructose, maltose</span></div>
+        <div class="meal-row"><div class="meal-time-col">7am<br>Breakfast</div><div><div class="meal-name-main">Overnight oats</div><div class="meal-desc-col">40g plain rolled oats, 150ml whole milk, 1 tbsp chia seeds. Mix the night before, grab from the fridge. Zero morning effort.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">320 kcal</span><span class="badge badge-teal" style="font-size:11px;">14g protein</span><span class="badge" style="background:var(--bg2);color:var(--text2);font-size:11px;">2 min (night before)</span></div></div><div class="meal-icon-col">🥣</div></div>
+        <div class="meal-row"><div class="meal-time-col">12:30pm<br>Lunch</div><div><div class="meal-name-main">Salmon + rice pouch</div><div class="meal-desc-col">1 plain salmon fillet (pan-fried 4 min each side in butter), 1 Tilda rice pouch, large handful of spinach with olive oil and lemon.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">510 kcal</span><span class="badge badge-teal" style="font-size:11px;">40g protein</span><span class="badge" style="background:var(--bg2);color:var(--text2);font-size:11px;">8 min</span></div></div><div class="meal-icon-col">🐟</div></div>
+        <div class="meal-row" style="border-bottom:none;"><div class="meal-time-col">5–5:30pm<br>Dinner</div><div><div class="meal-name-main">Turkey mince stir-fry</div><div class="meal-desc-col">150g plain turkey mince, 1 bag frozen stir-fry veg. Cook mince 8 min, add frozen veg 4 min. Season with coconut aminos + sesame oil. No rice.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">410 kcal</span><span class="badge badge-teal" style="font-size:11px;">42g protein</span><span class="badge" style="background:var(--bg2);color:var(--text2);font-size:11px;">12 min</span></div></div><div class="meal-icon-col">🥢</div></div>
+      </div>
+      <div style="background:var(--blue-light);border-radius:var(--radius-sm);padding:12px 16px;margin-top:12px;font-size:13px;color:var(--blue);"><strong>After 6pm:</strong> Herbal tea or sparkling water only. Peppermint or chamomile.</div>
+    </div>
+
+    <div id="eat-omad" class="etab-page">
+      <div class="card" style="margin-bottom:14px;">
+        <div style="font-size:14px;font-weight:500;margin-bottom:12px;">One meal · Around 1–2pm after volunteering</div>
+        <div class="grid-2" style="gap:8px;">
+          <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:12px;"><div style="font-size:13px;font-weight:500;">200g plain chicken breast</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Pan-fried · 45g protein · ~300 kcal</div></div>
+          <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:12px;"><div style="font-size:13px;font-weight:500;">2 Tilda rice pouches</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Carbs + energy · ~360 kcal</div></div>
+          <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:12px;"><div style="font-size:13px;font-weight:500;">Large mixed salad</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Spinach, cucumber, tomato · ~50 kcal</div></div>
+          <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:12px;"><div style="font-size:13px;font-weight:500;">1 whole avocado + olive oil</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Healthy fats · ~250 kcal</div></div>
+          <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:12px;"><div style="font-size:13px;font-weight:500;">200g Greek yogurt</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Dessert · 20g protein · ~160 kcal</div></div>
+          <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:12px;"><div style="font-size:13px;font-weight:500;">Boiled eggs (optional top-up)</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">If protein feels short · 2 eggs = 12g protein</div></div>
         </div>
       </div>
+      <div class="tip-box-f">
+        <div class="tip-box-title">OMAD tips</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Black coffee or tea in the morning is fine — won't break your fast</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Drink plenty of water beforehand to take the edge off hunger</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Only use OMAD on rest days — training days need steady fuel</div>
+      </div>
     </div>
 
-    <div class="tip-box-f">
-      <div class="tip-box-title">The one-ingredient rule</div>
-      <div class="tip-item"><span class="tip-dot-f"></span>If a product has more ingredients than you can count on one hand, put it back</div>
-      <div class="tip-item"><span class="tip-dot-f"></span>If you can't pronounce an ingredient, it's almost certainly a UPF additive</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Sugar cravings peak at days 3–7 then drop sharply — push through the first week</div>
-      <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>1–2 squares of 85%+ dark chocolate is a clean, low-sugar way to satisfy a sweet craving</div>
+    <div id="eat-keto" class="etab-page">
+      <div class="card">
+        <div class="meal-row"><div class="meal-time-col">8am<br>Breakfast</div><div><div class="meal-name-main">Scrambled eggs + smoked salmon + avocado</div><div class="meal-desc-col">3 eggs scrambled in butter, 2 slices smoked salmon, half an avocado. No toast.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">480 kcal</span><span class="badge badge-teal" style="font-size:11px;">35g protein</span><span class="badge badge-purple" style="font-size:11px;">Keto</span></div></div><div class="meal-icon-col">🥑</div></div>
+        <div class="meal-row"><div class="meal-time-col">1pm<br>Lunch</div><div><div class="meal-name-main">Chicken thigh + feta salad</div><div class="meal-desc-col">2 plain chicken thighs, big bowl of spinach, 40g feta crumbled, olive oil + lemon dressing. No carbs, very filling.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">450 kcal</span><span class="badge badge-teal" style="font-size:11px;">40g protein</span><span class="badge badge-purple" style="font-size:11px;">Keto</span></div></div><div class="meal-icon-col">🥗</div></div>
+        <div class="meal-row"><div class="meal-time-col">4pm<br>Snack (opt)</div><div><div class="meal-name-main">Cheese + plain nuts</div><div class="meal-desc-col">30g cheddar, small handful of almonds or walnuts. Zero effort.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">200 kcal</span><span class="badge badge-teal" style="font-size:11px;">8g protein</span><span class="badge badge-purple" style="font-size:11px;">Keto</span></div></div><div class="meal-icon-col">🧀</div></div>
+        <div class="meal-row" style="border-bottom:none;"><div class="meal-time-col">6:30pm<br>Dinner</div><div><div class="meal-name-main">Salmon + courgette in crème fraîche</div><div class="meal-desc-col">1 salmon fillet pan-fried 4 min each side in butter, 1 courgette sliced and sautéed with garlic, full-fat crème fraîche dolloped on top.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">430 kcal</span><span class="badge badge-teal" style="font-size:11px;">38g protein</span><span class="badge badge-purple" style="font-size:11px;">Keto</span></div></div><div class="meal-icon-col">🐟</div></div>
+      </div>
+      <div style="background:var(--purple-light);border-radius:var(--radius-sm);padding:12px 16px;margin-top:12px;font-size:13px;color:var(--purple);"><strong>Keto rules:</strong> Eat freely from eggs, meat, fish, cheese, cream, avocado, nuts, all non-starchy veg. Avoid bread, rice, pasta, oats, fruit (except berries), anything with sugar.</div>
     </div>
 
+    <div id="eat-guide" class="etab-page active">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;font-family:'Manrope',sans-serif;">Eating approaches in your plan</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+        <div style="background:linear-gradient(145deg,#0e0118,#1a0030);border:1px solid rgba(191,95,255,0.35);border-radius:var(--radius);padding:20px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;"><div style="font-size:28px;">🥑</div><div><div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#bf5fff;">Ketogenic (Keto)</div><div style="font-size:12px;color:var(--text3);margin-top:2px;">Under 20–50g carbs per day</div></div></div>
+          <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Keto switches your body's fuel source from glucose (sugar/carbs) to ketones (fat). When you cut carbs low enough, your liver starts converting fat into ketone bodies. This state is called ketosis.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+            <div style="background:rgba(191,95,255,0.08);border-radius:var(--radius-sm);padding:12px;"><div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#bf5fff;margin-bottom:6px;">Why it works for you</div><div style="font-size:12px;color:var(--text2);line-height:1.6;">Rest days — no carbs needed for performance. Keeps insulin low, maximises fat burning, teaches metabolic flexibility.</div></div>
+            <div style="background:rgba(191,95,255,0.08);border-radius:var(--radius-sm);padding:12px;"><div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#bf5fff;margin-bottom:6px;">What to expect</div><div style="font-size:12px;color:var(--text2);line-height:1.6;">First 2–3 weeks: possible headaches ("keto flu"). After: stable energy, reduced hunger, clearer thinking.</div></div>
+          </div>
+          <div style="border-top:1px solid rgba(191,95,255,0.2);padding-top:10px;font-size:12px;color:var(--text2);line-height:1.6;"><span style="color:#bf5fff;font-weight:600;">Eat freely:</span> Eggs · Meat · Fish · Cheese · Cream · Avocado · Nuts · Non-starchy veg<br><span style="color:var(--red);font-weight:600;">Avoid:</span> Bread · Rice · Pasta · Oats · Potatoes · Fruit (berries OK) · Sugar</div>
+        </div>
+        <div style="background:linear-gradient(145deg,#161000,#2a1f00);border:1px solid rgba(245,166,35,0.35);border-radius:var(--radius);padding:20px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="font-size:24px;">🍽️</div><div><div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#f5a623;">OMAD — One Meal a Day</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">20–23 hour fast</div></div></div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px;">Fast all day, eat one large nutrient-dense meal. Your body depletes glycogen, lowers insulin, and shifts to fat-burning mode.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;">
+            <div style="background:rgba(245,166,35,0.08);border-radius:var(--radius-sm);padding:10px;"><div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#f5a623;margin-bottom:4px;">Why Saturday</div><div style="font-size:12px;color:var(--text2);line-height:1.5;">Busy volunteering all morning — fast happens naturally. Big meal ~1–2pm, done for the day.</div></div>
+            <div style="background:rgba(245,166,35,0.08);border-radius:var(--radius-sm);padding:10px;"><div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#f5a623;margin-bottom:4px;">Benefits</div><div style="font-size:12px;color:var(--text2);line-height:1.5;">Big calorie deficit. Autophagy kicks in after 16h. Improved insulin sensitivity on low-activity days.</div></div>
+          </div>
+          <div style="font-size:12px;color:#f5a623;font-weight:600;">Never OMAD before a training session — you need fuel.</div>
+        </div>
+        <div style="background:linear-gradient(145deg,#00050f,#001030);border:1px solid rgba(96,165,250,0.35);border-radius:var(--radius);padding:20px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="font-size:24px;">🕕</div><div><div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#60a5fa;">Early finish / Time-restricted</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Eating window closes by 6pm</div></div></div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px;">All food done by 6pm. After that: water, black coffee, or herbal tea only. Very sustainable — you sleep through most of it.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+            <div style="background:rgba(96,165,250,0.08);border-radius:var(--radius-sm);padding:10px;"><div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#60a5fa;margin-bottom:4px;">Why WFH works</div><div style="font-size:12px;color:var(--text2);line-height:1.5;">No commute, no office snacks. Full control. Easy to close the window on schedule.</div></div>
+            <div style="background:rgba(96,165,250,0.08);border-radius:var(--radius-sm);padding:10px;"><div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#60a5fa;margin-bottom:4px;">Evening hack</div><div style="font-size:12px;color:var(--text2);line-height:1.5;">Peppermint tea or sparkling water kills evening hunger. Chamomile lowers cortisol and aids sleep.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin:20px 0 10px;font-family:'Manrope',sans-serif;">Key nutrients</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+        <div style="background:linear-gradient(145deg,#001a13,#002a1f);border:1px solid rgba(0,245,212,0.3);border-radius:var(--radius);padding:20px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="font-size:24px;">💪</div><div><div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#00f5d4;">Protein</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Target: 120–140g per day</div></div></div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px;">The building block of muscle. Repairs micro-tears from training. Without enough, you lose muscle instead of fat — even in a deficit. Highest thermic effect of any macro (burn 30% just digesting it).</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.6;"><span style="color:#00f5d4;font-weight:600;">Top sources:</span> Greek yogurt (17g/100g) · Tuna (25g) · Chicken (31g) · Eggs (6g ea) · Cottage cheese (12g) · Salmon (25g)</div>
+        </div>
+        <div style="background:linear-gradient(145deg,#0a1200,#152200);border:1px solid rgba(132,204,22,0.3);border-radius:var(--radius);padding:20px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="font-size:24px;">🥦</div><div><div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#84cc16;">Fibre</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Target: 25–35g per day</div></div></div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px;">Indigestible plant matter that slows digestion, feeds gut bacteria, blunts blood sugar spikes, and reduces inflammation. UK average is under 20g/day.</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.6;"><span style="color:#84cc16;font-weight:600;">Easy wins:</span> Spinach · Avocado (7g each) · Chia seeds · Oats · Frozen veg bags · Cucumber</div>
+        </div>
+      </div>
+
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin:20px 0 10px;font-family:'Manrope',sans-serif;">Fasting approaches compared</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;max-width:780px;">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:grid;grid-template-columns:130px 1fr auto;gap:12px;align-items:center;"><div style="font-weight:600;font-size:13px;">16:8</div><div style="font-size:12.5px;color:var(--text2);">Fast 16 hours, eat within an 8-hour window (e.g. 12pm–8pm). Most popular approach. Easy to sustain long-term.</div><span class="badge badge-teal" style="white-space:nowrap;">Most popular</span></div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:grid;grid-template-columns:130px 1fr auto;gap:12px;align-items:center;"><div style="font-weight:600;font-size:13px;">18:6</div><div style="font-size:12.5px;color:var(--text2);">Fast 18 hours, eat within 6 hours. Deeper ketosis and more fat burning than 16:8. Your Early Finish days are roughly this.</div><span class="badge badge-blue" style="white-space:nowrap;">Your Thu</span></div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:grid;grid-template-columns:130px 1fr auto;gap:12px;align-items:center;"><div style="font-weight:600;font-size:13px;">OMAD (23:1)</div><div style="font-size:12.5px;color:var(--text2);">Fast 23 hours, one meal only. Best for fat loss on low-activity days. Significant autophagy benefits.</div><span class="badge badge-amber" style="white-space:nowrap;">Your Sat</span></div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:grid;grid-template-columns:130px 1fr auto;gap:12px;align-items:center;"><div style="font-weight:600;font-size:13px;">5:2</div><div style="font-size:12.5px;color:var(--text2);">Eat normally 5 days, restrict to ~500 kcal on 2 days. Not what you're doing currently.</div><span class="badge" style="background:var(--bg2);color:var(--text3);white-space:nowrap;">Not in plan</span></div>
+      </div>
+
+      <div style="background:rgba(0,245,212,0.06);border:1px solid rgba(0,245,212,0.15);border-radius:var(--radius);padding:16px 20px;font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:24px;max-width:780px;"><span style="color:#00f5d4;font-weight:700;">💡 The key insight —</span> Fasting works because it lowers insulin. When insulin is low, your body can access stored body fat for energy.</div>
+
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;font-family:'Manrope',sans-serif;">UPF & sugar — what to avoid</div>
+      <div class="card" style="margin-bottom:12px;">
+        <div style="font-size:15px;font-weight:700;margin-bottom:14px;">5 swaps to make</div>
+        <div class="swap-row-f"><div><div class="swap-old">Protein powder</div><div class="swap-reason">UPF · Emulsifiers, sweeteners, artificial flavours</div></div><div class="swap-arrow">→</div><div><div class="swap-new">2 boiled eggs + 100g cottage cheese</div><div class="swap-new-why">Same protein, zero additives.</div></div></div>
+        <div class="swap-row-f"><div><div class="swap-old">Pre-marinated chicken</div><div class="swap-reason">UPF · Sugar, modified starch, flavour enhancers</div></div><div class="swap-arrow">→</div><div><div class="swap-new">Plain chicken + olive oil, garlic, lemon, herbs</div><div class="swap-new-why">Season yourself. 30 seconds. Tastes better.</div></div></div>
+        <div class="swap-row-f"><div><div class="swap-old">Soy sauce</div><div class="swap-reason">UPF · High sodium, additives and sugar</div></div><div class="swap-arrow">→</div><div><div class="swap-new">Coconut aminos</div><div class="swap-new-why">Just coconut sap + salt.</div></div></div>
+        <div class="swap-row-f" style="border-bottom:none;"><div><div class="swap-old">Philadelphia cream cheese</div><div class="swap-reason">Contains guar gum, carob gum, additives</div></div><div class="swap-arrow">→</div><div><div class="swap-new">Full-fat crème fraîche or Boursin</div><div class="swap-new-why">Crème fraîche: just cream + cultures.</div></div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+        <div class="card">
+          <div class="card-title" style="margin-bottom:12px;">✅ Always clean — keep these</div>
+          <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Eggs, plain meat, plain fish</div><div class="clean-why-f">Never need to check a label</div></div></div>
+          <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Fage Total Greek yogurt</div><div class="clean-why-f">Just milk + live cultures</div></div></div>
+          <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Tinned tuna/salmon (in oil or water)</div><div class="clean-why-f">Avoid flavoured varieties</div></div></div>
+          <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Proper cheese (cheddar, feta, parmesan)</div><div class="clean-why-f">Milk + salt + cultures only</div></div></div>
+          <div class="clean-row-f" style="border-bottom:none;"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Olive oil, butter, lemon, garlic, herbs</div><div class="clean-why-f">Your seasoning toolkit</div></div></div>
+        </div>
+        <div class="card">
+          <div class="card-title" style="margin-bottom:12px;">🚫 Cut these — hidden sugar</div>
+          <div style="display:flex;flex-direction:column;">
+            <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">All added sugar, honey, maple syrup, agave</span></div>
+            <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Fruit juice — even fresh-squeezed</span></div>
+            <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Flavoured yogurts and flavoured oat packs</span></div>
+            <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Granola — almost always sugar-heavy</span></div>
+            <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Protein bars — most are sugar in disguise</span></div>
+            <div class="sugar-item" style="padding:8px 0;"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Bottled sauces (ketchup, BBQ, sweet chilli)</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="tip-box-f" style="max-width:780px;">
+        <div class="tip-box-title">The one-ingredient rule</div>
+        <div class="tip-item"><span class="tip-dot-f"></span>If a product has more ingredients than you can count on one hand, put it back</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Sugar cravings peak at days 3–7 then drop sharply — push through the first week</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>1–2 squares of 85%+ dark chocolate is a clean, low-sugar way to satisfy a sweet craving</div>
+      </div>
+    </div><!-- end eat-guide -->
+  </div><!-- end nutr-tab-guide -->
+
+  <!-- ── TAB: Meal Planner ── -->
+  <div id="nutr-tab-planner" class="etab-page">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;" id="planner-totals">
+      <div class="stat-card"><div class="stat-val" id="pt-avgcal">—</div><div class="stat-label">Avg daily calories</div></div>
+      <div class="stat-card"><div class="stat-val" id="pt-avgpro">—</div><div class="stat-label">Avg daily protein</div></div>
+      <div class="stat-card"><div class="stat-val" id="pt-ketodays">2</div><div class="stat-label">Keto days</div><div class="stat-sub">Fri & Sun</div></div>
+      <div class="stat-card"><div class="stat-val" id="pt-earldays">1</div><div class="stat-label">Early finish days</div><div class="stat-sub">Thu WFH</div></div>
+    </div>
+    <div id="planner-grid" style="display:flex;flex-direction:column;gap:8px;"></div>
+    <div style="text-align:center;margin-top:20px;">
+      <button onclick="resetPlanner()" style="font-size:13px;color:var(--text3);background:none;border:1px solid var(--border);cursor:pointer;padding:8px 20px;border-radius:999px;font-family:'Manrope', sans-serif;" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text3)'">Reset to default plan</button>
+    </div>
   </div>
 
-</div>
+  <!-- ── TAB: Eating Out ── -->
+  <div id="nutr-tab-eatingout" class="etab-page">
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-title" style="margin-bottom:16px;">The golden rules — apply anywhere</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+        <div style="background:var(--teal-light);border-radius:var(--radius-sm);padding:16px;"><div style="font-size:20px;margin-bottom:8px;">🥩</div><div style="font-size:13px;font-weight:600;color:var(--teal);margin-bottom:5px;">Protein first</div><div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Always anchor your order around a clean protein — grilled meat, fish, eggs. Everything else is a side.</div></div>
+        <div style="background:var(--blue-light);border-radius:var(--radius-sm);padding:16px;"><div style="font-size:20px;margin-bottom:8px;">🫒</div><div style="font-size:13px;font-weight:600;color:var(--blue);margin-bottom:5px;">Ask about sauces</div><div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Most hidden sugar lives in sauces and dressings. Ask for dressings on the side, swap glazes for olive oil and lemon.</div></div>
+        <div style="background:var(--amber-light);border-radius:var(--radius-sm);padding:16px;"><div style="font-size:20px;margin-bottom:8px;">🥗</div><div style="font-size:13px;font-weight:600;color:var(--amber);margin-bottom:5px;">Swap the starch</div><div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Most restaurants will swap chips or rice for salad, extra veg or a side of greens. Just ask.</div></div>
+        <div style="background:var(--coral-light);border-radius:var(--radius-sm);padding:16px;"><div style="font-size:20px;margin-bottom:8px;">🚫</div><div style="font-size:13px;font-weight:600;color:var(--coral);margin-bottom:5px;">Skip the bread basket</div><div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Ask the server not to bring it, or move it to the far end of the table.</div></div>
+        <div style="background:var(--purple-light);border-radius:var(--radius-sm);padding:16px;"><div style="font-size:20px;margin-bottom:8px;">🍷</div><div style="font-size:13px;font-weight:600;color:var(--purple);margin-bottom:5px;">Drinks matter</div><div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Sparkling water, still water, or dry wine (small glass). Avoid soft drinks, cocktails, fruit juices.</div></div>
+        <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:16px;"><div style="font-size:20px;margin-bottom:8px;">🍮</div><div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:5px;">Pudding strategy</div><div style="font-size:12.5px;color:var(--text2);line-height:1.6;">A cheese board is almost always the cleanest dessert option. Share if possible.</div></div>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-title" style="margin-bottom:4px;">By cuisine type</div>
+      <div class="card-sub" style="margin-bottom:16px;">Tap a cuisine to see what to order, what to avoid, and smart swaps</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;" id="cuisine-tabs">
+        <button class="ctab active" onclick="showCuisine('italian', this)">🍝 Italian</button>
+        <button class="ctab" onclick="showCuisine('japanese', this)">🍣 Japanese</button>
+        <button class="ctab" onclick="showCuisine('indian', this)">🍛 Indian</button>
+        <button class="ctab" onclick="showCuisine('thai', this)">🌿 Thai</button>
+        <button class="ctab" onclick="showCuisine('chinese', this)">🥢 Chinese</button>
+        <button class="ctab" onclick="showCuisine('british', this)">🥩 British / Pub</button>
+        <button class="ctab" onclick="showCuisine('mediterranean', this)">🫒 Mediterranean</button>
+        <button class="ctab" onclick="showCuisine('mexican', this)">🌮 Mexican</button>
+        <button class="ctab" onclick="showCuisine('cafe', this)">☕ Café / Brunch</button>
+      </div>
+      <!-- cuisine panels: italian -->
+      <div id="cuisine-italian" class="cuisine-panel active">
+        <div><div class="cp-col-title" style="color:var(--teal);">✓ Order this</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Grilled fish or seafood</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Beef carpaccio or prosciutto as a starter</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Bistecca — simply grilled with herbs</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Insalata mista — olive oil and lemon on the side</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Burrata with tomatoes</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Cheese board instead of dessert</div></div>
+        <div><div class="cp-col-title" style="color:var(--red);">✗ Avoid</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Creamy pasta sauces</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Bread basket</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Tiramisu, panna cotta</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Risotto — high GI</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Pizza — refined flour</div></div>
+        <div><div class="cp-col-title" style="color:var(--amber);">↔ Smart swaps</div><div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Pasta → grilled protein with the sauce, no pasta</div><div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Creamy sauce → tomato-based or aglio olio</div><div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Dessert → Formaggi or fresh berries</div></div>
+      </div>
+      <div id="cuisine-japanese" class="cuisine-panel"><div><div class="cp-col-title" style="color:var(--teal);">✓ Order this</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Sashimi — raw fish, no rice</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Edamame as a starter</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Yakitori (grilled chicken — salt, not tare)</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Miso soup</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Salmon or tuna nigiri</div></div><div><div class="cp-col-title" style="color:var(--red);">✗ Avoid</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Teriyaki glaze — high sugar</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Tempura — battered and deep-fried</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Katsu curry</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Mochi ice cream</div></div><div><div class="cp-col-title" style="color:var(--amber);">↔ Smart swaps</div><div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Sushi rolls → sashimi</div><div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Teriyaki glaze → ask for shio (salt)</div></div></div>
+      <div id="cuisine-indian" class="cuisine-panel"><div><div class="cp-col-title" style="color:var(--teal);">✓ Order this</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Tandoori dishes — marinated in yogurt and spices</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Saag (spinach) — with paneer or chicken</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Grilled seekh or sheesh kebabs</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Dal (lentils)</div></div><div><div class="cp-col-title" style="color:var(--red);">✗ Avoid</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Korma and tikka masala</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Naan bread</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Mango chutney — very high sugar</div></div><div><div class="cp-col-title" style="color:var(--amber);">↔ Smart swaps</div><div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Naan → no bread, or small plain roti</div><div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Korma → jalfrezi or bhuna</div></div></div>
+      <div id="cuisine-thai" class="cuisine-panel"><div><div class="cp-col-title" style="color:var(--teal);">✓ Order this</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Larb — minced meat salad, herbs, lime</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Tom yum soup — clear broth, prawns</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Steamed or grilled fish with chilli and lime</div></div><div><div class="cp-col-title" style="color:var(--red);">✗ Avoid</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Pad Thai — noodles with sugar</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Sweet and sour dishes</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Sticky rice</div></div><div><div class="cp-col-title" style="color:var(--amber);">↔ Smart swaps</div><div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Pad Thai → stir-fried veg and protein, no noodles</div></div></div>
+      <div id="cuisine-chinese" class="cuisine-panel"><div><div class="cp-col-title" style="color:var(--teal);">✓ Order this</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Steamed fish — ginger and spring onion</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Stir-fried greens — bok choy, kai lan</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Roast duck or crispy pork (no sugary plum sauce)</div></div><div><div class="cp-col-title" style="color:var(--red);">✗ Avoid</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Sweet and sour — one of the highest sugar dishes</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Hoisin, plum and oyster sauces</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Egg fried rice</div></div><div><div class="cp-col-title" style="color:var(--amber);">↔ Smart swaps</div><div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Sugary sauces → soy and ginger, or ask for no sauce</div></div></div>
+      <div id="cuisine-british" class="cuisine-panel"><div><div class="cp-col-title" style="color:var(--teal);">✓ Order this</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Steak — simply grilled</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Grilled salmon or sea bass</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Roast dinner — meat and veg, skip Yorkshire and stuffing</div></div><div><div class="cp-col-title" style="color:var(--red);">✗ Avoid</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Fish and chips — battered UPF</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Pies — pastry is refined flour</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Sticky toffee pudding</div></div><div><div class="cp-col-title" style="color:var(--amber);">↔ Smart swaps</div><div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Chips → side salad or seasonal veg</div><div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Burger bun → no bun, mustard not ketchup</div></div></div>
+      <div id="cuisine-mediterranean" class="cuisine-panel"><div><div class="cp-col-title" style="color:var(--teal);">✓ Order this</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Mezze — hummus, olives, grilled halloumi</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Whole grilled fish — sea bream, sea bass</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Greek salad — feta, olives, tomato, cucumber</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Tzatziki — yogurt, cucumber, garlic</div></div><div><div class="cp-col-title" style="color:var(--red);">✗ Avoid</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Spanakopita and bougatsa — pastry</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Baklava and loukoumades</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Pitta bread</div></div><div><div class="cp-col-title" style="color:var(--amber);">↔ Smart swaps</div><div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Pitta with mezze → eat dips with crudités</div><div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>This is the cleanest cuisine — order freely from the grill</div></div></div>
+      <div id="cuisine-mexican" class="cuisine-panel"><div><div class="cp-col-title" style="color:var(--teal);">✓ Order this</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Fajitas — grilled meat and peppers, hold the tortilla</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Ceviche — raw fish, lime, chilli</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Guacamole</div></div><div><div class="cp-col-title" style="color:var(--red);">✗ Avoid</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Nachos — UPF corn chips</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Flour tortillas</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Margaritas — sugar-heavy</div></div><div><div class="cp-col-title" style="color:var(--amber);">↔ Smart swaps</div><div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Tortilla wrap → burrito bowl with no wrap</div><div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Margarita → sparkling water with lime</div></div></div>
+      <div id="cuisine-cafe" class="cuisine-panel"><div><div class="cp-col-title" style="color:var(--teal);">✓ Order this</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Eggs any style — poached, scrambled, fried in butter</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Smoked salmon with eggs or avocado</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Full breakfast — eggs, bacon, sausage (no toast)</div><div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Black coffee, flat white — no syrups</div></div><div><div class="cp-col-title" style="color:var(--red);">✗ Avoid</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Pancakes, waffles</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Granola bowls</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Flavoured lattes and syrups</div><div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Croissants, pastries, muffins</div></div><div><div class="cp-col-title" style="color:var(--amber);">↔ Smart swaps</div><div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Toast → no bread, extra eggs or avocado</div><div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Flavoured latte → flat white or americano</div></div></div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:14px;">What to actually say to the waiter</div>
+      <div style="display:flex;flex-direction:column;gap:10px;max-width:680px;">
+        <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px 16px;"><div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:6px;">Swapping sides</div><div style="font-size:13.5px;color:var(--text);font-style:italic;">"Could I swap the chips for a side salad or seasonal vegetables please?"</div></div>
+        <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px 16px;"><div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:6px;">Dressings and sauces</div><div style="font-size:13.5px;color:var(--text);font-style:italic;">"Could I have the dressing on the side please? And do you have olive oil and lemon?"</div></div>
+        <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px 16px;"><div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:6px;">Bread basket</div><div style="font-size:13.5px;color:var(--text);font-style:italic;">"We'd love to skip the bread basket today, thank you."</div></div>
+        <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px 16px;"><div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:6px;">Protein without the carbs</div><div style="font-size:13.5px;color:var(--text);font-style:italic;">"Could I have the salmon with extra vegetables instead of the rice please?"</div></div>
+      </div>
+    </div>
+  </div><!-- end nutr-tab-eatingout -->
 
-<!-- ===================== UPF AUDIT (hidden — content merged into Nutrition Guide) ===================== -->
+</div><!-- end page-nutrition -->
 
 <div id="page-pantry" class="page">
   <div class="page-header">
@@ -1652,536 +1467,7 @@
   </div>
 </div>
 
-<!-- ===================== EATING OUT ===================== -->
-  </div>
 
-
-<div id="page-eatingout" class="page">
-  <div class="page-header">
-    <div class="page-eyebrow">Nutrition · Eating Out</div>
-    <div class="page-title">Eating out guide</div>
-    <div class="page-sub">How to eat clean, avoid sugar and skip UPF at any restaurant · No stress, no calorie counting</div>
-  </div>
-
-  <!-- Golden rules -->
-  <div class="card" style="margin-bottom:20px;">
-    <div class="card-title" style="margin-bottom:16px;">The golden rules — apply anywhere</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
-      <div style="background:var(--teal-light);border-radius:var(--radius-sm);padding:16px;">
-        <div style="font-size:20px;margin-bottom:8px;">🥩</div>
-        <div style="font-size:13px;font-weight:600;color:var(--teal);margin-bottom:5px;">Protein first</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Always anchor your order around a clean protein — grilled meat, fish, eggs. Everything else is a side. This keeps you full and prevents overeating carbs.</div>
-      </div>
-      <div style="background:var(--blue-light);border-radius:var(--radius-sm);padding:16px;">
-        <div style="font-size:20px;margin-bottom:8px;">🫒</div>
-        <div style="font-size:13px;font-weight:600;color:var(--blue);margin-bottom:5px;">Ask about sauces</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Most hidden sugar lives in sauces, dressings and glazes. Ask for dressings on the side, swap teriyaki or BBQ glazes for olive oil and lemon. Never feel awkward asking.</div>
-      </div>
-      <div style="background:var(--amber-light);border-radius:var(--radius-sm);padding:16px;">
-        <div style="font-size:20px;margin-bottom:8px;">🥗</div>
-        <div style="font-size:13px;font-weight:600;color:var(--amber);margin-bottom:5px;">Swap the starch</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Most restaurants will swap chips or rice for salad, extra veg or a side of greens. Just ask. On a keto or early-finish day this keeps your meal on track without sacrificing flavour.</div>
-      </div>
-      <div style="background:var(--coral-light);border-radius:var(--radius-sm);padding:16px;">
-        <div style="font-size:20px;margin-bottom:8px;">🚫</div>
-        <div style="font-size:13px;font-weight:600;color:var(--coral);margin-bottom:5px;">Skip the bread basket</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">It arrives before hunger kicks in and is almost always a UPF with additives. Ask the server not to bring it, or move it to the far end of the table. Out of sight, out of mind.</div>
-      </div>
-      <div style="background:var(--purple-light);border-radius:var(--radius-sm);padding:16px;">
-        <div style="font-size:20px;margin-bottom:8px;">🍷</div>
-        <div style="font-size:13px;font-weight:600;color:var(--purple);margin-bottom:5px;">Drinks matter</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Sparkling water, still water, or dry wine (small glass). Avoid soft drinks, flavoured waters, cocktails with mixers and fruit juices — all are sugar-heavy. A mocktail is usually just juice and syrup.</div>
-      </div>
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:16px;">
-        <div style="font-size:20px;margin-bottom:8px;">🍮</div>
-        <div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:5px;">Pudding strategy</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">A cheese board is almost always the cleanest dessert option. If you want something sweet, fruit-based and without pastry is better than anything creamy and caramel. Share if possible.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- By cuisine tabs -->
-  <div class="card" style="margin-bottom:20px;">
-    <div class="card-title" style="margin-bottom:4px;">By cuisine type</div>
-    <div class="card-sub" style="margin-bottom:16px;">Tap a cuisine to see what to order, what to avoid, and smart swaps</div>
-    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;" id="cuisine-tabs">
-      <button class="ctab active" onclick="showCuisine('italian', this)">🍝 Italian</button>
-      <button class="ctab" onclick="showCuisine('japanese', this)">🍣 Japanese</button>
-      <button class="ctab" onclick="showCuisine('indian', this)">🍛 Indian</button>
-      <button class="ctab" onclick="showCuisine('thai', this)">🌿 Thai</button>
-      <button class="ctab" onclick="showCuisine('chinese', this)">🥢 Chinese</button>
-      <button class="ctab" onclick="showCuisine('british', this)">🥩 British / Pub</button>
-      <button class="ctab" onclick="showCuisine('mediterranean', this)">🫒 Mediterranean</button>
-      <button class="ctab" onclick="showCuisine('mexican', this)">🌮 Mexican</button>
-      <button class="ctab" onclick="showCuisine('cafe', this)">☕ Café / Brunch</button>
-    </div>
-
-    <style>
-      .ctab { padding:7px 14px;border-radius:999px;border:1.5px solid var(--border);background:var(--bg);color:var(--text2);font-family:'Manrope', sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.15s; }
-      .ctab:hover { border-color:var(--text);color:var(--text); }
-      .ctab.active { background:#00f5d4;color:#00382f;border-color:#00f5d4; }
-      .cuisine-panel { display:none; }
-      .cuisine-panel.active { display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px; }
-      .cp-col-title { font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;font-family:'Manrope', sans-serif;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border); }
-      .cp-item { font-size:13px;color:var(--text2);padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:flex-start;line-height:1.4; }
-      .cp-item:last-child { border-bottom:none; }
-      .cp-dot { width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px; }
-    
-  /* ── MOBILE RESPONSIVE ── */
-  @media (max-width: 767px) {
-    .sidebar { transform: translateX(-100%); transition: transform 0.25s ease; }
-    .sidebar.open { transform: translateX(0); }
-    .main { margin-left: 0 !important; padding: 16px 16px 100px !important; }
-    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr !important; }
-    .page-title { font-size: 26px !important; }
-    .hamburger { display: flex !important; }
-    .sidebar-overlay { display: none; }
-    .mobile-nav {
-      display: flex !important;
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: rgba(19,19,19,0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding: 8px 0;
-      padding-bottom: max(8px, env(safe-area-inset-bottom));
-      z-index: 150;
-      justify-content: space-around;
-      align-items: center;
-    }
-    .mobile-nav-item {
-      display: flex; flex-direction: column; align-items: center; gap: 2px;
-      padding: 6px 12px; border-radius: 10px; cursor: pointer;
-      font-size: 10px; font-weight: 600; color: #83948f;
-      font-family: 'Manrope', sans-serif; letter-spacing: 0.04em;
-      border: none; background: none; transition: color 0.15s;
-      min-width: 44px; min-height: 44px; justify-content: center;
-    }
-    .mobile-nav-item.active, .mobile-nav-item:hover { color: #00f5d4; }
-    .mobile-nav-item .nav-icon { font-size: 20px; }
-  }
-  @media (min-width: 768px) {
-    .mobile-nav { display: none !important; }
-    .hamburger { display: none !important; }
-  }
-</style>
-
-    <!-- ITALIAN -->
-    <div id="cuisine-italian" class="cuisine-panel active">
-      <div>
-        <div class="cp-col-title" style="color:var(--teal);">✓ Order this</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Grilled fish or seafood — branzino, sea bass, calamari</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Beef carpaccio or prosciutto as a starter</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Bistecca or veal — simply grilled with herbs</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Insalata mista — ask for olive oil and lemon on the side</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Burrata with tomatoes — whole ingredients, zero processing</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Cheese board instead of dessert</div>
-      </div>
-      <div>
-        <div class="cp-col-title" style="color:var(--red);">✗ Avoid or limit</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Creamy pasta sauces — usually contain UPF cream and thickeners</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Bread basket — ask them not to bring it</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Tiramisu, panna cotta — high sugar, often UPF</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Risotto — high GI, often finished with large amounts of butter</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Pizza — refined flour and often sugary tomato sauce base</div>
-      </div>
-      <div>
-        <div class="cp-col-title" style="color:var(--amber);">↔ Smart swaps</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Pasta → ask for grilled protein with the sauce, no pasta</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Creamy sauce → tomato-based or aglio olio (oil, garlic, herbs)</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Dessert → Formaggi (cheese) or fresh berries if available</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Bottled dressing → olive oil and lemon asked separately</div>
-      </div>
-    </div>
-
-    <!-- JAPANESE -->
-    <div id="cuisine-japanese" class="cuisine-panel">
-      <div>
-        <div class="cp-col-title" style="color:var(--teal);">✓ Order this</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Sashimi — raw fish, no rice, pure protein</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Edamame as a starter — just soy beans and salt</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Yakitori (grilled chicken skewers — salt, not tare/sauce)</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Miso soup — fermented, gut-friendly, low calorie</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Salmon or tuna nigiri (rice minimal)</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Grilled fish — teriyaki sauce on the side, not glazed</div>
-      </div>
-      <div>
-        <div class="cp-col-title" style="color:var(--red);">✗ Avoid or limit</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Teriyaki glaze — high sugar, often added to everything</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Tempura — battered and deep-fried</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Gyoza (pan-fried) — dough wrapper and sugary dipping sauce</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Katsu curry — breadcrumbed UPF, sweet curry sauce</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Mochi ice cream — processed and sugary</div>
-      </div>
-      <div>
-        <div class="cp-col-title" style="color:var(--amber);">↔ Smart swaps</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Sushi rolls → sashimi (same fish, no rice or UPF sauces)</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Teriyaki glaze → ask for shio (salt) seasoning instead</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Ramen → miso or clear broth, add extra protein</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Regular soy → tamari (gluten-free, cleaner label)</div>
-      </div>
-    </div>
-
-    <!-- INDIAN -->
-    <div id="cuisine-indian" class="cuisine-panel">
-      <div>
-        <div class="cp-col-title" style="color:var(--teal);">✓ Order this</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Tandoori dishes — marinated in yogurt and spices, grilled dry</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Saag (spinach) — with paneer or chicken, low sugar</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Grilled seekh or sheesh kebabs</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Dal (lentils) — high protein, minimal processing</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Raita — yogurt and cucumber, clean</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Cauliflower dishes — aloo-free, lower carb</div>
-      </div>
-      <div>
-        <div class="cp-col-title" style="color:var(--red);">✗ Avoid or limit</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Korma and tikka masala — often contain added sugar and cream</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Naan bread — refined flour, often buttered with ghee and sugar</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Mango chutney — very high sugar</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Lassi (sweet) and flavoured drinks</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Gulab jamun, halwa — desserts very high in sugar</div>
-      </div>
-      <div>
-        <div class="cp-col-title" style="color:var(--amber);">↔ Smart swaps</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Naan → no bread, or small plain roti if needed</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Rice → cauliflower side or just more curry without rice</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Korma → jalfrezi or bhuna — drier, less creamy, less sugar</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Sweet lassi → plain lassi or sparkling water</div>
-      </div>
-    </div>
-
-    <!-- THAI -->
-    <div id="cuisine-thai" class="cuisine-panel">
-      <div>
-        <div class="cp-col-title" style="color:var(--teal);">✓ Order this</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Larb — minced meat salad, herbs, lime, low sugar</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Som tam (papaya salad) — ask for no added sugar</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Tom yum soup — clear broth, prawns, lemongrass</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Steamed or grilled fish with chilli and lime</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Gai yang — grilled marinated chicken</div>
-      </div>
-      <div>
-        <div class="cp-col-title" style="color:var(--red);">✗ Avoid or limit</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Pad Thai — noodles with sugar in the tamarind sauce</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Sweet and sour dishes — very high sugar</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Thai green/red curry with coconut milk + sugar added</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Sticky rice — high GI, very little fibre</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Mango sticky rice dessert — very high sugar</div>
-      </div>
-      <div>
-        <div class="cp-col-title" style="color:var(--amber);">↔ Smart swaps</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Pad Thai → ask for stir-fried veg and protein, no noodles</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Curry → ask if they can reduce or skip added sugar</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Sticky rice → jasmine rice in small amount, or skip</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Sweet sauces → fish sauce and lime instead</div>
-      </div>
-    </div>
-
-    <!-- CHINESE -->
-    <div id="cuisine-chinese" class="cuisine-panel">
-      <div>
-        <div class="cp-col-title" style="color:var(--teal);">✓ Order this</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Steamed fish — ginger and spring onion, no sauce</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Stir-fried greens — bok choy, kai lan with garlic</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Steamed dim sum (not fried) — har gow, steamed chicken</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Clear soups with protein — wonton, hot and sour</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Roast duck or crispy pork (meat, no sugary plum sauce)</div>
-      </div>
-      <div>
-        <div class="cp-col-title" style="color:var(--red);">✗ Avoid or limit</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Sweet and sour — one of the highest sugar dishes anywhere</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Crispy battered anything — UPF batter, deep-fried</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Hoisin, plum and oyster sauces — very high sugar</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Egg fried rice — often made with additives and MSG</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Spring rolls — fried pastry wrapper, usually UPF</div>
-      </div>
-      <div>
-        <div class="cp-col-title" style="color:var(--amber);">↔ Smart swaps</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Fried rice → steamed rice in small amount or skip</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Sugary sauces → soy and ginger, or ask for no sauce</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Battered dishes → steamed version if available</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Duck pancakes → duck meat only, skip the pancake and hoisin</div>
-      </div>
-    </div>
-
-    <!-- BRITISH / PUB -->
-    <div id="cuisine-british" class="cuisine-panel">
-      <div>
-        <div class="cp-col-title" style="color:var(--teal);">✓ Order this</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Steak — simply grilled, ask for peppercorn sauce on the side</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Grilled salmon or sea bass with vegetables</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Roast dinner — meat and veg, skip the Yorkshire and stuffing</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Salads with grilled chicken or poached eggs</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Soup of the day — if made in-house, vegetable or broth based</div>
-      </div>
-      <div>
-        <div class="cp-col-title" style="color:var(--red);">✗ Avoid or limit</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Fish and chips — battered UPF, fried in vegetable oil</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Pies — pastry is refined flour and often UPF shortening</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Ketchup, BBQ sauce — high sugar condiments</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Breaded or battered anything — scampi, chicken goujons</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Sticky toffee pudding, chocolate fondant — high sugar desserts</div>
-      </div>
-      <div>
-        <div class="cp-col-title" style="color:var(--amber);">↔ Smart swaps</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Chips → swap for side salad or seasonal veg</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Burger bun → no bun, extra salad, mustard not ketchup</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Gravy → ask if made in-house or from a packet (skip packet)</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Dessert → cheese board or skip</div>
-      </div>
-    </div>
-
-    <!-- MEDITERRANEAN -->
-    <div id="cuisine-mediterranean" class="cuisine-panel">
-      <div>
-        <div class="cp-col-title" style="color:var(--teal);">✓ Order this</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Mezze — hummus, olives, grilled halloumi, dolmades</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Grilled octopus or calamari (not battered)</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Whole grilled fish — sea bream, sea bass, red mullet</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Greek salad — feta, olives, tomato, cucumber, olive oil</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Souvlaki or kofta — grilled meat skewers</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Tzatziki — yogurt, cucumber, garlic, very clean</div>
-      </div>
-      <div>
-        <div class="cp-col-title" style="color:var(--red);">✗ Avoid or limit</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Spanakopita and bougatsa — pastry, refined flour</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Baklava and loukoumades — very high sugar desserts</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Pitta bread — refined flour, often UPF in restaurants</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Moussaka — heavy béchamel sauce with refined flour</div>
-      </div>
-      <div>
-        <div class="cp-col-title" style="color:var(--amber);">↔ Smart swaps</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Pitta with mezze → eat the dips with crudités or a fork</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Moussaka → ask for the meat filling without the topping</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Dessert → fresh fruit or plain Greek yogurt with honey (small)</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>This is the cleanest cuisine overall — order freely from the grill</div>
-      </div>
-    </div>
-
-    <!-- MEXICAN -->
-    <div id="cuisine-mexican" class="cuisine-panel">
-      <div>
-        <div class="cp-col-title" style="color:var(--teal);">✓ Order this</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Fajitas — grilled meat and peppers, hold the tortilla</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Ceviche — raw fish, lime, chilli, very clean</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Guacamole — avocado, lime, tomato (avoid if made with cream)</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Grilled protein bowl — ask for lettuce wrap instead of tortilla</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Black beans — good protein and fibre if needed</div>
-      </div>
-      <div>
-        <div class="cp-col-title" style="color:var(--red);">✗ Avoid or limit</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Nachos — UPF corn chips, processed cheese sauce</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Flour tortillas — UPF, refined flour, often contain additives</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Chimichangas — deep-fried and heavily processed</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Margaritas and cocktails — sugar-heavy</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Sour cream and processed cheese toppings</div>
-      </div>
-      <div>
-        <div class="cp-col-title" style="color:var(--amber);">↔ Smart swaps</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Tortilla wrap → burrito bowl with no wrap</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Sour cream → extra guacamole or salsa</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Rice → skip or ask for extra salad and protein</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Margarita → sparkling water with lime</div>
-      </div>
-    </div>
-
-    <!-- CAFÉ / BRUNCH -->
-    <div id="cuisine-cafe" class="cuisine-panel">
-      <div>
-        <div class="cp-col-title" style="color:var(--teal);">✓ Order this</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Eggs any style — poached, scrambled, fried in butter</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Smoked salmon with eggs or avocado</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Full breakfast — eggs, bacon, sausage (no toast)</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Avocado with poached eggs — ask for no toast or sourdough</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Black coffee, flat white — no syrups or flavoured shots</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--teal);"></span>Omelette with cheese, spinach or mushrooms</div>
-      </div>
-      <div>
-        <div class="cp-col-title" style="color:var(--red);">✗ Avoid or limit</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Pancakes, waffles — refined flour and sugar</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Granola bowls — almost always high sugar</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Flavoured lattes and syrups — one vanilla latte = 6 tsp sugar</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Croissants, pastries, muffins — UPF and high sugar</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Smoothies and juices — often 40–50g sugar per glass</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--red);"></span>Protein bars at the counter — usually UPF in disguise</div>
-      </div>
-      <div>
-        <div class="cp-col-title" style="color:var(--amber);">↔ Smart swaps</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Toast → no bread, ask for extra eggs or avocado instead</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Flavoured latte → flat white or americano with whole milk</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Granola → Greek yogurt with berries if available</div>
-        <div class="cp-item"><span class="cp-dot" style="background:var(--amber);"></span>Juice → sparkling water with lemon</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Ordering scripts -->
-  <div class="card">
-    <div class="card-title" style="margin-bottom:14px;">What to actually say to the waiter</div>
-    <div style="display:flex;flex-direction:column;gap:10px;">
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px 16px;">
-        <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:6px;">Swapping sides</div>
-        <div style="font-size:13.5px;color:var(--text);font-style:italic;">"Could I swap the chips for a side salad or seasonal vegetables please?"</div>
-      </div>
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px 16px;">
-        <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:6px;">Dressings and sauces</div>
-        <div style="font-size:13.5px;color:var(--text);font-style:italic;">"Could I have the dressing on the side please? And do you have olive oil and lemon?"</div>
-      </div>
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px 16px;">
-        <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:6px;">Bread basket</div>
-        <div style="font-size:13.5px;color:var(--text);font-style:italic;">"We'd love to skip the bread basket today, thank you."</div>
-      </div>
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px 16px;">
-        <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:6px;">Protein without the carbs</div>
-        <div style="font-size:13.5px;color:var(--text);font-style:italic;">"Could I have the salmon with extra vegetables instead of the rice please?"</div>
-      </div>
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px 16px;">
-        <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:6px;">Understanding the menu</div>
-        <div style="font-size:13.5px;color:var(--text);font-style:italic;">"Is the sauce homemade, or does it come from a bottle? What's in it?"</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-function showCuisine(id, el) {
-  document.querySelectorAll('.cuisine-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
-  document.getElementById('cuisine-' + id).classList.add('active');
-  el.classList.add('active');
-}
-</script>
-
-<!-- ===================== RECIME ===================== -->
-<div id="page-recime" class="page">
-  <div class="page-header">
-    <div class="page-eyebrow">Nutrition · Recipes</div>
-    <div class="page-title">My Recipes</div>
-    <div class="page-sub">All your saved recipes live in ReciMe — tap below to open it</div>
-  </div>
-
-  <!-- Main launch card -->
-  <div class="card-gym" style="border-radius:var(--radius);padding:32px;text-align:center;margin-bottom:16px;">
-    <div style="font-size:48px;margin-bottom:16px;">📖</div>
-    <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:#00f5d4;margin-bottom:8px;">ReciMe</div>
-    <div style="font-size:14px;color:var(--text2);max-width:340px;margin:0 auto 24px;line-height:1.6;">Your personal recipe collection. Browse, cook, and discover new meals.</div>
-    <a href="https://www.recime.app" target="_blank" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:#00f5d4;color:#00382f;border-radius:999px;font-family:'Manrope',sans-serif;font-size:14px;font-weight:700;text-decoration:none;transition:opacity 0.15s;">
-      Open ReciMe →
-    </a>
-    <div style="margin-top:14px;">
-      <a href="https://apps.apple.com/app/recime/id1467235957" target="_blank" style="font-size:12px;color:var(--text3);text-decoration:none;">Download on App Store</a>
-    </div>
-  </div>
-
-  <!-- Quick tip cards -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
-    <div style="background:rgba(0,245,212,0.06);border:1px solid rgba(0,245,212,0.15);border-radius:var(--radius);padding:18px;">
-      <div style="font-size:20px;margin-bottom:8px;">🔍</div>
-      <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#00f5d4;margin-bottom:6px;">Browse by ingredient</div>
-      <div style="font-size:13px;color:var(--text2);line-height:1.5;">Search what you have in your pantry to find recipes you can make right now.</div>
-    </div>
-    <div style="background:rgba(191,95,255,0.06);border:1px solid rgba(191,95,255,0.15);border-radius:var(--radius);padding:18px;">
-      <div style="font-size:20px;margin-bottom:8px;">⭐</div>
-      <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#bf5fff;margin-bottom:6px;">Save favourites</div>
-      <div style="font-size:13px;color:var(--text2);line-height:1.5;">Star recipes you cook regularly so they're always one tap away.</div>
-    </div>
-  </div>
-
-  <!-- Tip about linking pantry -->
-  <div style="background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.2);border-radius:var(--radius);padding:16px 20px;font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:20px;">
-    <span style="color:#f5a623;font-weight:700;">💡 Tip —</span> When you find a recipe in ReciMe, cross-reference it with your pantry here to see what you already have and what you still need to buy.
-  </div>
-
-  <!-- Saved suggestions from Meal Planner -->
-  <div style="margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;">
-    <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);">Saved from suggestions</div>
-  </div>
-  <div id="saved-recipes-list" style="display:flex;flex-direction:column;gap:10px;"></div>
-</div>
-
-<!-- ===================== MEAL PLANNER ===================== -->
-<div id="page-planner" class="page">
-  <div class="page-header">
-    <div class="page-eyebrow">Nutrition · Meal Planner</div>
-    <div class="page-title">Weekly meal planner</div>
-    <div class="page-sub">Tap any meal to swap it · All options are clean, UPF-free and no added sugar</div>
-  </div>
-
-  <!-- Tab bar -->
-  <div class="eating-tabs" style="margin-bottom:18px;">
-    <div class="etab active" id="ptab-planner" onclick="switchPlannerTab('planner',this)">📅 My plan</div>
-    <div class="etab" id="ptab-suggestions" onclick="switchPlannerTab('suggestions',this)">✨ Suggestions</div>
-  </div>
-
-  <!-- ── TAB: Planner ── -->
-  <div id="planner-tab-planner">
-    <!-- Summary totals bar -->
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;" id="planner-totals">
-      <div class="stat-card"><div class="stat-val" id="pt-avgcal">—</div><div class="stat-label">Avg daily calories</div></div>
-      <div class="stat-card"><div class="stat-val" id="pt-avgpro">—</div><div class="stat-label">Avg daily protein</div></div>
-      <div class="stat-card"><div class="stat-val" id="pt-ketodays">2</div><div class="stat-label">Keto days</div><div class="stat-sub">Fri & Sun</div></div>
-      <div class="stat-card"><div class="stat-val" id="pt-earldays">1</div><div class="stat-label">Early finish days</div><div class="stat-sub">Thu WFH</div></div>
-    </div>
-
-    <!-- 7-day grid -->
-    <div id="planner-grid" style="display:flex;flex-direction:column;gap:8px;"></div>
-
-    <!-- Reset button -->
-    <div style="text-align:center;margin-top:20px;">
-      <button onclick="resetPlanner()" style="font-size:13px;color:var(--text3);background:none;border:1px solid var(--border);cursor:pointer;padding:8px 20px;border-radius:999px;font-family:'Manrope', sans-serif;" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text3)'">Reset to default plan</button>
-    </div>
-  </div>
-
-  <!-- ── TAB: Suggestions ── -->
-  <div id="planner-tab-suggestions" style="display:none;">
-    <!-- API key warning -->
-    <div id="planner-suggestions-api-warning" style="display:none;background:rgba(255,107,107,0.12);border:1px solid rgba(255,107,107,0.3);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:16px;font-size:13px;color:var(--red);">
-      No Anthropic API key set — go to <strong>Settings → AI Features</strong> to add one.
-    </div>
-
-    <!-- Controls row -->
-    <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin-bottom:16px;align-items:end;">
-      <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:6px;font-family:'Manrope',sans-serif;">Today's workout</div>
-        <select id="planner-suggestions-workout" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--card);color:var(--text);font-family:'Manrope',sans-serif;font-size:13px;outline:none;">
-          <option value="gym">🏋️ Gym / strength training</option>
-          <option value="run">🏃 Running</option>
-          <option value="class">🔥 Class (Blaze / Cyclone / Rhythm)</option>
-          <option value="rest">😴 Rest day</option>
-        </select>
-      </div>
-      <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:6px;font-family:'Manrope',sans-serif;">Pantry snapshot</div>
-        <div id="planner-pantry-preview" style="padding:9px 14px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg2);font-size:12px;color:var(--text2);min-height:40px;line-height:1.5;"></div>
-      </div>
-      <button onclick="getPlannerSuggestions()" style="padding:10px 20px;background:#00f5d4;color:#00382f;border:none;border-radius:var(--radius-sm);font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;height:40px;align-self:end;">Get suggestions</button>
-    </div>
-
-    <!-- Loading -->
-    <div id="planner-suggestions-loading" style="display:none;text-align:center;padding:32px;font-size:13px;color:var(--text3);">✨ Generating meal ideas from your pantry…</div>
-
-    <!-- Results -->
-    <div id="planner-suggestions-results" style="display:flex;flex-direction:column;gap:10px;"></div>
-  </div>
-</div>
-
-<!-- SWAP MODAL -->
-<div id="swap-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:999;align-items:center;justify-content:center;">
-  <div style="background:var(--card);border-radius:var(--radius);padding:28px;max-width:520px;width:90%;max-height:80vh;overflow-y:auto;box-shadow:var(--shadow-lg);">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-      <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);font-family:'Manrope', sans-serif;" id="modal-slot-label">Breakfast</div>
-        <div style="font-family:'Space Grotesk', sans-serif;font-size:20px;font-weight:700;margin-top:2px;" id="modal-day-label">Monday</div>
-      </div>
-      <button onclick="closeModal()" style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--text3);line-height:1;">✕</button>
-    </div>
-    <div style="font-size:13px;color:var(--text2);margin-bottom:18px;">Current: <strong id="modal-current" style="color:var(--text);"></strong></div>
-    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:10px;">Choose a replacement</div>
-    <div id="modal-options" style="display:flex;flex-direction:column;gap:8px;"></div>
-  </div>
-</div>
-
-<!-- ===================== WHOOP GUIDE ===================== -->
 <div id="page-routines" class="page">
   <div class="page-header">
     <div class="page-eyebrow">Wellbeing</div>
@@ -2650,141 +1936,6 @@ function showCuisine(id, el) {
 </div>
 
 
-<div id="page-progress" class="page">
-  <div class="page-header">
-    <div class="page-eyebrow">Progress tracker</div>
-    <div class="page-title">Progress tracker</div>
-    <div class="page-sub">Weight · Measurements · How you feel — log weekly to track your journey</div>
-  </div>
-
-  <!-- LOG ENTRY -->
-  <div class="card" style="margin-bottom:20px;">
-    <div class="card-title" style="margin-bottom:16px;">Log this week</div>
-    <div id="weight-form-row" style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;flex-wrap:wrap;">
-      <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:8px;">Date</div>
-        <input type="date" id="log-date" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
-      </div>
-      <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:8px;">Weight (kg)</div>
-        <input type="number" id="log-weight" placeholder="e.g. 63.5" step="0.1" min="40" max="150" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
-      </div>
-      <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:8px;">Waist (cm)</div>
-        <input type="number" id="log-waist" placeholder="e.g. 76" step="0.5" min="50" max="130" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
-      </div>
-      <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:8px;">Hips (cm)</div>
-        <input type="number" id="log-hips" placeholder="e.g. 94" step="0.5" min="50" max="150" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
-      </div>
-    </div>
-    <div style="margin-top:12px;display:grid;grid-template-columns:1fr 2fr auto;gap:12px;align-items:end;">
-      <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:8px;">Feeling (1–5)</div>
-        <div style="display:flex;gap:6px;" id="feeling-picker">
-          <button onclick="selectFeeling(1)" id="feel-1" class="feel-btn" style="flex:1;padding:8px 4px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-size:16px;cursor:pointer;">😞</button>
-          <button onclick="selectFeeling(2)" id="feel-2" class="feel-btn" style="flex:1;padding:8px 4px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-size:16px;cursor:pointer;">😕</button>
-          <button onclick="selectFeeling(3)" id="feel-3" class="feel-btn" style="flex:1;padding:8px 4px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-size:16px;cursor:pointer;">😐</button>
-          <button onclick="selectFeeling(4)" id="feel-4" class="feel-btn" style="flex:1;padding:8px 4px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-size:16px;cursor:pointer;">🙂</button>
-          <button onclick="selectFeeling(5)" id="feel-5" class="feel-btn" style="flex:1;padding:8px 4px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-size:16px;cursor:pointer;">😄</button>
-        </div>
-      </div>
-      <div>
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:8px;">Note (optional)</div>
-        <input type="text" id="log-note" placeholder="e.g. After Blaze week, feeling strong" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
-      </div>
-      <div>
-        <button onclick="logWeight()" style="padding:10px 24px;background:var(--teal);color:#131313;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;">Save entry</button>
-      </div>
-    </div>
-    <div id="log-msg" style="margin-top:12px;font-size:13px;display:none;"></div>
-  </div>
-
-  <!-- STATS ROW -->
-  <div class="grid-4" style="margin-bottom:20px;">
-    <div class="stat-card">
-      <div class="stat-val" id="prog-current">–<span style="font-size:16px;color:var(--text3);"> kg</span></div>
-      <div class="stat-label">Current weight</div>
-      <div class="stat-sub" id="prog-current-date">No entries yet</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val" id="prog-lost" style="color:var(--teal);">–<span style="font-size:16px;color:var(--teal);"> kg</span></div>
-      <div class="stat-label">Total lost</div>
-      <div class="stat-sub">Since you started</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val" id="prog-waist">–<span style="font-size:16px;color:var(--text3);"> cm</span></div>
-      <div class="stat-label">Waist</div>
-      <div class="stat-sub" id="prog-waist-change">Latest measurement</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val" id="prog-hips">–<span style="font-size:16px;color:var(--text3);"> cm</span></div>
-      <div class="stat-label">Hips</div>
-      <div class="stat-sub" id="prog-hips-change">Latest measurement</div>
-    </div>
-  </div>
-
-  <!-- PROGRESS BAR -->
-  <div class="card" style="margin-bottom:20px;">
-    <div style="display:flex;justify-content:space-between;margin-bottom:10px;align-items:center;">
-      <div style="font-size:14px;font-weight:600;font-family:'Space Grotesk',sans-serif;">Journey to 57kg</div>
-      <div style="font-size:12px;color:var(--text3);font-family:'Manrope', sans-serif;" id="prog-bar-label">0% complete</div>
-    </div>
-    <div style="height:12px;background:var(--bg2);border-radius:999px;overflow:hidden;margin-bottom:8px;">
-      <div id="prog-bar-fill" style="height:100%;background:linear-gradient(90deg,var(--teal),#2ECC9A);border-radius:999px;width:0%;transition:width 0.6s ease;"></div>
-    </div>
-    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text3);">
-      <span id="prog-bar-start">64kg (start)</span><span>57kg (goal)</span>
-    </div>
-  </div>
-
-  <!-- CHART TABS -->
-  <div class="card" style="margin-bottom:20px;">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-      <div class="card-title">Trends</div>
-      <div style="display:flex;gap:6px;">
-        <button onclick="setChartMetric('weight')" id="chart-btn-weight" style="padding:4px 12px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--teal);background:var(--teal);color:#131313;">Weight</button>
-        <button onclick="setChartMetric('waist')" id="chart-btn-waist" style="padding:4px 12px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--border);background:var(--card);color:var(--text2);">Waist</button>
-        <button onclick="setChartMetric('hips')" id="chart-btn-hips" style="padding:4px 12px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--border);background:var(--card);color:var(--text2);">Hips</button>
-        <button onclick="setChartMetric('feeling')" id="chart-btn-feeling" style="padding:4px 12px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--border);background:var(--card);color:var(--text2);">Feeling</button>
-      </div>
-    </div>
-    <div style="position:relative;height:180px;width:100%;display:block;" id="chart-wrap">
-      <canvas id="weightChart" style="width:100%;height:180px;"></canvas>
-      <div id="chart-empty" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;">
-        <div style="font-size:28px;">📉</div>
-        <div style="font-size:14px;font-weight:500;color:var(--text2);">No data yet</div>
-        <div style="font-size:12px;color:var(--text3);">Log your first entry above to see trends</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- LOG TABLE -->
-  <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-      <div class="card-title">All entries</div>
-      <button onclick="clearAll()" style="font-size:12px;color:var(--text3);background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:6px;" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--text3)'">Clear all</button>
-    </div>
-    <div id="log-table-wrap">
-      <div id="log-empty" style="text-align:center;padding:32px;color:var(--text3);font-size:13px;">No entries yet — log your first entry above</div>
-      <table id="log-table" style="width:100%;border-collapse:collapse;display:none;">
-        <thead>
-          <tr>
-            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;padding:8px 8px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Date</th>
-            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;padding:8px 8px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Weight</th>
-            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;padding:8px 8px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Waist</th>
-            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;padding:8px 8px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Hips</th>
-            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;padding:8px 8px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Feel</th>
-            <th style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;padding:8px 8px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;">Note</th>
-            <th style="border-bottom:1px solid var(--border);padding:8px;"></th>
-          </tr>
-        </thead>
-        <tbody id="log-tbody"></tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
 <div id="page-settings" class="page">
   <div class="page-header">
     <div class="page-eyebrow">Configuration</div>
@@ -3009,16 +2160,17 @@ function closeSidebar() {
 
 function goTo(page, el) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + page).classList.add('active');
+  const pageEl = document.getElementById('page-' + page);
+  if (pageEl) pageEl.classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   if (el) el.classList.add('active');
-  // Reset all etab-pages that aren't inside the current page — prevents supp/routines bleeding
+
+  // Reset etab-pages that aren't inside the current page (prevents bleed)
   if (page !== 'routines') {
     ['wb1-tab-routines','wb1-tab-supplements'].forEach(function(id) {
       var el2 = document.getElementById(id);
       if (el2) el2.classList.remove('active');
     });
-    // Re-add active to routines default so it's correct when user returns
     var wb1r = document.getElementById('wb1-tab-routines');
     if (wb1r) wb1r.classList.add('active');
   }
@@ -3030,33 +2182,29 @@ function goTo(page, el) {
     var wb2t = document.getElementById('wb2-tab-tools');
     if (wb2t) wb2t.classList.add('active');
   }
-  if (page === 'progress') {
-    // Render stats immediately (no canvas dependency), then retry chart until layout is ready
-    renderProgress();
-    (function retryChart(attempts) {
-      var wrap = document.getElementById('chart-wrap');
-      var w = wrap ? wrap.getBoundingClientRect().width : 0;
-      if (w > 10) { renderChart(loadEntries()); return; }
-      if (attempts > 0) requestAnimationFrame(function() { retryChart(attempts - 1); });
-    })(20);
-  }
+
+  // Per-page init
   if (page === 'pantry') { try { renderPantry(); } catch(e) {} }
-  if (page === 'workouts') renderGymWorkouts();
-  if (page === 'pantry') renderPantry();
-  if (page === 'thisweek') renderThisWeekPage();
-  if (page === 'meals') { switchEat('guide', document.querySelector('.eating-tabs .etab')); }
-  if (page === 'dashboard') renderDashboardNutritionWidget(null);
-  if (page === 'recime') renderSavedRecipes();
-  if (page === 'runningplans') {
+  if (page === 'training') {
+    renderGymWorkouts();
+    CLASS_WORKOUTS.forEach(w => renderClassTimesManager(w));
+    RUN_WORKOUTS.forEach(w => renderRunTimesManager(w));
+    updateAllClassBadges();
+    updateAllRunBadges();
     if (typeof renderRunningPlans === 'function') renderRunningPlans();
     updateRunningPlansSyncStatus();
   }
+  if (page === 'nutrition') {
+    renderPlanner();
+    nutritionTab('guide', document.getElementById('nutr-tab-btn-guide'));
+    switchEat('guide', document.querySelector('#nutr-tab-guide .eating-tabs .etab'));
+  }
+  if (page === 'thisweek') renderThisWeekPage();
   if (page === 'settings') updateApiKeyStatus();
-  if (page === 'classes') { CLASS_WORKOUTS.forEach(w => renderClassTimesManager(w)); RUN_WORKOUTS.forEach(w => renderRunTimesManager(w)); updateAllClassBadges(); updateAllRunBadges(); }
-  if (page === 'routines') { if (typeof routinesTab === 'function') routinesTab('overview'); }
+  if (page === 'routines') { if (typeof routinesTab === 'function') routinesTab('today'); }
   if (page === 'wellbeing-ref') { /* tabs handle their own init */ }
   if (window.innerWidth <= 900) closeSidebar();
-  // Scroll to the top of the page on every navigation
+  // Scroll to top on every navigation
   try {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
     document.documentElement.scrollTop = 0;
@@ -3066,9 +2214,56 @@ function goTo(page, el) {
   } catch(e) {}
 }
 
+
+
+function trainingTab(tab, el) {
+  var page = document.getElementById('page-training');
+  if (!page) return;
+  page.querySelectorAll('.etab-page').forEach(function(p) { p.classList.remove('active'); });
+  page.querySelectorAll('.etab').forEach(function(t) { t.classList.remove('active'); });
+  var target = document.getElementById('training-tab-' + tab);
+  if (target) target.classList.add('active');
+  if (el) el.classList.add('active');
+  // Per-sub-tab init
+  if (tab === 'gym') renderGymWorkouts();
+  if (tab === 'classes') {
+    CLASS_WORKOUTS.forEach(w => renderClassTimesManager(w));
+    RUN_WORKOUTS.forEach(w => renderRunTimesManager(w));
+    updateAllClassBadges();
+    updateAllRunBadges();
+  }
+  if (tab === 'plans') {
+    if (typeof renderRunningPlans === 'function') renderRunningPlans();
+    updateRunningPlansSyncStatus();
+  }
+}
+
+function nutritionTab(tab, el) {
+  var page = document.getElementById('page-nutrition');
+  if (!page) return;
+  // Only switch the top-level tabs (not the nested eating-tabs inside guide)
+  var topTabs = page.querySelectorAll(':scope > .eating-tabs .etab, .eating-tabs:first-child .etab');
+  // Simpler approach: find the three main tab buttons and the three etab-pages
+  ['nutr-tab-guide','nutr-tab-planner','nutr-tab-eatingout'].forEach(function(id) {
+    var el2 = document.getElementById(id);
+    if (el2) el2.classList.remove('active');
+  });
+  ['nutr-tab-btn-guide','nutr-tab-btn-planner','nutr-tab-btn-eatingout'].forEach(function(id) {
+    var el2 = document.getElementById(id);
+    if (el2) el2.classList.remove('active');
+  });
+  var target = document.getElementById('nutr-tab-' + tab);
+  if (target) target.classList.add('active');
+  var btn = document.getElementById('nutr-tab-btn-' + tab);
+  if (btn) btn.classList.add('active');
+  if (el && !btn) { el.classList.add('active'); }
+  if (tab === 'planner') renderPlanner();
+}
+
+
 function switchEat(id, el) {
   // Scope to the meals page only — never touch tabs on other pages
-  const mealsPage = document.getElementById('page-meals');
+  const mealsPage = document.getElementById('page-nutrition');
   if (mealsPage) {
     mealsPage.querySelectorAll('.etab-page').forEach(p => p.classList.remove('active'));
     mealsPage.querySelectorAll('.etab').forEach(t => t.classList.remove('active'));
@@ -3188,8 +2383,7 @@ function usePlanOnly() {
 function launchApp() {
   document.getElementById('sync-overlay').classList.add('hidden');
   document.getElementById('sync-indicator').style.display = gSyncEnabled ? 'flex' : 'none';
-  var sidebarSyncWrap = document.getElementById('sidebar-sync-btn-wrap');
-  if (sidebarSyncWrap) sidebarSyncWrap.style.display = gSyncEnabled ? 'none' : 'block';
+
   const today = new Date().toISOString().split('T')[0];
   document.getElementById('log-date').value = today;
   renderDayCards();
@@ -5903,13 +5097,15 @@ window.addEventListener('load', () => {
   // Initialize default class times on first load
   initializeDefaultClassTimes();
 
-  // Always launch the app immediately with local data so pages are never blank.
-  // Google sign-in runs in background — if successful, data upgrades from Drive.
-  gSyncEnabled = false;
-  gAppData = loadLocalFallback();
-  launchApp();
+  // Show sign-in overlay — user must sign in with Google to load their Drive data.
+  // Client ID is pre-filled so the button works immediately.
+  const clientId = getClientId();
+  if (clientId) {
+    document.getElementById('client-id-setup').style.display = 'none';
+    document.getElementById('signin-btn-wrap').style.display = 'block';
+  }
 
-  // Then attempt silent Google sign-in if the API is ready
+  // Attempt silent Google sign-in (re-use existing consent without a popup)
   function tryAutoSignIn() {
     if (typeof google !== 'undefined' && google.accounts && google.accounts.oauth2) {
       try {
@@ -8460,7 +7656,7 @@ function _runInitDynamicRenders() {
   try { renderDashboardNutritionWidget(null); } catch(e) {}
   try { renderSavedRecipes(); } catch(e) {}
   try {
-    const sumPage = document.getElementById('page-meals');
+    const sumPage = document.getElementById('page-nutrition');
     if (sumPage && sumPage.classList.contains('active')) renderDynamicWeeklyOverview();
   } catch(e) {}
 }
@@ -8528,7 +7724,7 @@ handleWorkoutChange = function(dayIndex, workoutIndex, newType) {
   setTimeout(function() {
     try { renderDashboardNutritionWidget(null); } catch(e) {}
     try {
-      const sumPage = document.getElementById('page-meals');
+      const sumPage = document.getElementById('page-nutrition');
       if (sumPage && sumPage.classList.contains('active')) renderDynamicWeeklyOverview();
     } catch(e) {}
   }, 350);
@@ -8950,6 +8146,56 @@ function renderTWDayPanel(dayKey) {
 })();
 
 </script>
+
+
+<!-- ADD GYM WORKOUT MODAL -->
+<div id="add-gym-workout-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:999;align-items:center;justify-content:center;">
+  <div style="background:var(--card);border-radius:var(--radius);padding:28px;max-width:600px;width:92%;max-height:88vh;overflow-y:auto;box-shadow:var(--shadow-lg);">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <div style="font-family:'Space Grotesk', sans-serif;font-size:22px;font-weight:700;">Add a custom gym workout</div>
+      <button onclick="closeAddGymWorkoutModal()" style="font-size:22px;background:none;border:none;cursor:pointer;color:var(--text3);line-height:1;">&#x2715;</button>
+    </div>
+    <div style="font-size:13px;color:var(--text2);margin-bottom:16px;">Define a workout you can pick for any day. Exercises are entered one per line, fields separated by <code style="background:var(--bg2);padding:1px 6px;border-radius:4px;">|</code>:<br><code style="background:var(--bg2);padding:2px 6px;border-radius:4px;font-size:12px;">Exercise name | Focus | Type | Sets | Reps | Rest</code></div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div>
+        <label style="display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:5px;">Workout name</label>
+        <input type="text" id="newGymWorkoutName" placeholder="e.g. Shoulders & Abs" style="width:100%;padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
+      </div>
+      <div>
+        <label style="display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:5px;">Subtitle (optional)</label>
+        <input type="text" id="newGymWorkoutMeta" placeholder="e.g. Shoulders + core focus | ~40 min" style="width:100%;padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
+      </div>
+      <div>
+        <label style="display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:5px;">Exercises (one per line)</label>
+        <textarea id="newGymWorkoutExercises" rows="6" placeholder="Overhead press | Shoulders | Primary | 4 | 8-10 | 90s" style="width:100%;padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:12.5px;background:var(--bg);color:var(--text);outline:none;resize:vertical;"></textarea>
+      </div>
+      <div>
+        <label style="display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:5px;">Tips (one per line, optional)</label>
+        <textarea id="newGymWorkoutTips" rows="3" placeholder="Pause at the top of every rep" style="width:100%;padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:13px;background:var(--bg);color:var(--text);outline:none;resize:vertical;"></textarea>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px;">
+        <button onclick="closeAddGymWorkoutModal()" style="padding:10px 18px;background:none;color:var(--text2);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:500;cursor:pointer;font-size:14px;">Cancel</button>
+        <button onclick="saveCustomGymWorkout()" style="padding:10px 22px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:600;cursor:pointer;font-size:14px;">Save workout</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SWAP MODAL (meal planner) -->
+<div id="swap-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:999;align-items:center;justify-content:center;">
+  <div style="background:var(--card);border-radius:var(--radius);padding:28px;max-width:520px;width:90%;max-height:80vh;overflow-y:auto;box-shadow:var(--shadow-lg);">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+      <div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);font-family:'Manrope', sans-serif;" id="modal-slot-label">Breakfast</div>
+        <div style="font-family:'Space Grotesk', sans-serif;font-size:20px;font-weight:700;margin-top:2px;" id="modal-day-label">Monday</div>
+      </div>
+      <button onclick="closeModal()" style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--text3);line-height:1;">&#x2715;</button>
+    </div>
+    <div style="font-size:13px;color:var(--text2);margin-bottom:18px;">Current: <strong id="modal-current" style="color:var(--text);"></strong></div>
+    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:10px;">Choose a replacement</div>
+    <div id="modal-options" style="display:flex;flex-direction:column;gap:8px;"></div>
+  </div>
+</div>
 
 </body>
 </html>
