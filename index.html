@@ -708,6 +708,9 @@
     <button class="nav-item" onclick="goTo('eatingout', this)">
       <span class="nav-icon">🍽️</span> Eating Out
     </button>
+    <button class="nav-item" onclick="goTo('recime', this)">
+      <span class="nav-icon">📖</span> My Recipes
+    </button>
   </div>
 
   <div class="nav-section">
@@ -1681,34 +1684,34 @@
   <!-- Pantry sections — 2×2 grid -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;" id="pantry-sections">
     <!-- Fridge -->
-    <div class="card-gym" style="border-radius:var(--radius);padding:16px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#00f5d4;">🧊 Fridge</div>
-        <button onclick="addPantryItem('fridge')" style="font-size:11px;padding:3px 10px;background:rgba(0,245,212,0.12);color:#00f5d4;border:1px solid rgba(0,245,212,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
+    <div class="card-gym" style="border-radius:var(--radius);padding:18px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#00f5d4;">🧊 Fridge</div>
+        <button onclick="addPantryItem('fridge')" style="font-size:11px;padding:4px 12px;background:rgba(0,245,212,0.12);color:#00f5d4;border:1px solid rgba(0,245,212,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
       </div>
       <div id="pantry-fridge"></div>
     </div>
     <!-- Freezer -->
-    <div class="card-run" style="border-radius:var(--radius);padding:16px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#bf5fff;">❄️ Freezer</div>
-        <button onclick="addPantryItem('freezer')" style="font-size:11px;padding:3px 10px;background:rgba(191,95,255,0.12);color:#bf5fff;border:1px solid rgba(191,95,255,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
+    <div class="card-run" style="border-radius:var(--radius);padding:18px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#bf5fff;">❄️ Freezer</div>
+        <button onclick="addPantryItem('freezer')" style="font-size:11px;padding:4px 12px;background:rgba(191,95,255,0.12);color:#bf5fff;border:1px solid rgba(191,95,255,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
       </div>
       <div id="pantry-freezer"></div>
     </div>
     <!-- Cupboard -->
-    <div class="card-class" style="border-radius:var(--radius);padding:16px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#d4ff00;">🗄️ Cupboard</div>
-        <button onclick="addPantryItem('cupboard')" style="font-size:11px;padding:3px 10px;background:rgba(212,255,0,0.10);color:#d4ff00;border:1px solid rgba(212,255,0,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
+    <div class="card-class" style="border-radius:var(--radius);padding:18px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#d4ff00;">🗄️ Cupboard</div>
+        <button onclick="addPantryItem('cupboard')" style="font-size:11px;padding:4px 12px;background:rgba(212,255,0,0.10);color:#d4ff00;border:1px solid rgba(212,255,0,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
       </div>
       <div id="pantry-cupboard"></div>
     </div>
     <!-- Counter -->
-    <div style="background:linear-gradient(145deg,#161000,#2a1f00);border:1px solid rgba(245,166,35,0.4);box-shadow:0 0 20px rgba(245,166,35,0.08),0 2px 8px rgba(0,0,0,0.5);border-radius:var(--radius);padding:16px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#f5a623;">🍎 Counter</div>
-        <button onclick="addPantryItem('counter')" style="font-size:11px;padding:3px 10px;background:rgba(245,166,35,0.12);color:#f5a623;border:1px solid rgba(245,166,35,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
+    <div style="background:linear-gradient(145deg,#161000,#2a1f00);border:1px solid rgba(245,166,35,0.4);box-shadow:0 0 20px rgba(245,166,35,0.08),0 2px 8px rgba(0,0,0,0.5);border-radius:var(--radius);padding:18px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#f5a623;">🍎 Counter</div>
+        <button onclick="addPantryItem('counter')" style="font-size:11px;padding:4px 12px;background:rgba(245,166,35,0.12);color:#f5a623;border:1px solid rgba(245,166,35,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
       </div>
       <div id="pantry-counter"></div>
     </div>
@@ -2138,6 +2141,47 @@ function showCuisine(id, el) {
   el.classList.add('active');
 }
 </script>
+
+<!-- ===================== RECIME ===================== -->
+<div id="page-recime" class="page">
+  <div class="page-header">
+    <div class="page-eyebrow">Nutrition · Recipes</div>
+    <div class="page-title">My Recipes</div>
+    <div class="page-sub">All your saved recipes live in ReciMe — tap below to open it</div>
+  </div>
+
+  <!-- Main launch card -->
+  <div class="card-gym" style="border-radius:var(--radius);padding:32px;text-align:center;margin-bottom:16px;">
+    <div style="font-size:48px;margin-bottom:16px;">📖</div>
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:#00f5d4;margin-bottom:8px;">ReciMe</div>
+    <div style="font-size:14px;color:var(--text2);max-width:340px;margin:0 auto 24px;line-height:1.6;">Your personal recipe collection. Browse, cook, and discover new meals.</div>
+    <a href="https://www.recime.app" target="_blank" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:#00f5d4;color:#00382f;border-radius:999px;font-family:'Manrope',sans-serif;font-size:14px;font-weight:700;text-decoration:none;transition:opacity 0.15s;">
+      Open ReciMe →
+    </a>
+    <div style="margin-top:14px;">
+      <a href="https://apps.apple.com/app/recime/id1467235957" target="_blank" style="font-size:12px;color:var(--text3);text-decoration:none;">Download on App Store</a>
+    </div>
+  </div>
+
+  <!-- Quick tip cards -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+    <div style="background:rgba(0,245,212,0.06);border:1px solid rgba(0,245,212,0.15);border-radius:var(--radius);padding:18px;">
+      <div style="font-size:20px;margin-bottom:8px;">🔍</div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#00f5d4;margin-bottom:6px;">Browse by ingredient</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.5;">Search what you have in your pantry to find recipes you can make right now.</div>
+    </div>
+    <div style="background:rgba(191,95,255,0.06);border:1px solid rgba(191,95,255,0.15);border-radius:var(--radius);padding:18px;">
+      <div style="font-size:20px;margin-bottom:8px;">⭐</div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#bf5fff;margin-bottom:6px;">Save favourites</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.5;">Star recipes you cook regularly so they're always one tap away.</div>
+    </div>
+  </div>
+
+  <!-- Tip about linking pantry -->
+  <div style="background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.2);border-radius:var(--radius);padding:16px 20px;font-size:13px;color:var(--text2);line-height:1.6;">
+    <span style="color:#f5a623;font-weight:700;">💡 Tip —</span> When you find a recipe in ReciMe, cross-reference it with your pantry here to see what you already have and what you still need to buy.
+  </div>
+</div>
 
 <!-- ===================== MEAL PLANNER ===================== -->
 <div id="page-planner" class="page">
@@ -7311,8 +7355,8 @@ function renderPantry() {
             + 'color:' + (depleted ? 'rgba(255,80,80,0.7)' : accent) + ';'
             + 'border:1px solid ' + (depleted ? 'rgba(255,80,80,0.2)' : 'rgba(255,255,255,0.1)') + ';'
             + 'transition:background 0.12s;';
-          return '<div title="Tap name to edit · Tap count to use one" style="display:inline-flex;align-items:center;gap:6px;padding:5px 10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:999px;' + (depleted ? 'opacity:0.5;' : '') + '">'
-            + '<span onclick="editPantryItem(\'' + loc + '\',' + idx + ')" style="' + nameStyle + '">' + escapeHtml(item.name) + (item.size ? ' <span style="font-size:10px;color:rgba(255,255,255,0.3);">' + escapeHtml(item.size) + '</span>' : '') + '</span>'
+          return '<div title="Tap name to edit · Tap count to use one" style="display:inline-flex;align-items:center;gap:7px;padding:7px 12px;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.1);border-radius:10px;' + (depleted ? 'opacity:0.45;' : '') + '">'
+            + '<span onclick="editPantryItem(\'' + loc + '\',' + idx + ')" style="' + nameStyle + '">' + escapeHtml(item.name) + (item.size ? '<span style="font-size:10px;color:rgba(255,255,255,0.3);margin-left:3px;">' + escapeHtml(item.size) + '</span>' : '') + '</span>'
             + '<span onclick="decrementPantryItem(\'' + loc + '\',' + idx + ')" style="' + countStyle + '">×' + count + '</span>'
             + '</div>';
         }).join('')
