@@ -1678,39 +1678,39 @@
     </div>
   </div>
 
-  <!-- Pantry sections -->
-  <div style="display:flex;flex-direction:column;gap:14px;" id="pantry-sections">
+  <!-- Pantry sections — 2×2 grid -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;" id="pantry-sections">
     <!-- Fridge -->
-    <div class="card-gym" style="border-radius:var(--radius);padding:18px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#00f5d4;">🧊 Fridge</div>
-        <button onclick="addPantryItem('fridge')" style="font-size:12px;padding:5px 14px;background:rgba(0,245,212,0.12);color:#00f5d4;border:1px solid rgba(0,245,212,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add item</button>
+    <div class="card-gym" style="border-radius:var(--radius);padding:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#00f5d4;">🧊 Fridge</div>
+        <button onclick="addPantryItem('fridge')" style="font-size:11px;padding:3px 10px;background:rgba(0,245,212,0.12);color:#00f5d4;border:1px solid rgba(0,245,212,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
       </div>
-      <div id="pantry-fridge" style="display:flex;flex-direction:column;gap:6px;"></div>
+      <div id="pantry-fridge"></div>
     </div>
     <!-- Freezer -->
-    <div class="card-run" style="border-radius:var(--radius);padding:18px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#bf5fff;">❄️ Freezer</div>
-        <button onclick="addPantryItem('freezer')" style="font-size:12px;padding:5px 14px;background:rgba(191,95,255,0.12);color:#bf5fff;border:1px solid rgba(191,95,255,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add item</button>
+    <div class="card-run" style="border-radius:var(--radius);padding:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#bf5fff;">❄️ Freezer</div>
+        <button onclick="addPantryItem('freezer')" style="font-size:11px;padding:3px 10px;background:rgba(191,95,255,0.12);color:#bf5fff;border:1px solid rgba(191,95,255,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
       </div>
-      <div id="pantry-freezer" style="display:flex;flex-direction:column;gap:6px;"></div>
+      <div id="pantry-freezer"></div>
     </div>
     <!-- Cupboard -->
-    <div class="card-class" style="border-radius:var(--radius);padding:18px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#d4ff00;">🗄️ Cupboard</div>
-        <button onclick="addPantryItem('cupboard')" style="font-size:12px;padding:5px 14px;background:rgba(212,255,0,0.10);color:#d4ff00;border:1px solid rgba(212,255,0,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add item</button>
+    <div class="card-class" style="border-radius:var(--radius);padding:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#d4ff00;">🗄️ Cupboard</div>
+        <button onclick="addPantryItem('cupboard')" style="font-size:11px;padding:3px 10px;background:rgba(212,255,0,0.10);color:#d4ff00;border:1px solid rgba(212,255,0,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
       </div>
-      <div id="pantry-cupboard" style="display:flex;flex-direction:column;gap:6px;"></div>
+      <div id="pantry-cupboard"></div>
     </div>
     <!-- Counter -->
-    <div style="background:linear-gradient(145deg,#161000,#2a1f00);border:1px solid rgba(245,166,35,0.4);box-shadow:0 0 20px rgba(245,166,35,0.08),0 2px 8px rgba(0,0,0,0.5);border-radius:var(--radius);padding:18px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#f5a623;">🍎 Counter</div>
-        <button onclick="addPantryItem('counter')" style="font-size:12px;padding:5px 14px;background:rgba(245,166,35,0.12);color:#f5a623;border:1px solid rgba(245,166,35,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add item</button>
+    <div style="background:linear-gradient(145deg,#161000,#2a1f00);border:1px solid rgba(245,166,35,0.4);box-shadow:0 0 20px rgba(245,166,35,0.08),0 2px 8px rgba(0,0,0,0.5);border-radius:var(--radius);padding:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#f5a623;">🍎 Counter</div>
+        <button onclick="addPantryItem('counter')" style="font-size:11px;padding:3px 10px;background:rgba(245,166,35,0.12);color:#f5a623;border:1px solid rgba(245,166,35,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
       </div>
-      <div id="pantry-counter" style="display:flex;flex-direction:column;gap:6px;"></div>
+      <div id="pantry-counter"></div>
     </div>
   </div>
 
@@ -7290,34 +7290,33 @@ function savePantry(p) { setData(PANTRY_KEY, p); scheduleSave(); }
 
 function renderPantry() {
   const pantry = loadPantry();
+  const LOC_ACCENT = { fridge:'#00f5d4', freezer:'#bf5fff', cupboard:'#d4ff00', counter:'#f5a623' };
   PANTRY_LOCATIONS.forEach(loc => {
     const el = document.getElementById('pantry-' + loc);
     if (!el) return;
     const items = pantry[loc] || [];
     if (items.length === 0) {
-      el.style.display = 'block';
-      el.innerHTML = '<div style="font-size:12.5px;color:rgba(255,255,255,0.3);padding:6px 0;">Nothing here yet — add items or import from Ocado</div>';
+      el.innerHTML = '<div style="font-size:12px;color:rgba(255,255,255,0.25);padding:4px 0;">Nothing here yet</div>';
       return;
     }
-    el.style.display = 'grid';
-    el.style.gridTemplateColumns = 'repeat(2,1fr)';
-    el.style.gap = '6px';
-    el.innerHTML = items.map((item, idx) => {
-      const count = item.count || 1;
-      const depleted = count <= 0;
-      return '<div style="display:flex;align-items:center;gap:6px;padding:6px 8px;background:rgba(255,255,255,0.04);border-radius:7px;' + (depleted ? 'opacity:0.35;' : '') + '">'
-        + '<button onclick="decrementPantryItem(\'' + loc + '\',' + idx + ')" title="Use one" style="width:20px;height:20px;border-radius:50%;background:rgba(0,245,212,0.10);border:1px solid rgba(0,245,212,0.25);color:#00f5d4;font-size:12px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;line-height:1;">−</button>'
-        + '<div style="flex:1;min-width:0;overflow:hidden;">'
-        + '<div style="font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;' + (depleted ? 'text-decoration:line-through;color:rgba(255,255,255,0.4);' : '') + '">' + escapeHtml(item.name) + '</div>'
-        + '<div style="font-size:10px;color:rgba(255,255,255,0.35);margin-top:1px;white-space:nowrap;">'
-        + (item.size ? escapeHtml(item.size) + ' · ' : '')
-        + '<span style="color:' + (depleted ? 'rgba(255,80,80,0.6)' : 'rgba(0,245,212,0.6)') + ';font-weight:600;">' + count + '</span>'
-        + '</div>'
-        + '</div>'
-        + '<button onclick="editPantryItem(\'' + loc + '\',' + idx + ')" style="background:none;border:none;color:rgba(255,255,255,0.25);font-size:11px;cursor:pointer;padding:1px 3px;flex-shrink:0;" title="Edit">✏️</button>'
-        + '<button onclick="removePantryItem(\'' + loc + '\',' + idx + ')" style="background:none;border:none;color:rgba(255,255,255,0.18);font-size:11px;cursor:pointer;padding:1px 3px;flex-shrink:0;" title="Remove">✕</button>'
-        + '</div>';
-    }).join('');
+    const accent = LOC_ACCENT[loc] || '#e5e2e1';
+    el.innerHTML = '<div style="display:flex;flex-wrap:wrap;gap:6px;">'
+      + items.map((item, idx) => {
+          const count = item.count || 1;
+          const depleted = count <= 0;
+          const nameStyle = 'font-size:12px;font-weight:500;cursor:pointer;'
+            + (depleted ? 'text-decoration:line-through;color:rgba(255,255,255,0.3);' : 'color:#e5e2e1;');
+          const countStyle = 'font-size:11px;font-weight:700;padding:1px 7px;border-radius:999px;cursor:pointer;'
+            + 'background:' + (depleted ? 'rgba(255,80,80,0.15)' : 'rgba(255,255,255,0.08)') + ';'
+            + 'color:' + (depleted ? 'rgba(255,80,80,0.7)' : accent) + ';'
+            + 'border:1px solid ' + (depleted ? 'rgba(255,80,80,0.2)' : 'rgba(255,255,255,0.1)') + ';'
+            + 'transition:background 0.12s;';
+          return '<div title="Tap name to edit · Tap count to use one" style="display:inline-flex;align-items:center;gap:6px;padding:5px 10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:999px;' + (depleted ? 'opacity:0.5;' : '') + '">'
+            + '<span onclick="editPantryItem(\'' + loc + '\',' + idx + ')" style="' + nameStyle + '">' + escapeHtml(item.name) + (item.size ? ' <span style="font-size:10px;color:rgba(255,255,255,0.3);">' + escapeHtml(item.size) + '</span>' : '') + '</span>'
+            + '<span onclick="decrementPantryItem(\'' + loc + '\',' + idx + ')" style="' + countStyle + '">×' + count + '</span>'
+            + '</div>';
+        }).join('')
+      + '</div>';
   });
 }
 
