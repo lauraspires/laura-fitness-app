@@ -67,6 +67,32 @@
   .emerald-text-glow { text-shadow: 0 0 15px rgba(0,245,212,0.3); }
   /* Mobile bottom-nav safe area */
   .pb-safe { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+
+
+/* ── Cuisine tab buttons ── */
+.ctab {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 12.5px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.ctab:hover { border-color: var(--teal); color: var(--teal); }
+.ctab.active { background: var(--teal); border-color: var(--teal); color: #000; }
+
+/* ── Cuisine panel layout ── */
+.cuisine-panel { display: none; }
+.cuisine-panel.active { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+@media (max-width: 700px) { .cuisine-panel.active { grid-template-columns: 1fr 1fr; } }
+.cp-col-title { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px; font-family: 'Manrope', sans-serif; }
+.cp-item { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--text2); line-height: 1.5; padding: 4px 0; }
+.cp-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+
 </style>
 <style>
     :root {
@@ -1112,7 +1138,7 @@
 
     <div id="eat-guide" class="etab-page active">
       <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:12px;font-family:'Manrope',sans-serif;">Your eating approaches</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;max-width:780px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
         <div class="card" style="border-left:3px solid #bf5fff;">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="font-size:24px;">🥑</div><div><div style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;">Keto</div><div style="font-size:11px;color:var(--text3);">Under 20–50g carbs · Rest days</div></div></div>
           <div style="font-size:12.5px;color:var(--text2);line-height:1.6;margin-bottom:10px;">Switches your fuel source from glucose to fat (ketones). Keeps insulin low, maximises fat burning, teaches metabolic flexibility.</div>
@@ -1136,7 +1162,7 @@
       </div>
 
       <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:12px;font-family:'Manrope',sans-serif;">Key nutrients</div>
-      <div style="display:flex;flex-direction:column;gap:0;margin-bottom:20px;max-width:780px;" class="card">
+      <div style="display:flex;flex-direction:column;gap:0;margin-bottom:20px;" class="card">
         <div style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
           <div style="font-size:20px;flex-shrink:0;">💪</div>
           <div><div style="font-size:13px;font-weight:600;margin-bottom:3px;">Protein — 120–140g per day</div><div style="font-size:12.5px;color:var(--text2);line-height:1.6;">The building block of muscle. Without enough, you lose muscle instead of fat even in a deficit. Top sources: Greek yogurt · Chicken · Eggs · Tuna · Salmon · Cottage cheese</div></div>
@@ -1152,22 +1178,22 @@
       </div>
 
       <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:12px;font-family:'Manrope',sans-serif;">Fasting approaches</div>
-      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:20px;max-width:780px;">
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:20px;">
         <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;display:grid;grid-template-columns:100px 1fr auto;gap:12px;align-items:center;"><div style="font-weight:600;font-size:13px;">16:8</div><div style="font-size:12.5px;color:var(--text2);">Fast 16 hours, eat within an 8-hour window. Most popular approach. Easy to sustain long-term.</div><span class="badge badge-teal" style="white-space:nowrap;">Most popular</span></div>
         <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;display:grid;grid-template-columns:100px 1fr auto;gap:12px;align-items:center;"><div style="font-weight:600;font-size:13px;">18:6</div><div style="font-size:12.5px;color:var(--text2);">Fast 18 hours, eat within 6. Deeper ketosis than 16:8. Your Early Finish days are roughly this.</div><span class="badge badge-blue" style="white-space:nowrap;">Your Thursdays</span></div>
         <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;display:grid;grid-template-columns:100px 1fr auto;gap:12px;align-items:center;"><div style="font-weight:600;font-size:13px;">OMAD (23:1)</div><div style="font-size:12.5px;color:var(--text2);">Fast 23 hours, one meal. Best for fat loss on low-activity days. Significant autophagy benefits.</div><span class="badge badge-amber" style="white-space:nowrap;">Your Saturdays</span></div>
       </div>
-      <div style="background:rgba(0,245,212,0.06);border:1px solid rgba(0,245,212,0.15);border-radius:var(--radius);padding:14px 18px;font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:20px;max-width:780px;"><span style="color:#00f5d4;font-weight:700;">The key insight — </span>Fasting works because it lowers insulin. When insulin is low, your body can access stored body fat for energy.</div>
+      <div style="background:rgba(0,245,212,0.06);border:1px solid rgba(0,245,212,0.15);border-radius:var(--radius);padding:14px 18px;font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:20px;"><span style="color:#00f5d4;font-weight:700;">The key insight — </span>Fasting works because it lowers insulin. When insulin is low, your body can access stored body fat for energy.</div>
 
       <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:12px;font-family:'Manrope',sans-serif;">UPF and sugar — what to cut</div>
-      <div class="card" style="margin-bottom:12px;max-width:780px;">
+      <div class="card" style="margin-bottom:12px;">
         <div style="font-size:14px;font-weight:700;margin-bottom:14px;">5 swaps to make</div>
         <div class="swap-row-f"><div><div class="swap-old">Protein powder</div><div class="swap-reason">Emulsifiers, sweeteners, artificial flavours</div></div><div class="swap-arrow">→</div><div><div class="swap-new">2 boiled eggs + 100g cottage cheese</div><div class="swap-new-why">Same protein, zero additives.</div></div></div>
         <div class="swap-row-f"><div><div class="swap-old">Pre-marinated chicken</div><div class="swap-reason">Sugar, modified starch, flavour enhancers</div></div><div class="swap-arrow">→</div><div><div class="swap-new">Plain chicken + olive oil, garlic, lemon</div><div class="swap-new-why">Season yourself. 30 seconds.</div></div></div>
         <div class="swap-row-f"><div><div class="swap-old">Soy sauce</div><div class="swap-reason">High sodium, additives and sugar</div></div><div class="swap-arrow">→</div><div><div class="swap-new">Coconut aminos</div><div class="swap-new-why">Just coconut sap and salt.</div></div></div>
         <div class="swap-row-f" style="border-bottom:none;"><div><div class="swap-old">Philadelphia cream cheese</div><div class="swap-reason">Contains guar gum, carob gum, additives</div></div><div class="swap-arrow">→</div><div><div class="swap-new">Full-fat crème fraîche or Boursin</div><div class="swap-new-why">Just cream and cultures.</div></div></div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;max-width:780px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
         <div class="card">
           <div class="card-title" style="margin-bottom:12px;">Always clean — keep these</div>
           <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Eggs, plain meat, plain fish</div><div class="clean-why-f">Never need to check a label</div></div></div>
@@ -1188,94 +1214,7 @@
           </div>
         </div>
       </div>
-      <div class="tip-box-f" style="max-width:780px;">
-        <div class="tip-box-title">The one-ingredient rule</div>
-        <div class="tip-item"><span class="tip-dot-f"></span>If a product has more ingredients than you can count on one hand, put it back</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Sugar cravings peak at days 3–7 then drop sharply — push through the first week</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>1–2 squares of 85%+ dark chocolate is a clean, low-sugar way to satisfy a sweet craving</div>
-      </div>
-        <div style="background:linear-gradient(145deg,#0e0118,#1a0030);border:1px solid rgba(191,95,255,0.35);border-radius:var(--radius);padding:20px;">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;"><div style="font-size:28px;">🥑</div><div><div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#bf5fff;">Ketogenic (Keto)</div><div style="font-size:12px;color:var(--text3);margin-top:2px;">Under 20–50g carbs per day</div></div></div>
-          <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Keto switches your body's fuel source from glucose (sugar/carbs) to ketones (fat). When you cut carbs low enough, your liver starts converting fat into ketone bodies. This state is called ketosis.</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
-            <div style="background:rgba(191,95,255,0.08);border-radius:var(--radius-sm);padding:12px;"><div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#bf5fff;margin-bottom:6px;">Why it works for you</div><div style="font-size:12px;color:var(--text2);line-height:1.6;">Rest days — no carbs needed for performance. Keeps insulin low, maximises fat burning, teaches metabolic flexibility.</div></div>
-            <div style="background:rgba(191,95,255,0.08);border-radius:var(--radius-sm);padding:12px;"><div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#bf5fff;margin-bottom:6px;">What to expect</div><div style="font-size:12px;color:var(--text2);line-height:1.6;">First 2–3 weeks: possible headaches ("keto flu"). After: stable energy, reduced hunger, clearer thinking.</div></div>
-          </div>
-          <div style="border-top:1px solid rgba(191,95,255,0.2);padding-top:10px;font-size:12px;color:var(--text2);line-height:1.6;"><span style="color:#bf5fff;font-weight:600;">Eat freely:</span> Eggs · Meat · Fish · Cheese · Cream · Avocado · Nuts · Non-starchy veg<br><span style="color:var(--red);font-weight:600;">Avoid:</span> Bread · Rice · Pasta · Oats · Potatoes · Fruit (berries OK) · Sugar</div>
-        </div>
-        <div style="background:linear-gradient(145deg,#161000,#2a1f00);border:1px solid rgba(245,166,35,0.35);border-radius:var(--radius);padding:20px;">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="font-size:24px;">🍽️</div><div><div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#f5a623;">OMAD — One Meal a Day</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">20–23 hour fast</div></div></div>
-          <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px;">Fast all day, eat one large nutrient-dense meal. Your body depletes glycogen, lowers insulin, and shifts to fat-burning mode.</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;">
-            <div style="background:rgba(245,166,35,0.08);border-radius:var(--radius-sm);padding:10px;"><div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#f5a623;margin-bottom:4px;">Why Saturday</div><div style="font-size:12px;color:var(--text2);line-height:1.5;">Busy volunteering all morning — fast happens naturally. Big meal ~1–2pm, done for the day.</div></div>
-            <div style="background:rgba(245,166,35,0.08);border-radius:var(--radius-sm);padding:10px;"><div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#f5a623;margin-bottom:4px;">Benefits</div><div style="font-size:12px;color:var(--text2);line-height:1.5;">Big calorie deficit. Autophagy kicks in after 16h. Improved insulin sensitivity on low-activity days.</div></div>
-          </div>
-          <div style="font-size:12px;color:#f5a623;font-weight:600;">Never OMAD before a training session — you need fuel.</div>
-        </div>
-        <div style="background:linear-gradient(145deg,#00050f,#001030);border:1px solid rgba(96,165,250,0.35);border-radius:var(--radius);padding:20px;">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="font-size:24px;">🕕</div><div><div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#60a5fa;">Early finish / Time-restricted</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Eating window closes by 6pm</div></div></div>
-          <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px;">All food done by 6pm. After that: water, black coffee, or herbal tea only. Very sustainable — you sleep through most of it.</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-            <div style="background:rgba(96,165,250,0.08);border-radius:var(--radius-sm);padding:10px;"><div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#60a5fa;margin-bottom:4px;">Why WFH works</div><div style="font-size:12px;color:var(--text2);line-height:1.5;">No commute, no office snacks. Full control. Easy to close the window on schedule.</div></div>
-            <div style="background:rgba(96,165,250,0.08);border-radius:var(--radius-sm);padding:10px;"><div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#60a5fa;margin-bottom:4px;">Evening hack</div><div style="font-size:12px;color:var(--text2);line-height:1.5;">Peppermint tea or sparkling water kills evening hunger. Chamomile lowers cortisol and aids sleep.</div></div>
-          </div>
-        </div>
-      </div>
-
-      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin:20px 0 10px;font-family:'Manrope',sans-serif;">Key nutrients</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-        <div style="background:linear-gradient(145deg,#001a13,#002a1f);border:1px solid rgba(0,245,212,0.3);border-radius:var(--radius);padding:20px;">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="font-size:24px;">💪</div><div><div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#00f5d4;">Protein</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Target: 120–140g per day</div></div></div>
-          <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px;">The building block of muscle. Repairs micro-tears from training. Without enough, you lose muscle instead of fat — even in a deficit. Highest thermic effect of any macro (burn 30% just digesting it).</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.6;"><span style="color:#00f5d4;font-weight:600;">Top sources:</span> Greek yogurt (17g/100g) · Tuna (25g) · Chicken (31g) · Eggs (6g ea) · Cottage cheese (12g) · Salmon (25g)</div>
-        </div>
-        <div style="background:linear-gradient(145deg,#0a1200,#152200);border:1px solid rgba(132,204,22,0.3);border-radius:var(--radius);padding:20px;">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="font-size:24px;">🥦</div><div><div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#84cc16;">Fibre</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Target: 25–35g per day</div></div></div>
-          <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px;">Indigestible plant matter that slows digestion, feeds gut bacteria, blunts blood sugar spikes, and reduces inflammation. UK average is under 20g/day.</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.6;"><span style="color:#84cc16;font-weight:600;">Easy wins:</span> Spinach · Avocado (7g each) · Chia seeds · Oats · Frozen veg bags · Cucumber</div>
-        </div>
-      </div>
-
-      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin:20px 0 10px;font-family:'Manrope',sans-serif;">Fasting approaches compared</div>
-      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;max-width:780px;">
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:grid;grid-template-columns:130px 1fr auto;gap:12px;align-items:center;"><div style="font-weight:600;font-size:13px;">16:8</div><div style="font-size:12.5px;color:var(--text2);">Fast 16 hours, eat within an 8-hour window (e.g. 12pm–8pm). Most popular approach. Easy to sustain long-term.</div><span class="badge badge-teal" style="white-space:nowrap;">Most popular</span></div>
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:grid;grid-template-columns:130px 1fr auto;gap:12px;align-items:center;"><div style="font-weight:600;font-size:13px;">18:6</div><div style="font-size:12.5px;color:var(--text2);">Fast 18 hours, eat within 6 hours. Deeper ketosis and more fat burning than 16:8. Your Early Finish days are roughly this.</div><span class="badge badge-blue" style="white-space:nowrap;">Your Thu</span></div>
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:grid;grid-template-columns:130px 1fr auto;gap:12px;align-items:center;"><div style="font-weight:600;font-size:13px;">OMAD (23:1)</div><div style="font-size:12.5px;color:var(--text2);">Fast 23 hours, one meal only. Best for fat loss on low-activity days. Significant autophagy benefits.</div><span class="badge badge-amber" style="white-space:nowrap;">Your Sat</span></div>
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:grid;grid-template-columns:130px 1fr auto;gap:12px;align-items:center;"><div style="font-weight:600;font-size:13px;">5:2</div><div style="font-size:12.5px;color:var(--text2);">Eat normally 5 days, restrict to ~500 kcal on 2 days. Not what you're doing currently.</div><span class="badge" style="background:var(--bg2);color:var(--text3);white-space:nowrap;">Not in plan</span></div>
-      </div>
-
-      <div style="background:rgba(0,245,212,0.06);border:1px solid rgba(0,245,212,0.15);border-radius:var(--radius);padding:16px 20px;font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:24px;max-width:780px;"><span style="color:#00f5d4;font-weight:700;">💡 The key insight —</span> Fasting works because it lowers insulin. When insulin is low, your body can access stored body fat for energy.</div>
-
-      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;font-family:'Manrope',sans-serif;">UPF & sugar — what to avoid</div>
-      <div class="card" style="margin-bottom:12px;">
-        <div style="font-size:15px;font-weight:700;margin-bottom:14px;">5 swaps to make</div>
-        <div class="swap-row-f"><div><div class="swap-old">Protein powder</div><div class="swap-reason">UPF · Emulsifiers, sweeteners, artificial flavours</div></div><div class="swap-arrow">→</div><div><div class="swap-new">2 boiled eggs + 100g cottage cheese</div><div class="swap-new-why">Same protein, zero additives.</div></div></div>
-        <div class="swap-row-f"><div><div class="swap-old">Pre-marinated chicken</div><div class="swap-reason">UPF · Sugar, modified starch, flavour enhancers</div></div><div class="swap-arrow">→</div><div><div class="swap-new">Plain chicken + olive oil, garlic, lemon, herbs</div><div class="swap-new-why">Season yourself. 30 seconds. Tastes better.</div></div></div>
-        <div class="swap-row-f"><div><div class="swap-old">Soy sauce</div><div class="swap-reason">UPF · High sodium, additives and sugar</div></div><div class="swap-arrow">→</div><div><div class="swap-new">Coconut aminos</div><div class="swap-new-why">Just coconut sap + salt.</div></div></div>
-        <div class="swap-row-f" style="border-bottom:none;"><div><div class="swap-old">Philadelphia cream cheese</div><div class="swap-reason">Contains guar gum, carob gum, additives</div></div><div class="swap-arrow">→</div><div><div class="swap-new">Full-fat crème fraîche or Boursin</div><div class="swap-new-why">Crème fraîche: just cream + cultures.</div></div></div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-        <div class="card">
-          <div class="card-title" style="margin-bottom:12px;">✅ Always clean — keep these</div>
-          <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Eggs, plain meat, plain fish</div><div class="clean-why-f">Never need to check a label</div></div></div>
-          <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Fage Total Greek yogurt</div><div class="clean-why-f">Just milk + live cultures</div></div></div>
-          <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Tinned tuna/salmon (in oil or water)</div><div class="clean-why-f">Avoid flavoured varieties</div></div></div>
-          <div class="clean-row-f"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Proper cheese (cheddar, feta, parmesan)</div><div class="clean-why-f">Milk + salt + cultures only</div></div></div>
-          <div class="clean-row-f" style="border-bottom:none;"><span class="badge badge-teal" style="font-size:10px;flex-shrink:0;">Clean</span><div><div class="clean-name-f">Olive oil, butter, lemon, garlic, herbs</div><div class="clean-why-f">Your seasoning toolkit</div></div></div>
-        </div>
-        <div class="card">
-          <div class="card-title" style="margin-bottom:12px;">🚫 Cut these — hidden sugar</div>
-          <div style="display:flex;flex-direction:column;">
-            <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">All added sugar, honey, maple syrup, agave</span></div>
-            <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Fruit juice — even fresh-squeezed</span></div>
-            <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Flavoured yogurts and flavoured oat packs</span></div>
-            <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Granola — almost always sugar-heavy</span></div>
-            <div class="sugar-item" style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Protein bars — most are sugar in disguise</span></div>
-            <div class="sugar-item" style="padding:8px 0;"><span class="s-dot" style="background:var(--red);margin-top:5px;"></span><span style="font-size:13px;">Bottled sauces (ketchup, BBQ, sweet chilli)</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="tip-box-f" style="max-width:780px;">
+      <div class="tip-box-f" style="">
         <div class="tip-box-title">The one-ingredient rule</div>
         <div class="tip-item"><span class="tip-dot-f"></span>If a product has more ingredients than you can count on one hand, put it back</div>
         <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Sugar cravings peak at days 3–7 then drop sharply — push through the first week</div>
@@ -1568,6 +1507,7 @@
   </div>
 </div>
 
+</div><!-- end page-pantry -->
 
 <div id="page-routines" class="page">
   <div class="page-header">
@@ -2301,7 +2241,7 @@ function goTo(page, el) {
   }
   if (page === 'thisweek') renderThisWeekPage();
   if (page === 'settings') updateApiKeyStatus();
-  if (page === 'routines') { if (typeof routinesTab === 'function') routinesTab('checklist'); }
+  if (page === 'routines') { if (typeof routinesTab === 'function') routinesTab('overview'); }
   if (page === 'wellbeing-ref') { if (typeof renderWtGrid === 'function') renderWtGrid(); }
   if (window.innerWidth <= 900) closeSidebar();
   // Scroll to top on every navigation
@@ -2376,6 +2316,19 @@ function switchEat(id, el) {
   if (el) el.classList.add('active');
   if (id === 'std') renderDynamicWeeklyOverview();
 }
+
+function showCuisine(id, el) {
+  // Hide all cuisine panels
+  document.querySelectorAll('.cuisine-panel').forEach(function(p) { p.classList.remove('active'); });
+  // Deactivate all cuisine tab buttons
+  var bar = el ? el.closest('.eating-tabs, .cuisine-tabs') : null;
+  if (bar) bar.querySelectorAll('.etab, .ctab').forEach(function(t) { t.classList.remove('active'); });
+  // Show the selected panel
+  var panel = document.getElementById('cuisine-' + id);
+  if (panel) panel.classList.add('active');
+  if (el) el.classList.add('active');
+}
+
 
 // ============================================================
 // GOOGLE DRIVE SYNC LAYER
