@@ -2397,185 +2397,198 @@ function showCuisine(id, el) {
     <div class="etab" id="wtab-longevity" onclick="switchWellbeingTab2('longevity',this)">🌿 Longevity</div>
     <div class="etab" id="wtab-tools" onclick="switchWellbeingTab2('tools',this)">🔴 My Kit</div>
   </div>
+
+  <!-- ======= WHOOP TAB ======= -->
   <div id="wb2-tab-whoop" class="etab-page active">
-<div style="font-family:'Space Grotesk', sans-serif;font-size:18px;font-weight:700;color:#00f5d4;">Green · 67–100%</div>
+
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
+      <div style="background:linear-gradient(145deg,#001a14 0%,#002e22 100%);border-radius:var(--radius);padding:22px;border:1px solid rgba(0,245,212,0.4);box-shadow:0 0 28px rgba(0,245,212,0.10),0 2px 10px rgba(0,0,0,0.5);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <div style="width:18px;height:18px;border-radius:50%;background:#00f5d4;flex-shrink:0;"></div>
+          <div style="font-family:'Space Grotesk', sans-serif;font-size:18px;font-weight:700;color:#00f5d4;">Green · 67–100%</div>
+        </div>
+        <div style="font-size:13px;font-weight:600;color:#00f5d4;margin-bottom:6px;">Well recovered — go for it</div>
+        <div style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Your HRV is high, sleep debt is low, and your body is primed to perform and adapt. This is your day to push hard.</div>
+        <div style="border-top:1px solid rgba(0,245,212,0.2);padding-top:12px;">
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#00f5d4;margin-bottom:8px;font-family:'Manrope', sans-serif;">Do this</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.8;">
+            ✓ Gym: this is your day to attempt progressive overload — add weight<br>
+            ✓ Blaze: go all out on every cardio station<br>
+            ✓ Running: push the pace on intervals, extend the long run<br>
+            ✓ Try a new lift, heavier set, or longer run than last week<br>
+            ✓ Good nights follow good days — protect sleep anyway
+          </div>
+        </div>
       </div>
-      <div style="font-size:13px;font-weight:600;color:#00f5d4;margin-bottom:6px;">Well recovered — go for it</div>
-      <div style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Your HRV is high, sleep debt is low, and your body is primed to perform and adapt. This is your day to push hard.</div>
-      <div style="border-top:1px solid rgba(0,245,212,0.2);padding-top:12px;">
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#00f5d4;margin-bottom:8px;font-family:'Manrope', sans-serif;">Do this</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.8;">
-          ✓ Gym: this is your day to attempt progressive overload — add weight<br>
-          ✓ Blaze: go all out on every cardio station<br>
-          ✓ Running: push the pace on intervals, extend the long run<br>
-          ✓ Try a new lift, heavier set, or longer run than last week<br>
-          ✓ Good nights follow good days — protect sleep anyway
+
+      <div style="background:linear-gradient(145deg,#181200 0%,#2e2100 100%);border-radius:var(--radius);padding:22px;border:1px solid rgba(245,166,35,0.4);box-shadow:0 0 28px rgba(245,166,35,0.10),0 2px 10px rgba(0,0,0,0.5);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <div style="width:18px;height:18px;border-radius:50%;background:#f5a623;flex-shrink:0;"></div>
+          <div style="font-family:'Space Grotesk', sans-serif;font-size:18px;font-weight:700;color:#f5a623;">Yellow · 34–66%</div>
+        </div>
+        <div style="font-size:13px;font-weight:600;color:#f5a623;margin-bottom:6px;">Moderate recovery</div>
+        <div style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Your body is coping but not fully restored. Train, but be smart about intensity. This is your most common score.</div>
+        <div style="border-top:1px solid rgba(245,166,35,0.2);padding-top:12px;">
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#f5a623;margin-bottom:8px;font-family:'Manrope', sans-serif;">Do this</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.8;">
+            ✓ Gym sessions: proceed as planned, but don't chase PRs<br>
+            ✓ Blaze: attend — but hold back 10–15% on cardio stations<br>
+            ✓ Running: complete the session at the lower end of your effort range<br>
+            ✓ Prioritise 8h sleep tonight and hit protein target<br>
+            ✓ Extra focus on warm-up and cool-down
+          </div>
+        </div>
+      </div>
+
+      <div style="background:linear-gradient(145deg,#1a0505 0%,#2e0a0a 100%);border-radius:var(--radius);padding:22px;border:1px solid rgba(220,60,60,0.4);box-shadow:0 0 28px rgba(220,60,60,0.10),0 2px 10px rgba(0,0,0,0.5);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <div style="width:18px;height:18px;border-radius:50%;background:#e05252;flex-shrink:0;"></div>
+          <div style="font-family:'Space Grotesk', sans-serif;font-size:18px;font-weight:700;color:#e05252;">Red · 0–33%</div>
+        </div>
+        <div style="font-size:13px;font-weight:600;color:#e05252;margin-bottom:6px;">Poor recovery — protect the body</div>
+        <div style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Your body is still repairing. Training hard today risks injury, illness and sets back progress. A lighter day now means a better week overall.</div>
+        <div style="border-top:1px solid rgba(220,60,60,0.2);padding-top:12px;">
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#e05252;margin-bottom:8px;font-family:'Manrope', sans-serif;">Do this instead</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.8;">
+            ✗ Skip heavy lifting — swap for a 20–30 min walk outside<br>
+            ✗ Skip Blaze — attend Cyclone at 60% effort instead, or rest<br>
+            ✗ Skip interval run — do an easy 20 min jog or walk only<br>
+            ✓ Foam roll, stretch, or do 15 min of yoga / mobility work<br>
+            ✓ Eat at or slightly above your calorie target to aid repair<br>
+            ✓ Get to bed an hour earlier than usual — sleep is the fix
+          </div>
         </div>
       </div>
     </div>
 
-    <div style="background:linear-gradient(145deg,#181200 0%,#2e2100 100%);border-radius:var(--radius);padding:22px;border:1px solid rgba(245,166,35,0.4);box-shadow:0 0 28px rgba(245,166,35,0.10),0 2px 10px rgba(0,0,0,0.5);">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
-        <div style="width:18px;height:18px;border-radius:50%;background:#f5a623;flex-shrink:0;"></div>
-        <div style="font-family:'Space Grotesk', sans-serif;font-size:18px;font-weight:700;color:#f5a623;">Yellow · 34–66%</div>
-      </div>
-      <div style="font-size:13px;font-weight:600;color:#f5a623;margin-bottom:6px;">Moderate recovery</div>
-      <div style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Your body is coping but not fully restored. Train, but be smart about intensity. This is your most common score.</div>
-      <div style="border-top:1px solid rgba(245,166,35,0.2);padding-top:12px;">
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#f5a623;margin-bottom:8px;font-family:'Manrope', sans-serif;">Do this</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.8;">
-          ✓ Gym sessions: proceed as planned, but don't chase PRs<br>
-          ✓ Blaze: attend — but hold back 10–15% on cardio stations<br>
-          ✓ Running: complete the session at the lower end of your effort range<br>
-          ✓ Prioritise 8h sleep tonight and hit protein target<br>
-          ✓ Extra focus on warm-up and cool-down
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title" style="margin-bottom:16px;">Understanding your Whoop numbers</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:5px;">HRV (Heart Rate Variability)</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">The most important metric. Higher HRV = better recovered nervous system. Your personal baseline matters more than absolute numbers — look for trends over time, not day-to-day comparison.</div>
+        </div>
+        <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:5px;">Resting Heart Rate (RHR)</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Measured during sleep. A spike of 3–5+ bpm above your baseline means your body is stressed — illness, alcohol, bad sleep, or overtraining. Red flag if it stays elevated for multiple days.</div>
+        </div>
+        <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:5px;">Strain score</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Blaze will register 15–18+ strain. Cyclone 12–16. Gym sessions 8–14. Running 10–16 depending on effort. Aim for a weekly strain of 50–70 — above 80 without rest risks overtraining.</div>
+        </div>
+        <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:5px;">Sleep performance</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Aim for 85%+ sleep performance consistently. Deep sleep and REM are where muscle repair and fat metabolism happen. Early eating (your 6pm days) directly improves sleep quality and HRV.</div>
         </div>
       </div>
     </div>
 
-    <div style="background:linear-gradient(145deg,#1a0505 0%,#2e0a0a 100%);border-radius:var(--radius);padding:22px;border:1px solid rgba(220,60,60,0.4);box-shadow:0 0 28px rgba(220,60,60,0.10),0 2px 10px rgba(0,0,0,0.5);">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
-        <div style="width:18px;height:18px;border-radius:50%;background:#e05252;flex-shrink:0;"></div>
-        <div style="font-family:'Space Grotesk', sans-serif;font-size:18px;font-weight:700;color:#e05252;">Red · 0–33%</div>
-      </div>
-      <div style="font-size:13px;font-weight:600;color:#e05252;margin-bottom:6px;">Poor recovery — protect the body</div>
-      <div style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Your body is still repairing. Training hard today risks injury, illness and sets back progress. A lighter day now means a better week overall.</div>
-      <div style="border-top:1px solid rgba(220,60,60,0.2);padding-top:12px;">
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#e05252;margin-bottom:8px;font-family:'Manrope', sans-serif;">Do this instead</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.8;">
-          ✗ Skip heavy lifting — swap for a 20–30 min walk outside<br>
-          ✗ Skip Blaze — attend Cyclone at 60% effort instead, or rest<br>
-          ✗ Skip interval run — do an easy 20 min jog or walk only<br>
-          ✓ Foam roll, stretch, or do 15 min of yoga / mobility work<br>
-          ✓ Eat at or slightly above your calorie target to aid repair<br>
-          ✓ Get to bed an hour earlier than usual — sleep is the fix
+    <div class="card">
+      <div class="card-title" style="margin-bottom:14px;">Making Whoop work for your plan</div>
+      <div style="display:flex;flex-direction:column;gap:0;">
+        <div style="display:flex;gap:14px;padding:11px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
+          <div style="font-size:18px;flex-shrink:0;">📍</div>
+          <div style="font-size:13.5px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Wear placement:</strong> Upper arm bicep band gives more accurate readings during wrist-heavy workouts (Blaze, lifting). Wrist is fine for running and rest days. Switch between them as needed.</div>
+        </div>
+        <div style="display:flex;gap:14px;padding:11px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
+          <div style="font-size:18px;flex-shrink:0;">⏰</div>
+          <div style="font-size:13.5px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Check score on waking:</strong> Look at your recovery before deciding how hard to push that day. It takes 2 minutes and prevents training into a hole.</div>
+        </div>
+        <div style="display:flex;gap:14px;padding:11px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
+          <div style="font-size:18px;flex-shrink:0;">🍽️</div>
+          <div style="font-size:13.5px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Early eating improves HRV:</strong> Your Thursday WFH early-finish day directly benefits your Whoop score — eating by 6pm gives your gut time to settle before sleep, improving deep sleep duration and HRV.</div>
+        </div>
+        <div style="display:flex;gap:14px;padding:11px 0;align-items:flex-start;">
+          <div style="font-size:18px;flex-shrink:0;">📈</div>
+          <div style="font-size:13.5px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Track trends not days:</strong> One red day is fine. Three or more red days in a row is a signal to reduce training volume for the week and prioritise recovery before pushing again.</div>
         </div>
       </div>
     </div>
-
-  <!-- Whoop metrics explained -->
-  <div class="card" style="margin-bottom:16px;">
-    <div class="card-title" style="margin-bottom:16px;">Understanding your Whoop numbers</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;">
-        <div style="font-size:13px;font-weight:600;margin-bottom:5px;">HRV (Heart Rate Variability)</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">The most important metric. Higher HRV = better recovered nervous system. Your personal baseline matters more than absolute numbers — look for trends over time, not day-to-day comparison.</div>
-      </div>
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;">
-        <div style="font-size:13px;font-weight:600;margin-bottom:5px;">Resting Heart Rate (RHR)</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Measured during sleep. A spike of 3–5+ bpm above your baseline means your body is stressed — illness, alcohol, bad sleep, or overtraining. Red flag if it stays elevated for multiple days.</div>
-      </div>
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;">
-        <div style="font-size:13px;font-weight:600;margin-bottom:5px;">Strain score</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Blaze will register 15–18+ strain. Cyclone 12–16. Gym sessions 8–14. Running 10–16 depending on effort. Aim for a weekly strain of 50–70 — above 80 without rest risks overtraining.</div>
-      </div>
-      <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px;">
-        <div style="font-size:13px;font-weight:600;margin-bottom:5px;">Sleep performance</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Aim for 85%+ sleep performance consistently. Deep sleep and REM are where muscle repair and fat metabolism happen. Early eating (your 6pm days) directly improves sleep quality and HRV.</div>
-      </div>
-    </div>
-
-  <!-- Whoop tips -->
-  <div class="card">
-    <div class="card-title" style="margin-bottom:14px;">Making Whoop work for your plan</div>
-    <div style="display:flex;flex-direction:column;gap:0;">
-      <div style="display:flex;gap:14px;padding:11px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
-        <div style="font-size:18px;flex-shrink:0;">📍</div>
-        <div style="font-size:13.5px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Wear placement:</strong> Upper arm bicep band gives more accurate readings during wrist-heavy workouts (Blaze, lifting). Wrist is fine for running and rest days. Switch between them as needed.</div>
-      </div>
-      <div style="display:flex;gap:14px;padding:11px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
-        <div style="font-size:18px;flex-shrink:0;">⏰</div>
-        <div style="font-size:13.5px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Check score on waking:</strong> Look at your recovery before deciding how hard to push that day. It takes 2 minutes and prevents training into a hole.</div>
-      </div>
-      <div style="display:flex;gap:14px;padding:11px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
-        <div style="font-size:18px;flex-shrink:0;">🍽️</div>
-        <div style="font-size:13.5px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Early eating improves HRV:</strong> Your Thursday WFH early-finish day directly benefits your Whoop score — eating by 6pm gives your gut time to settle before sleep, improving deep sleep duration and HRV.</div>
-      </div>
-      <div style="display:flex;gap:14px;padding:11px 0;align-items:flex-start;">
-        <div style="font-size:18px;flex-shrink:0;">📈</div>
-        <div style="font-size:13.5px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Track trends not days:</strong> One red day is fine. Three or more red days in a row is a signal to reduce training volume for the week and prioritise recovery before pushing again.</div>
-      </div>
-    </div>
-  </div>
 
   </div><!-- end wb2-tab-whoop -->
 
+  <!-- ======= LONGEVITY TAB ======= -->
   <div id="wb2-tab-longevity" class="etab-page">
-<div style="font-family:'Space Grotesk', sans-serif;font-size:16px;font-weight:600;margin-bottom:6px;">Zone 2 cardio</div>
-      <div style="font-size:12.5px;color:var(--text2);line-height:1.7;">Your Thursday lunchtime run and Sunday optional run are Zone 2 — the single most researched form of exercise for longevity. It builds mitochondrial density, improves insulin sensitivity, and trains your heart. At 5ft, your Zone 2 heart rate is roughly <strong style="color:var(--text);">120–140 bpm</strong>. If you can hold a conversation, you're in Zone 2.</div>
-    </div>
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);">
-      <div style="font-size:24px;margin-bottom:10px;">💪</div>
-      <div style="font-family:'Space Grotesk', sans-serif;font-size:16px;font-weight:600;margin-bottom:6px;">Strength training</div>
-      <div style="font-size:12.5px;color:var(--text2);line-height:1.7;">Muscle mass is the strongest predictor of longevity past 40. Your three weekly gym sessions directly build this. Squats, deadlifts and rows are the most impactful. Aim to be lifting heavier every month — progressive overload is the mechanism.</div>
-    </div>
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);">
-      <div style="font-size:24px;margin-bottom:10px;">😴</div>
-      <div style="font-family:'Space Grotesk', sans-serif;font-size:16px;font-weight:600;margin-bottom:6px;">Sleep quality</div>
-      <div style="font-size:12.5px;color:var(--text2);line-height:1.7;">Poor sleep accelerates biological ageing faster than almost anything else. Your Whoop tracks this daily. 7–9 hours consistently. Your early-eating days on Wed and Thu directly improve deep sleep — eating by 6pm is a longevity act, not just a diet trick.</div>
-    </div>
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);">
-      <div style="font-size:24px;margin-bottom:10px;">🥩</div>
-      <div style="font-family:'Space Grotesk', sans-serif;font-size:16px;font-weight:600;margin-bottom:6px;">Protein & real food</div>
-      <div style="font-size:12.5px;color:var(--text2);line-height:1.7;">Cutting UPF and sugar is one of the highest-impact longevity decisions you can make. Processed food drives chronic inflammation — the underlying mechanism behind most age-related disease. Your clean shopping list removes this almost entirely.</div>
-    </div>
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);">
-      <div style="font-size:24px;margin-bottom:10px;">🧘</div>
-      <div style="font-family:'Space Grotesk', sans-serif;font-size:16px;font-weight:600;margin-bottom:6px;">Stress & recovery</div>
-      <div style="font-size:12.5px;color:var(--text2);line-height:1.7;">Chronic stress elevates cortisol, suppresses immunity and accelerates cellular ageing. Your volunteering on Saturdays has genuine longevity benefit — social purpose is strongly linked to a longer lifespan. Don't underestimate rest days.</div>
-    </div>
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);">
-      <div style="font-size:24px;margin-bottom:10px;">☀️</div>
-      <div style="font-family:'Space Grotesk', sans-serif;font-size:16px;font-weight:600;margin-bottom:6px;">Light & circadian rhythm</div>
-      <div style="font-size:12.5px;color:var(--text2);line-height:1.7;">Morning light exposure sets your circadian clock, which governs hormone rhythms, immune function and metabolic health. 5–10 min outside within an hour of waking is one of the cheapest longevity interventions that exists.</div>
-    </div>
-  </div>
 
-  <!-- Weekly longevity checklist -->
-  <div class="card" style="margin-bottom:16px;">
-    <div class="card-title" style="margin-bottom:16px;">Weekly longevity checklist</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="longevity-checks">
-      <!-- JS rendered -->
-    </div>
-    <div style="margin-top:12px;font-size:12px;color:var(--text3);">Check off each week — resets on page reload</div>
-  </div>
-
-  <!-- Supplements worth considering -->
-  <div class="card">
-    <div class="card-title" style="margin-bottom:6px;">Supplements worth considering</div>
-    <div style="font-size:12.5px;color:var(--text2);margin-bottom:14px;line-height:1.5;">Always check with your GP before starting any supplement. These are evidence-backed and relevant to your goals.</div>
-    <div style="display:flex;flex-direction:column;gap:0;">
-      <div style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
-        <div style="min-width:130px;font-size:13px;font-weight:600;">Vitamin D3 + K2</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Strongly recommended in the UK — most people are deficient. Supports bone health, immunity, mood and muscle function. K2 ensures calcium goes to bones, not arteries.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);">
+        <div style="font-size:24px;margin-bottom:10px;">🏃</div>
+        <div style="font-family:'Space Grotesk', sans-serif;font-size:16px;font-weight:600;margin-bottom:6px;">Zone 2 cardio</div>
+        <div style="font-size:12.5px;color:var(--text2);line-height:1.7;">Your Thursday lunchtime run and Sunday optional run are Zone 2 — the single most researched form of exercise for longevity. It builds mitochondrial density, improves insulin sensitivity, and trains your heart. At 5ft, your Zone 2 heart rate is roughly <strong style="color:var(--text);">120–140 bpm</strong>. If you can hold a conversation, you're in Zone 2.</div>
       </div>
-      <div style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
-        <div style="min-width:130px;font-size:13px;font-weight:600;">Magnesium glycinate</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Taken before bed. Improves deep sleep quality, reduces muscle cramps post-training, and supports HRV. Most people training regularly are mildly deficient.</div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);">
+        <div style="font-size:24px;margin-bottom:10px;">💪</div>
+        <div style="font-family:'Space Grotesk', sans-serif;font-size:16px;font-weight:600;margin-bottom:6px;">Strength training</div>
+        <div style="font-size:12.5px;color:var(--text2);line-height:1.7;">Muscle mass is the strongest predictor of longevity past 40. Your three weekly gym sessions directly build this. Squats, deadlifts and rows are the most impactful. Aim to be lifting heavier every month — progressive overload is the mechanism.</div>
       </div>
-      <div style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
-        <div style="min-width:130px;font-size:13px;font-weight:600;">Omega-3 (fish oil)</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Anti-inflammatory, supports cardiovascular health, brain function and joint recovery. Your salmon-heavy meal plan provides some — a supplement tops it up. Look for 2–3g combined EPA/DHA daily.</div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);">
+        <div style="font-size:24px;margin-bottom:10px;">😴</div>
+        <div style="font-family:'Space Grotesk', sans-serif;font-size:16px;font-weight:600;margin-bottom:6px;">Sleep quality</div>
+        <div style="font-size:12.5px;color:var(--text2);line-height:1.7;">Poor sleep accelerates biological ageing faster than almost anything else. Your Whoop tracks this daily. 7–9 hours consistently. Your early-eating days on Wed and Thu directly improve deep sleep — eating by 6pm is a longevity act, not just a diet trick.</div>
       </div>
-      <div style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
-        <div style="min-width:130px;font-size:13px;font-weight:600;">Creatine monohydrate</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">One of the most studied supplements in existence. 3–5g daily supports strength gains, muscle retention during fat loss, and increasingly linked to cognitive longevity. Safe long-term.</div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);">
+        <div style="font-size:24px;margin-bottom:10px;">🥩</div>
+        <div style="font-family:'Space Grotesk', sans-serif;font-size:16px;font-weight:600;margin-bottom:6px;">Protein & real food</div>
+        <div style="font-size:12.5px;color:var(--text2);line-height:1.7;">Cutting UPF and sugar is one of the highest-impact longevity decisions you can make. Processed food drives chronic inflammation — the underlying mechanism behind most age-related disease. Your clean shopping list removes this almost entirely.</div>
       </div>
-      <div style="display:flex;gap:14px;padding:12px 0;align-items:flex-start;">
-        <div style="min-width:130px;font-size:13px;font-weight:600;">Collagen + Vit C</div>
-        <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Taken 30–60 min before training. Supports tendon and joint health — especially relevant given your running volume. Vitamin C is needed for collagen synthesis to work.</div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);">
+        <div style="font-size:24px;margin-bottom:10px;">🧘</div>
+        <div style="font-family:'Space Grotesk', sans-serif;font-size:16px;font-weight:600;margin-bottom:6px;">Stress & recovery</div>
+        <div style="font-size:12.5px;color:var(--text2);line-height:1.7;">Chronic stress elevates cortisol, suppresses immunity and accelerates cellular ageing. Your volunteering on Saturdays has genuine longevity benefit — social purpose is strongly linked to a longer lifespan. Don't underestimate rest days.</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);">
+        <div style="font-size:24px;margin-bottom:10px;">☀️</div>
+        <div style="font-family:'Space Grotesk', sans-serif;font-size:16px;font-weight:600;margin-bottom:6px;">Light & circadian rhythm</div>
+        <div style="font-size:12.5px;color:var(--text2);line-height:1.7;">Morning light exposure sets your circadian clock, which governs hormone rhythms, immune function and metabolic health. 5–10 min outside within an hour of waking is one of the cheapest longevity interventions that exists.</div>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- ===================== PROGRESS TRACKER ===================== -->
-  </div>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title" style="margin-bottom:16px;">Weekly longevity checklist</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="longevity-checks">
+        <!-- JS rendered -->
+      </div>
+      <div style="margin-top:12px;font-size:12px;color:var(--text3);">Check off each week — resets on page reload</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="margin-bottom:6px;">Supplements worth considering</div>
+      <div style="font-size:12.5px;color:var(--text2);margin-bottom:14px;line-height:1.5;">Always check with your GP before starting any supplement. These are evidence-backed and relevant to your goals.</div>
+      <div style="display:flex;flex-direction:column;gap:0;">
+        <div style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
+          <div style="min-width:130px;font-size:13px;font-weight:600;">Vitamin D3 + K2</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Strongly recommended in the UK — most people are deficient. Supports bone health, immunity, mood and muscle function. K2 ensures calcium goes to bones, not arteries.</div>
+        </div>
+        <div style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
+          <div style="min-width:130px;font-size:13px;font-weight:600;">Magnesium glycinate</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Taken before bed. Improves deep sleep quality, reduces muscle cramps post-training, and supports HRV. Most people training regularly are mildly deficient.</div>
+        </div>
+        <div style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
+          <div style="min-width:130px;font-size:13px;font-weight:600;">Omega-3 (fish oil)</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Anti-inflammatory, supports cardiovascular health, brain function and joint recovery. Your salmon-heavy meal plan provides some — a supplement tops it up. Look for 2–3g combined EPA/DHA daily.</div>
+        </div>
+        <div style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
+          <div style="min-width:130px;font-size:13px;font-weight:600;">Creatine monohydrate</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">One of the most studied supplements in existence. 3–5g daily supports strength gains, muscle retention during fat loss, and increasingly linked to cognitive longevity. Safe long-term.</div>
+        </div>
+        <div style="display:flex;gap:14px;padding:12px 0;align-items:flex-start;">
+          <div style="min-width:130px;font-size:13px;font-weight:600;">Collagen + Vit C</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Taken 30–60 min before training. Supports tendon and joint health — especially relevant given your running volume. Vitamin C is needed for collagen synthesis to work.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end wb2-tab-longevity -->
+
+  <!-- ======= MY KIT TAB ======= -->
   <div id="wb2-tab-tools" class="etab-page">
-<button onclick="openAddWellbeingTool()" style="padding:7px 16px;border-radius:999px;border:1.5px solid var(--teal);background:var(--teal-light);color:var(--teal);font-family:'Manrope', sans-serif;font-size:13px;font-weight:600;cursor:pointer;">+ Add tool</button>
-  </div>
-  <div id="wt-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"></div>
-</div>
+    <div style="display:flex;justify-content:flex-end;margin-bottom:16px;">
+      <button onclick="openAddWellbeingTool()" style="padding:7px 16px;border-radius:999px;border:1.5px solid var(--teal);background:var(--teal-light);color:var(--teal);font-family:'Manrope', sans-serif;font-size:13px;font-weight:600;cursor:pointer;">+ Add tool</button>
+    </div>
+    <div id="wt-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"></div>
+  </div><!-- end wb2-tab-tools -->
+
+</div><!-- end page-wellbeing-ref -->
 
 <!-- WELLBEING TOOL EDIT MODAL -->
 <div id="wt-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1000;align-items:center;justify-content:center;">
