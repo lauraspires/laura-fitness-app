@@ -2997,7 +2997,10 @@ function goTo(page, el) {
   document.getElementById('page-' + page).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   if (el) el.classList.add('active');
-  if (page === 'progress') requestAnimationFrame(() => requestAnimationFrame(() => renderProgress()));
+  if (page === 'progress') {
+    // Triple rAF to ensure page is visible and layout is complete before canvas renders
+    requestAnimationFrame(() => requestAnimationFrame(() => requestAnimationFrame(() => renderProgress())));
+  }
   if (page === 'pantry') { try { renderPantry(); } catch(e) {} }
   if (page === 'workouts') renderGymWorkouts();
   if (page === 'pantry') renderPantry();
@@ -3147,6 +3150,7 @@ function launchApp() {
   document.getElementById('log-date').value = today;
   renderDayCards();
   updateDashboard();
+  renderDashboardWeek();
   renderLongevityChecks();
   renderPlanner();
   renderSuppStack();
@@ -3537,7 +3541,7 @@ function renderChart(entries) {
   if (empty) empty.style.display = 'none';
 
   const dpr = window.devicePixelRatio || 1;
-  const W   = wrap ? wrap.clientWidth : 400;
+  const W   = (wrap ? (wrap.clientWidth || wrap.offsetWidth || wrap.getBoundingClientRect().width) : 0) || 400;
   const H   = 200;
   canvas.width  = W * dpr;
   canvas.height = H * dpr;
@@ -3879,21 +3883,22 @@ function refreshPlannerShoppingList() {
 
   // Render as tickable shop-item-f elements so they participate in the tick system
   const ticks = getShoppingTicks();
-  let h = '<div style="margin-bottom:12px;font-size:12px;color:var(--text3);">'
+  let h = '<div style="margin-bottom:10px;font-size:12px;color:var(--text3);">'
         + 'From ' + mealSet.size + ' meal' + (mealSet.size !== 1 ? 's' : '') + ' this week — tap to tick off as you shop'
         + '</div>';
-  h += '<div style="display:flex;flex-direction:column;gap:6px;">';
+  h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">';
   sorted.forEach(function(it) {
     const key = 'planner::' + it.label.toLowerCase();
-    const checked = ticks[key] ? ' shop-item-tickable checked' : ' shop-item-tickable';
-    const checkmark = ticks[key]
-      ? '<div class="shop-tick-box" style="background:var(--teal);border-color:var(--teal);display:flex;align-items:center;justify-content:center;"><span style="color:#fff;font-size:13px;font-weight:700;line-height:1;">✓</span></div>'
-      : '<div class="shop-tick-box"></div>';
-    h += '<div class="shop-item-f' + checked + '" data-planner-key="' + key.replace(/"/g, '&quot;') + '" onclick="togglePlannerIngredient(this)">'
-       + checkmark
-       + '<div class="shop-tick-content">'
-       + '<div class="shop-item-name" style="' + (ticks[key] ? 'text-decoration:line-through;' : '') + '">' + it.label + '</div>'
-       + '<div class="shop-item-note" style="font-size:11px;color:var(--text3);">' + it.meals.join(', ') + '</div>'
+    const isDone = !!ticks[key];
+    h += '<div class="shop-item-f shop-item-tickable' + (isDone ? ' checked' : '') + '" '
+       + 'data-planner-key="' + key.replace(/"/g, '&quot;') + '" '
+       + 'onclick="togglePlannerIngredient(this)" '
+       + 'style="padding:6px 8px;display:flex;align-items:center;gap:7px;">'
+       + (isDone
+           ? '<div class="shop-tick-box" style="flex-shrink:0;width:16px;height:16px;background:var(--teal);border-color:var(--teal);display:flex;align-items:center;justify-content:center;border-radius:4px;"><span style="color:#fff;font-size:11px;font-weight:700;line-height:1;">✓</span></div>'
+           : '<div class="shop-tick-box" style="flex-shrink:0;width:16px;height:16px;border-radius:4px;"></div>')
+       + '<div style="min-width:0;">'
+       + '<div class="shop-item-name" style="font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;' + (isDone ? 'text-decoration:line-through;color:var(--text3);' : '') + '">' + it.label + '</div>'
        + '</div></div>';
   });
   h += '</div>';
