@@ -3270,7 +3270,7 @@ function goTo(page, el) {
   if (page === 'shop') { refreshPlannerShoppingList(); renderShoppingTickList(); }
   if (page === 'workouts') renderGymWorkouts();
   if (page === 'pantry') renderPantry();
-  if (page === 'summary') renderDynamicWeeklyOverview();
+  if (page === 'meals') renderDynamicWeeklyOverview();
   if (page === 'dashboard') renderDashboardNutritionWidget(null);
   if (page === 'recime') renderSavedRecipes();
   if (page === 'runningplans') {
@@ -8251,7 +8251,7 @@ function _runInitDynamicRenders() {
   try { renderDashboardNutritionWidget(null); } catch(e) {}
   try { renderSavedRecipes(); } catch(e) {}
   try {
-    const sumPage = document.getElementById('page-summary');
+    const sumPage = document.getElementById('page-meals');
     if (sumPage && sumPage.classList.contains('active')) renderDynamicWeeklyOverview();
   } catch(e) {}
 }
@@ -8300,20 +8300,21 @@ function renderEarlyFinishPills() {
 }
 
 // Re-render pills whenever the weekly overview tab is shown
+// Use assignment (not function declaration) to avoid hoisting collision
 const _origSwitchEat = switchEat;
-function switchEat(id, el) {
+switchEat = function(id, el) {
   _origSwitchEat(id, el);
   if (id === 'std') {
     renderEarlyFinishPills();
     renderDynamicWeeklyOverview();
   }
-}
+};
 
 // ─────────────────────────────────────────────
 //  HOOK handleWorkoutChange TO RE-RENDER NUTRITION
 // ─────────────────────────────────────────────
 const _origHandleWorkoutChange = handleWorkoutChange;
-function handleWorkoutChange(dayIndex, workoutIndex, newType) {
+handleWorkoutChange = function(dayIndex, workoutIndex, newType) {
   _origHandleWorkoutChange(dayIndex, workoutIndex, newType);
   setTimeout(function() {
     try { renderDashboardNutritionWidget(null); } catch(e) {}
@@ -8322,7 +8323,7 @@ function handleWorkoutChange(dayIndex, workoutIndex, newType) {
       if (sumPage && sumPage.classList.contains('active')) renderDynamicWeeklyOverview();
     } catch(e) {}
   }, 350);
-}
+};
 
 // ─────────────────────────────────────────────
 //  WORKOUT EDITOR — upgrade from bottom-sheet to centered modal
@@ -8456,11 +8457,12 @@ function clearFutureWeekCurrent() {
 }
 
 // Patch loadWorkoutRoutine to return display override when set
+// IMPORTANT: use arrow function (not function declaration) to avoid hoisting collision
 const _origLoadWorkoutRoutine = loadWorkoutRoutine;
-function loadWorkoutRoutine() {
+loadWorkoutRoutine = function() {
   if (_displayRoutine) return JSON.parse(JSON.stringify(_displayRoutine));
   return _origLoadWorkoutRoutine();
-}
+};
 
 </script>
 
