@@ -710,10 +710,10 @@
   <div class="nav-section">
     <div class="nav-label">Wellbeing</div>
     <button class="nav-item" onclick="goTo('routines', this)">
-      <span class="nav-icon">🌅</span> Routines & Supps
+      <span class="nav-icon">🌅</span> Routines & Supplements
     </button>
     <button class="nav-item" onclick="goTo('wellbeing-ref', this)">
-      <span class="nav-icon">📋</span> Wellbeing Reference
+      <span class="nav-icon">📋</span> Health & Recovery
     </button>
   </div>
 
@@ -2193,6 +2193,12 @@ function showCuisine(id, el) {
     <div class="etab" id="wtab-supplements" onclick="switchWellbeingTab1('supplements',this)">💊 Supplements</div>
   </div>
   <div id="wb1-tab-routines" class="etab-page active">
+  <!-- SUB-TABS: Overview / Today / By Day -->
+  <div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;">
+    <button id="routines-tab-overview"  onclick="routinesTab('overview')"  style="padding:6px 16px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--teal);background:var(--teal);color:#131313;">Overview</button>
+    <button id="routines-tab-checklist" onclick="routinesTab('checklist')" style="padding:6px 16px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--border);background:var(--card);color:var(--text2);">Today</button>
+    <button id="routines-tab-tweaks"    onclick="routinesTab('tweaks')"    style="padding:6px 16px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--border);background:var(--card);color:var(--text2);">By Day</button>
+  </div>
 <!-- OVERVIEW TAB -->
   <div id="routines-view-overview">
     <div id="routines-main-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">
@@ -2389,19 +2395,19 @@ function showCuisine(id, el) {
 <div id="page-wellbeing-ref" class="page">
   <div class="page-header">
     <div class="page-eyebrow">Wellbeing</div>
-    <div class="page-title">Wellbeing Reference</div>
+    <div class="page-title">Health &amp; Recovery</div>
     <div class="page-sub">Whoop recovery guide · Longevity protocols · Wellness kit</div>
   </div>
   <div class="eating-tabs" style="margin-bottom:20px;">
-    <div class="etab active" id="wtab-whoop" onclick="switchWellbeingTab2('whoop',this)">🫀 Whoop</div>
+    <div class="etab active" id="wtab-tools" onclick="switchWellbeingTab2('tools',this)">🔴 My Kit</div>
+    <div class="etab" id="wtab-whoop" onclick="switchWellbeingTab2('whoop',this)">🫀 Whoop</div>
     <div class="etab" id="wtab-longevity" onclick="switchWellbeingTab2('longevity',this)">🌿 Longevity</div>
-    <div class="etab" id="wtab-tools" onclick="switchWellbeingTab2('tools',this)">🔴 My Kit</div>
   </div>
 
   <!-- ======= WHOOP TAB ======= -->
-  <div id="wb2-tab-whoop" class="etab-page active">
+  <div id="wb2-tab-whoop" class="etab-page">
 
-    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px;">
       <div style="background:linear-gradient(145deg,#001a14 0%,#002e22 100%);border-radius:var(--radius);padding:22px;border:1px solid rgba(0,245,212,0.4);box-shadow:0 0 28px rgba(0,245,212,0.10),0 2px 10px rgba(0,0,0,0.5);">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
           <div style="width:18px;height:18px;border-radius:50%;background:#00f5d4;flex-shrink:0;"></div>
@@ -2581,7 +2587,7 @@ function showCuisine(id, el) {
   </div><!-- end wb2-tab-longevity -->
 
   <!-- ======= MY KIT TAB ======= -->
-  <div id="wb2-tab-tools" class="etab-page">
+  <div id="wb2-tab-tools" class="etab-page active">
     <div style="display:flex;justify-content:flex-end;margin-bottom:16px;">
       <button onclick="openAddWellbeingTool()" style="padding:7px 16px;border-radius:999px;border:1.5px solid var(--teal);background:var(--teal-light);color:var(--teal);font-family:'Manrope', sans-serif;font-size:13px;font-weight:600;cursor:pointer;">+ Add tool</button>
     </div>
@@ -2734,7 +2740,7 @@ function showCuisine(id, el) {
         <button onclick="setChartMetric('feeling')" id="chart-btn-feeling" style="padding:4px 12px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--border);background:var(--card);color:var(--text2);">Feeling</button>
       </div>
     </div>
-    <div style="position:relative;height:180px;" id="chart-wrap">
+    <div style="position:relative;height:180px;width:100%;display:block;" id="chart-wrap">
       <canvas id="weightChart" style="width:100%;height:180px;"></canvas>
       <div id="chart-empty" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;">
         <div style="font-size:28px;">📉</div>
@@ -2998,8 +3004,14 @@ function goTo(page, el) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   if (el) el.classList.add('active');
   if (page === 'progress') {
-    // Triple rAF to ensure page is visible and layout is complete before canvas renders
-    requestAnimationFrame(() => requestAnimationFrame(() => requestAnimationFrame(() => renderProgress())));
+    // Render stats immediately (no canvas dependency), then retry chart until layout is ready
+    renderProgress();
+    (function retryChart(attempts) {
+      var wrap = document.getElementById('chart-wrap');
+      var w = wrap ? wrap.getBoundingClientRect().width : 0;
+      if (w > 10) { renderChart(loadEntries()); return; }
+      if (attempts > 0) requestAnimationFrame(function() { retryChart(attempts - 1); });
+    })(20);
   }
   if (page === 'pantry') { try { renderPantry(); } catch(e) {} }
   if (page === 'workouts') renderGymWorkouts();
@@ -3541,7 +3553,12 @@ function renderChart(entries) {
   if (empty) empty.style.display = 'none';
 
   const dpr = window.devicePixelRatio || 1;
-  const W   = (wrap ? (wrap.clientWidth || wrap.offsetWidth || wrap.getBoundingClientRect().width) : 0) || 400;
+  let W = wrap ? (wrap.getBoundingClientRect().width || wrap.offsetWidth || wrap.clientWidth) : 0;
+  if (!W || W < 10) {
+    // Page not fully visible yet — schedule a retry
+    setTimeout(function() { renderChart(entries); }, 80);
+    return;
+  }
   const H   = 200;
   canvas.width  = W * dpr;
   canvas.height = H * dpr;
@@ -3886,7 +3903,7 @@ function refreshPlannerShoppingList() {
   let h = '<div style="margin-bottom:10px;font-size:12px;color:var(--text3);">'
         + 'From ' + mealSet.size + ' meal' + (mealSet.size !== 1 ? 's' : '') + ' this week — tap to tick off as you shop'
         + '</div>';
-  h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">';
+  h += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;">';
   sorted.forEach(function(it) {
     const key = 'planner::' + it.label.toLowerCase();
     const isDone = !!ticks[key];
@@ -8677,49 +8694,40 @@ function renderTWGrid() {
   const todayDow = new Date().getDay();
   const todayKey = ['sun','mon','tue','wed','thu','fri','sat'][todayDow];
 
-  el.innerHTML = routine.map((day, idx) => {
+  el.innerHTML = '<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;">'
+    + routine.map((day, idx) => {
     const dayDate = dates[idx];
     const dateStr = dayDate ? dayDate.toLocaleDateString('en-GB',{day:'numeric',month:'short'}) : '';
     const isToday = _twWeekOffset === 0 && day.dayKey === todayKey;
     const wts = day.workoutTypes || [];
     const primaryCat = getCat(wts[0]);
-    const accentColor = wts.length === 0 ? '#888' : CAT_COLOR[primaryCat];
+    const accentColor = wts.length === 0 ? '#555' : CAT_COLOR[primaryCat];
+    const isRest = wts.length === 0 || (wts.length === 1 && (lib[wts[0]] || {}).type === 'rest');
 
-    // Workout chips
-    const workoutChips = wts.length === 0
-      ? '<span style="font-size:12px;color:var(--text3);">Rest</span>'
+    // Workout display: emoji + short name
+    const workoutLines = isRest
+      ? '<div style="font-size:20px;margin-bottom:4px;">😴</div><div style="font-size:11px;color:var(--text3);">Rest</div>'
       : wts.map(t => {
           const w = lib[t];
-          return w ? '<span style="display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;background:' + accentColor + '22;color:' + accentColor + ';border:1px solid ' + accentColor + '44;">' + w.emoji + ' ' + w.name + '</span>' : '';
-        }).join(' ');
+          return w ? '<div style="font-size:18px;">' + w.emoji + '</div><div style="font-size:10px;font-weight:600;color:' + accentColor + ';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + w.name + '</div>' : '';
+        }).join('<div style="font-size:9px;color:var(--text3);margin:1px 0;">+</div>');
 
-    // Food style
+    // Food style pill
     const style = getDayEatingStyle(day.dayKey, wts);
     const styleColor = EATING_STYLE_COLOR[style] || '#888';
-    const styleLabel = EATING_STYLE_LABELS[style] || style;
     const styleEmoji = EATING_STYLE_EMOJI[style] || '🥗';
+    const styleShort = (EATING_STYLE_LABELS[style] || style).split(' ')[0]; // first word only
 
-    // Dropdown options
-    const dropdownOpts = ALL_EATING_STYLES.map(s =>
-      '<button onclick="twSetStyle(\'' + day.dayKey + '\',\'' + s + '\')" style="display:block;width:100%;text-align:left;padding:8px 14px;background:none;border:none;color:' + (s === style ? EATING_STYLE_COLOR[s] : 'var(--text)') + ';font-size:13px;font-weight:' + (s === style ? '700' : '400') + ';cursor:pointer;font-family:\'Manrope\',sans-serif;white-space:nowrap;" onmouseover="this.style.background=\'rgba(255,255,255,0.06)\'" onmouseout="this.style.background=\'none\'">' + EATING_STYLE_EMOJI[s] + ' ' + EATING_STYLE_LABELS[s] + (s === style ? ' ✓' : '') + '</button>'
-    ).join('') + '<button onclick="twClearStyle(\'' + day.dayKey + '\')" style="display:block;width:100%;text-align:left;padding:8px 14px;background:none;border:none;color:var(--text3);font-size:12px;cursor:pointer;font-family:\'Manrope\',sans-serif;" onmouseover="this.style.background=\'rgba(255,255,255,0.06)\'" onmouseout="this.style.background=\'none\'">↺ Reset to auto</button>';
+    const border = isToday ? 'var(--teal)' : (isRest ? 'var(--border)' : accentColor + '55');
+    const bg = isToday ? 'var(--teal)0f' : 'var(--card)';
 
-    return '<div class="tw-row" style="display:grid;grid-template-columns:70px 1fr auto;align-items:center;gap:12px;padding:12px 16px;border-radius:var(--radius-sm);background:var(--card);border:1px solid ' + (isToday ? 'var(--teal)' : 'var(--border)') + ';position:relative;cursor:pointer;" onclick="twSelectDay(\'' + day.dayKey + '\')">'
-      + '<div>'
-          + '<div style="font-size:13px;font-weight:700;color:' + (isToday ? 'var(--teal)' : 'var(--text)') + ';font-family:\'Space Grotesk\',sans-serif;">' + DAY_SHORT_TW[day.dayKey] + (isToday ? ' ·' : '') + '</div>'
-          + '<div style="font-size:11px;color:var(--text3);">' + dateStr + '</div>'
-        + '</div>'
-      + '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">' + workoutChips + '</div>'
-      + '<div style="position:relative;" onclick="event.stopPropagation();">'
-          + '<button onclick="twToggleStyleMenu(\'' + day.dayKey + '\')" style="display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;border:1.5px solid ' + styleColor + '44;background:' + styleColor + '15;color:' + styleColor + ';font-size:12px;font-weight:700;cursor:pointer;font-family:\'Manrope\',sans-serif;white-space:nowrap;">'
-            + styleEmoji + ' ' + styleLabel + ' <span style="font-size:10px;opacity:0.7;">▾</span>'
-          + '</button>'
-          + '<div id="tw-style-menu-' + day.dayKey + '" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:0 8px 32px rgba(0,0,0,0.4);z-index:100;min-width:160px;padding:4px 0;">'
-            + dropdownOpts
-          + '</div>'
-        + '</div>'
-      + '</div>';
-  }).join('');
+    return '<div onclick="twSelectDay(\'' + day.dayKey + '\')" style="cursor:pointer;border-radius:var(--radius-sm);background:' + bg + ';border:1.5px solid ' + border + ';padding:10px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;min-height:110px;transition:border-color 0.15s;" onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1">'
+      + '<div style="font-size:11px;font-weight:700;color:' + (isToday ? 'var(--teal)' : 'var(--text)') + ';font-family:\'Space Grotesk\',sans-serif;">' + DAY_SHORT_TW[day.dayKey] + '</div>'
+      + '<div style="font-size:10px;color:var(--text3);margin-bottom:4px;">' + dateStr + '</div>'
+      + '<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;">' + workoutLines + '</div>'
+      + '<div style="margin-top:4px;padding:2px 7px;border-radius:999px;background:' + styleColor + '20;color:' + styleColor + ';font-size:10px;font-weight:700;white-space:nowrap;">' + styleEmoji + ' ' + styleShort + '</div>'
+    + '</div>';
+  }).join('') + '</div>';
 }
 
 function twToggleStyleMenu(dayKey) {
