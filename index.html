@@ -1528,12 +1528,12 @@
   <div id="pantry-tab-shop" class="etab-page">
 
   <div class="card" style="margin-bottom:20px;" id="planner-shopping-card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-      <div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;flex-wrap:wrap;gap:10px;">
+      <div style="min-width:0;flex:1;">
         <div class="card-title" style="margin-bottom:2px;">This week's meal planner ingredients</div>
         <div style="font-size:12.5px;color:var(--text3);">Auto-generated from your current meal planner — updates when you change meals</div>
       </div>
-      <button onclick="refreshPlannerShoppingList()" style="background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Manrope', sans-serif;">↻ Refresh</button>
+      <button onclick="refreshPlannerShoppingList()" style="background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Manrope', sans-serif;flex-shrink:0;">↻ Refresh</button>
     </div>
     <div id="planner-ingredients-list" style="font-size:13.5px;color:var(--text2);"><em style="color:var(--text3);">Visit your Meal Planner first, then come back and hit Refresh.</em></div>
   </div>
@@ -3381,7 +3381,8 @@ function refreshPlannerShoppingList() {
   let h = '<div style="margin-bottom:10px;font-size:12px;color:var(--text3);">'
         + 'From ' + mealSet.size + ' meal' + (mealSet.size !== 1 ? 's' : '') + ' this week — tap to tick off as you shop'
         + '</div>';
-  h += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;">';
+  const isMobile = window.innerWidth <= 600;
+  h += '<div style="display:grid;grid-template-columns:' + (isMobile ? '1fr' : '1fr 1fr 1fr') + ';gap:4px;">';
   sorted.forEach(function(it) {
     const key = 'planner::' + it.label.toLowerCase();
     const isDone = !!ticks[key];
