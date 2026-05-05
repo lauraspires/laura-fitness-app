@@ -2363,29 +2363,38 @@ function showCuisine(id, el) {
 <!-- ===================== LONGEVITY ===================== -->
   </div>
   <div id="wb1-tab-supplements" class="etab-page">
-<!-- CHECKIN VIEW -->
-  <div id="supp-view-checkin" style="display:none;">
-    <div id="supp-checkin-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:780px;"></div>
+
+  <!-- SUB-TABS -->
+  <div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;">
+    <button id="supp-tab-checkin" onclick="suppTab('checkin')" style="padding:6px 16px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--teal);background:var(--teal);color:#131313;">Today</button>
+    <button id="supp-tab-insights" onclick="suppTab('insights')" style="padding:6px 16px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--border);background:var(--card);color:var(--text2);">Insights</button>
+    <button id="supp-tab-stack" onclick="suppTab('stack')" style="padding:6px 16px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--border);background:var(--card);color:var(--text2);">My Stack</button>
+    <button id="supp-tab-schedule" onclick="suppTab('schedule')" style="padding:6px 16px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--border);background:var(--card);color:var(--text2);">Daily Schedule</button>
+  </div>
+
+  <!-- CHECKIN VIEW (default) -->
+  <div id="supp-view-checkin" style="max-width:780px;">
+    <div id="supp-checkin-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
   </div>
 
   <!-- INSIGHTS VIEW -->
-  <div id="supp-view-insights" style="display:none;">
-    <div id="supp-insights-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:780px;"></div>
+  <div id="supp-view-insights" style="display:none;max-width:780px;">
+    <div id="supp-insights-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
   </div>
 
   <!-- STACK VIEW -->
-  <div id="supp-view-stack">
+  <div id="supp-view-stack" style="display:none;max-width:780px;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
       <div style="font-size:13px;color:var(--text2);">Toggle active/inactive · <span style="color:var(--teal);font-weight:500;" id="supp-count"></span></div>
       <button onclick="openAddSupp()" style="padding:7px 16px;border-radius:999px;border:1.5px solid var(--teal);background:var(--teal-light);color:var(--teal);font-family:'Manrope', sans-serif;font-size:13px;font-weight:600;cursor:pointer;">+ Add supplement</button>
     </div>
-    <div id="supp-stack-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:780px;"></div>
+    <div id="supp-stack-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
   </div>
 
-  <!-- DAILY ROUTINE VIEW -->
-  <div id="supp-view-schedule" style="display:none;">
-    <div style="font-size:13px;color:var(--text2);margin-bottom:16px;">Your daily supplement routine — same every day. Only active supplements appear here. Tap a time window to move supplements in or out.</div>
-    <div id="supp-schedule-grid" style="display:flex;flex-direction:column;gap:12px;max-width:580px;"></div>
+  <!-- DAILY SCHEDULE VIEW -->
+  <div id="supp-view-schedule" style="display:none;max-width:580px;">
+    <div style="font-size:13px;color:var(--text2);margin-bottom:16px;">Your daily supplement routine — same every day. Only active supplements appear here.</div>
+    <div id="supp-schedule-grid" style="display:flex;flex-direction:column;gap:12px;"></div>
   </div>
 </div>
 
@@ -3156,6 +3165,7 @@ function _doSignIn(clientId) {
         }
         gAccessToken = resp.access_token;
         gSyncEnabled = true;
+        localStorage.removeItem('laura_plan_only');
         setSyncStatus('saving', 'Loading your data…');
         await loadFromDrive();
         launchApp();
@@ -3170,6 +3180,7 @@ function _doSignIn(clientId) {
 function usePlanOnly() {
   gSyncEnabled = false;
   gAppData = loadLocalFallback();
+  localStorage.setItem('laura_plan_only', '1');
   launchApp();
 }
 
@@ -5889,6 +5900,12 @@ window.addEventListener('load', () => {
   // Initialize default class times on first load
   initializeDefaultClassTimes();
 
+  // If user previously chose "plan only", skip the overlay entirely
+  if (localStorage.getItem('laura_plan_only') === '1') {
+    usePlanOnly();
+    return;
+  }
+
   // Show sign-in overlay
   const overlay = document.getElementById('sync-overlay');
   const clientId = getClientId();
@@ -8070,7 +8087,7 @@ function switchWellbeingTab1(id, el) {
     if (tab)  tab.classList.toggle('active', t === id);
   });
   if (id === 'routines' && typeof routinesTab === 'function') routinesTab('overview');
-  if (id === 'supplements' && typeof suppTab === 'function') suppTab('stack');
+  if (id === 'supplements' && typeof suppTab === 'function') suppTab('checkin');
 }
 
 function switchWellbeingTab2(id, el) {
