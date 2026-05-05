@@ -5682,7 +5682,7 @@ function renderRunningPlans() {
     leftSection.style.cssText = 'flex:1;';
 
     var planTitle = document.createElement('div');
-    planTitle.style.cssText = "font-family:'Space Grotesk', sans-serif;font-size:18px;font-weight:700;margin-bottom:8px;" + (plan.completed ? 'text-decoration:line-through;' : '');
+    planTitle.style.cssText = "font-family:Space Grotesk, sans-serif;font-size:18px;font-weight:700;margin-bottom:8px;" + (plan.completed ? 'text-decoration:line-through;' : '');
     planTitle.textContent = plan.name;
 
     var planMeta = document.createElement('div');
@@ -6632,7 +6632,7 @@ function renderRoutinesChecklist() {
           '<span style="font-size:20px;">' + icon + '</span>' +
           '<div style="font-size:15px;font-weight:600;">' + label + '</div>' +
         '</div>' +
-        '<div style="font-size:13px;color:' + (doneCount === blockItems.length ? 'var(--teal)' : 'var(--text3)') + ';'>' +
+        '<div style="font-size:13px;color:' + (doneCount === blockItems.length ? 'var(--teal)' : 'var(--text3)') + ';">' +
           (doneCount === blockItems.length ? '✓ Done' : doneCount + '/' + blockItems.length) +
         '</div>' +
       '</div>';
@@ -6648,7 +6648,7 @@ function renderRoutinesChecklist() {
       cb.setAttribute('onchange', "toggleRoutineCheckin('" + it.id + "')");
       var info = document.createElement('div'); info.style.cssText = 'flex:1;';
       info.innerHTML = '<div style="font-size:14px;font-weight:600;' + (isTaken ? 'text-decoration:line-through;color:var(--text3);' : '') + '">' + it.name + '</div>' +
-        '<div style="font-size:12px;color:var(--text3);font-family:'Manrope',sans-serif;margin-top:2px;">' + (it.duration || '') + '</div>';
+        '<div style="font-size:12px;color:var(--text3);font-family:Manrope,sans-serif;margin-top:2px;">' + (it.duration || '') + '</div>';
       var editBtn = document.createElement('button');
       editBtn.textContent = '✏️';
       editBtn.style.cssText = 'background:none;border:none;cursor:pointer;font-size:16px;padding:2px 4px;opacity:0.5;transition:opacity 0.15s;flex-shrink:0;';
