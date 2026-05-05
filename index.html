@@ -887,15 +887,44 @@
 
   <!-- Sunday Prep Generator -->
   <div class="card" id="sunday-prep-card" style="margin-top:20px;">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;gap:12px;flex-wrap:wrap;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;gap:12px;flex-wrap:wrap;">
       <div>
         <div class="card-title" style="margin-bottom:4px;">☀️ Sunday Prep</div>
-        <div style="font-size:13px;color:var(--text3);">AI-generated prep list based on this week's meals and workouts</div>
+        <div style="font-size:13px;color:var(--text3);">Your weekly staples + AI-generated list from this week's meals and workouts</div>
       </div>
       <button onclick="generateSundayPrep()" id="sunday-prep-btn" style="padding:9px 18px;background:var(--teal);color:#131313;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap;flex-shrink:0;">Generate ✨</button>
     </div>
+
+    <!-- Weekly staples — always show -->
+    <div style="margin-bottom:16px;padding:14px 16px;background:var(--bg2);border-radius:var(--radius-sm);border:1px solid var(--border);">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--teal);">⭐ Weekly staples — always prep these</div>
+        <button onclick="openPrepStaplesEditor()" style="font-size:12px;color:var(--text3);background:none;border:none;cursor:pointer;font-family:'Manrope',sans-serif;padding:0;text-decoration:underline;">Edit</button>
+      </div>
+      <div id="prep-staples-list" style="display:flex;flex-direction:column;gap:6px;">
+        <em style="color:var(--text3);font-size:13px;">No staples yet — click Edit to add your weekly prep items.</em>
+      </div>
+    </div>
+
+    <!-- AI-generated output -->
     <div id="sunday-prep-output" style="font-size:13.5px;color:var(--text2);min-height:40px;">
       <em style="color:var(--text3);">Hit Generate to build your Sunday prep list from this week's plan.</em>
+    </div>
+  </div>
+
+  <!-- Prep staples editor modal -->
+  <div id="prep-staples-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9000;align-items:flex-end;justify-content:center;">
+    <div style="background:var(--bg);width:100%;max-width:520px;border-radius:24px 24px 0 0;padding:24px;max-height:80vh;overflow-y:auto;box-shadow:var(--shadow-lg);">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;">Weekly prep staples</div>
+        <button onclick="closePrepStaplesModal()" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--text2);">✕</button>
+      </div>
+      <div style="font-size:13px;color:var(--text3);margin-bottom:16px;">Things you prep every week regardless of the meal plan — boil eggs, make snacks, batch sauces, etc.</div>
+      <div id="prep-staples-editor-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;"></div>
+      <div style="display:flex;gap:8px;">
+        <input id="prep-staple-input" type="text" placeholder="e.g. Boil 6 eggs" style="flex:1;padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope',sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onkeydown="if(event.key==='Enter')addPrepStaple()" />
+        <button onclick="addPrepStaple()" style="padding:10px 16px;background:var(--teal);color:#131313;border:none;border-radius:var(--radius-sm);font-family:'Manrope',sans-serif;font-weight:700;font-size:14px;cursor:pointer;">Add</button>
+      </div>
     </div>
   </div>
 </div>
@@ -2505,6 +2534,7 @@ function launchApp() {
   renderPlanner();
   renderSuppStack();
   if (typeof renderThisWeekPage === 'function') renderThisWeekPage();
+  if (typeof renderPrepStaplesList === 'function') renderPrepStaplesList();
   if (typeof renderWtGrid === 'function') renderWtGrid();
   // Re-render data-driven views so they pick up data loaded from Drive
   if (typeof renderRunningPlans === 'function') renderRunningPlans();
@@ -7357,6 +7387,86 @@ function showNotificationWithUndo(msg, undoFn) {
 // ============================================================
 // SUNDAY PREP GENERATOR
 // ============================================================
+// ---- Weekly prep staples ----
+const PREP_STAPLES_KEY = 'laura_prep_staples_v1';
+
+function loadPrepStaples() {
+  return getData(PREP_STAPLES_KEY, []);
+}
+
+function savePrepStaples(items) {
+  setData(PREP_STAPLES_KEY, items);
+  scheduleSave();
+}
+
+function renderPrepStaplesList() {
+  var el = document.getElementById('prep-staples-list');
+  if (!el) return;
+  var items = loadPrepStaples();
+  if (!items.length) {
+    el.innerHTML = '<em style="color:var(--text3);font-size:13px;">No staples yet — click Edit to add your weekly prep items.</em>';
+    return;
+  }
+  el.innerHTML = items.map(function(item) {
+    return '<div style="display:flex;align-items:center;gap:10px;padding:6px 0;">'
+      + '<div style="width:7px;height:7px;border-radius:50%;background:var(--teal);flex-shrink:0;"></div>'
+      + '<div style="font-size:13.5px;color:var(--text);">' + item + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+function openPrepStaplesEditor() {
+  renderPrepStaplesEditorList();
+  var modal = document.getElementById('prep-staples-modal');
+  if (modal) { modal.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+}
+
+function closePrepStaplesModal() {
+  var modal = document.getElementById('prep-staples-modal');
+  if (modal) { modal.style.display = 'none'; document.body.style.overflow = ''; }
+  renderPrepStaplesList();
+}
+
+function renderPrepStaplesEditorList() {
+  var container = document.getElementById('prep-staples-editor-list');
+  if (!container) return;
+  var items = loadPrepStaples();
+  if (!items.length) {
+    container.innerHTML = '<div style="font-size:13px;color:var(--text3);padding:8px 0;">No staples added yet.</div>';
+    return;
+  }
+  container.innerHTML = items.map(function(item, idx) {
+    return '<div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);">'
+      + '<div style="flex:1;font-size:14px;">' + item + '</div>'
+      + '<button onclick="removePrepStaple(' + idx + ')" style="background:none;border:none;cursor:pointer;font-size:16px;color:var(--text3);padding:0 2px;transition:color 0.15s;" onmouseover="this.style.color=\'var(--red)\'" onmouseout="this.style.color=\'var(--text3)\'">✕</button>'
+      + '</div>';
+  }).join('');
+}
+
+function addPrepStaple() {
+  var input = document.getElementById('prep-staple-input');
+  if (!input) return;
+  var val = input.value.trim();
+  if (!val) return;
+  var items = loadPrepStaples();
+  items.push(val);
+  savePrepStaples(items);
+  input.value = '';
+  renderPrepStaplesEditorList();
+}
+
+function removePrepStaple(idx) {
+  var items = loadPrepStaples();
+  items.splice(idx, 1);
+  savePrepStaples(items);
+  renderPrepStaplesEditorList();
+}
+
+document.addEventListener('click', function(e) {
+  var modal = document.getElementById('prep-staples-modal');
+  if (modal && e.target === modal) closePrepStaplesModal();
+});
+
 async function generateSundayPrep() {
   const btn = document.getElementById('sunday-prep-btn');
   const out = document.getElementById('sunday-prep-output');
@@ -7413,6 +7523,9 @@ async function generateSundayPrep() {
     });
   }
 
+  // Gather weekly staples
+  const prepStaples = (typeof loadPrepStaples === 'function') ? loadPrepStaples() : [];
+
   const prompt = [
     'You are a helpful meal prep assistant. Laura is preparing for the week ahead.',
     '',
@@ -7424,6 +7537,8 @@ async function generateSundayPrep() {
     '',
     'Items already in the kitchen/fridge:',
     pantryItems.length ? pantryItems.join(', ') : '(Not specified)',
+    '',
+    prepStaples.length ? ('Weekly staples she always preps (do NOT repeat these in your output — they are already shown separately):\n' + prepStaples.map(function(s){ return '- ' + s; }).join('\n')) : '',
     '',
     'Generate a practical Sunday prep list covering ALL aspects of the week ahead — not just food.',
     'Include these sections (only include a section if there\'s something meaningful to say):',
@@ -7441,7 +7556,7 @@ async function generateSundayPrep() {
     '- Max 3–5 bullet points per section. Skip a section entirely if nothing applies.',
     '- Total prep time should be realistic for a Sunday: 45–90 minutes.',
     '- Do NOT include any preamble, intro, or explanation — just the sections and bullets.'
-  ].join('\n');
+  ].filter(function(l){ return l !== undefined; }).join('\n');
 
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
