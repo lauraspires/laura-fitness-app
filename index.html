@@ -5391,38 +5391,7 @@ window.addEventListener('load', () => {
     document.getElementById('signin-btn-wrap').style.display = 'block';
   }
 
-  // Attempt silent Google sign-in (re-use existing consent without a popup)
-  function tryAutoSignIn() {
-    if (typeof google !== 'undefined' && google.accounts && google.accounts.oauth2) {
-      try {
-        const clientId = getClientId();
-        const client = google.accounts.oauth2.initTokenClient({
-          client_id: clientId,
-          scope: 'https://www.googleapis.com/auth/drive.file',
-          prompt: '',  // empty = silent if already consented
-          callback: async function(resp) {
-            if (resp && resp.access_token) {
-              gAccessToken = resp.access_token;
-              gSyncEnabled = true;
-              localStorage.removeItem('laura_plan_only');
-              setSyncStatus('saving', 'Syncing…');
-              try {
-                await loadFromDrive();
-                // Re-render whatever page is active with fresh data
-                var activePage = document.querySelector('.page.active');
-                if (activePage && activePage.id === 'page-progress') renderProgress();
-                if (activePage && activePage.id === 'page-overview') updateDashboard();
-                setSyncStatus('ok', 'Synced');
-              } catch(e) { setSyncStatus('error', 'Sync error'); }
-            }
-          },
-        });
-        client.requestAccessToken();
-      } catch(e) {}
-    }
-  }
-  // Give the Google script time to load, then try silent sign-in
-  setTimeout(tryAutoSignIn, 1500);
+  // No silent auto-sign-in — user clicks "Sign in with Google" manually.
 });
 
 function renderLongevityChecks() {
