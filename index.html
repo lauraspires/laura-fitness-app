@@ -664,6 +664,9 @@
     <button class="nav-item active" onclick="goTo('overview', this)">
       <span class="nav-icon">🏠</span> Dashboard
     </button>
+    <button class="nav-item" onclick="goTo('thisweek', this)">
+      <span class="nav-icon">📅</span> This Week
+    </button>
     <button class="nav-item" onclick="goTo('stats', this)">
       <span class="nav-icon">📊</span> My Stats
     </button>
@@ -675,7 +678,7 @@
   <div class="nav-section">
     <div class="nav-label">Training</div>
     <button class="nav-item" onclick="goTo('training', this)">
-      <span class="nav-icon">📅</span> Weekly Schedule
+      <span class="nav-icon">🗓️</span> Schedule
     </button>
     <button class="nav-item" onclick="goTo('workouts', this)">
       <span class="nav-icon">💪</span> Gym Workouts
@@ -889,6 +892,28 @@
 </div>
 
 <!-- ===================== WEEKLY SCHEDULE ===================== -->
+<div id="page-thisweek" class="page">
+  <div class="page-header">
+    <div style="display:flex;align-items:center;justify-content:space-between;width:100%;">
+      <div>
+        <div class="page-eyebrow">Overview</div>
+        <div class="page-title">This Week</div>
+        <div class="page-sub" id="thisweek-date-sub">Your workouts and food plan, side by side</div>
+      </div>
+      <button onclick="openWorkoutEditor()" style="padding:10px 16px;background:var(--teal);color:#131313;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:700;cursor:pointer;font-size:14px;white-space:nowrap;">Edit Routine</button>
+    </div>
+  </div>
+
+  <!-- Week picker -->
+  <div id="thisweek-picker" style="display:flex;align-items:center;gap:8px;margin-bottom:20px;flex-wrap:wrap;"></div>
+
+  <!-- 7-day grid -->
+  <div id="thisweek-grid" style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;"></div>
+
+  <!-- Day detail panel -->
+  <div id="thisweek-day-panel" style="display:none;"></div>
+</div>
+
 <div id="page-training" class="page">
   <div class="page-header">
     <div style="display:flex;align-items:center;justify-content:space-between;width:100%;">
@@ -1302,15 +1327,14 @@
   </div>
 
   <div class="eating-tabs">
-    <div class="etab active" onclick="switchEat('std', this)">📅 This week</div>
-    <div class="etab" onclick="switchEat('guide', this)">📚 The guide</div>
+    <div class="etab active" onclick="switchEat('guide', this)">📚 The guide</div>
     <div class="etab" onclick="switchEat('standard', this)">🥗 Standard day</div>
     <div class="etab" onclick="switchEat('early', this)">🕕 Early finish</div>
     <div class="etab" onclick="switchEat('omad', this)">🍽️ OMAD</div>
     <div class="etab" onclick="switchEat('keto', this)">🥑 Keto day</div>
   </div>
 
-  <div id="eat-std" class="etab-page active">
+  <div id="eat-std" class="etab-page">
     <!-- Early-finish day picker -->
     <div style="background:rgba(96,165,250,0.07);border:1px solid rgba(96,165,250,0.2);border-radius:var(--radius);padding:14px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
       <div style="font-size:13px;font-weight:600;color:#60a5fa;white-space:nowrap;">🕕 Early finish this week</div>
@@ -1435,7 +1459,7 @@
   </div>
 
   <!-- ===== NUTRITION GUIDE TAB ===== -->
-  <div id="eat-guide" class="etab-page">
+  <div id="eat-guide" class="etab-page active">
 
     <!-- Section: Eating approaches — 2 column grid -->
     <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;font-family:'Manrope',sans-serif;">Eating approaches in your plan</div>
@@ -3270,7 +3294,8 @@ function goTo(page, el) {
   if (page === 'shop') { refreshPlannerShoppingList(); renderShoppingTickList(); }
   if (page === 'workouts') renderGymWorkouts();
   if (page === 'pantry') renderPantry();
-  if (page === 'meals') renderDynamicWeeklyOverview();
+  if (page === 'thisweek') renderThisWeekPage();
+  if (page === 'meals') { switchEat('guide', document.querySelector('.eating-tabs .etab')); }
   if (page === 'dashboard') renderDashboardNutritionWidget(null);
   if (page === 'recime') renderSavedRecipes();
   if (page === 'runningplans') {
@@ -8143,12 +8168,33 @@ function _baseDayEatingStyle(dayKey, workoutTypes) {
   const lib = getWorkoutLibrary();
   const types = workoutTypes.map(wt => (lib[wt] && lib[wt].type) || wt);
   const hasRest = types.includes('rest');
+  // Saturday rest = OMAD (volunteer day, naturally fasted morning)
+  if (hasRest && dayKey === 'sat') return 'omad';
+  // Any other rest day = keto
   if (hasRest) return 'rest_keto';
+  // WFH Thursday = early finish by default
   if (dayKey === 'thu') return 'early';
   return 'standard';
 }
 
+// Per-day eating style overrides (stored in localStorage)
+const DAY_STYLE_OVERRIDES_KEY = 'laura_day_style_overrides_v1';
+
+function loadDayStyleOverrides() {
+  try { return JSON.parse(localStorage.getItem(DAY_STYLE_OVERRIDES_KEY) || '{}'); } catch(e) { return {}; }
+}
+
+function setDayStyleOverride(dayKey, style) {
+  const overrides = loadDayStyleOverrides();
+  if (style === null) { delete overrides[dayKey]; } else { overrides[dayKey] = style; }
+  try { localStorage.setItem(DAY_STYLE_OVERRIDES_KEY, JSON.stringify(overrides)); } catch(e) {}
+}
+
 function getDayEatingStyle(dayKey, workoutTypes) {
+  // Per-day override takes highest priority
+  const overrides = loadDayStyleOverrides();
+  if (overrides[dayKey]) return overrides[dayKey];
+  // Legacy early finish extras
   const extras = loadExtraEarlyFinishDays();
   if (extras && extras.includes(dayKey)) return 'early';
   return _baseDayEatingStyle(dayKey, workoutTypes);
@@ -8156,7 +8202,7 @@ function getDayEatingStyle(dayKey, workoutTypes) {
 
 const EATING_STYLES = {
   standard:  { label:'Standard day',   sub:'Three meals · ~1,450 kcal · 137g protein', badge:'badge-teal',   badgeText:'3 meals',      why:'Training day — steady fuel across three meals supports performance and muscle recovery.' },
-  early:     { label:'Early finish',   sub:'Done by 6pm · ~1,240 kcal · 116g protein', badge:'badge-blue',   badgeText:'By 6pm',       why:'WFH Thursday — eating window closes by 6pm. More control over your environment means it\'s easier to stick to. Creates a deficit without feeling deprived.' },
+  early:     { label:'Early finish',   sub:'Done by 6pm · ~1,240 kcal · 116g protein', badge:'badge-blue',   badgeText:'By 6pm',       why:'Eating window closes by 6pm. More control over your environment means it\'s easier to stick to. Creates a deficit without feeling deprived.' },
   rest_keto: { label:'Keto day',       sub:'No carbs · ~1,400 kcal · 121g protein',    badge:'badge-purple', badgeText:'Keto',         why:'Rest day — no performance carbs needed. Going keto on a low-activity day teaches your body to burn fat as fuel and keeps insulin low.' },
   omad:      { label:'OMAD',           sub:'One big meal · ~1,200 kcal · 110g protein', badge:'badge-amber',  badgeText:'1 meal',       why:'Volunteer Saturday — busy morning means you\'re naturally not thinking about food. One big satisfying meal in the afternoon works with that rhythm.' },
 };
@@ -8463,6 +8509,242 @@ loadWorkoutRoutine = function() {
   if (_displayRoutine) return JSON.parse(JSON.stringify(_displayRoutine));
   return _origLoadWorkoutRoutine();
 };
+
+// ─────────────────────────────────────────────
+//  THIS WEEK PAGE
+// ─────────────────────────────────────────────
+
+const ALL_EATING_STYLES = ['standard','early','omad','rest_keto'];
+const EATING_STYLE_LABELS = { standard:'Standard', early:'Early finish', omad:'OMAD', rest_keto:'Keto' };
+const EATING_STYLE_EMOJI  = { standard:'🥗', early:'🕕', omad:'🍽️', rest_keto:'🥑' };
+const EATING_STYLE_COLOR  = { standard:'#00f5d4', early:'#60a5fa', omad:'#f5a623', rest_keto:'#bf5fff' };
+
+let _twWeekOffset = 0;
+
+function getWeekDates(offset) {
+  const now = new Date();
+  const dow = now.getDay(); // 0=Sun
+  const monday = new Date(now);
+  monday.setDate(now.getDate() - (dow === 0 ? 6 : dow - 1) + offset * 7);
+  monday.setHours(0,0,0,0);
+  return Array.from({length:7}, (_, i) => {
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    return d;
+  });
+}
+
+function renderThisWeekPage() {
+  renderTWPicker();
+  renderTWGrid();
+}
+
+function renderTWPicker() {
+  const el = document.getElementById('thisweek-picker');
+  if (!el) return;
+  const weeks = [{o:-1,l:'Last week'},{o:0,l:'This week'},{o:1,l:'Next week'},{o:2,l:'Week +2'}];
+  el.innerHTML = weeks.map(w => {
+    const active = w.o === _twWeekOffset;
+    return '<button onclick="twSwitchWeek(' + w.o + ')" style="padding:6px 14px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:\'Manrope\',sans-serif;transition:all 0.15s;border:1.5px solid '
+      + (active ? 'var(--teal);background:var(--teal);color:#131313' : 'var(--border);background:var(--card);color:var(--text2)')
+      + ';">' + w.l + '</button>';
+  }).join('');
+
+  // Date range subtitle
+  const dates = getWeekDates(_twWeekOffset);
+  const fmt = d => d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+  const sub = document.getElementById('thisweek-date-sub');
+  if (sub) sub.textContent = fmt(dates[0]) + ' – ' + fmt(dates[6]);
+}
+
+function twSwitchWeek(offset) {
+  _twWeekOffset = offset;
+  // Sync with the future weeks system
+  const override = offset === 0 ? null : loadFutureWeek(offset);
+  _displayRoutine = override || null;
+  renderTWPicker();
+  renderTWGrid();
+}
+
+function renderTWGrid() {
+  const el = document.getElementById('thisweek-grid');
+  if (!el) return;
+
+  const routine = loadWorkoutRoutine();
+  const lib = getWorkoutLibrary();
+  const dates = getWeekDates(_twWeekOffset);
+  const DAY_SHORT_TW = {mon:'Mon',tue:'Tue',wed:'Wed',thu:'Thu',fri:'Fri',sat:'Sat',sun:'Sun'};
+  const CAT_COLOR = {gym:'#00f5d4',run:'#bf5fff',class:'#d4ff00',rest:'#888'};
+
+  function getCat(type) {
+    if (!type) return 'gym';
+    const w = lib[type];
+    if (!w) return 'gym';
+    if (w.type === 'run' || w.color === 'run') return 'run';
+    if (w.type === 'class' || w.color === 'class') return 'class';
+    if (w.type === 'rest') return 'rest';
+    return 'gym';
+  }
+
+  // Today's day key
+  const todayDow = new Date().getDay();
+  const todayKey = ['sun','mon','tue','wed','thu','fri','sat'][todayDow];
+
+  el.innerHTML = routine.map((day, idx) => {
+    const dayDate = dates[idx];
+    const dateStr = dayDate ? dayDate.toLocaleDateString('en-GB',{day:'numeric',month:'short'}) : '';
+    const isToday = _twWeekOffset === 0 && day.dayKey === todayKey;
+    const wts = day.workoutTypes || [];
+    const primaryCat = getCat(wts[0]);
+    const accentColor = wts.length === 0 ? '#888' : CAT_COLOR[primaryCat];
+
+    // Workout chips
+    const workoutChips = wts.length === 0
+      ? '<span style="font-size:12px;color:var(--text3);">Rest</span>'
+      : wts.map(t => {
+          const w = lib[t];
+          return w ? '<span style="display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;background:' + accentColor + '22;color:' + accentColor + ';border:1px solid ' + accentColor + '44;">' + w.emoji + ' ' + w.name + '</span>' : '';
+        }).join(' ');
+
+    // Food style
+    const style = getDayEatingStyle(day.dayKey, wts);
+    const styleColor = EATING_STYLE_COLOR[style] || '#888';
+    const styleLabel = EATING_STYLE_LABELS[style] || style;
+    const styleEmoji = EATING_STYLE_EMOJI[style] || '🥗';
+
+    // Dropdown options
+    const dropdownOpts = ALL_EATING_STYLES.map(s =>
+      '<button onclick="twSetStyle(\'' + day.dayKey + '\',\'' + s + '\')" style="display:block;width:100%;text-align:left;padding:8px 14px;background:none;border:none;color:' + (s === style ? EATING_STYLE_COLOR[s] : 'var(--text)') + ';font-size:13px;font-weight:' + (s === style ? '700' : '400') + ';cursor:pointer;font-family:\'Manrope\',sans-serif;white-space:nowrap;" onmouseover="this.style.background=\'rgba(255,255,255,0.06)\'" onmouseout="this.style.background=\'none\'">' + EATING_STYLE_EMOJI[s] + ' ' + EATING_STYLE_LABELS[s] + (s === style ? ' ✓' : '') + '</button>'
+    ).join('') + '<button onclick="twClearStyle(\'' + day.dayKey + '\')" style="display:block;width:100%;text-align:left;padding:8px 14px;background:none;border:none;color:var(--text3);font-size:12px;cursor:pointer;font-family:\'Manrope\',sans-serif;" onmouseover="this.style.background=\'rgba(255,255,255,0.06)\'" onmouseout="this.style.background=\'none\'">↺ Reset to auto</button>';
+
+    return '<div class="tw-row" style="display:grid;grid-template-columns:70px 1fr auto;align-items:center;gap:12px;padding:12px 16px;border-radius:var(--radius-sm);background:var(--card);border:1px solid ' + (isToday ? 'var(--teal)' : 'var(--border)') + ';position:relative;cursor:pointer;" onclick="twSelectDay(\'' + day.dayKey + '\')">'
+      + '<div>'
+          + '<div style="font-size:13px;font-weight:700;color:' + (isToday ? 'var(--teal)' : 'var(--text)') + ';font-family:\'Space Grotesk\',sans-serif;">' + DAY_SHORT_TW[day.dayKey] + (isToday ? ' ·' : '') + '</div>'
+          + '<div style="font-size:11px;color:var(--text3);">' + dateStr + '</div>'
+        + '</div>'
+      + '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">' + workoutChips + '</div>'
+      + '<div style="position:relative;" onclick="event.stopPropagation();">'
+          + '<button onclick="twToggleStyleMenu(\'' + day.dayKey + '\')" style="display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;border:1.5px solid ' + styleColor + '44;background:' + styleColor + '15;color:' + styleColor + ';font-size:12px;font-weight:700;cursor:pointer;font-family:\'Manrope\',sans-serif;white-space:nowrap;">'
+            + styleEmoji + ' ' + styleLabel + ' <span style="font-size:10px;opacity:0.7;">▾</span>'
+          + '</button>'
+          + '<div id="tw-style-menu-' + day.dayKey + '" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:0 8px 32px rgba(0,0,0,0.4);z-index:100;min-width:160px;padding:4px 0;">'
+            + dropdownOpts
+          + '</div>'
+        + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+function twToggleStyleMenu(dayKey) {
+  // Close all others first
+  document.querySelectorAll('[id^="tw-style-menu-"]').forEach(m => {
+    if (m.id !== 'tw-style-menu-' + dayKey) m.style.display = 'none';
+  });
+  const menu = document.getElementById('tw-style-menu-' + dayKey);
+  if (menu) menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+}
+
+function twSetStyle(dayKey, style) {
+  setDayStyleOverride(dayKey, style);
+  document.querySelectorAll('[id^="tw-style-menu-"]').forEach(m => m.style.display = 'none');
+  renderTWGrid();
+  renderTWDayPanel(dayKey);
+  // Keep dashboard nutrition in sync
+  try { renderDashboardNutritionWidget(null); } catch(e) {}
+}
+
+function twClearStyle(dayKey) {
+  setDayStyleOverride(dayKey, null);
+  document.querySelectorAll('[id^="tw-style-menu-"]').forEach(m => m.style.display = 'none');
+  renderTWGrid();
+  renderTWDayPanel(dayKey);
+  try { renderDashboardNutritionWidget(null); } catch(e) {}
+}
+
+// Close menus when clicking outside
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('[id^="tw-style-menu-"]') && !e.target.closest('button[onclick*="twToggleStyleMenu"]')) {
+    document.querySelectorAll('[id^="tw-style-menu-"]').forEach(m => m.style.display = 'none');
+  }
+});
+
+let _twSelectedDay = null;
+
+function twSelectDay(dayKey) {
+  _twSelectedDay = dayKey;
+  renderTWDayPanel(dayKey);
+}
+
+function renderTWDayPanel(dayKey) {
+  const el = document.getElementById('thisweek-day-panel');
+  if (!el) return;
+
+  const routine = loadWorkoutRoutine();
+  const day = routine.find(d => d.dayKey === dayKey);
+  if (!day) { el.style.display = 'none'; return; }
+
+  const lib = getWorkoutLibrary();
+  const wts = day.workoutTypes || [];
+  const style = getDayEatingStyle(dayKey, wts);
+  const styleInfo = (typeof EATING_STYLES !== 'undefined' && EATING_STYLES[style]) || { label: EATING_STYLE_LABELS[style], sub:'', why:'' };
+  const styleColor = EATING_STYLE_COLOR[style] || '#888';
+  const DAY_LABELS = {mon:'Monday',tue:'Tuesday',wed:'Wednesday',thu:'Thursday',fri:'Friday',sat:'Saturday',sun:'Sunday'};
+
+  const workoutSection = wts.length === 0
+    ? '<div style="color:var(--text3);font-size:14px;">Rest day</div>'
+    : wts.map(t => {
+        const w = lib[t];
+        if (!w) return '';
+        return '<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);">'
+          + '<span style="font-size:22px;">' + w.emoji + '</span>'
+          + '<div><div style="font-size:15px;font-weight:700;">' + w.name + '</div>'
+          + '<div style="font-size:12px;color:var(--text3);">' + (w.tag || '') + '</div></div>'
+          + '</div>';
+      }).join('');
+
+  // Eating tips based on style
+  const STYLE_TIPS = {
+    standard: ['Three meals — breakfast, lunch, dinner','Protein at every meal (aim for 40g+ per meal)','Carbs are welcome — you need them for training','Stay hydrated, especially on gym and class days'],
+    early:    ['Eating window closes by 6pm','Finish dinner by 5:30–6pm','Herbal tea in the evening handles hunger well','Works well with WFH — more kitchen control'],
+    omad:     ['One large meal, typically 1–2pm','Fast naturally through the morning','Make it high protein and nutrient-dense','Black coffee or tea is fine during the fast'],
+    rest_keto:['No carbs today — eggs, meat, fish, cheese, avocado, nuts','Keep meals satisfying with healthy fats','Good day for intermittent fasting if you want','Helps your body become fat-adapted over time'],
+  };
+  const tips = STYLE_TIPS[style] || STYLE_TIPS.standard;
+
+  const overrides = loadDayStyleOverrides();
+  const isOverridden = !!overrides[dayKey];
+
+  el.style.display = 'block';
+  el.innerHTML = '<div class="card" style="border:1px solid ' + styleColor + '33;">'
+    + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">'
+      + '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:20px;font-weight:700;">' + DAY_LABELS[dayKey] + '</div>'
+      + '<button onclick="twSelectDay(null);document.getElementById(\'thisweek-day-panel\').style.display=\'none\'" style="background:none;border:none;color:var(--text3);font-size:18px;cursor:pointer;padding:4px 8px;">✕</button>'
+    + '</div>'
+    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">'
+      + '<div>'
+          + '<div style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:\'Manrope\',sans-serif;margin-bottom:10px;">Workout</div>'
+          + workoutSection
+        + '</div>'
+      + '<div>'
+          + '<div style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:\'Manrope\',sans-serif;margin-bottom:10px;">Food plan' + (isOverridden ? ' <span style="color:var(--teal);font-size:10px;">· custom</span>' : '') + '</div>'
+          + '<div style="padding:12px;border-radius:var(--radius-sm);background:' + styleColor + '12;border:1px solid ' + styleColor + '33;margin-bottom:12px;">'
+            + '<div style="font-weight:700;color:' + styleColor + ';margin-bottom:4px;">' + EATING_STYLE_EMOJI[style] + ' ' + styleInfo.label + '</div>'
+            + '<div style="font-size:12px;color:var(--text2);">' + (styleInfo.sub || '') + '</div>'
+          + '</div>'
+          + tips.map(t => '<div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;"><span style="color:' + styleColor + ';flex-shrink:0;margin-top:2px;">·</span><span style="font-size:13px;color:var(--text2);line-height:1.5;">' + t + '</span></div>').join('')
+        + '</div>'
+    + '</div>'
+  + '</div>';
+}
+
+// Close style menus on page navigation
+(function() {
+  const _origGoToForTW = goTo;
+  goTo = function(page, el) {
+    document.querySelectorAll('[id^="tw-style-menu-"]').forEach(m => m.style.display = 'none');
+    _origGoToForTW(page, el);
+  };
+})();
 
 </script>
 
