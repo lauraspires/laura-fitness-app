@@ -1733,7 +1733,7 @@
   <!-- DAILY SCHEDULE VIEW -->
   <div id="supp-view-schedule" style="display:none;">
     <div style="font-size:13px;color:var(--text2);margin-bottom:16px;">Your daily supplement routine — same every day. Only active supplements appear here.</div>
-    <div id="supp-schedule-grid" style="display:flex;flex-direction:column;gap:12px;max-width:640px;"></div>
+    <div id="supp-schedule-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;"></div>
   </div>
 </div>
 
@@ -1990,54 +1990,96 @@
   <div class="page-header">
     <div class="page-eyebrow">Configuration</div>
     <div class="page-title">Settings</div>
-    <div class="page-sub">Manage API keys and app configuration</div>
+    <div class="page-sub">Profile, goals, API key and data management</div>
   </div>
 
+  <!-- PROFILE & GOALS -->
   <div class="card" style="margin-bottom:20px;">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding:12px 16px;background:var(--blue-light);border-radius:var(--radius-sm);">
-      <span style="font-size:18px;">🔑</span>
-      <div style="font-size:13px;color:var(--blue);"><strong>Anthropic API Key</strong> — Required for meal suggestions powered by Claude</div>
+    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:16px;">👤 Profile &amp; Weight Goals</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+      <div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:6px;">Starting weight (kg)</div>
+        <input id="settings-start-weight" type="number" step="0.1" placeholder="e.g. 64.0" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:6px;">Goal weight (kg)</div>
+        <input id="settings-goal-weight" type="number" step="0.1" placeholder="e.g. 57.0" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+      </div>
     </div>
-
     <div style="margin-bottom:16px;">
-      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:8px;">API Key</div>
-      <input id="settings-api-key" type="password" placeholder="paste your Anthropic API key here" style="width:100%;padding:12px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:13px;background:var(--bg);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:6px;">Daily calorie target</div>
+      <input id="settings-calorie-target" type="number" placeholder="e.g. 1600" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
     </div>
-
-    <div style="display:flex;gap:10px;margin-bottom:16px;">
-      <button onclick="saveApiKeySettings()" style="flex:1;padding:12px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Save API Key</button>
-      <button onclick="toggleApiKeyVisibility(this)" style="padding:12px 16px;background:var(--border);color:var(--text);border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-size:14px;font-weight:500;cursor:pointer;">Show</button>
+    <div style="margin-bottom:16px;">
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:6px;">Daily protein target (g)</div>
+      <input id="settings-protein-target" type="number" placeholder="e.g. 130" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
     </div>
+    <button onclick="saveProfileSettings()" style="padding:11px 24px;background:var(--teal);color:#00382f;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-size:14px;font-weight:700;cursor:pointer;">Save profile settings</button>
+    <div id="settings-profile-msg" style="margin-top:10px;font-size:13px;display:none;"></div>
+  </div>
 
+  <!-- API KEY -->
+  <div class="card" style="margin-bottom:20px;">
+    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:16px;">🔑 Anthropic API Key</div>
+    <div style="margin-bottom:4px;font-size:13px;color:var(--text2);">Required for AI-powered meal suggestions. Stored locally only — never sent anywhere except Anthropic.</div>
+    <div style="margin:16px 0;">
+      <input id="settings-api-key" type="password" placeholder="paste your Anthropic API key here" style="width:100%;padding:12px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:13px;background:var(--bg);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+    </div>
+    <div style="display:flex;gap:10px;margin-bottom:14px;">
+      <button onclick="saveApiKeySettings()" style="flex:1;padding:11px;background:var(--teal);color:#00382f;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-size:14px;font-weight:700;cursor:pointer;">Save API Key</button>
+      <button onclick="toggleApiKeyVisibility(this)" style="padding:11px 20px;background:var(--bg2);color:var(--text);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-size:14px;font-weight:500;cursor:pointer;">Show</button>
+    </div>
     <div id="api-key-status" style="font-size:13px;color:var(--text2);padding:12px;background:var(--bg);border-radius:var(--radius-sm);border-left:3px solid var(--border);">
       <span id="api-key-status-text">No API key configured yet</span>
     </div>
+    <div style="margin-top:12px;padding:10px 14px;background:var(--amber-light);border-radius:var(--radius-sm);border-left:3px solid var(--amber);">
+      <div style="font-size:12px;color:var(--amber);">Get your key at <a href="https://console.anthropic.com/keys" target="_blank" style="color:var(--amber);font-weight:600;">console.anthropic.com/keys</a> — create an account, click Create Key, paste it above.</div>
+    </div>
   </div>
 
-  <div class="card">
-    <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:12px;">How to get your API key</div>
-    <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;color:var(--text2);line-height:1.6;">
-      <div style="display:flex;gap:10px;align-items:flex-start;">
-        <div style="background:var(--teal);color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0;font-size:12px;">1</div>
-        <div>Go to <a href="https://console.anthropic.com/keys" target="_blank" style="color:var(--teal);text-decoration:none;font-weight:500;">Anthropic Console</a> and create an account if needed</div>
+  <!-- DATA MANAGEMENT -->
+  <div class="card" style="margin-bottom:20px;">
+    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:16px;">💾 Data Management</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--bg2);border-radius:var(--radius-sm);border:1px solid var(--border);">
+        <div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:2px;">Export all data</div>
+          <div style="font-size:12px;color:var(--text3);">Download your weight log, meal plan, and settings as JSON</div>
+        </div>
+        <button onclick="exportAllData()" style="padding:8px 18px;background:var(--teal-light);color:var(--teal);border:1.5px solid var(--teal);border-radius:999px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;">Export</button>
       </div>
-      <div style="display:flex;gap:10px;align-items:flex-start;">
-        <div style="background:var(--teal);color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0;font-size:12px;">2</div>
-        <div>Click <strong>"Create Key"</strong> in the API Keys section</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--bg2);border-radius:var(--radius-sm);border:1px solid var(--border);">
+        <div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:2px;">Reset weight log</div>
+          <div style="font-size:12px;color:var(--text3);">Clears all weight, waist and hip entries — cannot be undone</div>
+        </div>
+        <button onclick="confirmResetWeightLog()" style="padding:8px 18px;background:rgba(239,68,68,0.08);color:var(--red);border:1.5px solid rgba(239,68,68,0.3);border-radius:999px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;">Reset</button>
       </div>
-      <div style="display:flex;gap:10px;align-items:flex-start;">
-        <div style="background:var(--teal);color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0;font-size:12px;">3</div>
-        <div>Give it a name (e.g. "Health Tracker App") and click Create</div>
-      </div>
-      <div style="display:flex;gap:10px;align-items:flex-start;">
-        <div style="background:var(--teal);color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0;font-size:12px;">4</div>
-        <div>Copy the key from the console and paste it in the field above</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--bg2);border-radius:var(--radius-sm);border:1px solid var(--border);">
+        <div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:2px;">Reset meal plan</div>
+          <div style="font-size:12px;color:var(--text3);">Restores the default weekly meal plan — your custom meals are kept</div>
+        </div>
+        <button onclick="resetPlanner()" style="padding:8px 18px;background:rgba(239,68,68,0.08);color:var(--red);border:1.5px solid rgba(239,68,68,0.3);border-radius:999px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;">Reset</button>
       </div>
     </div>
+  </div>
 
-    <div style="margin-top:16px;padding:12px;background:var(--amber-light);border-radius:var(--radius-sm);border-left:3px solid var(--amber);">
-      <div style="font-size:12px;color:var(--amber);">
-        <strong>⚠️ Keep your key private</strong> — Your API key is stored locally in your browser. Never share it with anyone. It's only used to authenticate requests to Claude for meal suggestions.
+  <!-- APP INFO -->
+  <div class="card">
+    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:14px;">ℹ️ About</div>
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--text2);">
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+        <span>App</span><span style="color:var(--text);font-weight:600;">Health Hub</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+        <span>Hosted at</span><a href="https://ellespy.github.io/health-hub/" target="_blank" style="color:var(--teal);font-weight:500;text-decoration:none;">ellespy.github.io/health-hub</a>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+        <span>Data saved to</span><span style="color:var(--text);font-weight:600;">Google Drive (laura_app_data.json)</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;">
+        <span>Built with</span><span style="color:var(--text);font-weight:600;">Cowork · Claude · Kinetic Ethereal v2.0</span>
       </div>
     </div>
   </div>
@@ -2249,7 +2291,7 @@ function goTo(page, el) {
     switchEat('guide', document.querySelector('#nutr-tab-guide .eating-tabs .etab'));
   }
   if (page === 'thisweek') renderThisWeekPage();
-  if (page === 'settings') updateApiKeyStatus();
+  if (page === 'settings') { updateApiKeyStatus(); populateProfileSettingsInputs(); }
   if (page === 'routines') { if (typeof routinesTab === 'function') routinesTab('overview'); }
   if (page === 'wellbeing-ref') { if (typeof renderWtGrid === 'function') renderWtGrid(); }
   if (window.innerWidth <= 900) closeSidebar();
@@ -3123,6 +3165,11 @@ function getMealData(slot, name) {
   if (name === EATING_OUT_SENTINEL) {
     return { name: EATING_OUT_SENTINEL, desc:'', kcal:0, pro:0, cook:'—', tags:['eating-out'] };
   }
+  if (name && name.startsWith(RECIME_SENTINEL_PREFIX)) {
+    const key = name.replace(RECIME_SENTINEL_PREFIX, '');
+    const d = loadReciMeData()[key] || { name:'ReciMe meal', kcal:0, pro:0 };
+    return { name: d.name, desc:'ReciMe', kcal: d.kcal, pro: d.pro, cook:'—', tags:['recime'] };
+  }
   const all = getAllMealsForSlot(slot);
   return all.find(m => m.name === name) || { name, desc:'', kcal:0, pro:0, cook:'—', tags:[] };
 }
@@ -3135,6 +3182,11 @@ function getDayTotals(dayKey) {
       const eo = getEoData(dayKey, s);
       kcal += eo.kcal || 0;
       pro  += eo.pro  || 0;
+    } else if (name && name.startsWith(RECIME_SENTINEL_PREFIX)) {
+      const key = name.replace(RECIME_SENTINEL_PREFIX, '');
+      const d = loadReciMeData()[key] || { kcal:0, pro:0 };
+      kcal += d.kcal || 0;
+      pro  += d.pro  || 0;
     } else {
       const m = getMealData(s, name);
       kcal += m.kcal; pro += m.pro;
@@ -3276,6 +3328,8 @@ function renderPlanner() {
       const eoData = isEatingOut ? getEoData(day.key, slot) : null;
       const shortDesc = meal.desc.length > 55 ? meal.desc.substring(0, 55) + '…' : meal.desc;
 
+      const isReciMe = mealName && mealName.startsWith(RECIME_SENTINEL_PREFIX);
+
       const slotWrap = document.createElement('div');
 
       const slotLabel = document.createElement('div');
@@ -3284,7 +3338,25 @@ function renderPlanner() {
 
       const mealCard = document.createElement('div');
 
-      if (isEatingOut) {
+      if (isReciMe) {
+        const rmData = getReciMeData(mealName.replace(RECIME_SENTINEL_PREFIX,'').split('_')[0], slot);
+        const rmKey  = mealName.replace(RECIME_SENTINEL_PREFIX,'');
+        const stored = loadReciMeData()[rmKey] || { name:'ReciMe meal', kcal:0, pro:0 };
+        mealCard.style.cssText = 'background:linear-gradient(135deg,var(--amber-light),rgba(245,166,35,0.05));border:1.5px solid rgba(245,166,35,0.5);border-radius:var(--radius-sm);padding:10px 12px;cursor:pointer;transition:border-color 0.15s,box-shadow 0.15s;height:100%;';
+        mealCard.innerHTML = `
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;">
+            <span style="font-size:14px;">🍳</span>
+            <div style="font-size:13px;font-weight:700;color:var(--amber);">${stored.name}</div>
+          </div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap;">
+            ${stored.kcal ? `<span style="font-size:10px;font-weight:600;padding:2px 6px;border-radius:999px;background:var(--coral-light);color:var(--coral);">${stored.kcal} kcal</span>` : ''}
+            ${stored.pro  ? `<span style="font-size:10px;font-weight:600;padding:2px 6px;border-radius:999px;background:var(--teal-light);color:var(--teal);">${stored.pro}g protein</span>` : ''}
+            <span style="font-size:10px;padding:2px 6px;border-radius:999px;background:var(--amber-light);color:var(--amber);">✏️ update</span>
+          </div>`;
+        mealCard.addEventListener('mouseenter', () => { mealCard.style.borderColor = 'var(--amber)'; mealCard.style.boxShadow = '0 2px 10px rgba(0,0,0,0.08)'; });
+        mealCard.addEventListener('mouseleave', () => { mealCard.style.borderColor = 'rgba(245,166,35,0.5)'; mealCard.style.boxShadow = 'none'; });
+        mealCard.addEventListener('click', () => openModal(day.key, slot));
+      } else if (isEatingOut) {
         // Distinctive eating-out card
         const hasData = eoData && (eoData.kcal || eoData.pro || eoData.note);
         mealCard.style.cssText = 'background:linear-gradient(135deg,#FBF0DC,#FAE8E3);border:1.5px solid #E5C87A;border-radius:var(--radius-sm);padding:10px 12px;cursor:pointer;transition:border-color 0.15s,box-shadow 0.15s;height:100%;';
@@ -3415,6 +3487,101 @@ function openModal(dayKey, slot) {
     optionsEl.appendChild(card);
   });
 
+  // ---- My Recipes section ----
+  const savedRecipes = loadSavedRecipes();
+  if (savedRecipes.length > 0) {
+    const recipesDivider = document.createElement('div');
+    recipesDivider.style.cssText = 'display:flex;align-items:center;gap:10px;margin:8px 0;';
+    recipesDivider.innerHTML = '<div style="flex:1;height:1px;background:var(--border);"></div><div style="font-size:11px;color:var(--text3);font-family:Manrope, sans-serif;white-space:nowrap;">or pick from My Recipes</div><div style="flex:1;height:1px;background:var(--border);"></div>';
+    optionsEl.appendChild(recipesDivider);
+
+    savedRecipes.forEach((r, idx) => {
+      const isActive = currentName === r.name;
+      const rCard = document.createElement('div');
+      rCard.style.cssText = `border:1.5px solid ${isActive ? 'var(--teal)' : 'var(--border)'};background:${isActive ? 'var(--teal-light)' : 'var(--bg)'};border-radius:var(--radius-sm);padding:12px 14px;cursor:pointer;transition:all 0.15s;`;
+      rCard.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px;">
+          <div style="font-size:13.5px;font-weight:600;color:${isActive ? 'var(--teal)' : 'var(--text)'};">📖 ${r.name}${isActive ? ' ✓' : ''} <span style="font-size:10px;background:var(--amber-light);color:var(--amber);padding:1px 6px;border-radius:999px;">recipe</span></div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          ${r.kcal ? `<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:999px;background:var(--coral-light);color:var(--coral);">${r.kcal} kcal</span>` : ''}
+          ${r.protein ? `<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:999px;background:var(--teal-light);color:var(--teal);">${r.protein}g protein</span>` : ''}
+        </div>`;
+      if (!isActive) {
+        rCard.addEventListener('mouseenter', () => rCard.style.borderColor = 'var(--teal)');
+        rCard.addEventListener('mouseleave', () => rCard.style.borderColor = 'var(--border)');
+      }
+      rCard.addEventListener('click', () => {
+        plannerState[dayKey][slot] = r.name;
+        // Inject this recipe into MEAL_OPTIONS if not already there so macros resolve
+        const already = getAllMealsForSlot(slot).some(m => m.name === r.name);
+        if (!already) {
+          const custom = loadCustomMeals();
+          if (!custom[slot]) custom[slot] = [];
+          if (!custom[slot].some(m => m.name === r.name)) {
+            custom[slot].push({ name: r.name, desc: '', kcal: r.kcal || 0, pro: r.protein || 0, cook: '—', tags: ['recipe'] });
+            setData(CUSTOM_MEALS_KEY, custom);
+          }
+        }
+        savePlannerState();
+        closeModal();
+        renderPlanner();
+      });
+      optionsEl.appendChild(rCard);
+    });
+  }
+
+  // ---- ReciMe macro entry ----
+  const isCurrentlyReciMe = currentName && currentName.startsWith('__RECIME__');
+  const recipeDivider2 = document.createElement('div');
+  recipeDivider2.style.cssText = 'display:flex;align-items:center;gap:10px;margin:8px 0;';
+  recipeDivider2.innerHTML = '<div style="flex:1;height:1px;background:var(--border);"></div><div style="font-size:11px;color:var(--text3);font-family:Manrope, sans-serif;white-space:nowrap;">or log macros manually</div><div style="flex:1;height:1px;background:var(--border);"></div>';
+  optionsEl.appendChild(recipeDivider2);
+
+  const reciMeBtn = document.createElement('div');
+  reciMeBtn.style.cssText = `border:2px solid ${isCurrentlyReciMe ? 'var(--amber)' : 'var(--border)'};background:${isCurrentlyReciMe ? 'var(--amber-light)' : 'var(--bg)'};border-radius:var(--radius-sm);padding:14px 16px;cursor:pointer;transition:all 0.15s;margin-bottom:4px;`;
+  reciMeBtn.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:${isCurrentlyReciMe ? '10px' : '0'};">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:22px;">🍳</span>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--amber);">ReciMe${isCurrentlyReciMe ? ' ✓' : ''}</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:2px;">Enter macros from a ReciMe recipe — keeps your daily totals accurate</div>
+        </div>
+      </div>
+      ${isCurrentlyReciMe ? '<span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--amber-light);color:var(--amber);">Selected</span>' : ''}
+    </div>
+    <div id="recime-macro-form" style="display:${isCurrentlyReciMe ? 'block' : 'none'};">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px;">
+        <div>
+          <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);margin-bottom:4px;">Dish name</div>
+          <input id="recime-name" type="text" placeholder="e.g. Salmon pasta" style="width:100%;padding:7px 10px;border-radius:6px;border:1.5px solid var(--border);font-family:'Manrope',sans-serif;font-size:12px;background:var(--bg2);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--amber)'" onblur="this.style.borderColor='var(--border)'">
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);margin-bottom:4px;">Calories</div>
+          <input id="recime-kcal" type="number" placeholder="kcal" style="width:100%;padding:7px 10px;border-radius:6px;border:1.5px solid var(--border);font-family:'Manrope',sans-serif;font-size:12px;background:var(--bg2);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--amber)'" onblur="this.style.borderColor='var(--border)'">
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);margin-bottom:4px;">Protein (g)</div>
+          <input id="recime-pro" type="number" placeholder="g" style="width:100%;padding:7px 10px;border-radius:6px;border:1.5px solid var(--border);font-family:'Manrope',sans-serif;font-size:12px;background:var(--bg2);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--amber)'" onblur="this.style.borderColor='var(--border)'">
+        </div>
+      </div>
+      <button onclick="saveReciMeEntry('${dayKey}','${slot}')" style="width:100%;padding:9px;background:var(--amber);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;cursor:pointer;">Save ReciMe meal</button>
+    </div>`;
+
+  if (!isCurrentlyReciMe) {
+    reciMeBtn.addEventListener('mouseenter', () => { reciMeBtn.style.borderColor = 'var(--amber)'; reciMeBtn.style.background = 'var(--amber-light)'; });
+    reciMeBtn.addEventListener('mouseleave', () => { reciMeBtn.style.borderColor = 'var(--border)'; reciMeBtn.style.background = 'var(--bg)'; });
+    reciMeBtn.addEventListener('click', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
+      const form = document.getElementById('recime-macro-form');
+      if (form) form.style.display = form.style.display === 'none' ? 'block' : 'none';
+      reciMeBtn.style.borderColor = 'var(--amber)';
+      reciMeBtn.style.background = 'var(--amber-light)';
+    });
+  }
+  optionsEl.appendChild(reciMeBtn);
+
   // Add your own button
   const addBtn = document.createElement('button');
   addBtn.style.cssText = 'width:100%;margin-top:6px;padding:11px;border:1.5px dashed var(--border);background:none;border-radius:var(--radius-sm);font-family:"Manrope",sans-serif;font-size:13px;font-weight:600;color:var(--teal);cursor:pointer;transition:border-color 0.15s;';
@@ -3432,6 +3599,27 @@ function closeModal() {
   document.getElementById('swap-modal').style.display = 'none';
   document.body.style.overflow = '';
   modalContext = null;
+}
+
+const RECIME_SENTINEL_PREFIX = '__RECIME__';
+const RECIME_DATA_KEY = 'laura_recime_data_v1';
+
+function loadReciMeData() { return getData(RECIME_DATA_KEY, {}); }
+function saveReciMeDataStore(d) { setData(RECIME_DATA_KEY, d); scheduleSave(); }
+function getReciMeData(dayKey, slot) { return loadReciMeData()[dayKey + '_' + slot] || { name:'ReciMe', kcal:0, pro:0 }; }
+
+function saveReciMeEntry(dayKey, slot) {
+  const nameVal = (document.getElementById('recime-name') || {}).value || '';
+  const kcalVal = parseFloat((document.getElementById('recime-kcal') || {}).value) || 0;
+  const proVal  = parseFloat((document.getElementById('recime-pro')  || {}).value) || 0;
+  const label   = nameVal.trim() || 'ReciMe meal';
+  const d = loadReciMeData();
+  d[dayKey + '_' + slot] = { name: label, kcal: kcalVal, pro: proVal };
+  saveReciMeDataStore(d);
+  plannerState[dayKey][slot] = RECIME_SENTINEL_PREFIX + dayKey + '_' + slot;
+  savePlannerState();
+  closeModal();
+  renderPlanner();
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -4744,7 +4932,7 @@ function renderSuppSchedule() {
     const active = supps.filter(s => ids.includes(s.id));
 
     const block = document.createElement('div');
-    block.style.cssText = 'background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);';
+    block.style.cssText = 'background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;';
 
     const hdr = document.createElement('div');
     hdr.style.cssText = 'padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--bg2);';
@@ -4761,7 +4949,7 @@ function renderSuppSchedule() {
     block.appendChild(hdr);
 
     const body = document.createElement('div');
-    body.style.cssText = 'padding:16px 20px;';
+    body.style.cssText = 'padding:16px 20px;flex:1;display:flex;flex-direction:column;';
 
     if (active.length > 0) {
       const list = document.createElement('div');
@@ -6514,6 +6702,7 @@ function routinesTab(which) {
   });
   if (which === 'checklist') renderRoutinesChecklist();
   if (which === 'tweaks')    renderRoutinesTweaks();
+  if (which === 'overview')  renderRoutinesTweaks();
 }
 
 function renderRoutinesChecklist() {
@@ -6874,6 +7063,67 @@ function updateApiKeyStatus() {
     el.textContent = 'No API key configured yet';
     el.style.color = 'var(--text2)';
   }
+}
+
+// ---- Profile settings ----
+const PROFILE_SETTINGS_KEY = 'laura_profile_settings_v1';
+
+function loadProfileSettings() {
+  return getData(PROFILE_SETTINGS_KEY, { startWeight: 64.0, goalWeight: 57.0, calorieTarget: null, proteinTarget: null });
+}
+
+function saveProfileSettings() {
+  const sw = parseFloat(document.getElementById('settings-start-weight').value);
+  const gw = parseFloat(document.getElementById('settings-goal-weight').value);
+  const cal = parseInt(document.getElementById('settings-calorie-target').value) || null;
+  const pro = parseInt(document.getElementById('settings-protein-target').value) || null;
+  const msg = document.getElementById('settings-profile-msg');
+  if ((sw && (isNaN(sw) || sw < 30 || sw > 250)) || (gw && (isNaN(gw) || gw < 30 || gw > 250))) {
+    msg.style.display = 'block'; msg.style.color = 'var(--red)'; msg.textContent = 'Please enter valid weights (30–250 kg)'; return;
+  }
+  const settings = loadProfileSettings();
+  if (sw) settings.startWeight = sw;
+  if (gw) settings.goalWeight  = gw;
+  if (cal) settings.calorieTarget = cal;
+  if (pro) settings.proteinTarget  = pro;
+  setData(PROFILE_SETTINGS_KEY, settings);
+  msg.style.display = 'block'; msg.style.color = 'var(--teal)'; msg.textContent = '✓ Profile settings saved';
+  setTimeout(() => { msg.style.display = 'none'; }, 2500);
+}
+
+function populateProfileSettingsInputs() {
+  const s = loadProfileSettings();
+  const sw = document.getElementById('settings-start-weight');
+  const gw = document.getElementById('settings-goal-weight');
+  const cal = document.getElementById('settings-calorie-target');
+  const pro = document.getElementById('settings-protein-target');
+  if (sw) sw.value = s.startWeight || '';
+  if (gw) gw.value = s.goalWeight  || '';
+  if (cal) cal.value = s.calorieTarget || '';
+  if (pro) pro.value = s.proteinTarget  || '';
+}
+
+function exportAllData() {
+  try {
+    const blob = new Blob([JSON.stringify(gAppData, null, 2)], { type: 'application/json' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
+    a.download = 'health-hub-data-' + new Date().toISOString().slice(0,10) + '.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showNotification('Data exported ✓');
+  } catch(e) {
+    showNotification('Export failed — ' + e.message);
+  }
+}
+
+function confirmResetWeightLog() {
+  if (!confirm('Clear all weight log entries? This cannot be undone.')) return;
+  setData('laura_weight_log', []);
+  showNotification('Weight log cleared');
 }
 
 // ============================================================
