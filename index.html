@@ -221,7 +221,7 @@
     margin-bottom: 16px;
   }
   .logo-eyebrow { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text3); margin-bottom: 4px; font-family: 'Manrope', sans-serif; }
-  .logo-name { font-family: 'Space Grotesk', sans-serif; font-size: 22px; color: #fff; font-weight: 700; line-height: 1.1; }
+  .logo-name { font-family: 'Space Grotesk', sans-serif; font-size: 22px; color: var(--teal); font-weight: 700; line-height: 1.1; }
   .logo-sub { font-size: 11px; color: var(--text2); margin-top: 4px; }
 
   .nav-section { padding: 0 12px; margin-bottom: 4px; }
@@ -1565,10 +1565,10 @@
       <div id="pantry-cupboard"></div>
     </div>
     <!-- Counter -->
-    <div style="background:linear-gradient(145deg,#161000,#2a1f00);border:1px solid rgba(245,166,35,0.4);box-shadow:0 0 20px rgba(245,166,35,0.08),0 2px 8px rgba(0,0,0,0.5);border-radius:var(--radius);padding:18px;">
+    <div style="background:linear-gradient(145deg,#161000,#2a1f00);border:1px solid rgba(251,191,36,0.4);box-shadow:0 0 20px rgba(251,191,36,0.08),0 2px 8px rgba(0,0,0,0.5);border-radius:var(--radius);padding:18px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#f5a623;">🍎 Counter</div>
-        <button onclick="addPantryItem('counter')" style="font-size:11px;padding:4px 12px;background:rgba(245,166,35,0.12);color:#f5a623;border:1px solid rgba(245,166,35,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#fbbf24;">🍎 Counter</div>
+        <button onclick="addPantryItem('counter')" style="font-size:11px;padding:4px 12px;background:rgba(251,191,36,0.12);color:#fbbf24;border:1px solid rgba(251,191,36,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
       </div>
       <div id="pantry-counter"></div>
     </div>
@@ -3366,17 +3366,14 @@ const DEFAULT_PLAN = {
 };
 
 const COLOR_MAP = {
-  teal:   { bg:'var(--teal-light)',        text:'var(--teal)',   border:'#7DCDB4' },
-  amber:  { bg:'var(--amber-light)',        text:'var(--amber)',  border:'#E5C87A' },
-  blue:   { bg:'var(--blue-light)',         text:'var(--blue)',   border:'#90B8E8' },
-  coral:  { bg:'var(--coral-light)',        text:'var(--coral)',  border:'#E8A090' },
-  gray:   { bg:'var(--bg2)',               text:'var(--text2)',  border:'var(--border)' },
-  purple: { bg:'var(--purple-light)',       text:'var(--purple)', border:'#B0ABEC' },
-  // Workout category keys — match Finance Hub card style
   teal:   { bg:'linear-gradient(145deg,#021310,#042e26)', text:'#00f5d4', border:'rgba(0,245,212,0.4)' },
-  run:    { bg:'linear-gradient(145deg,#130820,#220a36)', text:'#bf5fff', border:'rgba(191,95,255,0.4)' },
-  class:  { bg:'linear-gradient(145deg,#141200,#2a2600)', text:'#d4ff00', border:'rgba(212,255,0,0.4)' },
+  amber:  { bg:'linear-gradient(145deg,#161000,#2a1f00)', text:'#fbbf24', border:'rgba(251,191,36,0.4)' },
+  blue:   { bg:'linear-gradient(145deg,#081424,#0d2040)', text:'#60a5fa', border:'rgba(96,165,250,0.4)' },
+  coral:  { bg:'linear-gradient(145deg,#1a0a08,#2e1210)', text:'#f4816a', border:'rgba(244,129,106,0.4)' },
   gray:   { bg:'linear-gradient(145deg,#161616,#222222)', text:'rgba(255,255,255,0.5)', border:'rgba(255,255,255,0.22)' },
+  purple: { bg:'linear-gradient(145deg,#130820,#220a36)', text:'#a78bfa', border:'rgba(167,139,250,0.4)' },
+  run:    { bg:'linear-gradient(145deg,#130820,#220a36)', text:'#a78bfa', border:'rgba(167,139,250,0.4)' },
+  class:  { bg:'linear-gradient(145deg,#161000,#2a1f00)', text:'#fbbf24', border:'rgba(251,191,36,0.4)' },
 };
 
 let plannerState = {};
@@ -5729,7 +5726,7 @@ function renderSuppCheckin() {
 
   // Summary card
   var summary = document.createElement('div');
-  summary.style.cssText = 'background:var(--teal-light);border:1.5px solid var(--teal);border-radius:var(--radius);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;';
+  summary.style.cssText = 'background:var(--teal-light);border:1.5px solid var(--teal);border-radius:var(--radius);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;max-width:640px;';
   var sumLeft = document.createElement('div');
   var sumTitle = document.createElement('div');
   sumTitle.style.cssText = "font-family:'Space Grotesk', sans-serif;font-size:20px;font-weight:700;color:var(--teal);";
@@ -5756,7 +5753,7 @@ function renderSuppCheckin() {
   // Progress bar
   var pct = total ? Math.round((done / total) * 100) : 0;
   var barWrap = document.createElement('div');
-  barWrap.style.cssText = 'background:var(--border);border-radius:999px;height:6px;overflow:hidden;';
+  barWrap.style.cssText = 'background:var(--border);border-radius:999px;height:6px;overflow:hidden;max-width:640px;margin-top:2px;';
   var barFill = document.createElement('div');
   barFill.style.cssText = 'height:100%;width:' + pct + '%;background:var(--teal);border-radius:999px;transition:width 0.3s ease;';
   barWrap.appendChild(barFill);
@@ -5858,7 +5855,7 @@ function renderSuppInsights() {
   var last30Count = last30.length;
 
   var header = document.createElement('div');
-  header.style.cssText = 'background:var(--teal-light);border:1.5px solid var(--teal);border-radius:var(--radius);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;';
+  header.style.cssText = 'background:var(--teal-light);border:1.5px solid var(--teal);border-radius:var(--radius);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;max-width:640px;margin-bottom:4px;';
   header.innerHTML = '<div><div style="font-family:\'Space Grotesk\',sans-serif;font-size:18px;font-weight:700;color:var(--teal);">Supplement consistency</div><div style="font-size:13px;color:var(--text2);margin-top:4px;">Based on ' + totalDays + ' day' + (totalDays !== 1 ? 's' : '') + ' of check-ins · last 30 days shown</div></div><div style="text-align:right;"><div style="font-size:28px;font-weight:700;font-family:\'Manrope\',sans-serif;color:var(--teal);">' + last30Count + '</div><div style="font-size:11px;color:var(--text3);">days tracked</div></div>';
   grid.appendChild(header);
 
@@ -6984,7 +6981,7 @@ function renderRoutinesChecklist() {
 
   // Summary card — matches supplement today tab
   var summary = document.createElement('div');
-  summary.style.cssText = 'background:var(--teal-light);border:1.5px solid var(--teal);border-radius:var(--radius);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;';
+  summary.style.cssText = 'background:var(--teal-light);border:1.5px solid var(--teal);border-radius:var(--radius);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;max-width:640px;';
   var sumLeft = document.createElement('div');
   sumLeft.innerHTML = '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:20px;font-weight:700;color:var(--teal);">Today\'s routine</div>' +
     '<div style="font-size:13px;color:var(--text2);margin-top:4px;">' + today + '</div>';
@@ -6999,7 +6996,7 @@ function renderRoutinesChecklist() {
   // Progress bar
   var pct = total ? Math.round((done/total)*100) : 0;
   var barWrap = document.createElement('div');
-  barWrap.style.cssText = 'background:var(--border);border-radius:999px;height:6px;overflow:hidden;';
+  barWrap.style.cssText = 'background:var(--border);border-radius:999px;height:6px;overflow:hidden;max-width:640px;margin-top:2px;';
   barWrap.innerHTML = '<div style="height:100%;width:' + pct + '%;background:var(--teal);border-radius:999px;transition:width 0.3s;"></div>';
   grid.appendChild(barWrap);
 
@@ -8692,10 +8689,17 @@ function renderTWGrid() {
   const lib = getWorkoutLibrary();
   const dates = getWeekDates(_twWeekOffset);
   const DAY_SHORT_TW = {mon:'Mon',tue:'Tue',wed:'Wed',thu:'Thu',fri:'Fri',sat:'Sat',sun:'Sun'};
-  const CAT_COLOR = {gym:'#00f5d4',run:'#bf5fff',class:'#d4ff00',rest:'#888'};
+  const CAT_COLOR  = {gym:'#00f5d4', run:'#a78bfa', class:'#fbbf24', rest:'rgba(255,255,255,0.35)'};
+  const CAT_BG     = {
+    gym:   'linear-gradient(145deg,#021310 0%,#042e26 100%)',
+    run:   'linear-gradient(145deg,#130820 0%,#220a36 100%)',
+    class: 'linear-gradient(145deg,#161000 0%,#2a1f00 100%)',
+    rest:  'var(--card)'
+  };
+  const CAT_BORDER = {gym:'rgba(0,245,212,0.45)', run:'rgba(167,139,250,0.45)', class:'rgba(251,191,36,0.45)', rest:'var(--border)'};
 
   function getCat(type) {
-    if (!type) return 'gym';
+    if (!type) return 'rest';
     const w = lib[type];
     if (!w) return 'gym';
     if (w.type === 'run' || w.color === 'run') return 'run';
@@ -8735,7 +8739,7 @@ function renderTWGrid() {
     const border = isToday ? 'var(--teal)' : (isRest ? 'var(--border)' : accentColor + '55');
     const bg = isToday ? 'var(--teal)0f' : 'var(--card)';
 
-    return '<div onclick="twSelectDay(\'' + day.dayKey + '\')" style="cursor:pointer;border-radius:var(--radius-sm);background:' + bg + ';border:1.5px solid ' + border + ';padding:10px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;min-height:110px;transition:border-color 0.15s;" onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1">'
+    return '<div onclick="twSelectDay(\'' + day.dayKey + '\')" style="cursor:pointer;border-radius:var(--radius-sm);background:' + bg + ';border:1.5px solid ' + border + ';' + todayRing + 'padding:10px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;min-height:110px;transition:border-color 0.15s;" onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1">'
       + '<div style="font-size:11px;font-weight:700;color:' + (isToday ? 'var(--teal)' : 'var(--text)') + ';font-family:\'Space Grotesk\',sans-serif;">' + DAY_SHORT_TW[day.dayKey] + '</div>'
       + '<div style="font-size:10px;color:var(--text3);margin-bottom:4px;">' + dateStr + '</div>'
       + '<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;">' + workoutLines + '</div>'
