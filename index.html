@@ -301,7 +301,16 @@
     position: relative;
     overflow: hidden;
   }
-  .card-gym::before, .card-run::before, .card-class::before {
+  .card-counter {
+    background: linear-gradient(145deg,#161000 0%,#2a1f00 100%);
+    border: 1px solid rgba(251,191,36,0.45);
+    box-shadow: 0 0 40px rgba(251,191,36,0.12), 0 2px 16px rgba(0,0,0,0.5);
+    border-radius: var(--radius);
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-gym::before, .card-run::before, .card-class::before, .card-counter::before {
     content: '';
     position: absolute;
     top: -40px;
@@ -1565,7 +1574,7 @@
       <div id="pantry-cupboard"></div>
     </div>
     <!-- Counter -->
-    <div style="background:linear-gradient(145deg,#161000,#2a1f00);border:1px solid rgba(251,191,36,0.4);box-shadow:0 0 20px rgba(251,191,36,0.08),0 2px 8px rgba(0,0,0,0.5);border-radius:var(--radius);padding:18px;">
+    <div class="card-counter" style="border-radius:var(--radius);padding:18px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
         <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#fbbf24;">🍎 Counter</div>
         <button onclick="addPantryItem('counter')" style="font-size:11px;padding:4px 12px;background:rgba(251,191,36,0.12);color:#fbbf24;border:1px solid rgba(251,191,36,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
@@ -8736,10 +8745,10 @@ function renderTWGrid() {
     const styleEmoji = EATING_STYLE_EMOJI[style] || '🥗';
     const styleShort = (EATING_STYLE_LABELS[style] || style).split(' ')[0]; // first word only
 
-    const border = isToday ? 'var(--teal)' : (isRest ? 'var(--border)' : accentColor + '55');
-    const bg = isToday ? 'var(--teal)0f' : 'var(--card)';
+    const border = isToday ? 'var(--teal)' : CAT_BORDER[primaryCat];
+    const bg = isToday ? 'rgba(0,245,212,0.12)' : CAT_BG[primaryCat];
 
-    return '<div onclick="twSelectDay(\'' + day.dayKey + '\')" style="cursor:pointer;border-radius:var(--radius-sm);background:' + bg + ';border:1.5px solid ' + border + ';' + todayRing + 'padding:10px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;min-height:110px;transition:border-color 0.15s;" onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1">'
+    return '<div onclick="twSelectDay(\'' + day.dayKey + '\')" style="cursor:pointer;border-radius:var(--radius-sm);background:' + bg + ';border:1.5px solid ' + border + ';' + (isToday ? 'box-shadow:0 0 0 2px var(--teal);' : '') + 'padding:10px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;min-height:110px;transition:border-color 0.15s;" onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1">'
       + '<div style="font-size:11px;font-weight:700;color:' + (isToday ? 'var(--teal)' : 'var(--text)') + ';font-family:\'Space Grotesk\',sans-serif;">' + DAY_SHORT_TW[day.dayKey] + '</div>'
       + '<div style="font-size:10px;color:var(--text3);margin-bottom:4px;">' + dateStr + '</div>'
       + '<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;">' + workoutLines + '</div>'
