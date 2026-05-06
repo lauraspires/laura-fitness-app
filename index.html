@@ -8100,7 +8100,7 @@ function renderSavedRecipes() {
       + '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">'
       + (r.kcal ? '<span style="font-size:11px;padding:3px 8px;border-radius:999px;background:rgba(245,90,60,0.12);color:#f55a3c;">' + r.kcal + ' kcal</span>' : '')
       + (r.protein ? '<span style="font-size:11px;padding:3px 8px;border-radius:999px;background:rgba(0,245,212,0.10);color:#00f5d4;">' + r.protein + 'g protein</span>' : '')
-      + '<a href="https://www.recime.app" target="_blank" style="font-size:11px;padding:3px 10px;border-radius:999px;background:rgba(245,166,35,0.12);color:#f5a623;text-decoration:none;border:1px solid rgba(245,166,35,0.25);">Find on ReciMe →</a>'
+      + '<a href="https://www.google.com/search?q=' + encodeURIComponent(r.name + ' recipe') + '" target="_blank" style="font-size:11px;padding:3px 10px;border-radius:999px;background:rgba(245,166,35,0.12);color:#f5a623;text-decoration:none;border:1px solid rgba(245,166,35,0.25);">🔍 Find recipe →</a>'
       + '</div>'
       + '</div>'
       + '<button onclick="deleteFromMyRecipes(' + idx + ')" title="Remove" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:18px;padding:2px 4px;line-height:1;flex-shrink:0;" onmouseover="this.style.color=\'var(--red)\'" onmouseout="this.style.color=\'var(--text3)\'">✕</button>'
