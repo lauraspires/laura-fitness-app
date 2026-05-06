@@ -275,43 +275,36 @@
   }
   /* Finance Hub-inspired category cards */
   .card-gym {
-    background: linear-gradient(145deg,#021310 0%,#042e26 100%);
-    border: 1px solid rgba(0,245,212,0.45);
-    box-shadow: 0 0 40px rgba(0,245,212,0.12), 0 2px 16px rgba(0,0,0,0.5);
+    background: var(--card);
+    border: 1px solid var(--teal-mid);
+    border-left: 4px solid var(--teal);
+    box-shadow: var(--shadow);
     border-radius: var(--radius);
     padding: 22px;
     position: relative;
     overflow: hidden;
   }
   .card-run {
-    background: linear-gradient(145deg,#130820 0%,#220a36 100%);
-    border: 1px solid rgba(191,95,255,0.45);
-    box-shadow: 0 0 40px rgba(191,95,255,0.12), 0 2px 16px rgba(0,0,0,0.5);
+    background: var(--card);
+    border: 1px solid var(--purple-light);
+    border-left: 4px solid var(--purple);
+    box-shadow: var(--shadow);
     border-radius: var(--radius);
     padding: 22px;
     position: relative;
     overflow: hidden;
   }
   .card-class {
-    background: linear-gradient(145deg,#141200 0%,#2a2600 100%);
-    border: 1px solid rgba(212,255,0,0.45);
-    box-shadow: 0 0 40px rgba(212,255,0,0.10), 0 2px 16px rgba(0,0,0,0.5);
+    background: var(--card);
+    border: 1px solid var(--amber-light);
+    border-left: 4px solid var(--amber);
+    box-shadow: var(--shadow);
     border-radius: var(--radius);
     padding: 22px;
     position: relative;
     overflow: hidden;
   }
-  .card-gym::before, .card-run::before, .card-class::before {
-    content: '';
-    position: absolute;
-    top: -40px;
-    right: -40px;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: var(--bg2);
-    pointer-events: none;
-  }
+
   .card-sm { padding: 16px 18px; }
   .card-title { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 500; margin-bottom: 4px; color: var(--teal); }
   .card-sub { font-size: 12px; color: var(--text2); }
@@ -324,8 +317,8 @@
   .badge-blue { background: var(--blue-light); color: var(--blue); }
   .badge-purple { background: var(--purple-light); color: var(--purple); }
   .badge-red { background: var(--red-light); color: var(--red); }
-  .badge-run { background: rgba(191,95,255,0.12); color: #bf5fff; }
-  .badge-class { background: rgba(212,255,0,0.10); color: #d4ff00; }
+  .badge-run { background: var(--purple-light); color: var(--purple); }
+  .badge-class { background: var(--amber-light); color: var(--amber); }
 
   /* ---- STAT CARDS ---- */
   .stat-card { background: var(--card); border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow); border: 1px solid var(--border); border-left: 3px solid var(--teal); }
@@ -370,7 +363,7 @@
 
   /* ---- WORKOUT DETAIL ---- */
   .workout-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
-  .workout-title { font-family: 'Space Grotesk', sans-serif; font-size: 22px; }
+  .workout-title { font-family: 'Space Grotesk', sans-serif; font-size: 22px; color: var(--text); }
   .workout-meta { font-size: 14px; color: var(--text2); margin-top: 2px; }
 
   .ex-table { width: 100%; border-collapse: collapse; }
@@ -8640,7 +8633,7 @@ loadWorkoutRoutine = function() {
 const ALL_EATING_STYLES = ['standard','early','omad','rest_keto'];
 const EATING_STYLE_LABELS = { standard:'Standard', early:'Early finish', omad:'OMAD', rest_keto:'Keto' };
 const EATING_STYLE_EMOJI  = { standard:'🥗', early:'🕕', omad:'🍽️', rest_keto:'🥑' };
-const EATING_STYLE_COLOR  = { standard:'#00f5d4', early:'#60a5fa', omad:'#f5a623', rest_keto:'#bf5fff' };
+const EATING_STYLE_COLOR  = { standard:'var(--teal)', early:'var(--blue)', omad:'var(--amber)', rest_keto:'var(--purple)' };
 
 let _twWeekOffset = 0;
 
@@ -8697,7 +8690,7 @@ function renderTWGrid() {
   const lib = getWorkoutLibrary();
   const dates = getWeekDates(_twWeekOffset);
   const DAY_SHORT_TW = {mon:'Mon',tue:'Tue',wed:'Wed',thu:'Thu',fri:'Fri',sat:'Sat',sun:'Sun'};
-  const CAT_COLOR = {gym:'#00f5d4',run:'#bf5fff',class:'#d4ff00',rest:'#888'};
+  const CAT_COLOR = {gym:'var(--teal)',run:'var(--purple)',class:'var(--amber)',rest:'var(--text3)'};
 
   function getCat(type) {
     if (!type) return 'gym';
@@ -8737,14 +8730,16 @@ function renderTWGrid() {
     const styleEmoji = EATING_STYLE_EMOJI[style] || '🥗';
     const styleShort = (EATING_STYLE_LABELS[style] || style).split(' ')[0]; // first word only
 
-    const border = isToday ? 'var(--teal)' : (isRest ? 'var(--border)' : accentColor + '55');
-    const bg = isToday ? 'var(--teal)0f' : 'var(--card)';
+    const CAT_BORDER = {gym:'var(--teal-mid)',run:'var(--purple-light)',class:'var(--amber-light)',rest:'var(--border)'};
+    const CAT_BG = {gym:'var(--teal-light)',run:'var(--purple-light)',class:'var(--amber-light)',rest:'var(--bg2)'};
+    const border = isToday ? 'var(--teal)' : (isRest ? 'var(--border)' : CAT_BORDER[primaryCat]);
+    const bg = isToday ? 'var(--teal-light)' : (isRest ? 'var(--card)' : 'var(--card)');
 
     return '<div onclick="twSelectDay(\'' + day.dayKey + '\')" style="cursor:pointer;border-radius:var(--radius-sm);background:' + bg + ';border:1.5px solid ' + border + ';padding:10px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;min-height:110px;transition:border-color 0.15s;" onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1">'
       + '<div style="font-size:11px;font-weight:700;color:' + (isToday ? 'var(--teal)' : 'var(--text)') + ';font-family:\'Space Grotesk\',sans-serif;">' + DAY_SHORT_TW[day.dayKey] + '</div>'
       + '<div style="font-size:10px;color:var(--text3);margin-bottom:4px;">' + dateStr + '</div>'
       + '<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;">' + workoutLines + '</div>'
-      + '<div style="margin-top:4px;padding:2px 7px;border-radius:999px;background:' + styleColor + '20;color:' + styleColor + ';font-size:10px;font-weight:700;white-space:nowrap;">' + styleEmoji + ' ' + styleShort + '</div>'
+      + '<div style="margin-top:4px;padding:2px 7px;border-radius:999px;background:var(--bg2);color:' + styleColor + ';font-size:10px;font-weight:700;white-space:nowrap;border:1px solid var(--border);">' + styleEmoji + ' ' + styleShort + '</div>'
     + '</div>';
   }).join('') + '</div>';
 }
@@ -8803,7 +8798,7 @@ function renderTWDayPanel(dayKey) {
   const styleInfo = (typeof EATING_STYLES !== 'undefined' && EATING_STYLES[style]) || { label: EATING_STYLE_LABELS[style], sub:'', why:'' };
   const styleColor = EATING_STYLE_COLOR[style] || '#888';
   const DAY_LABELS = {mon:'Monday',tue:'Tuesday',wed:'Wednesday',thu:'Thursday',fri:'Friday',sat:'Saturday',sun:'Sunday'};
-  const CAT_COLOR = {gym:'#00f5d4',run:'#bf5fff',class:'#d4ff00',rest:'#888'};
+  const CAT_COLOR = {gym:'var(--teal)',run:'var(--purple)',class:'var(--amber)',rest:'var(--text3)'};
 
   function getWCat(type) {
     const w = lib[type];
