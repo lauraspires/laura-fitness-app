@@ -806,10 +806,10 @@
   <div class="nav-section">
     <div class="nav-label">Nutrition</div>
     <button class="nav-item" onclick="goTo('nutrition', this)">
-      <span class="nav-icon">🥗</span> Nutrition
+      <span class="nav-icon">📚</span> Nutrition Guide
     </button>
     <button class="nav-item" onclick="goTo('pantry', this)">
-      <span class="nav-icon">🥕</span> Kitchen / Shopping
+      <span class="nav-icon">🥕</span> Kitchen & Food
     </button>
   </div>
 
@@ -1136,14 +1136,13 @@
 <div id="page-nutrition" class="page">
   <div class="page-header">
     <div class="page-eyebrow">Nutrition</div>
-    <div class="page-title">Nutrition</div>
-    <div class="page-sub">Your eating guide, meal planner and eating-out rules</div>
+    <div class="page-title">Nutrition Guide</div>
+    <div class="page-sub">Your eating guide and eating-out rules</div>
   </div>
 
   <!-- Tab bar -->
   <div class="eating-tabs" style="margin-bottom:20px;display:flex;align-items:center;gap:0;flex-wrap:wrap;">
-    <div class="etab active" id="nutr-tab-btn-guide" onclick="nutritionTab('guide', this)">📚 Nutrition Guide</div>
-    <div class="etab" id="nutr-tab-btn-planner" onclick="nutritionTab('planner', this)">📅 Meal Planner</div>
+    <div class="etab active" id="nutr-tab-btn-guide" onclick="nutritionTab('guide', this)">📚 Eating Guide</div>
     <div class="etab" id="nutr-tab-btn-eatingout" onclick="nutritionTab('eatingout', this)">🍽️ Eating Out</div>
   </div>
 
@@ -1331,38 +1330,6 @@
     </div><!-- end eat-guide -->
   </div><!-- end nutr-tab-guide -->
 
-  <!-- ── TAB: Meal Planner ── -->
-  <div id="nutr-tab-planner" class="etab-page">
-    <!-- Planner sub-tab bar -->
-    <div class="eating-tabs" style="margin-bottom:16px;">
-      <div class="etab active" id="ptab-planner" onclick="switchPlannerTab('planner', this)">📅 Meal Plan</div>
-      <div class="etab" id="ptab-recipes" onclick="switchPlannerTab('recipes', this)">📖 My Recipes</div>
-    </div>
-
-    <!-- Sub-tab: Meal Plan -->
-    <div id="planner-tab-planner">
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;" id="planner-totals">
-        <div class="stat-card"><div class="stat-val" id="pt-avgcal">—</div><div class="stat-label">Avg daily calories</div></div>
-        <div class="stat-card"><div class="stat-val" id="pt-avgpro">—</div><div class="stat-label">Avg daily protein</div></div>
-        <div class="stat-card"><div class="stat-val" id="pt-ketodays">2</div><div class="stat-label">Keto days</div><div class="stat-sub">Fri / Sun</div></div>
-        <div class="stat-card"><div class="stat-val" id="pt-earldays">1</div><div class="stat-label">Early finish days</div><div class="stat-sub">Thu WFH</div></div>
-      </div>
-      <div id="planner-grid" style="display:flex;flex-direction:column;gap:8px;"></div>
-      <div style="text-align:center;margin-top:20px;">
-        <button onclick="resetPlanner()" style="font-size:13px;color:var(--text3);background:none;border:1px solid var(--border);cursor:pointer;padding:8px 20px;border-radius:999px;font-family:'Manrope', sans-serif;" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text3)'">Reset to default plan</button>
-      </div>
-    </div><!-- end planner-tab-planner -->
-
-    <!-- Sub-tab: My Recipes -->
-    <div id="planner-tab-recipes" style="display:none;">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
-        <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);font-family:'Manrope',sans-serif;">Saved recipes</div>
-        <a href="https://www.recime.app" target="_blank" style="display:inline-flex;align-items:center;gap:7px;padding:8px 16px;background:var(--teal);color:#00382f;border-radius:999px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;">📖 Open ReciMe</a>
-      </div>
-      <div id="saved-recipes-list"></div>
-    </div><!-- end planner-tab-recipes -->
-  </div>
-
   <!-- ── TAB: Eating Out ── -->
   <div id="nutr-tab-eatingout" class="etab-page">
     <div style="margin-bottom:16px;">
@@ -1424,13 +1391,15 @@
 <div id="page-pantry" class="page">
   <div class="page-header">
     <div class="page-eyebrow">Nutrition</div>
-    <div class="page-title">Kitchen / Shopping</div>
-    <div class="page-sub">What you have at home · What to buy this week</div>
+    <div class="page-title">Kitchen & Food</div>
+    <div class="page-sub">Your kitchen, meal plan, shopping list and recipe ideas</div>
   </div>
 
-  <div class="eating-tabs" style="margin-bottom:20px;">
-    <div class="etab active" id="ptab-pantry" onclick="switchPantryTab('pantry',this)">🥕 My kitchen</div>
-    <div class="etab" id="ptab-shop" onclick="switchPantryTab('shop',this)">🛒 Shopping list</div>
+  <div class="eating-tabs" style="margin-bottom:20px;flex-wrap:wrap;">
+    <div class="etab active" id="ptab-pantry" onclick="switchPantryTab('pantry',this)">🥕 My Kitchen</div>
+    <div class="etab" id="ptab-planner" onclick="switchPantryTab('planner',this)">📅 Meal Planner</div>
+    <div class="etab" id="ptab-shop" onclick="switchPantryTab('shop',this)">🛒 Shopping</div>
+    <div class="etab" id="ptab-suggest" onclick="switchPantryTab('suggest',this)">✨ Recipe Ideas</div>
   </div>
 
   <div id="pantry-tab-pantry" class="etab-page active">
@@ -1494,6 +1463,18 @@
       </div>
       <div id="pantry-counter"></div>
     </div>
+  </div>
+
+  <!-- Buy Again section -->
+  <div id="pantry-buy-again-section" style="display:none;margin-top:20px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+      <div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--text);">🛒 Buy again</div>
+        <div style="font-size:12px;color:var(--text3);margin-top:2px;">Items you've run out of — tap to restore when you restock, or remove if you don't need them</div>
+      </div>
+      <button onclick="clearAllBuyAgain()" style="font-size:11px;padding:4px 12px;background:none;color:var(--text3);border:1px solid var(--border);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;">Clear all</button>
+    </div>
+    <div id="pantry-buy-again-list" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
   </div>
 
   <!-- Add / Edit item modal -->
@@ -1614,6 +1595,60 @@
     <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>Batch-boil 6 eggs on Sunday — grab them cold all week as zero-prep protein</div>
   </div>
 </div>
+
+  <!-- ── TAB: Meal Planner ── -->
+  <div id="pantry-tab-planner" class="etab-page">
+    <div class="eating-tabs" style="margin-bottom:16px;">
+      <div class="etab active" id="ptab-mealplan" onclick="switchPlannerTab('planner', this)">📅 Meal Plan</div>
+      <div class="etab" id="ptab-recipes" onclick="switchPlannerTab('recipes', this)">📖 My Recipes</div>
+    </div>
+    <div id="planner-tab-planner">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;" id="planner-totals">
+        <div class="stat-card"><div class="stat-val" id="pt-avgcal">—</div><div class="stat-label">Avg daily calories</div></div>
+        <div class="stat-card"><div class="stat-val" id="pt-avgpro">—</div><div class="stat-label">Avg daily protein</div></div>
+        <div class="stat-card"><div class="stat-val" id="pt-ketodays">2</div><div class="stat-label">Keto days</div><div class="stat-sub">Fri / Sun</div></div>
+        <div class="stat-card"><div class="stat-val" id="pt-earldays">1</div><div class="stat-label">Early finish days</div><div class="stat-sub">Thu WFH</div></div>
+      </div>
+      <div id="planner-grid" style="display:flex;flex-direction:column;gap:8px;"></div>
+      <div style="text-align:center;margin-top:20px;">
+        <button onclick="resetPlanner()" style="font-size:13px;color:var(--text3);background:none;border:1px solid var(--border);cursor:pointer;padding:8px 20px;border-radius:999px;font-family:'Manrope', sans-serif;" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text3)'">Reset to default plan</button>
+      </div>
+    </div>
+    <div id="planner-tab-recipes" style="display:none;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);font-family:'Manrope',sans-serif;">Saved recipes</div>
+        <a href="https://www.recime.app" target="_blank" style="display:inline-flex;align-items:center;gap:7px;padding:8px 16px;background:var(--teal);color:#00382f;border-radius:999px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;">📖 Open ReciMe</a>
+      </div>
+      <div id="saved-recipes-list"></div>
+    </div>
+  </div>
+
+  <!-- ── TAB: Recipe Ideas ── -->
+  <div id="pantry-tab-suggest" class="etab-page">
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title" style="margin-bottom:6px;">What can I make today?</div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:14px;">Recipe suggestions based on what's in your kitchen right now. Requires an Anthropic API key in Settings.</div>
+      <div id="suggestions-api-warning" style="display:none;background:rgba(245,166,35,0.12);border:1px solid rgba(245,166,35,0.3);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:14px;font-size:13px;color:var(--amber);">
+        ⚠️ No API key set — go to <button onclick="goTo('settings')" style="background:none;border:none;color:var(--teal);text-decoration:underline;cursor:pointer;font-family:'Manrope',sans-serif;font-size:13px;padding:0;">Settings</button> and add your Anthropic API key to enable AI suggestions.
+      </div>
+      <div style="margin-bottom:14px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope',sans-serif;margin-bottom:8px;">What are you doing today?</div>
+        <select id="suggestions-workout-select" style="padding:8px 12px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg2);color:var(--text);font-family:'Manrope',sans-serif;font-size:13px;width:100%;max-width:300px;">
+          <option value="gym">💪 Gym / Strength</option>
+          <option value="run">🏃 Running</option>
+          <option value="class">🔥 Class (Blaze / Cyclone)</option>
+          <option value="rest">😴 Rest day</option>
+        </select>
+      </div>
+      <div style="margin-bottom:14px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope',sans-serif;margin-bottom:8px;">In your kitchen right now</div>
+        <div id="suggestions-pantry-preview" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+      </div>
+      <button onclick="getMealSuggestions()" style="padding:10px 22px;background:var(--teal);color:#00382f;border:none;border-radius:999px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;cursor:pointer;">✨ Get suggestions</button>
+    </div>
+    <div id="suggestions-loading" style="display:none;text-align:center;padding:32px;color:var(--text3);font-size:13px;">Thinking up meal ideas from your kitchen…</div>
+    <div id="suggestions-results" style="display:flex;flex-direction:column;gap:10px;"></div>
+  </div>
 
 </div><!-- end page-pantry -->
 
@@ -2369,7 +2404,7 @@ function goTo(page, el) {
   }
 
   // Per-page init — always reset to first sub-tab on every navigation
-  if (page === 'pantry') { try { renderPantry(); } catch(e) {} }
+  if (page === 'pantry') { try { renderPantry(); } catch(e) {} try { renderBuyAgain(); } catch(e) {} }
   if (page === 'training') {
     // Always reset to first (Gym) sub-tab
     try { trainingTab('gym', document.querySelector('#page-training .etab')); } catch(e) {}
@@ -2377,8 +2412,9 @@ function goTo(page, el) {
   if (page === 'nutrition') {
     nutritionTab('guide', document.getElementById('nutr-tab-btn-guide'));
     try { switchEat('guide', document.querySelector('#nutr-tab-guide .eating-tabs .etab')); } catch(e) {}
-    // Reset planner sub-tab to Meal Plan
-    try { switchPlannerTab('planner', document.getElementById('ptab-planner')); } catch(e) {}
+  }
+  if (page === 'pantry') {
+    try { switchPlannerTab('planner', document.getElementById('ptab-mealplan')); } catch(e) {}
   }
   if (page === 'thisweek') renderThisWeekPage();
   if (page === 'settings') { updateApiKeyStatus(); populateProfileSettingsInputs(); }
@@ -2432,11 +2468,11 @@ function nutritionTab(tab, el) {
   // Only switch the top-level tabs (not the nested eating-tabs inside guide)
   var topTabs = page.querySelectorAll(':scope > .eating-tabs .etab, .eating-tabs:first-child .etab');
   // Simpler approach: find the three main tab buttons and the three etab-pages
-  ['nutr-tab-guide','nutr-tab-planner','nutr-tab-eatingout'].forEach(function(id) {
+  ['nutr-tab-guide','nutr-tab-eatingout'].forEach(function(id) {
     var el2 = document.getElementById(id);
     if (el2) el2.classList.remove('active');
   });
-  ['nutr-tab-btn-guide','nutr-tab-btn-planner','nutr-tab-btn-eatingout'].forEach(function(id) {
+  ['nutr-tab-btn-guide','nutr-tab-btn-eatingout'].forEach(function(id) {
     var el2 = document.getElementById(id);
     if (el2) el2.classList.remove('active');
   });
@@ -7219,14 +7255,81 @@ function renderPantry() {
   });
 }
 
+const BUY_AGAIN_KEY = 'laura_buy_again_v1';
+function loadBuyAgain() { return getData(BUY_AGAIN_KEY, []); }
+function saveBuyAgain(list) { setData(BUY_AGAIN_KEY, list); scheduleSave(); }
+
 function decrementPantryItem(loc, idx) {
   const pantry = loadPantry();
   if (pantry[loc] && pantry[loc][idx]) {
     const item = pantry[loc][idx];
-    item.count = Math.max(0, (item.count || 1) - 1);
-    savePantry(pantry);
-    renderPantry();
+    const current = item.count || 1;
+    if (current <= 1) {
+      // Move to Buy Again instead of going to zero
+      const buyAgain = loadBuyAgain();
+      const alreadyThere = buyAgain.some(b => b.name.toLowerCase() === item.name.toLowerCase());
+      if (!alreadyThere) {
+        buyAgain.unshift({ name: item.name, size: item.size || '', loc: loc, addedAt: Date.now() });
+        saveBuyAgain(buyAgain);
+      }
+      pantry[loc].splice(idx, 1);
+      savePantry(pantry);
+      renderPantry();
+      renderBuyAgain();
+      showNotification('Last one used — moved "' + item.name + '" to Buy Again');
+    } else {
+      item.count = current - 1;
+      savePantry(pantry);
+      renderPantry();
+    }
   }
+}
+
+function renderBuyAgain() {
+  const list = loadBuyAgain();
+  const section = document.getElementById('pantry-buy-again-section');
+  const el = document.getElementById('pantry-buy-again-list');
+  if (!section || !el) return;
+  if (list.length === 0) { section.style.display = 'none'; return; }
+  section.style.display = 'block';
+  const LOC_ACCENT = { fridge:'#00f5d4', freezer:'#bf5fff', cupboard:'#d4ff00', counter:'#f5a623' };
+  el.innerHTML = list.map((item, idx) => {
+    const accent = LOC_ACCENT[item.loc] || '#888';
+    return '<div style="display:inline-flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.1);border-radius:10px;">'
+      + '<span style="font-size:12px;font-weight:500;color:#e5e2e1;">' + escapeHtml(item.name) + (item.size ? '<span style="font-size:10px;color:rgba(255,255,255,0.3);margin-left:3px;">' + escapeHtml(item.size) + '</span>' : '') + '</span>'
+      + '<button onclick="restoreFromBuyAgain(' + idx + ')" title="Back in stock — restore to kitchen" style="font-size:11px;padding:2px 8px;background:' + accent + '20;color:' + accent + ';border:1px solid ' + accent + '44;border-radius:999px;cursor:pointer;font-family:Manrope,sans-serif;font-weight:700;">+ Got it</button>'
+      + '<button onclick="deleteBuyAgainItem(' + idx + ')" title="Remove" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.25);font-size:14px;padding:0 2px;line-height:1;" onmouseover="this.style.color=\'var(--red)\'" onmouseout="this.style.color=\'rgba(255,255,255,0.25)\'">✕</button>'
+      + '</div>';
+  }).join('');
+}
+
+function restoreFromBuyAgain(idx) {
+  const list = loadBuyAgain();
+  const item = list[idx];
+  if (!item) return;
+  list.splice(idx, 1);
+  saveBuyAgain(list);
+  // Re-add to kitchen with count 1
+  const pantry = loadPantry();
+  const loc = item.loc || 'fridge';
+  if (!pantry[loc]) pantry[loc] = [];
+  pantry[loc].push({ name: item.name, size: item.size || '', count: 1 });
+  savePantry(pantry);
+  renderPantry();
+  renderBuyAgain();
+  showNotification('"' + item.name + '" restored to ' + loc);
+}
+
+function deleteBuyAgainItem(idx) {
+  const list = loadBuyAgain();
+  list.splice(idx, 1);
+  saveBuyAgain(list);
+  renderBuyAgain();
+}
+
+function clearAllBuyAgain() {
+  saveBuyAgain([]);
+  renderBuyAgain();
 }
 
 function removePantryItem(loc, idx) {
@@ -7349,6 +7452,10 @@ function parseOcadoImport() {
     if (/^\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}$/.test(line)) return;
     if (/^[A-Z]{1,2}\d{1,2}\s?\d[A-Z]{2}$/.test(line)) return;
     if (/^[\+\-]?£?\d+[\.,]\d{2}$/.test(line)) return;
+    // Skip lines that are just a number or short price (e.g. "3.99", "1.50", "12")
+    if (/^\d+(\.\d{1,2})?p?$/.test(line)) return;
+    // Skip lines containing a price-only pattern anywhere (e.g. "£3.99", "3.99 each")
+    if (/^£?\d+\.\d{2}(\s*(each|ea|per|pack))?$/i.test(line)) return;
     // Skip lines that are mostly caps (likely headers/labels)
     const upperRatio = (line.match(/[A-Z]/g)||[]).length / line.length;
     if (upperRatio > 0.6 && line.length > 8) return;
@@ -7829,7 +7936,7 @@ function switchWellbeingTab2(id, el) {
 }
 
 function switchPantryTab(id, el) {
-  ['pantry','shop'].forEach(t => {
+  ['pantry','shop','planner','suggest'].forEach(t => {
     const pane = document.getElementById('pantry-tab-' + t);
     const tab  = document.getElementById('ptab-' + t);
     if (pane) pane.classList.toggle('active', t === id);
@@ -7841,13 +7948,23 @@ function switchPantryTab(id, el) {
   }
   if (id === 'pantry') {
     try { renderPantry(); } catch(e) {}
+    try { renderBuyAgain(); } catch(e) {}
+  }
+  if (id === 'planner') {
+    try { renderPlanner(); } catch(e) {}
+    try { switchPlannerTab('planner', document.getElementById('ptab-mealplan')); } catch(e) {}
+  }
+  if (id === 'suggest') {
+    try { renderSuggestionsPantryPreview(); } catch(e) {}
   }
 }
 
 function switchPlannerTab(id, el) {
   ['planner','recipes'].forEach(t => {
     const pane = document.getElementById('planner-tab-' + t);
-    const tab  = document.getElementById('ptab-' + t);
+    // tab button is ptab-mealplan for 'planner', ptab-recipes for 'recipes'
+    const tabId = t === 'planner' ? 'ptab-mealplan' : 'ptab-recipes';
+    const tab  = document.getElementById(tabId);
     if (pane) pane.style.display = (t === id) ? '' : 'none';
     if (tab) { tab.classList.toggle('active', t === id); }
   });
