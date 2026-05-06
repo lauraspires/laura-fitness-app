@@ -1436,6 +1436,7 @@
     <div class="etab" id="ptab-planner" onclick="switchPantryTab('planner',this)">📅 Meal Planner</div>
     <div class="etab" id="ptab-shop" onclick="switchPantryTab('shop',this)">🛒 Shopping</div>
     <div class="etab" id="ptab-suggest" onclick="switchPantryTab('suggest',this)">✨ Recipe Ideas</div>
+    <div class="etab" id="ptab-recipes" onclick="switchPantryTab('recipes',this)">📖 My Recipes</div>
   </div>
 
   <div id="pantry-tab-pantry" class="etab-page active">
@@ -1634,10 +1635,6 @@
 
   <!-- ── TAB: Meal Planner ── -->
   <div id="pantry-tab-planner" class="etab-page">
-    <div class="eating-tabs" style="margin-bottom:16px;">
-      <div class="etab active" id="ptab-mealplan" onclick="switchPlannerTab('planner', this)">📅 Meal Plan</div>
-      <div class="etab" id="ptab-recipes" onclick="switchPlannerTab('recipes', this)">📖 My Recipes</div>
-    </div>
     <div id="planner-tab-planner">
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;" id="planner-totals">
         <div class="stat-card"><div class="stat-val" id="pt-avgcal">—</div><div class="stat-label">Avg daily calories</div></div>
@@ -1650,13 +1647,15 @@
         <button onclick="resetPlanner()" style="font-size:13px;color:var(--text3);background:none;border:1px solid var(--border);cursor:pointer;padding:8px 20px;border-radius:999px;font-family:'Manrope', sans-serif;" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text3)'">Reset to default plan</button>
       </div>
     </div>
-    <div id="planner-tab-recipes" style="display:none;">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
-        <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);font-family:'Manrope',sans-serif;">Saved recipes</div>
-        <a href="https://www.recime.app" target="_blank" style="display:inline-flex;align-items:center;gap:7px;padding:8px 16px;background:var(--teal);color:#00382f;border-radius:999px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;">📖 Open ReciMe</a>
-      </div>
-      <div id="saved-recipes-list"></div>
+  </div>
+
+  <!-- ── TAB: My Recipes ── -->
+  <div id="pantry-tab-recipes" class="etab-page">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);font-family:'Manrope',sans-serif;">Saved recipes</div>
+      <a href="https://www.recime.app" target="_blank" style="display:inline-flex;align-items:center;gap:7px;padding:8px 16px;background:var(--teal);color:#00382f;border-radius:999px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;">📖 Open ReciMe</a>
     </div>
+    <div id="saved-recipes-list"></div>
   </div>
 
   <!-- ── TAB: Recipe Ideas ── -->
@@ -2186,7 +2185,7 @@
   <!-- API KEY -->
   <div class="card" style="margin-bottom:20px;">
     <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:16px;">🔑 Anthropic API Key</div>
-    <div style="margin-bottom:4px;font-size:13px;color:var(--text2);">Required for AI-powered meal suggestions. Stored locally only — never sent anywhere except Anthropic.</div>
+    <div style="margin-bottom:4px;font-size:13px;color:var(--text2);">Required for AI-powered meal suggestions. Synced to Google Drive alongside your other data — available on all your devices.</div>
     <div style="margin:16px 0;">
       <input id="settings-api-key" type="password" placeholder="paste your Anthropic API key here" style="width:100%;padding:12px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:13px;background:var(--bg);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
     </div>
@@ -2450,7 +2449,7 @@ function goTo(page, el) {
     try { switchEat('guide', document.querySelector('#nutr-tab-guide .eating-tabs .etab')); } catch(e) {}
   }
   if (page === 'pantry') {
-    try { switchPlannerTab('planner', document.getElementById('ptab-mealplan')); } catch(e) {}
+    try { renderPlanner(); } catch(e) {}
   }
   if (page === 'thisweek') renderThisWeekPage();
   if (page === 'settings') { updateApiKeyStatus(); populateProfileSettingsInputs(); }
@@ -7155,22 +7154,38 @@ function renderRoutinesTweaks() {
 // ============================================================
 const API_KEY_STORE = 'laura_anthropic_api_key';
 
-function getAnthropicApiKey() { return localStorage.getItem(API_KEY_STORE) || ''; }
+function getAnthropicApiKey() {
+  // Prefer Drive-synced value; fall back to legacy localStorage value on first run
+  const synced = getData(API_KEY_STORE, '');
+  if (synced) return synced;
+  return localStorage.getItem(API_KEY_STORE) || '';
+}
 function hasAnthropicApiKey() { return !!getAnthropicApiKey(); }
 
 function saveApiKeySettings() {
   const key = (document.getElementById('settings-api-key') || {}).value || '';
   if (!key.trim()) { showNotification('Please enter a key first'); return; }
-  localStorage.setItem(API_KEY_STORE, key.trim());
+  setData(API_KEY_STORE, key.trim());
+  scheduleSave();
+  // Migrate away from localStorage if present
+  try { localStorage.removeItem(API_KEY_STORE); } catch(e) {}
   updateApiKeyStatus();
-  showNotification('API key saved');
+  showNotification('API key saved — will sync to Google Drive');
 }
 
 function toggleApiKeyVisibility(btn) {
   const inp = document.getElementById('settings-api-key');
   if (!inp) return;
-  if (inp.type === 'password') { inp.type = 'text'; btn.textContent = 'Hide'; }
-  else { inp.type = 'password'; btn.textContent = 'Show'; }
+  if (inp.type === 'password') {
+    // Populate from stored key so the user can actually see it
+    const stored = getAnthropicApiKey();
+    if (stored && !inp.value) inp.value = stored;
+    inp.type = 'text';
+    btn.textContent = 'Hide';
+  } else {
+    inp.type = 'password';
+    btn.textContent = 'Show';
+  }
 }
 
 function updateApiKeyStatus() {
@@ -7974,7 +7989,7 @@ function switchWellbeingTab2(id, el) {
 }
 
 function switchPantryTab(id, el) {
-  ['pantry','shop','planner','suggest'].forEach(t => {
+  ['pantry','shop','planner','suggest','recipes'].forEach(t => {
     const pane = document.getElementById('pantry-tab-' + t);
     const tab  = document.getElementById('ptab-' + t);
     if (pane) pane.classList.toggle('active', t === id);
@@ -7990,25 +8005,17 @@ function switchPantryTab(id, el) {
   }
   if (id === 'planner') {
     try { renderPlanner(); } catch(e) {}
-    try { switchPlannerTab('planner', document.getElementById('ptab-mealplan')); } catch(e) {}
   }
   if (id === 'suggest') {
     try { renderSuggestionsPantryPreview(); } catch(e) {}
   }
-}
-
-function switchPlannerTab(id, el) {
-  ['planner','recipes'].forEach(t => {
-    const pane = document.getElementById('planner-tab-' + t);
-    // tab button is ptab-mealplan for 'planner', ptab-recipes for 'recipes'
-    const tabId = t === 'planner' ? 'ptab-mealplan' : 'ptab-recipes';
-    const tab  = document.getElementById(tabId);
-    if (pane) pane.style.display = (t === id) ? '' : 'none';
-    if (tab) { tab.classList.toggle('active', t === id); }
-  });
   if (id === 'recipes') {
     if (typeof renderSavedRecipes === 'function') renderSavedRecipes();
   }
+}
+
+function switchPlannerTab(id, el) {
+  // Kept for any legacy calls — no-op now that My Recipes is a top-level tab
 }
 
 function renderPlannerPantryPreview() {
