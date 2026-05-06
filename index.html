@@ -17,7 +17,7 @@
     background:var(--card);border-radius:20px;padding:40px 44px;max-width:440px;width:92%;
     box-shadow:0 20px 60px rgba(0,0,0,0.12);text-align:center;
   }
-  .sync-logo { font-family:'Space Grotesk', sans-serif;font-size:28px;font-weight:700;margin-bottom:4px; }
+  .sync-logo { font-family:'Space Grotesk', sans-serif;font-size:28px;font-weight:700;margin-bottom:4px;color:var(--teal); }
   .sync-sub  { font-size:13px;color:var(--text3);margin-bottom:28px; }
   .sync-btn  {
     display:inline-flex;align-items:center;gap:10px;padding:13px 24px;
@@ -44,8 +44,11 @@
   .sync-status { font-size:12px;color:var(--text3);margin-top:10px; }
   .sync-status.ok  { color:var(--teal); }
   .sync-status.err { color:var(--red);  }
+  #top-bar { position:fixed;top:14px;right:18px;z-index:500;display:flex;align-items:center;gap:8px; }
+  #theme-toggle { width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);transition:all 0.2s; }
+  #theme-toggle:hover { background:var(--card-high); }
   #sync-indicator {
-    position:fixed;top:14px;right:18px;z-index:500;
+    position:relative;top:auto;right:auto;z-index:500;
     font-size:11px;font-weight:600;padding:5px 12px;border-radius:999px;
     font-family:'Manrope', sans-serif;display:flex;align-items:center;gap:6px;
     background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow);
@@ -58,10 +61,10 @@
 
   /* ── KINETIC ETHEREAL UTILITIES ── */
   .glass-panel {
-    background: rgba(255,255,255,0.03);
+    background: var(--bg2);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
   }
   .emerald-glow { box-shadow: 0 0 20px rgba(0,245,212,0.08); }
   .emerald-text-glow { text-shadow: 0 0 15px rgba(0,245,212,0.3); }
@@ -100,27 +103,51 @@
     --bg2:           #1b1b1c;
     --card:          #202020;
     --card-high:     #2a2a2a;
-    --text:          #e5e2e1;
-    --text2:         #b9cac4;
-    --text3:         #83948f;
-    --border:        rgba(255,255,255,0.08);
+    --sidebar-bg:    #0a0a0a;
+    --text:          #e8e5e3;
+    --text2:         #c4cfc9;
+    --text3:         #9aada8;
+    --border:        rgba(255,255,255,0.09);
+    --border2:       rgba(255,255,255,0.14);
     --teal:          #00f5d4;
-    --teal-light:    rgba(0,245,212,0.18);
-    --teal-mid:      rgba(0,245,212,0.25);
+    --teal-light:    rgba(0,245,212,0.12);
+    --teal-mid:      rgba(0,245,212,0.22);
     --coral:         #f4816a;
     --coral-light:   rgba(244,129,106,0.15);
-    --amber:         #f5c842;
+    --amber:         #fbbf24;
     --amber-light:   rgba(245,200,66,0.15);
     --blue:          #60a5fa;
     --blue-light:    rgba(96,165,250,0.15);
     --purple:        #a78bfa;
     --purple-light:  rgba(167,139,250,0.15);
-    --red:           #ff6b6b;
+    --red:           #f87171;
     --red-light:     rgba(255,107,107,0.15);
     --shadow:        0 2px 16px rgba(0,0,0,0.4);
     --shadow-lg:     0 8px 40px rgba(0,0,0,0.6);
     --radius:        16px;
     --radius-sm:     10px;
+  }
+  body.light {
+    --bg:            #edecea;
+    --bg2:           #e3e2df;
+    --card:          #f4f2ef;
+    --card-high:     #e9e7e4;
+    --sidebar-bg:    #e6e4e1;
+    --text:          #18181a;
+    --text2:         #6c7a8b;
+    --text3:         #8b96a4;
+    --border:        rgba(0,0,0,0.08);
+    --border2:       rgba(0,0,0,0.13);
+    --teal:          #009e88;
+    --teal-light:    rgba(0,158,136,0.10);
+    --teal-mid:      rgba(0,158,136,0.18);
+    --coral:         #c95a47;
+    --amber:         #b45309;
+    --blue:          #2563eb;
+    --purple:        #7c4ddb;
+    --red:           #d94444;
+    --shadow:        0 2px 12px rgba(0,0,0,0.10);
+    --shadow-lg:     0 8px 32px rgba(0,0,0,0.18);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -139,7 +166,7 @@
   .sidebar {
     width: 240px;
     flex-shrink: 0;
-    background: #0e0e0e;
+    background: var(--sidebar-bg);
     display: flex;
     flex-direction: column;
     padding: 0;
@@ -160,13 +187,13 @@
     flex-direction: column;
     gap: 3px;
     padding: 14px 14px 10px;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid var(--border);
   }
   .hub-switcher-label {
     font-size: 9px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.25);
+    color: var(--text3);
     font-family: 'Manrope', sans-serif;
     margin-bottom: 4px;
     padding-left: 2px;
@@ -180,45 +207,45 @@
     font-family: 'Manrope', sans-serif;
     font-size: 12.5px;
     font-weight: 500;
-    color: rgba(255,255,255,0.4);
+    color: var(--text2);
     text-decoration: none;
     transition: all 0.14s;
   }
-  .hub-link:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.75); }
-  .hub-link.current { background: rgba(0,245,212,0.12); color: #00f5d4; font-weight: 600; pointer-events: none; }
+  .hub-link:hover { background: var(--card-high); color: rgba(255,255,255,0.75); }
+  .hub-link.current { background: var(--teal-light); color: var(--teal); font-weight: 600; pointer-events: none; }
   .hub-link .hub-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; background: currentColor; opacity: 0.7; }
 
   .sidebar-logo {
     padding: 20px 24px 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid var(--border);
     margin-bottom: 16px;
   }
-  .logo-eyebrow { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 4px; font-family: 'Manrope', sans-serif; }
+  .logo-eyebrow { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text3); margin-bottom: 4px; font-family: 'Manrope', sans-serif; }
   .logo-name { font-family: 'Space Grotesk', sans-serif; font-size: 22px; color: #fff; font-weight: 700; line-height: 1.1; }
-  .logo-sub { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+  .logo-sub { font-size: 11px; color: var(--text2); margin-top: 4px; }
 
   .nav-section { padding: 0 12px; margin-bottom: 4px; }
-  .nav-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); padding: 8px 12px 4px; font-family: 'Manrope', sans-serif; }
+  .nav-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); padding: 8px 12px 4px; font-family: 'Manrope', sans-serif; }
   .nav-item {
     display: flex; align-items: center; gap: 10px;
     padding: 9px 12px; border-radius: 10px;
-    cursor: pointer; color: rgba(255,255,255,0.55);
+    cursor: pointer; color: var(--text2);
     font-size: 13.5px; font-weight: 400;
     transition: all 0.15s; margin-bottom: 1px;
     border: none; background: none; width: 100%; text-align: left;
   }
-  .nav-item:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.85); }
-  .nav-item.active { background: rgba(0,245,212,0.15); color: #00f5d4; font-weight: 500; }
+  .nav-item:hover { background: var(--card-high); color: var(--text); }
+  .nav-item.active { background: var(--teal-light); color: var(--teal); font-weight: 500; }
   .nav-icon { font-size: 16px; width: 20px; text-align: center; }
 
   .sidebar-footer {
     margin-top: auto; padding: 16px 24px 0;
-    border-top: 1px solid rgba(255,255,255,0.08);
+    border-top: 1px solid var(--border);
   }
   .stat-mini { display: flex; justify-content: space-between; margin-bottom: 8px; }
   .stat-mini-item { text-align: center; }
   .stat-mini-val { font-size: 15px; font-weight: 600; color: #e5e2e1; }
-  .stat-mini-label { font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 1px; }
+  .stat-mini-label { font-size: 10px; color: var(--text3); margin-top: 1px; }
 
   /* ---- MAIN ---- */
   .main { margin-left: 240px; flex: 1; padding: 36px 36px 60px; min-width: 0; }
@@ -230,7 +257,7 @@
   /* ---- PAGE HEADER ---- */
   .page-header { margin-bottom: 28px; }
   .page-eyebrow { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); font-family: 'Manrope', sans-serif; margin-bottom: 6px; }
-  .page-title { font-family: 'Space Grotesk', sans-serif; font-size: 34px; font-weight: 700; line-height: 1.1; }
+  .page-title { font-family: 'Space Grotesk', sans-serif; font-size: 34px; font-weight: 700; line-height: 1.1; color: var(--teal); }
   .page-sub { font-size: 14px; color: var(--text2); margin-top: 6px; line-height: 1.5; }
 
   /* ---- GRID HELPERS ---- */
@@ -282,11 +309,11 @@
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.03);
+    background: var(--bg2);
     pointer-events: none;
   }
   .card-sm { padding: 16px 18px; }
-  .card-title { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 500; margin-bottom: 4px; }
+  .card-title { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 500; margin-bottom: 4px; color: var(--teal); }
   .card-sub { font-size: 12px; color: var(--text2); }
 
   /* ---- BADGES ---- */
@@ -315,7 +342,7 @@
     position: relative;
   }
   .day-card:hover { filter: brightness(1.15); }
-  .day-card.selected { outline: 1px solid rgba(255,255,255,0.35); outline-offset: 1px; }
+  .day-card.selected { outline: 1px solid var(--text3); outline-offset: 1px; }
   .day-label-s { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; font-family: 'Manrope', sans-serif; }
   .day-emoji { font-size: 20px; margin-bottom: 5px; }
   .day-type { font-size: 12px; font-weight: 600; }
@@ -466,7 +493,7 @@
     position: fixed;
     top: 14px; left: 14px;
     z-index: 200;
-    background: #0e0e0e;
+    background: var(--sidebar-bg);
     border: none;
     border-radius: 10px;
     width: 42px; height: 42px;
@@ -807,10 +834,13 @@
   </div>
 </div>
 
-<!-- SYNC STATUS INDICATOR (shown when signed in) -->
-<div id="sync-indicator" style="display:none;">
-  <div id="sync-dot"></div>
-  <span id="sync-label">Synced</span>
+<!-- TOP BAR: theme toggle + sync indicator -->
+<div id="top-bar">
+  <button id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode">☀️</button>
+  <div id="sync-indicator" style="display:none;">
+    <div id="sync-dot"></div>
+    <span id="sync-label">Synced</span>
+  </div>
 </div>
 
 <!-- SIDEBAR -->
@@ -1571,9 +1601,9 @@
       <div style="display:flex;gap:10px;margin-bottom:16px;align-items:center;">
         <div style="font-size:13px;color:var(--text2);white-space:nowrap;">How many?</div>
         <div style="display:flex;align-items:center;gap:8px;">
-          <button onclick="pantryCountStep(-1)" style="width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid var(--border);color:var(--text);font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>
+          <button onclick="pantryCountStep(-1)" style="width:30px;height:30px;border-radius:50%;background:var(--border);border:1px solid var(--border);color:var(--text);font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>
           <input id="pantry-add-count" type="number" min="1" value="1" style="width:52px;text-align:center;padding:6px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-family:'Manrope',sans-serif;font-size:15px;font-weight:700;">
-          <button onclick="pantryCountStep(1)" style="width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid var(--border);color:var(--text);font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>
+          <button onclick="pantryCountStep(1)" style="width:30px;height:30px;border-radius:50%;background:var(--border);border:1px solid var(--border);color:var(--text);font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>
         </div>
         <div style="font-size:12px;color:var(--text3);">Ticking off decrements this count</div>
       </div>
@@ -3153,7 +3183,7 @@ function renderChart(entries) {
     const y = yScale(v);
     const label = metric === 'feeling' ? (FEEL_EMOJI[Math.round(v)] || v.toFixed(0)) : v.toFixed(1);
     ctx.fillText(label, PAD.left - 6, y + 4);
-    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+    ctx.strokeStyle = 'var(--border)';
     ctx.lineWidth   = 1;
     ctx.setLineDash([3, 3]);
     ctx.beginPath(); ctx.moveTo(PAD.left, y); ctx.lineTo(PAD.left + cW, y); ctx.stroke();
@@ -5195,7 +5225,7 @@ function renderSuppSchedule() {
         const meta = CAT_META[s.cat] || CAT_META.general;
         const cm   = COLOR_MAP[meta.color] || COLOR_MAP.gray;
         const row  = document.createElement('div');
-        row.style.cssText = `display:flex;justify-content:space-between;align-items:center;padding:11px 16px;background:var(--bg);border-radius:var(--radius-sm);border:1px solid ${isPaused ? 'rgba(255,255,255,0.08)' : 'var(--border)'};opacity:${isPaused ? '0.5' : '1'};transition:opacity 0.2s;`;
+        row.style.cssText = `display:flex;justify-content:space-between;align-items:center;padding:11px 16px;background:var(--bg);border-radius:var(--radius-sm);border:1px solid ${isPaused ? 'var(--border)' : 'var(--border)'};opacity:${isPaused ? '0.5' : '1'};transition:opacity 0.2s;`;
         const pauseBtn = document.createElement('button');
         pauseBtn.style.cssText = `font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid ${isPaused ? 'var(--teal)' : 'rgba(255,255,255,0.15)'};background:${isPaused ? 'var(--teal-light)' : 'transparent'};color:${isPaused ? 'var(--teal)' : 'var(--text3)'};white-space:nowrap;flex-shrink:0;`;
         pauseBtn.textContent = isPaused ? '▶ Resume' : '⏸ Pause';
@@ -5923,6 +5953,24 @@ function subtractDays(dateStr, days) {
 </div>
 
 <script>
+// Theme toggle
+function toggleTheme() {
+  const isLight = document.body.classList.toggle('light');
+  document.getElementById('theme-toggle').textContent = isLight ? '🌙' : '☀️';
+  try { localStorage.setItem('hh-theme', isLight ? 'light' : 'dark'); } catch(e) {}
+}
+(function() {
+  try {
+    if (localStorage.getItem('hh-theme') === 'light') {
+      document.body.classList.add('light');
+      document.addEventListener('DOMContentLoaded', function() {
+        const btn = document.getElementById('theme-toggle');
+        if (btn) btn.textContent = '🌙';
+      });
+    }
+  } catch(e) {}
+})();
+
 // Modal overlay click handler - close on outside click
 document.getElementById('workout-editor-modal').addEventListener('click', function(e) {
   if (e.target === this) closeWorkoutEditor();
@@ -7324,7 +7372,7 @@ function renderPantry() {
     if (!el) return;
     const items = pantry[loc] || [];
     if (items.length === 0) {
-      el.innerHTML = '<div style="font-size:12px;color:rgba(255,255,255,0.25);padding:4px 0;">Nothing here yet</div>';
+      el.innerHTML = '<div style="font-size:12px;color:var(--text3);padding:4px 0;">Nothing here yet</div>';
       return;
     }
     const accent = LOC_ACCENT[loc] || '#e5e2e1';
@@ -7333,14 +7381,14 @@ function renderPantry() {
           const count = item.count || 1;
           const depleted = count <= 0;
           const nameStyle = 'font-size:12px;font-weight:500;cursor:pointer;'
-            + (depleted ? 'text-decoration:line-through;color:rgba(255,255,255,0.3);' : 'color:#e5e2e1;');
+            + (depleted ? 'text-decoration:line-through;color:var(--text3);' : 'color:#e5e2e1;');
           const countStyle = 'font-size:11px;font-weight:700;padding:1px 7px;border-radius:999px;cursor:pointer;'
-            + 'background:' + (depleted ? 'rgba(255,80,80,0.15)' : 'rgba(255,255,255,0.08)') + ';'
+            + 'background:' + (depleted ? 'rgba(255,80,80,0.15)' : 'var(--border)') + ';'
             + 'color:' + (depleted ? 'rgba(255,80,80,0.7)' : accent) + ';'
             + 'border:1px solid ' + (depleted ? 'rgba(255,80,80,0.2)' : 'rgba(255,255,255,0.1)') + ';'
             + 'transition:background 0.12s;';
           return '<div title="Tap name to edit · Tap count to use one" style="display:inline-flex;align-items:center;gap:7px;padding:7px 12px;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.1);border-radius:10px;' + (depleted ? 'opacity:0.45;' : '') + '">'
-            + '<span onclick="editPantryItem(\'' + loc + '\',' + idx + ')" style="' + nameStyle + '">' + escapeHtml(item.name) + (item.size ? '<span style="font-size:10px;color:rgba(255,255,255,0.3);margin-left:3px;">' + escapeHtml(item.size) + '</span>' : '') + '</span>'
+            + '<span onclick="editPantryItem(\'' + loc + '\',' + idx + ')" style="' + nameStyle + '">' + escapeHtml(item.name) + (item.size ? '<span style="font-size:10px;color:var(--text3);margin-left:3px;">' + escapeHtml(item.size) + '</span>' : '') + '</span>'
             + '<span onclick="decrementPantryItem(\'' + loc + '\',' + idx + ')" style="' + countStyle + '">×' + count + '</span>'
             + '</div>';
         }).join('')
@@ -7389,9 +7437,9 @@ function renderBuyAgain() {
   el.innerHTML = list.map((item, idx) => {
     const accent = LOC_ACCENT[item.loc] || '#888';
     return '<div style="display:inline-flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.1);border-radius:10px;">'
-      + '<span style="font-size:12px;font-weight:500;color:#e5e2e1;">' + escapeHtml(item.name) + (item.size ? '<span style="font-size:10px;color:rgba(255,255,255,0.3);margin-left:3px;">' + escapeHtml(item.size) + '</span>' : '') + '</span>'
+      + '<span style="font-size:12px;font-weight:500;color:#e5e2e1;">' + escapeHtml(item.name) + (item.size ? '<span style="font-size:10px;color:var(--text3);margin-left:3px;">' + escapeHtml(item.size) + '</span>' : '') + '</span>'
       + '<button onclick="restoreFromBuyAgain(' + idx + ')" title="Back in stock — restore to kitchen" style="font-size:11px;padding:2px 8px;background:' + accent + '20;color:' + accent + ';border:1px solid ' + accent + '44;border-radius:999px;cursor:pointer;font-family:Manrope,sans-serif;font-weight:700;">+ Got it</button>'
-      + '<button onclick="deleteBuyAgainItem(' + idx + ')" title="Remove" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.25);font-size:14px;padding:0 2px;line-height:1;" onmouseover="this.style.color=\'var(--red)\'" onmouseout="this.style.color=\'rgba(255,255,255,0.25)\'">✕</button>'
+      + '<button onclick="deleteBuyAgainItem(' + idx + ')" title="Remove" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:14px;padding:0 2px;line-height:1;" onmouseover="this.style.color=\'var(--red)\'" onmouseout="this.style.color=\'var(--text3)\'">✕</button>'
       + '</div>';
   }).join('');
 }
@@ -7595,12 +7643,12 @@ function renderOcadoReview() {
     const c = LOC_COLORS[item.loc]; const t = LOC_TEXT[item.loc];
     return '<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(255,255,255,0.04);border-radius:8px;">'
       + '<div style="flex:1;min-width:0;">'
-      + '<div style="font-size:13px;font-weight:500;">' + escapeHtml(item.name) + (item.size ? ' <span style="color:rgba(255,255,255,0.35);font-size:11px;">' + escapeHtml(item.size) + '</span>' : '') + '</div>'
+      + '<div style="font-size:13px;font-weight:500;">' + escapeHtml(item.name) + (item.size ? ' <span style="color:var(--text3);font-size:11px;">' + escapeHtml(item.size) + '</span>' : '') + '</div>'
       + '</div>'
       + '<div style="display:flex;align-items:center;gap:4px;">'
-      + '<button onclick="ocadoCountStep(' + i + ',-1)" style="width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#e5e2e1;font-size:13px;cursor:pointer;">−</button>'
+      + '<button onclick="ocadoCountStep(' + i + ',-1)" style="width:22px;height:22px;border-radius:50%;background:var(--border);border:1px solid rgba(255,255,255,0.12);color:#e5e2e1;font-size:13px;cursor:pointer;">−</button>'
       + '<span style="font-size:13px;font-weight:700;min-width:20px;text-align:center;" id="ocado-count-' + i + '">' + item.count + '</span>'
-      + '<button onclick="ocadoCountStep(' + i + ',1)" style="width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#e5e2e1;font-size:13px;cursor:pointer;">+</button>'
+      + '<button onclick="ocadoCountStep(' + i + ',1)" style="width:22px;height:22px;border-radius:50%;background:var(--border);border:1px solid rgba(255,255,255,0.12);color:#e5e2e1;font-size:13px;cursor:pointer;">+</button>'
       + '</div>'
       + '<button onclick="ocadoCycleLoc(' + i + ')" style="padding:4px 10px;border-radius:999px;background:' + c + ';border:1px solid ' + t.replace(')', ',0.3)').replace('rgb','rgba') + ';color:' + t + ';font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:Manrope,sans-serif;" id="ocado-loc-' + i + '">'
       + LOC_ICONS[item.loc] + ' ' + item.loc.charAt(0).toUpperCase() + item.loc.slice(1)
