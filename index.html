@@ -154,8 +154,42 @@
     -webkit-overflow-scrolling: touch;
     padding: 28px 0 16px;
   }
+  /* ── HUB SWITCHER ── */
+  .hub-switcher {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 14px 14px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .hub-switcher-label {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    font-family: 'Manrope', sans-serif;
+    margin-bottom: 4px;
+    padding-left: 2px;
+  }
+  .hub-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 7px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    transition: all 0.14s;
+  }
+  .hub-link:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.75); }
+  .hub-link.current { background: rgba(0,245,212,0.12); color: #00f5d4; font-weight: 600; pointer-events: none; }
+  .hub-link .hub-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; background: currentColor; opacity: 0.7; }
+
   .sidebar-logo {
-    padding: 32px 24px 24px;
+    padding: 20px 24px 20px;
     border-bottom: 1px solid rgba(255,255,255,0.08);
     margin-bottom: 16px;
   }
@@ -781,6 +815,14 @@
 
 <!-- SIDEBAR -->
 <nav class="sidebar">
+  <div class="hub-switcher">
+    <div class="hub-switcher-label">My Hubs</div>
+    <a class="hub-link current" href="https://ellespy.github.io/health-hub/"><span class="hub-dot"></span> Health</a>
+    <a class="hub-link" href="https://ellespy.github.io/finance-hub/"><span class="hub-dot"></span> Finance</a>
+    <a class="hub-link" href="https://ellespy.github.io/life-hub/"><span class="hub-dot"></span> Life</a>
+    <a class="hub-link" href="#" style="opacity:0.35;pointer-events:none;"><span class="hub-dot"></span> Work <span style="font-size:10px;margin-left:2px;opacity:0.6">soon</span></a>
+  </div>
+
   <div class="sidebar-logo">
     <div class="logo-name">Health Hub</div>
   </div>
