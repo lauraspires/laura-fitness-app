@@ -21,7 +21,7 @@
   .sync-sub  { font-size:13px;color:var(--text3);margin-bottom:28px; }
   .sync-btn  {
     display:inline-flex;align-items:center;gap:10px;padding:13px 24px;
-    background:var(--teal);color:var(--teal-on);border:none;border-radius:999px;
+    background:#00f5d4;color:#00382f;border:none;border-radius:999px;
     font-family:'Manrope', sans-serif;font-size:14px;font-weight:600;cursor:pointer;
     transition:opacity 0.15s;margin-bottom:14px;width:100%;justify-content:center;
   }
@@ -32,7 +32,7 @@
     font-family:'Manrope', sans-serif;font-size:13px;font-weight:500;cursor:pointer;
     transition:border-color 0.15s;width:100%;justify-content:center;
   }
-  .sync-btn-secondary:hover { border-color:var(--teal); color:var(--teal); }
+  .sync-btn-secondary:hover { border-color:#00f5d4; color:#00f5d4; }
   .sync-setup { background:var(--bg2);border-radius:12px;padding:18px;text-align:left;margin-top:16px; }
   .sync-setup-title { font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:10px; }
   .sync-step { font-size:12.5px;color:var(--text2);padding:5px 0;display:flex;gap:10px;border-bottom:1px solid var(--border);line-height:1.5; }
@@ -66,8 +66,8 @@
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--border);
   }
-  .emerald-glow { box-shadow: 0 0 20px rgba(0,0,0,0.06); }
-  .emerald-text-glow { text-shadow: none; }
+  .emerald-glow { box-shadow: 0 0 20px rgba(0,245,212,0.08); }
+  .emerald-text-glow { text-shadow: 0 0 15px rgba(0,245,212,0.3); }
   /* Mobile bottom-nav safe area */
   .pb-safe { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
 
@@ -86,7 +86,7 @@
   transition: all 0.15s;
 }
 .ctab:hover { border-color: var(--teal); color: var(--teal); }
-.ctab.active { background: var(--teal); border-color: var(--teal); color: var(--teal-on); }
+.ctab.active { background: var(--teal); border-color: var(--teal); color: #000; }
 
 /* ── Cuisine panel layout ── */
 .cuisine-panel { display: none; }
@@ -110,9 +110,8 @@
     --border:        rgba(255,255,255,0.09);
     --border2:       rgba(255,255,255,0.14);
     --teal:          #00f5d4;
-    --teal-light:    var(--teal-mid);
-    --teal-mid:      var(--teal-mid);
-    --teal-text:     #00f5d4;
+    --teal-light:    rgba(0,245,212,0.12);
+    --teal-mid:      rgba(0,245,212,0.22);
     --coral:         #f4816a;
     --coral-light:   rgba(244,129,106,0.15);
     --amber:         #fbbf24;
@@ -120,18 +119,13 @@
     --blue:          #60a5fa;
     --blue-light:    rgba(96,165,250,0.15);
     --purple:        #a78bfa;
-    --purple-light:  rgba(167,139,250,0.12);
-    --purple-mid:    rgba(167,139,250,0.25);
-    --purple-text:   #a78bfa;
+    --purple-light:  rgba(167,139,250,0.15);
     --red:           #f87171;
     --red-light:     rgba(255,107,107,0.15);
     --shadow:        0 2px 16px rgba(0,0,0,0.4);
     --shadow-lg:     0 8px 40px rgba(0,0,0,0.6);
     --radius:        16px;
     --radius-sm:     10px;
-    --teal-on:       #003330;
-    --amber-on:      #fff;
-    --amber-mid:     rgba(251,191,36,0.35);
   }
   body.light {
     --bg:            #edecea;
@@ -144,28 +138,16 @@
     --text3:         #8b96a4;
     --border:        rgba(0,0,0,0.08);
     --border2:       rgba(0,0,0,0.13);
-    --teal:          #0E7490;
-    --teal-light:    #E0F2F7;
-    --teal-mid:      #7DD3E8;
-    --teal-text:     #0C4A6E;
+    --teal:          #009e88;
+    --teal-light:    rgba(0,158,136,0.10);
+    --teal-mid:      rgba(0,158,136,0.18);
     --coral:         #c95a47;
-    --coral-light:   rgba(201,90,71,0.12);
-    --amber:         #F59E0B;
-    --amber-light:   #FEF3DC;
-    --amber-mid:     #F5C842;
-    --amber-text:    #78350F;
+    --amber:         #b45309;
     --blue:          #2563eb;
-    --purple:        #534AB7;
-    --purple-light:  #EEEDFE;
-    --purple-mid:    #CECBF6;
-    --purple-text:   #26215C;
+    --purple:        #7c4ddb;
     --red:           #d94444;
     --shadow:        0 2px 12px rgba(0,0,0,0.10);
     --shadow-lg:     0 8px 32px rgba(0,0,0,0.18);
-    --teal-on:       #ffffff;
-    --amber-on:      #fff;
-    --blue-light:    rgba(37,99,235,0.08);
-    --red-light:     rgba(220,60,60,0.08);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -229,7 +211,7 @@
     text-decoration: none;
     transition: all 0.14s;
   }
-  .hub-link:hover { background: var(--card-high); color: var(--text); }
+  .hub-link:hover { background: var(--card-high); color: rgba(255,255,255,0.75); }
   .hub-link.current { background: var(--teal-light); color: var(--teal); font-weight: 600; pointer-events: none; }
   .hub-link .hub-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; background: currentColor; opacity: 0.7; }
 
@@ -239,7 +221,7 @@
     margin-bottom: 16px;
   }
   .logo-eyebrow { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text3); margin-bottom: 4px; font-family: 'Manrope', sans-serif; }
-  .logo-name { font-family: 'Space Grotesk', sans-serif; font-size: 22px; color: var(--text); font-weight: 700; line-height: 1.1; }
+  .logo-name { font-family: 'Space Grotesk', sans-serif; font-size: 22px; color: #fff; font-weight: 700; line-height: 1.1; }
   .logo-sub { font-size: 11px; color: var(--text2); margin-top: 4px; }
 
   .nav-section { padding: 0 12px; margin-bottom: 4px; }
@@ -262,7 +244,7 @@
   }
   .stat-mini { display: flex; justify-content: space-between; margin-bottom: 8px; }
   .stat-mini-item { text-align: center; }
-  .stat-mini-val { font-size: 15px; font-weight: 600; color: var(--text); }
+  .stat-mini-val { font-size: 15px; font-weight: 600; color: #e5e2e1; }
   .stat-mini-label { font-size: 10px; color: var(--text3); margin-top: 1px; }
 
   /* ---- MAIN ---- */
@@ -293,51 +275,43 @@
   }
   /* Finance Hub-inspired category cards */
   .card-gym {
-    background: var(--teal-light);
-    border-top: 0.5px solid var(--teal-mid);
-    border-right: 0.5px solid var(--teal-mid);
-    border-bottom: 0.5px solid var(--teal-mid);
-    border-left: 4px solid var(--teal);
-    box-shadow: var(--shadow);
-    border-radius: 0 var(--radius) var(--radius) 0;
+    background: linear-gradient(145deg,#021310 0%,#042e26 100%);
+    border: 1px solid rgba(0,245,212,0.45);
+    box-shadow: 0 0 40px rgba(0,245,212,0.12), 0 2px 16px rgba(0,0,0,0.5);
+    border-radius: var(--radius);
     padding: 22px;
     position: relative;
     overflow: hidden;
   }
-  .card-gym .workout-title, .card-gym .card-title { color: var(--teal-text) !important; }
-  .card-gym .workout-meta, .card-gym .card-sub { color: var(--teal-text); opacity: 0.8; }
-  .card-gym .badge-teal { background: var(--card); color: var(--teal-text); border: 0.5px solid var(--teal-mid); }
   .card-run {
-    background: var(--purple-light);
-    border-top: 0.5px solid var(--purple-mid);
-    border-right: 0.5px solid var(--purple-mid);
-    border-bottom: 0.5px solid var(--purple-mid);
-    border-left: 4px solid var(--purple);
-    box-shadow: var(--shadow);
-    border-radius: 0 var(--radius) var(--radius) 0;
+    background: linear-gradient(145deg,#130820 0%,#220a36 100%);
+    border: 1px solid rgba(191,95,255,0.45);
+    box-shadow: 0 0 40px rgba(191,95,255,0.12), 0 2px 16px rgba(0,0,0,0.5);
+    border-radius: var(--radius);
     padding: 22px;
     position: relative;
     overflow: hidden;
   }
-  .card-run .workout-title, .card-run .card-title { color: var(--purple-text) !important; }
-  .card-run .workout-meta, .card-run .card-sub { color: var(--purple-text); opacity: 0.8; }
-  .card-run .badge-run { background: var(--card); color: var(--purple-text); border: 0.5px solid var(--purple-mid); }
   .card-class {
-    background: var(--amber-light);
-    border-top: 0.5px solid var(--amber-mid);
-    border-right: 0.5px solid var(--amber-mid);
-    border-bottom: 0.5px solid var(--amber-mid);
-    border-left: 4px solid var(--amber);
-    box-shadow: var(--shadow);
-    border-radius: 0 var(--radius) var(--radius) 0;
+    background: linear-gradient(145deg,#141200 0%,#2a2600 100%);
+    border: 1px solid rgba(212,255,0,0.45);
+    box-shadow: 0 0 40px rgba(212,255,0,0.10), 0 2px 16px rgba(0,0,0,0.5);
+    border-radius: var(--radius);
     padding: 22px;
     position: relative;
     overflow: hidden;
   }
-  .card-class .workout-title, .card-class .card-title { color: var(--amber-text) !important; }
-  .card-class .workout-meta, .card-class .card-sub { color: var(--amber-text); opacity: 0.8; }
-  .card-class .badge-class { background: var(--card); color: var(--amber-text); border: 0.5px solid var(--amber-mid); }
-
+  .card-gym::before, .card-run::before, .card-class::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--bg2);
+    pointer-events: none;
+  }
   .card-sm { padding: 16px 18px; }
   .card-title { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 500; margin-bottom: 4px; color: var(--teal); }
   .card-sub { font-size: 12px; color: var(--text2); }
@@ -350,11 +324,11 @@
   .badge-blue { background: var(--blue-light); color: var(--blue); }
   .badge-purple { background: var(--purple-light); color: var(--purple); }
   .badge-red { background: var(--red-light); color: var(--red); }
-  .badge-run { background: var(--purple-light); color: var(--purple); }
-  .badge-class { background: var(--amber-light); color: var(--amber); }
+  .badge-run { background: rgba(191,95,255,0.12); color: #bf5fff; }
+  .badge-class { background: rgba(212,255,0,0.10); color: #d4ff00; }
 
   /* ---- STAT CARDS ---- */
-  .stat-card { background: var(--card); border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow); border: 1px solid var(--border); border-left: 3px solid var(--teal); }
+  .stat-card { background: var(--card); border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow); border: 1px solid var(--border); }
   .stat-val { font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; line-height: 1; }
   .stat-label { font-size: 12px; color: var(--text2); margin-top: 5px; }
   .stat-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
@@ -367,11 +341,7 @@
     cursor: pointer; border: 1px solid transparent; transition: all 0.15s;
     position: relative;
   }
-  .day-card:hover { filter: brightness(1.05); }
-  .day-card-gym   { border-color: var(--teal-mid) !important; }
-  .day-card-run   { border-color: var(--purple-light) !important; }
-  .day-card-class { border-color: var(--amber-light) !important; }
-  .day-card-rest  { border-color: var(--border) !important; }
+  .day-card:hover { filter: brightness(1.15); }
   .day-card.selected { outline: 1px solid var(--text3); outline-offset: 1px; }
   .day-label-s { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; font-family: 'Manrope', sans-serif; }
   .day-emoji { font-size: 20px; margin-bottom: 5px; }
@@ -387,8 +357,8 @@
   .ddp-row span:last-child { color: var(--text3); font-size: 12px; font-variant-numeric: tabular-nums; }
   .ddp-link { display: inline-block; margin-top: 8px; font-size: 12px; color: var(--teal); background: none; border: none; padding: 0; cursor: pointer; font-family: 'Manrope', sans-serif; text-decoration: underline; text-underline-offset: 3px; }
   /* Neon colours for run/class day types in week strip */
-  .day-type-class { color: var(--amber) !important; }
-  .day-type-run { color: var(--purple) !important; }
+  .day-type-class { color: #d4ff00 !important; }
+  .day-type-run { color: #bf5fff !important; }
   .dt-run { color: var(--blue); background: var(--blue-light); }
   .dt-spin { color: var(--amber); background: var(--amber-light); }
   .dt-rest { color: var(--text2); background: var(--bg2); }
@@ -396,7 +366,7 @@
 
   /* ---- WORKOUT DETAIL ---- */
   .workout-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
-  .workout-title { font-family: 'Space Grotesk', sans-serif; font-size: 22px; color: var(--text); }
+  .workout-title { font-family: 'Space Grotesk', sans-serif; font-size: 22px; }
   .workout-meta { font-size: 14px; color: var(--text2); margin-top: 2px; }
 
   .ex-table { width: 100%; border-collapse: collapse; }
@@ -415,7 +385,7 @@
   .eating-tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
   .etab { padding: 7px 16px; border-radius: 999px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1.5px solid var(--border); background: var(--card); color: var(--text2); transition: all 0.15s; }
   .etab:hover { border-color: var(--text); color: var(--text); }
-  .etab.active { background: var(--teal); color: var(--teal-on); border-color: var(--teal); }
+  .etab.active { background: #00f5d4; color: #00382f; border-color: #00f5d4; }
   .etab-page { display: none; }
   .etab-page.active { display: block; }
 
@@ -482,8 +452,8 @@
   .tip-dot-f { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; background: var(--teal); }
 
   /* ---- OVERVIEW SPECIFICS ---- */
-  .overview-week { background: var(--card); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); border: 1px solid var(--border); border-top: 3px solid var(--teal); margin-bottom: 20px; }
-  .overview-week-title { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 500; margin-bottom: 14px; color: var(--text); }
+  .overview-week { background: var(--card); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); border: 1px solid var(--border); margin-bottom: 20px; }
+  .overview-week-title { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 500; margin-bottom: 14px; }
   .week-map { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
   .wm-cell { border-radius: 8px; padding: 10px 4px; text-align: center; position: relative; border: 1px solid transparent; }
   .wm-day { font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); font-family: 'Manrope', sans-serif; margin-bottom: 4px; }
@@ -1006,24 +976,24 @@
 
   <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">Weekly goals</div>
   <div class="grid-4">
-    <div class="stat-card card-gym" style="border-color:var(--teal-mid);box-shadow:var(--shadow);">
+    <div class="stat-card card-gym" style="border-color:rgba(0,245,212,0.4);box-shadow:0 0 20px rgba(0,245,212,0.12),0 2px 8px rgba(0,0,0,0.5);">
       <div style="font-size:22px;margin-bottom:6px;">🏋️</div>
-      <div style="font-size:14px;font-weight:700;color:var(--teal);line-height:1.2;margin-bottom:4px;">3 gym sessions</div>
+      <div style="font-size:14px;font-weight:700;color:#00f5d4;line-height:1.2;margin-bottom:4px;">3 gym sessions</div>
       <div class="stat-label">Push · Pull · Legs</div>
     </div>
-    <div class="stat-card card-class" style="border-color:var(--amber-light);box-shadow:var(--shadow);">
+    <div class="stat-card card-class" style="border-color:rgba(212,255,0,0.4);box-shadow:0 0 20px rgba(212,255,0,0.08),0 2px 8px rgba(0,0,0,0.5);">
       <div style="font-size:22px;margin-bottom:6px;">🔥</div>
-      <div style="font-size:14px;font-weight:700;color:var(--amber);line-height:1.2;margin-bottom:4px;">Blaze</div>
+      <div style="font-size:14px;font-weight:700;color:#d4ff00;line-height:1.2;margin-bottom:4px;">Blaze</div>
       <div class="stat-label">Primary fat-burn session</div>
     </div>
-    <div class="stat-card card-class" style="border-color:var(--amber-light);box-shadow:var(--shadow);">
+    <div class="stat-card card-class" style="border-color:rgba(212,255,0,0.4);box-shadow:0 0 20px rgba(212,255,0,0.08),0 2px 8px rgba(0,0,0,0.5);">
       <div style="font-size:22px;margin-bottom:6px;">🚴</div>
-      <div style="font-size:14px;font-weight:700;color:var(--amber);line-height:1.2;margin-bottom:4px;">Cyclone</div>
+      <div style="font-size:14px;font-weight:700;color:#d4ff00;line-height:1.2;margin-bottom:4px;">Cyclone</div>
       <div class="stat-label">Low-impact cardio and endurance</div>
     </div>
-    <div class="stat-card card-run" style="border-color:var(--purple-light);box-shadow:var(--shadow);">
+    <div class="stat-card card-run" style="border-color:rgba(191,95,255,0.4);box-shadow:0 0 20px rgba(191,95,255,0.12),0 2px 8px rgba(0,0,0,0.5);">
       <div style="font-size:22px;margin-bottom:6px;">🏃</div>
-      <div style="font-size:14px;font-weight:700;color:var(--purple);line-height:1.2;margin-bottom:4px;">2 runs/week</div>
+      <div style="font-size:14px;font-weight:700;color:#bf5fff;line-height:1.2;margin-bottom:4px;">2 runs/week</div>
       <div class="stat-label">Intervals + easy runs</div>
     </div>
   </div>
@@ -1038,7 +1008,7 @@
         <div class="page-title">This Week</div>
         <div class="page-sub" id="thisweek-date-sub">Your workouts and food plan, side by side</div>
       </div>
-      <button onclick="openWorkoutEditor()" style="padding:10px 16px;background:var(--teal);color:var(--teal-on);border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:700;cursor:pointer;font-size:14px;white-space:nowrap;">Edit Routine</button>
+      <button onclick="openWorkoutEditor()" style="padding:10px 16px;background:var(--teal);color:#131313;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:700;cursor:pointer;font-size:14px;white-space:nowrap;">Edit Routine</button>
     </div>
   </div>
 
@@ -1058,7 +1028,7 @@
         <div class="card-title" style="margin-bottom:4px;">☀️ Sunday Prep</div>
         <div style="font-size:13px;color:var(--text3);">Your weekly staples + AI-generated list from this week's meals and workouts</div>
       </div>
-      <button onclick="generateSundayPrep()" id="sunday-prep-btn" style="padding:9px 18px;background:var(--teal);color:var(--teal-on);border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap;flex-shrink:0;">Generate ✨</button>
+      <button onclick="generateSundayPrep()" id="sunday-prep-btn" style="padding:9px 18px;background:var(--teal);color:#131313;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap;flex-shrink:0;">Generate ✨</button>
     </div>
 
     <!-- Weekly staples — always show -->
@@ -1089,7 +1059,7 @@
       <div id="prep-staples-editor-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;"></div>
       <div style="display:flex;gap:8px;">
         <input id="prep-staple-input" type="text" placeholder="e.g. Boil 6 eggs" style="flex:1;padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope',sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" onkeydown="if(event.key==='Enter')addPrepStaple()" />
-        <button onclick="addPrepStaple()" style="padding:10px 16px;background:var(--teal);color:var(--teal-on);border:none;border-radius:var(--radius-sm);font-family:'Manrope',sans-serif;font-weight:700;font-size:14px;cursor:pointer;">Add</button>
+        <button onclick="addPrepStaple()" style="padding:10px 16px;background:var(--teal);color:#131313;border:none;border-radius:var(--radius-sm);font-family:'Manrope',sans-serif;font-weight:700;font-size:14px;cursor:pointer;">Add</button>
       </div>
     </div>
   </div>
@@ -1132,8 +1102,8 @@
         <div class="workout-header"><span class="badge badge-class" id="class-badge-blaze">Flexible</span><div><div class="workout-title">Blaze</div><div class="workout-meta">45 min · ~500 kcal · 85–95% HR</div></div></div>
         <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Your primary fat-burning session. Treadmill sprints, sled, punch bags and strength stations. Friday morning — gets the weekend off to a great start and your metabolism firing all day.</div>
         <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
-          <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Book the 7:20am Purley slot in advance via David Lloyd app — fills fast</div>
-          <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Small snack the night before if you struggle with fasted morning sessions</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Book the 7:20am Purley slot in advance via David Lloyd app — fills fast</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Small snack the night before if you struggle with fasted morning sessions</div>
         </div>
         <div id="class-times-manager-blaze"></div>
       </div>
@@ -1141,8 +1111,8 @@
         <div class="workout-header"><span class="badge badge-class" id="class-badge-cyclone">Tue 7:00am · Purley</span><div><div class="workout-title">Cyclone</div><div class="workout-meta">45 min · ~400 kcal · 75–90% HR</div></div></div>
         <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Tuesday 7am at Purley. Low-impact, high calorie burn. A great start to the working day — you'll be done by 8am. Match resistance to the instructor on all climbs.</div>
         <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
-          <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Banana or small snack 30 min before — no time for a full breakfast at 7am</div>
-          <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Adjust saddle height before the warm-up starts</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Banana or small snack 30 min before — no time for a full breakfast at 7am</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Adjust saddle height before the warm-up starts</div>
         </div>
         <div id="class-times-manager-cyclone"></div>
       </div>
@@ -1150,8 +1120,8 @@
         <div class="workout-header"><span class="badge badge-class" id="class-badge-rhythm">Flexible</span><div><div class="workout-title">Rhythm</div><div class="workout-meta">45 min · ~400 kcal · 75–90% HR</div></div></div>
         <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Indoor cycling class option. Low-impact, high calorie burn. Can be scheduled flexibly throughout the week based on class availability.</div>
         <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
-          <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Adjust resistance to match the instructor cues</div>
-          <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Bring water — you'll sweat more than Cyclone</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Adjust resistance to match the instructor cues</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Bring water — you'll sweat more than Cyclone</div>
         </div>
         <div id="class-times-manager-rhythm"></div>
       </div>
@@ -1173,8 +1143,8 @@
         <div class="workout-header"><span class="badge badge-run" id="run-badge-page-easy_run">Flexible</span><div><div class="workout-title">Easy run</div><div class="workout-meta">20–30 min · Easy pace · 4–5/10 effort</div></div></div>
         <div style="font-size:13.5px;color:var(--text2);line-height:1.7;">A gentle, conversational-pace run. Great for active recovery or adding volume without stress. No watch pressure — just move at a pace that feels comfortable.</div>
         <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
-          <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>If you can't hold a sentence, slow down — this is meant to be easy</div>
-          <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>Perfect substitute when legs are too heavy for intervals</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>If you can't hold a sentence, slow down — this is meant to be easy</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Perfect substitute when legs are too heavy for intervals</div>
         </div>
         <div id="run-times-manager-easy_run"></div>
       </div>
@@ -1182,8 +1152,8 @@
         <div class="workout-header"><span class="badge badge-run" id="run-badge-page-runna">Flexible</span><div><div class="workout-title">Runna</div><div class="workout-meta">20–40 min · Varies · Tracking via app</div></div></div>
         <div style="font-size:13.5px;color:var(--text2);line-height:1.7;">Run tracking and training through the Runna app. Flexible duration and intensity — perfect for building running consistency without fixed gym times.</div>
         <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
-          <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>Use app for GPS tracking and pacing feedback</div>
-          <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>Can be done anytime, anywhere</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Use app for GPS tracking and pacing feedback</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Can be done anytime, anywhere</div>
         </div>
         <div id="run-times-manager-runna"></div>
       </div>
@@ -1260,20 +1230,20 @@
     </div>
 
     <div id="eat-std" class="etab-page">
-      <div style="background:var(--blue-light,rgba(96,165,250,0.08));border:1px solid rgba(96,165,250,0.25);border-radius:var(--radius);padding:14px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
-        <div style="font-size:13px;font-weight:600;color:var(--blue);white-space:nowrap;">🕕 Early finish this week</div>
+      <div style="background:rgba(96,165,250,0.07);border:1px solid rgba(96,165,250,0.2);border-radius:var(--radius);padding:14px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+        <div style="font-size:13px;font-weight:600;color:#60a5fa;white-space:nowrap;">🕕 Early finish this week</div>
         <div style="font-size:12px;color:var(--text2);">Thursday is always early finish (WFH). Any other days this week?</div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;" id="early-finish-day-pills"></div>
       </div>
       <div id="summary-weekly-overview" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;"></div>
       <div class="tip-box-f" id="summary-weekly-logic">
         <div class="tip-box-title">Eating by activity type</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:var(--teal);"></span><strong>Gym / strength days</strong> — Standard three-meal plan. Protein priority. Keep carbs moderate to fuel the session and top up glycogen after.</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span><strong>Run days</strong> — Standard plan. Carbs matter more here — eat a small carb snack 30–60 min before a long run if needed. Replenish after.</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span><strong>Class days (Blaze / Cyclone / Rhythm)</strong> — Standard plan. High intensity burns through glycogen fast. Don't skip meals on class days.</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:var(--blue);"></span><strong>WFH / Early finish days</strong> — Eating window closes by 6pm. More control over your environment. Herbal tea in the evening kills hunger without calories.</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span><strong>Rest days</strong> — Keto. No performance carbs needed. Low insulin all day means your body burns stored fat. Eggs, meat, fish, cheese, avocado, nuts.</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span><strong>Saturday (volunteer)</strong> — OMAD. You're busy all morning, so the fast happens naturally. One big meal ~1–2pm, then done for the day.</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:#00f5d4;"></span><strong>Gym / strength days</strong> — Standard three-meal plan. Protein priority. Keep carbs moderate to fuel the session and top up glycogen after.</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span><strong>Run days</strong> — Standard plan. Carbs matter more here — eat a small carb snack 30–60 min before a long run if needed. Replenish after.</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span><strong>Class days (Blaze / Cyclone / Rhythm)</strong> — Standard plan. High intensity burns through glycogen fast. Don't skip meals on class days.</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:#60a5fa;"></span><strong>WFH / Early finish days</strong> — Eating window closes by 6pm. More control over your environment. Herbal tea in the evening kills hunger without calories.</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span><strong>Rest days</strong> — Keto. No performance carbs needed. Low insulin all day means your body burns stored fat. Eggs, meat, fish, cheese, avocado, nuts.</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:#f5a623;"></span><strong>Saturday (volunteer)</strong> — OMAD. You're busy all morning, so the fast happens naturally. One big meal ~1–2pm, then done for the day.</div>
       </div>
     </div>
 
@@ -1348,17 +1318,17 @@
     <div id="eat-guide" class="etab-page active">
       <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:12px;font-family:'Manrope',sans-serif;">Your eating approaches</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
-        <div class="card" style="border-left:3px solid var(--purple);">
+        <div class="card" style="border-left:3px solid #bf5fff;">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="font-size:24px;">🥑</div><div><div style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;">Keto</div><div style="font-size:11px;color:var(--text3);">Under 20–50g carbs · Rest days</div></div></div>
           <div style="font-size:12.5px;color:var(--text2);line-height:1.6;margin-bottom:10px;">Switches your fuel source from glucose to fat (ketones). Keeps insulin low, maximises fat burning, teaches metabolic flexibility.</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.6;"><span style="color:var(--purple);font-weight:600;">Eat:</span> Eggs · Meat · Fish · Cheese · Avocado · Non-starchy veg<br><span style="color:var(--red);font-weight:600;">Avoid:</span> Bread · Rice · Pasta · Oats · Fruit (berries OK) · Sugar</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.6;"><span style="color:#bf5fff;font-weight:600;">Eat:</span> Eggs · Meat · Fish · Cheese · Avocado · Non-starchy veg<br><span style="color:var(--red);font-weight:600;">Avoid:</span> Bread · Rice · Pasta · Oats · Fruit (berries OK) · Sugar</div>
         </div>
-        <div class="card" style="border-left:3px solid var(--amber);">
+        <div class="card" style="border-left:3px solid #f5a623;">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="font-size:24px;">🍽️</div><div><div style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;">OMAD — One Meal a Day</div><div style="font-size:11px;color:var(--text3);">20–23 hour fast · Saturdays</div></div></div>
           <div style="font-size:12.5px;color:var(--text2);line-height:1.6;margin-bottom:10px;">Fast all day, eat one large nutrient-dense meal around 1–2pm. Your volunteering makes the fast happen naturally. Big calorie deficit, autophagy kicks in after 16 hours.</div>
-          <div style="font-size:12px;color:var(--amber-text);font-weight:600;">Never OMAD before a training session.</div>
+          <div style="font-size:12px;color:#f5a623;font-weight:600;">Never OMAD before a training session.</div>
         </div>
-        <div class="card" style="border-left:3px solid var(--blue);">
+        <div class="card" style="border-left:3px solid #60a5fa;">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="font-size:24px;">🕕</div><div><div style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;">Early Finish</div><div style="font-size:11px;color:var(--text3);">Eating window closes by 6pm · Thursdays</div></div></div>
           <div style="font-size:12.5px;color:var(--text2);line-height:1.6;margin-bottom:10px;">All food done by 6pm. No commute, full control. Improves deep sleep and HRV — eating early is a longevity act, not just a diet trick.</div>
           <div style="font-size:12px;color:var(--text2);">After 6pm: water, black coffee, or herbal tea only.</div>
@@ -1394,7 +1364,7 @@
       </div>
 
       <!-- Extended fasting — not in current plan -->
-      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;margin-top:4px;font-family:'Manrope',sans-serif;">Extended &amp; therapeutic fasting <span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--purple-light);color:var(--purple);border:1px solid var(--purple-mid);margin-left:6px;text-transform:none;letter-spacing:0;">Not currently in your plan</span></div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;margin-top:4px;font-family:'Manrope',sans-serif;">Extended &amp; therapeutic fasting <span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:999px;background:rgba(191,95,255,0.12);color:#bf5fff;border:1px solid rgba(191,95,255,0.25);margin-left:6px;text-transform:none;letter-spacing:0;">Not currently in your plan</span></div>
       <div style="font-size:12px;color:var(--text3);margin-bottom:10px;line-height:1.6;">These approaches exist for specific goals — deeper autophagy, metabolic reset, therapeutic benefit. They're not part of your current routine, but good to understand.</div>
       <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:20px;">
         <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;display:grid;grid-template-columns:100px 1fr;gap:12px;align-items:start;">
@@ -1426,9 +1396,9 @@
           <div style="font-size:12.5px;color:var(--text2);">Eat only eggs, butter, and full-fat cheese for 3–5 days. A strict keto-style reset that breaks stalls and resets insulin sensitivity. No other foods. Very filling due to high fat and protein content. Re-introduce other foods gradually.</div>
         </div>
       </div>
-      <div style="background:var(--purple-light);border:1px solid var(--purple-mid);border-radius:var(--radius);padding:14px 18px;font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:20px;"><span style="color:var(--purple);font-weight:700;">Important — </span>Extended fasts beyond 24 hours should be approached gradually. Build up from OMAD → 24h → 48h. Always prioritise electrolytes (sodium, potassium, magnesium) during any fast over 24 hours. Break longer fasts gently with something easy to digest — not a large meal.</div>
+      <div style="background:rgba(191,95,255,0.06);border:1px solid rgba(191,95,255,0.2);border-radius:var(--radius);padding:14px 18px;font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:20px;"><span style="color:#bf5fff;font-weight:700;">Important — </span>Extended fasts beyond 24 hours should be approached gradually. Build up from OMAD → 24h → 48h. Always prioritise electrolytes (sodium, potassium, magnesium) during any fast over 24 hours. Break longer fasts gently with something easy to digest — not a large meal.</div>
 
-      <div style="background:var(--teal-light);border:1px solid var(--teal-mid);border-radius:var(--radius);padding:14px 18px;font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:20px;"><span style="color:var(--teal-text);font-weight:700;">The key insight — </span>Fasting works because it lowers insulin. When insulin is low, your body can access stored body fat for energy.</div>
+      <div style="background:rgba(0,245,212,0.06);border:1px solid rgba(0,245,212,0.15);border-radius:var(--radius);padding:14px 18px;font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:20px;"><span style="color:#00f5d4;font-weight:700;">The key insight — </span>Fasting works because it lowers insulin. When insulin is low, your body can access stored body fat for energy.</div>
 
       <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:12px;font-family:'Manrope',sans-serif;">UPF and sugar — what to cut</div>
       <div class="card" style="margin-bottom:12px;">
@@ -1547,20 +1517,20 @@
   <div class="card" style="margin-bottom:16px;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:10px;">
       <div class="card-title" style="margin:0;">Import from Ocado</div>
-      <button onclick="toggleOcadoImport()" style="padding:8px 18px;background:var(--teal);color:var(--teal-on);border:none;border-radius:999px;font-family:'Manrope',sans-serif;font-size:12px;font-weight:700;cursor:pointer;">📋 Paste order</button>
+      <button onclick="toggleOcadoImport()" style="padding:8px 18px;background:#00f5d4;color:#00382f;border:none;border-radius:999px;font-family:'Manrope',sans-serif;font-size:12px;font-weight:700;cursor:pointer;">📋 Paste order</button>
     </div>
     <div id="ocado-import-panel" style="display:none;">
       <div style="font-size:12.5px;color:var(--text2);margin-bottom:8px;">Paste your Ocado confirmation email text below. It'll pull out the items — then you can assign each one to the right location before saving.</div>
       <textarea id="ocado-paste-input" placeholder="Paste Ocado email here…" style="width:100%;min-height:100px;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-family:'Manrope',sans-serif;font-size:13px;resize:vertical;box-sizing:border-box;"></textarea>
       <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
-        <button onclick="parseOcadoImport()" style="padding:8px 18px;background:var(--teal);color:var(--teal-on);border:none;border-radius:999px;font-family:'Manrope',sans-serif;font-size:12px;font-weight:700;cursor:pointer;">Extract items →</button>
+        <button onclick="parseOcadoImport()" style="padding:8px 18px;background:var(--teal);color:#00382f;border:none;border-radius:999px;font-family:'Manrope',sans-serif;font-size:12px;font-weight:700;cursor:pointer;">Extract items →</button>
         <button onclick="toggleOcadoImport()" style="padding:8px 14px;background:none;border:1px solid var(--border);border-radius:999px;font-family:'Manrope',sans-serif;font-size:12px;color:var(--text2);cursor:pointer;">Cancel</button>
       </div>
       <div id="ocado-review-panel" style="display:none;margin-top:14px;">
         <div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.06em;">Assign locations — tap each item to change</div>
         <div id="ocado-review-list" style="display:flex;flex-direction:column;gap:6px;max-height:320px;overflow-y:auto;"></div>
         <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
-          <button onclick="confirmOcadoImport()" style="padding:8px 18px;background:var(--teal);color:var(--teal-on);border:none;border-radius:999px;font-family:'Manrope',sans-serif;font-size:12px;font-weight:700;cursor:pointer;">Save to kitchen</button>
+          <button onclick="confirmOcadoImport()" style="padding:8px 18px;background:var(--teal);color:#00382f;border:none;border-radius:999px;font-family:'Manrope',sans-serif;font-size:12px;font-weight:700;cursor:pointer;">Save to kitchen</button>
           <button onclick="document.getElementById('ocado-review-panel').style.display='none'" style="padding:8px 14px;background:none;border:1px solid var(--border);border-radius:999px;font-family:'Manrope',sans-serif;font-size:12px;color:var(--text2);cursor:pointer;">Back</button>
         </div>
       </div>
@@ -1573,32 +1543,32 @@
     <!-- Fridge -->
     <div class="card-gym" style="border-radius:var(--radius);padding:18px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--teal);">🧊 Fridge</div>
-        <button onclick="addPantryItem('fridge')" style="font-size:11px;padding:4px 12px;background:var(--teal-light);color:var(--teal-text);border:1px solid var(--teal-mid);0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#00f5d4;">🧊 Fridge</div>
+        <button onclick="addPantryItem('fridge')" style="font-size:11px;padding:4px 12px;background:rgba(0,245,212,0.12);color:#00f5d4;border:1px solid rgba(0,245,212,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
       </div>
       <div id="pantry-fridge"></div>
     </div>
     <!-- Freezer -->
     <div class="card-run" style="border-radius:var(--radius);padding:18px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--purple);">❄️ Freezer</div>
-        <button onclick="addPantryItem('freezer')" style="font-size:11px;padding:4px 12px;background:var(--purple-light);color:var(--purple);border:1px solid var(--purple-light);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#bf5fff;">❄️ Freezer</div>
+        <button onclick="addPantryItem('freezer')" style="font-size:11px;padding:4px 12px;background:rgba(191,95,255,0.12);color:#bf5fff;border:1px solid rgba(191,95,255,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
       </div>
       <div id="pantry-freezer"></div>
     </div>
     <!-- Cupboard -->
     <div class="card-class" style="border-radius:var(--radius);padding:18px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--amber);">🗄️ Cupboard</div>
-        <button onclick="addPantryItem('cupboard')" style="font-size:11px;padding:4px 12px;background:var(--amber-light);color:var(--amber);border:1px solid var(--amber-light);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#d4ff00;">🗄️ Cupboard</div>
+        <button onclick="addPantryItem('cupboard')" style="font-size:11px;padding:4px 12px;background:rgba(212,255,0,0.10);color:#d4ff00;border:1px solid rgba(212,255,0,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
       </div>
       <div id="pantry-cupboard"></div>
     </div>
     <!-- Counter -->
-    <div style="background:var(--amber-light);border:1px solid var(--amber-mid);box-shadow:0 2px 8px rgba(0,0,0,0.5);border-radius:var(--radius);padding:18px;">
+    <div style="background:linear-gradient(145deg,#161000,#2a1f00);border:1px solid rgba(245,166,35,0.4);box-shadow:0 0 20px rgba(245,166,35,0.08),0 2px 8px rgba(0,0,0,0.5);border-radius:var(--radius);padding:18px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--amber-text);">🍎 Counter</div>
-        <button onclick="addPantryItem('counter')" style="font-size:11px;padding:4px 12px;background:var(--amber-light);color:var(--amber-text);border:1px solid var(--amber-mid);0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#f5a623;">🍎 Counter</div>
+        <button onclick="addPantryItem('counter')" style="font-size:11px;padding:4px 12px;background:rgba(245,166,35,0.12);color:#f5a623;border:1px solid rgba(245,166,35,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
       </div>
       <div id="pantry-counter"></div>
     </div>
@@ -1639,7 +1609,7 @@
       </div>
       <div style="display:flex;gap:8px;justify-content:flex-end;">
         <button onclick="closePantryModal()" style="padding:9px 18px;background:none;border:1px solid var(--border);border-radius:999px;font-family:'Manrope',sans-serif;font-size:13px;color:var(--text2);cursor:pointer;">Cancel</button>
-        <button onclick="confirmAddPantryItem()" style="padding:9px 18px;background:var(--teal);color:var(--teal-on);border:none;border-radius:999px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;cursor:pointer;">Save</button>
+        <button onclick="confirmAddPantryItem()" style="padding:9px 18px;background:#00f5d4;color:#00382f;border:none;border-radius:999px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;cursor:pointer;">Save</button>
       </div>
     </div>
   </div>
@@ -1755,7 +1725,7 @@
   <div id="pantry-tab-recipes" class="etab-page">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
       <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);font-family:'Manrope',sans-serif;">Saved recipes</div>
-      <a href="https://www.recime.app" target="_blank" style="display:inline-flex;align-items:center;gap:7px;padding:8px 16px;background:var(--teal);color:var(--teal-on);border-radius:999px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;">📖 Open ReciMe</a>
+      <a href="https://www.recime.app" target="_blank" style="display:inline-flex;align-items:center;gap:7px;padding:8px 16px;background:var(--teal);color:#00382f;border-radius:999px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;">📖 Open ReciMe</a>
     </div>
     <div id="saved-recipes-list"></div>
   </div>
@@ -1781,7 +1751,7 @@
         <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope',sans-serif;margin-bottom:8px;">In your kitchen right now</div>
         <div id="suggestions-pantry-preview" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
       </div>
-      <button onclick="getMealSuggestions()" style="padding:10px 22px;background:var(--teal);color:var(--teal-on);border:none;border-radius:999px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;cursor:pointer;">✨ Get suggestions</button>
+      <button onclick="getMealSuggestions()" style="padding:10px 22px;background:var(--teal);color:#00382f;border:none;border-radius:999px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;cursor:pointer;">✨ Get suggestions</button>
     </div>
     <div id="suggestions-loading" style="display:none;text-align:center;padding:32px;color:var(--text3);font-size:13px;">Thinking up meal ideas from your kitchen…</div>
     <div id="suggestions-results" style="display:flex;flex-direction:column;gap:10px;"></div>
@@ -1802,7 +1772,7 @@
   <div id="wb1-tab-routines" class="etab-page active">
   <!-- SUB-TABS: Overview / Today / By Day -->
   <div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;">
-    <button id="routines-tab-overview"  onclick="routinesTab('overview')"  style="padding:6px 16px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--teal);background:var(--teal);color:var(--teal-on);">Overview</button>
+    <button id="routines-tab-overview"  onclick="routinesTab('overview')"  style="padding:6px 16px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--teal);background:var(--teal);color:#131313;">Overview</button>
     <button id="routines-tab-checklist" onclick="routinesTab('checklist')" style="padding:6px 16px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--border);background:var(--card);color:var(--text2);">Today</button>
   </div>
 <!-- OVERVIEW TAB -->
@@ -1970,7 +1940,7 @@
 
   <!-- SUB-TABS -->
   <div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;">
-    <button id="supp-tab-stack" onclick="suppTab('stack')" style="padding:6px 16px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--teal);background:var(--teal);color:var(--teal-on);">My Stack</button>
+    <button id="supp-tab-stack" onclick="suppTab('stack')" style="padding:6px 16px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--teal);background:var(--teal);color:#131313;">My Stack</button>
     <button id="supp-tab-schedule" onclick="suppTab('schedule')" style="padding:6px 16px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--border);background:var(--card);color:var(--text2);">Daily Schedule</button>
     <button id="supp-tab-checkin" onclick="suppTab('checkin')" style="padding:6px 16px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--border);background:var(--card);color:var(--text2);">Today</button>
     <button id="supp-tab-insights" onclick="suppTab('insights')" style="padding:6px 16px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;border:1.5px solid var(--border);background:var(--card);color:var(--text2);">Insights</button>
@@ -2021,15 +1991,15 @@
   <div id="wb2-tab-whoop" class="etab-page">
 
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px;">
-      <div style="background:var(--teal-light);border-radius:var(--radius);padding:22px;border:1px solid var(--teal-mid);box-shadow:0 0 28px var(--teal-mid),0 2px 10px rgba(0,0,0,0.5);">
+      <div style="background:linear-gradient(145deg,#001a14 0%,#002e22 100%);border-radius:var(--radius);padding:22px;border:1px solid rgba(0,245,212,0.4);box-shadow:0 0 28px rgba(0,245,212,0.10),0 2px 10px rgba(0,0,0,0.5);">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
-          <div style="width:18px;height:18px;border-radius:50%;background:var(--teal);flex-shrink:0;"></div>
-          <div style="font-family:'Space Grotesk', sans-serif;font-size:18px;font-weight:700;color:var(--teal);">Green · 67–100%</div>
+          <div style="width:18px;height:18px;border-radius:50%;background:#00f5d4;flex-shrink:0;"></div>
+          <div style="font-family:'Space Grotesk', sans-serif;font-size:18px;font-weight:700;color:#00f5d4;">Green · 67–100%</div>
         </div>
-        <div style="font-size:13px;font-weight:600;color:var(--teal-text);margin-bottom:6px;">Well recovered — go for it</div>
+        <div style="font-size:13px;font-weight:600;color:#00f5d4;margin-bottom:6px;">Well recovered — go for it</div>
         <div style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Your HRV is high, sleep debt is low, and your body is primed to perform and adapt. This is your day to push hard.</div>
-        <div style="border-top:1px solid var(--teal-mid);padding-top:12px;">
-          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--teal-text);margin-bottom:8px;font-family:'Manrope', sans-serif;">Do this</div>
+        <div style="border-top:1px solid rgba(0,245,212,0.2);padding-top:12px;">
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#00f5d4;margin-bottom:8px;font-family:'Manrope', sans-serif;">Do this</div>
           <div style="font-size:12.5px;color:var(--text2);line-height:1.8;">
             ✓ Gym: this is your day to attempt progressive overload — add weight<br>
             ✓ Blaze: go all out on every cardio station<br>
@@ -2040,15 +2010,15 @@
         </div>
       </div>
 
-      <div style="background:var(--amber-light);border-radius:var(--radius);padding:22px;border:1px solid var(--amber-mid);box-shadow:0 0 28px rgba(245,166,35,0.10),0 2px 10px rgba(0,0,0,0.5);">
+      <div style="background:linear-gradient(145deg,#181200 0%,#2e2100 100%);border-radius:var(--radius);padding:22px;border:1px solid rgba(245,166,35,0.4);box-shadow:0 0 28px rgba(245,166,35,0.10),0 2px 10px rgba(0,0,0,0.5);">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
-          <div style="width:18px;height:18px;border-radius:50%;background:var(--amber);flex-shrink:0;"></div>
-          <div style="font-family:'Space Grotesk', sans-serif;font-size:18px;font-weight:700;color:var(--amber-text);">Yellow · 34–66%</div>
+          <div style="width:18px;height:18px;border-radius:50%;background:#f5a623;flex-shrink:0;"></div>
+          <div style="font-family:'Space Grotesk', sans-serif;font-size:18px;font-weight:700;color:#f5a623;">Yellow · 34–66%</div>
         </div>
-        <div style="font-size:13px;font-weight:600;color:var(--amber-text);margin-bottom:6px;">Moderate recovery</div>
+        <div style="font-size:13px;font-weight:600;color:#f5a623;margin-bottom:6px;">Moderate recovery</div>
         <div style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Your body is coping but not fully restored. Train, but be smart about intensity. This is your most common score.</div>
-        <div style="border-top:1px solid var(--amber-mid);padding-top:12px;">
-          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--amber-text);margin-bottom:8px;font-family:'Manrope', sans-serif;">Do this</div>
+        <div style="border-top:1px solid rgba(245,166,35,0.2);padding-top:12px;">
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#f5a623;margin-bottom:8px;font-family:'Manrope', sans-serif;">Do this</div>
           <div style="font-size:12.5px;color:var(--text2);line-height:1.8;">
             ✓ Gym sessions: proceed as planned, but don't chase PRs<br>
             ✓ Blaze: attend — but hold back 10–15% on cardio stations<br>
@@ -2059,15 +2029,15 @@
         </div>
       </div>
 
-      <div style="background:var(--red-light,rgba(220,60,60,0.08));border-radius:var(--radius);padding:22px;border:1px solid rgba(220,60,60,0.3);box-shadow:0 0 28px rgba(220,60,60,0.10),0 2px 10px rgba(0,0,0,0.5);">
+      <div style="background:linear-gradient(145deg,#1a0505 0%,#2e0a0a 100%);border-radius:var(--radius);padding:22px;border:1px solid rgba(220,60,60,0.4);box-shadow:0 0 28px rgba(220,60,60,0.10),0 2px 10px rgba(0,0,0,0.5);">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
-          <div style="width:18px;height:18px;border-radius:50%;background:var(--red);flex-shrink:0;"></div>
-          <div style="font-family:'Space Grotesk', sans-serif;font-size:18px;font-weight:700;color:var(--red);">Red · 0–33%</div>
+          <div style="width:18px;height:18px;border-radius:50%;background:#e05252;flex-shrink:0;"></div>
+          <div style="font-family:'Space Grotesk', sans-serif;font-size:18px;font-weight:700;color:#e05252;">Red · 0–33%</div>
         </div>
-        <div style="font-size:13px;font-weight:600;color:var(--red);margin-bottom:6px;">Poor recovery — protect the body</div>
+        <div style="font-size:13px;font-weight:600;color:#e05252;margin-bottom:6px;">Poor recovery — protect the body</div>
         <div style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Your body is still repairing. Training hard today risks injury, illness and sets back progress. A lighter day now means a better week overall.</div>
         <div style="border-top:1px solid rgba(220,60,60,0.2);padding-top:12px;">
-          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--red);margin-bottom:8px;font-family:'Manrope', sans-serif;">Do this instead</div>
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#e05252;margin-bottom:8px;font-family:'Manrope', sans-serif;">Do this instead</div>
           <div style="font-size:12.5px;color:var(--text2);line-height:1.8;">
             ✗ Skip heavy lifting — swap for a 20–30 min walk outside<br>
             ✗ Skip Blaze — attend Cyclone at 60% effort instead, or rest<br>
@@ -2280,7 +2250,7 @@
       <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:6px;">Daily protein target (g)</div>
       <input id="settings-protein-target" type="number" placeholder="e.g. 130" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
     </div>
-    <button onclick="saveProfileSettings()" style="padding:11px 24px;background:var(--teal);color:var(--teal-on);border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-size:14px;font-weight:700;cursor:pointer;">Save profile settings</button>
+    <button onclick="saveProfileSettings()" style="padding:11px 24px;background:var(--teal);color:#00382f;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-size:14px;font-weight:700;cursor:pointer;">Save profile settings</button>
     <div id="settings-profile-msg" style="margin-top:10px;font-size:13px;display:none;"></div>
   </div>
 
@@ -2292,7 +2262,7 @@
       <input id="settings-api-key" type="password" placeholder="paste your Anthropic API key here" style="width:100%;padding:12px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:13px;background:var(--bg);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
     </div>
     <div style="display:flex;gap:10px;margin-bottom:14px;">
-      <button onclick="saveApiKeySettings()" style="flex:1;padding:11px;background:var(--teal);color:var(--teal-on);border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-size:14px;font-weight:700;cursor:pointer;">Save API Key</button>
+      <button onclick="saveApiKeySettings()" style="flex:1;padding:11px;background:var(--teal);color:#00382f;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-size:14px;font-weight:700;cursor:pointer;">Save API Key</button>
       <button onclick="toggleApiKeyVisibility(this)" style="padding:11px 20px;background:var(--bg2);color:var(--text);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-size:14px;font-weight:500;cursor:pointer;">Show</button>
     </div>
     <div id="api-key-status" style="font-size:13px;color:var(--text2);padding:12px;background:var(--bg);border-radius:var(--radius-sm);border-left:3px solid var(--border);">
@@ -2696,7 +2666,7 @@ function _setSignInMsg(msg, isError) {
     if (wrap) wrap.appendChild(el);
   }
   el.textContent = msg;
-  el.style.background = isError ? 'rgba(220,60,60,0.12)' : 'var(--teal-light)';
+  el.style.background = isError ? 'rgba(220,60,60,0.12)' : 'rgba(0,245,212,0.1)';
   el.style.color = isError ? '#ff6b6b' : 'var(--teal)';
   el.style.display = msg ? 'block' : 'none';
 }
@@ -2881,7 +2851,7 @@ function showNotification(msg) {
   if (!el) {
     el = document.createElement('div');
     el.id = 'app-toast';
-    el.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--card);color:var(--text);padding:10px 20px;border-radius:999px;font-family:Manrope,sans-serif;font-size:13px;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,0.4);z-index:99999;opacity:0;transition:opacity 0.2s,transform 0.2s;pointer-events:none;border:1px solid rgba(255,255,255,0.1);';
+    el.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:#1e1e1e;color:#e5e2e1;padding:10px 20px;border-radius:999px;font-family:Manrope,sans-serif;font-size:13px;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,0.4);z-index:99999;opacity:0;transition:opacity 0.2s,transform 0.2s;pointer-events:none;border:1px solid rgba(255,255,255,0.1);';
     document.body.appendChild(el);
   }
   el.textContent = msg;
@@ -2937,7 +2907,7 @@ function selectFeeling(n) {
     if (i === n) {
       btn.style.background = 'var(--teal)';
       btn.style.borderColor = 'var(--teal)';
-      btn.style.color = 'var(--teal-on)';
+      btn.style.color = '#131313';
     } else {
       btn.style.background = 'var(--card)';
       btn.style.borderColor = 'var(--border)';
@@ -2956,7 +2926,7 @@ function setChartMetric(metric) {
     if (m === metric) {
       btn.style.background = 'var(--teal)';
       btn.style.borderColor = 'var(--teal)';
-      btn.style.color = 'var(--teal-on)';
+      btn.style.color = '#131313';
     } else {
       btn.style.background = 'var(--card)';
       btn.style.borderColor = 'var(--border)';
@@ -3403,10 +3373,10 @@ const COLOR_MAP = {
   gray:   { bg:'var(--bg2)',               text:'var(--text2)',  border:'var(--border)' },
   purple: { bg:'var(--purple-light)',       text:'var(--purple)', border:'#B0ABEC' },
   // Workout category keys — match Finance Hub card style
-  teal:   { bg:'var(--teal-light)', text:'var(--teal-text)', border:'var(--teal-mid)' },
-  run:    { bg:'var(--purple-light)', text:'var(--purple-text)', border:'var(--purple-mid)' },
-  class:  { bg:'var(--amber-light)', text:'var(--amber-text)', border:'var(--amber-mid)' },
-  gray:   { bg:'var(--bg2)', text:'var(--text2)', border:'var(--border)' },
+  teal:   { bg:'linear-gradient(145deg,#021310,#042e26)', text:'#00f5d4', border:'rgba(0,245,212,0.4)' },
+  run:    { bg:'linear-gradient(145deg,#130820,#220a36)', text:'#bf5fff', border:'rgba(191,95,255,0.4)' },
+  class:  { bg:'linear-gradient(145deg,#141200,#2a2600)', text:'#d4ff00', border:'rgba(212,255,0,0.4)' },
+  gray:   { bg:'linear-gradient(145deg,#161616,#222222)', text:'rgba(255,255,255,0.5)', border:'rgba(255,255,255,0.22)' },
 };
 
 let plannerState = {};
@@ -4115,15 +4085,15 @@ function renderDayCards() {
       if (w.type === 'rest') return 'rest';
       return 'gym'; // strength, swim, anything else
     }
-    const CATEGORY_COLOR = { gym:'var(--teal-text)', run:'var(--purple-text)', class:'var(--amber-text)', rest:'var(--text2)' };
+    const CATEGORY_COLOR = { gym:'#00f5d4', run:'#bf5fff', class:'#d4ff00', rest:'#888' };
     const CATEGORY_GRAD  = {
-      gym:   '',
-      run:   '',
-      class: '',
-      rest:  ''
+      gym:   'linear-gradient(145deg,#021310 0%,#042e26 100%)',
+      run:   'linear-gradient(145deg,#130820 0%,#220a36 100%)',
+      class: 'linear-gradient(145deg,#141200 0%,#2a2600 100%)',
+      rest:  'linear-gradient(145deg,#161616 0%,#222222 100%)'
     };
-    const CATEGORY_BORDER = { gym:'var(--teal-mid)', run:'var(--purple-light)', class:'var(--amber-light)', rest:'var(--border2)' };
-    const CATEGORY_GLOW   = { gym:'var(--teal-light)', run:'var(--purple-light)', class:'var(--amber-light)', rest:'var(--bg2)' };
+    const CATEGORY_BORDER = { gym:'rgba(0,245,212,0.4)', run:'rgba(191,95,255,0.4)', class:'rgba(212,255,0,0.4)', rest:'rgba(255,255,255,0.22)' };
+    const CATEGORY_GLOW   = { gym:'rgba(0,245,212,0.12)', run:'rgba(191,95,255,0.12)', class:'rgba(212,255,0,0.08)', rest:'rgba(255,255,255,0.10)' };
     const CATEGORY_BORDER_STYLE = { gym:'solid', run:'solid', class:'solid', rest:'dashed' };
 
     const cats = workoutTypes.map(t => getCardCategory(t));
@@ -4137,16 +4107,16 @@ function renderDayCards() {
     if (secondaryCat) {
       const g1 = CATEGORY_COLOR[primaryCat] + '22';
       const g2 = CATEGORY_COLOR[secondaryCat] + '22';
-      card.style.background = '';
+      card.style.background = `linear-gradient(135deg,#0d0d0d 0%,#0d0d0d 45%,#0d0d0d 100%)`;
       card.style.borderImage = 'none';
       card.style.border = `1px solid ${CATEGORY_BORDER[primaryCat]}`;
-      card.style.boxShadow = 'var(--shadow)';
+      card.style.boxShadow = `0 0 20px ${CATEGORY_GLOW[primaryCat]}, 0 2px 8px rgba(0,0,0,0.5)`;
       // Overlay gradient via pseudo-like inner div — use background shorthand with two gradients
-      card.style.background = '';
+      card.style.background = `linear-gradient(135deg,${g1} 0%,${g1} 45%,${g2} 55%,${g2} 100%), linear-gradient(145deg,#0d0d0d,#1a1a1a)`;
     } else {
-      card.style.background = '';
+      card.style.background = CATEGORY_GRAD[primaryCat];
       card.style.border = `1px ${CATEGORY_BORDER_STYLE[primaryCat]} ${CATEGORY_BORDER[primaryCat]}`;
-      card.style.boxShadow = 'var(--shadow)';
+      card.style.boxShadow = `0 0 20px ${CATEGORY_GLOW[primaryCat]}, 0 2px 8px rgba(0,0,0,0.5)`;
     }
 
     const staticTag = firstWorkout?.tag || 'Workout';
@@ -4165,7 +4135,6 @@ function renderDayCards() {
     }
 
     card.dataset.workoutTypes = JSON.stringify(workoutTypes);
-    card.classList.add('day-card-' + primaryCat);
     card.onclick = () => selectDay(workoutTypes, card);
     card.innerHTML = `
       <div class="day-label-s">${day.dayKey.charAt(0).toUpperCase() + day.dayKey.slice(1)}</div>
@@ -4233,10 +4202,15 @@ function renderDashboardWeek() {
       });
 
       // Use the same Finance Hub card style as the week strip
-      const DW_CAT_COLOR  = { gym:'var(--teal-text)', run:'var(--purple-text)', class:'var(--amber-text)', rest:'var(--text2)' };
-      const DW_CAT_BG     = { gym:'var(--teal-light)', run:'var(--purple-light)', class:'var(--amber-light)', rest:'var(--bg2)' };
-      const DW_CAT_BORDER = { gym:'var(--teal-mid)', run:'var(--purple-mid)', class:'var(--amber-mid)', rest:'var(--border)' };
-      const DW_CAT_GLOW   = { gym:'var(--teal-light)', run:'var(--purple-light)', class:'var(--amber-light)', rest:'var(--bg2)' };
+      const DW_CAT_COLOR  = { gym:'#00f5d4', run:'#bf5fff', class:'#d4ff00', rest:'#888' };
+      const DW_CAT_GRAD   = {
+        gym:   'linear-gradient(145deg,#021310 0%,#042e26 100%)',
+        run:   'linear-gradient(145deg,#130820 0%,#220a36 100%)',
+        class: 'linear-gradient(145deg,#141200 0%,#2a2600 100%)',
+        rest:  'linear-gradient(145deg,#161616 0%,#222222 100%)'
+      };
+      const DW_CAT_BORDER = { gym:'rgba(0,245,212,0.4)', run:'rgba(191,95,255,0.4)', class:'rgba(212,255,0,0.4)', rest:'rgba(255,255,255,0.22)' };
+      const DW_CAT_GLOW   = { gym:'rgba(0,245,212,0.12)', run:'rgba(191,95,255,0.12)', class:'rgba(212,255,0,0.08)', rest:'rgba(255,255,255,0.10)' };
       const DW_CAT_BORDER_STYLE = { gym:'solid', run:'solid', class:'solid', rest:'dashed' };
       function getDwCat(type) {
         if (!type) return 'gym';
@@ -4253,13 +4227,15 @@ function renderDashboardWeek() {
       const labelColor = DW_CAT_COLOR[dwPrimary];
       let cellBg, cellBorder, cellShadow;
       if (dwSecondary) {
-        cellBg = DW_CAT_BG[dwPrimary];
+        const g1 = DW_CAT_COLOR[dwPrimary] + '22';
+        const g2 = DW_CAT_COLOR[dwSecondary] + '22';
+        cellBg = `linear-gradient(135deg,${g1} 0%,${g1} 45%,${g2} 55%,${g2} 100%), linear-gradient(145deg,#0d0d0d,#1a1a1a)`;
         cellBorder = DW_CAT_BORDER[dwPrimary];
-        cellShadow = 'var(--shadow)';
+        cellShadow = `0 0 20px ${DW_CAT_GLOW[dwPrimary]}, 0 2px 8px rgba(0,0,0,0.5)`;
       } else {
-        cellBg = DW_CAT_BG[dwPrimary];
+        cellBg = DW_CAT_GRAD[dwPrimary];
         cellBorder = DW_CAT_BORDER[dwPrimary];
-        cellShadow = 'var(--shadow)';
+        cellShadow = `0 0 20px ${DW_CAT_GLOW[dwPrimary]}, 0 2px 8px rgba(0,0,0,0.5)`;
       }
 
       const cellBorderStyle = DW_CAT_BORDER_STYLE[dwPrimary];
@@ -4311,8 +4287,8 @@ function renderRoutinesGrid() {
         }
       });
 
-      const RG_CAT_COLOR = { gym:'var(--teal)', run:'var(--purple)', class:'var(--amber)', rest:'var(--text3)' };
-      const RG_CAT_BG    = { gym:'var(--teal-light)', run:'var(--purple-light)', class:'var(--amber-light)', rest:'var(--bg2)' };
+      const RG_CAT_COLOR = { gym:'#00f5d4', run:'#bf5fff', class:'#d4ff00', rest:'#888' };
+      const RG_CAT_BG    = { gym:'rgba(0,245,212,0.10)', run:'rgba(191,95,255,0.18)', class:'rgba(212,255,0,0.08)', rest:'rgba(136,136,136,0.08)' };
       function getRgCat(type) {
         if (!type) return 'gym';
         const w = _libRg[type];
@@ -4586,15 +4562,15 @@ function renderRunTimesManager(workoutType) {
     times.forEach(t => {
       const isSelected = t.id === selectedId;
       const item = document.createElement('div');
-      item.style.cssText = `display:flex;justify-content:space-between;align-items:flex-start;padding:8px 10px;background:var(--card);border-radius:var(--radius-sm);border:1.5px solid ${isSelected ? 'var(--purple)' : 'var(--border)'};`;
+      item.style.cssText = `display:flex;justify-content:space-between;align-items:flex-start;padding:8px 10px;background:var(--card);border-radius:var(--radius-sm);border:1.5px solid ${isSelected ? '#bf5fff' : 'var(--border)'};`;
       const info = document.createElement('div');
       info.style.cssText = 'flex:1;';
-      info.innerHTML = `<div style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:13px;">${isSelected ? '<span style="font-size:10px;background:var(--purple);color:#fff;padding:2px 6px;border-radius:999px;font-weight:700;">MY SLOT</span>' : ''}${(DAY_SHORT[t.day] || t.day)}${t.time ? ' · ' + t.time : ''}</div>`;
+      info.innerHTML = `<div style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:13px;">${isSelected ? '<span style="font-size:10px;background:#bf5fff;color:#fff;padding:2px 6px;border-radius:999px;font-weight:700;">MY SLOT</span>' : ''}${(DAY_SHORT[t.day] || t.day)}${t.time ? ' · ' + t.time : ''}</div>`;
       const btns = document.createElement('div');
       btns.style.cssText = 'display:flex;flex-direction:column;gap:4px;align-items:flex-end;';
       if (!isSelected) {
         const sel = document.createElement('button');
-        sel.style.cssText = 'padding:3px 8px;background:var(--purple-light);border:1px solid var(--purple);border-radius:var(--radius-sm);color:var(--purple);font-size:11px;cursor:pointer;font-weight:600;white-space:nowrap;';
+        sel.style.cssText = 'padding:3px 8px;background:rgba(191,95,255,0.12);border:1px solid #bf5fff;border-radius:var(--radius-sm);color:#bf5fff;font-size:11px;cursor:pointer;font-weight:600;white-space:nowrap;';
         sel.textContent = '★ Set as my slot';
         sel.onclick = () => { setSelectedRunTime(workoutType, t.id); renderRunTimesManager(workoutType); updateRunBadge(workoutType); if (typeof renderDayCards === 'function') renderDayCards(); };
         btns.appendChild(sel);
@@ -4614,7 +4590,7 @@ function renderRunTimesManager(workoutType) {
   const addBtn = document.createElement('button');
   addBtn.style.cssText = `width:100%;margin-top:${times.length > 0 ? '10px' : '0'};padding:9px 12px;background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius-sm);color:var(--text2);font-size:13px;font-weight:500;cursor:pointer;transition:all 0.15s;font-family:'Manrope', sans-serif;`;
   addBtn.textContent = '+ Add time';
-  addBtn.onmouseover = () => { addBtn.style.borderColor = 'var(--purple)'; addBtn.style.color = 'var(--purple)'; };
+  addBtn.onmouseover = () => { addBtn.style.borderColor = '#bf5fff'; addBtn.style.color = '#bf5fff'; };
   addBtn.onmouseout  = () => { addBtn.style.borderColor = 'var(--border)'; addBtn.style.color = 'var(--text2)'; };
   addBtn.onclick = () => openRunTimeModal(workoutType);
   container.appendChild(addBtn);
@@ -4641,7 +4617,7 @@ function renderRunTimes(workoutType) {
   pills.style.cssText = 'display:flex;flex-wrap:wrap;gap:4px;';
   times.forEach(t => {
     const pill = document.createElement('div');
-    pill.style.cssText = 'padding:3px 8px;background:var(--purple-light);border:1px solid var(--purple-light);border-radius:999px;font-size:11px;color:var(--purple);';
+    pill.style.cssText = 'padding:3px 8px;background:rgba(191,95,255,0.18);border:1px solid rgba(191,95,255,0.3);border-radius:999px;font-size:11px;color:#bf5fff;';
     pill.textContent = `${DAY_SHORT[t.day] || t.day}${t.time ? ' ' + t.time : ''}`;
     pills.appendChild(pill);
   });
@@ -4673,7 +4649,7 @@ function openRunTimeModal(workoutType) {
       </div>
       <div style="display:flex;gap:10px;">
         <button onclick="closeModal()" style="flex:1;padding:11px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text2);font-family:'Manrope',sans-serif;font-size:14px;cursor:pointer;">Cancel</button>
-        <button onclick="confirmAddRunTime('${workoutType}')" style="flex:2;padding:11px;background:var(--purple);border:none;border-radius:var(--radius-sm);color:#fff;font-family:'Manrope',sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Add slot</button>
+        <button onclick="confirmAddRunTime('${workoutType}')" style="flex:2;padding:11px;background:#bf5fff;border:none;border-radius:var(--radius-sm);color:#fff;font-family:'Manrope',sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Add slot</button>
       </div>
     </div>`;
   modal.style.display = 'flex';
@@ -4780,9 +4756,9 @@ function renderClassTimesManager(workoutType) {
   // Colour per workout type: swim=teal, classes=neon yellow
   const _wLib = getWorkoutLibrary ? getWorkoutLibrary() : {};
   const _wColor = _wLib[workoutType] ? _wLib[workoutType].color : 'class';
-  const accentColor = _wColor === 'teal' ? 'var(--teal)' : 'var(--amber)';
-  const accentBg    = _wColor === 'teal' ? 'var(--teal-light)' : 'var(--amber-light)';
-  const accentText  = _wColor === 'teal' ? 'var(--teal-text)' : 'var(--amber-text)';
+  const accentColor = _wColor === 'teal' ? '#00f5d4' : '#d4ff00';
+  const accentBg    = _wColor === 'teal' ? 'rgba(0,245,212,0.10)' : 'rgba(212,255,0,0.10)';
+  const accentText  = _wColor === 'teal' ? '#00382f' : '#2a3300';
 
   const times = getClassTimes(workoutType);
   const sorted = sortedClassTimes(times);
@@ -5353,9 +5329,9 @@ function suppTab(which) {
     var active = (v === which);
     if (view) view.style.display = active ? 'block' : 'none';
     if (!btn) return;
-    btn.style.background  = active ? 'var(--teal)' : 'var(--card)';
-    btn.style.color       = active ? 'var(--teal-on)' : 'var(--text2)';
-    btn.style.borderColor = active ? 'var(--teal)' : 'var(--border)';
+    btn.style.background  = active ? '#00f5d4' : 'var(--card)';
+    btn.style.color       = active ? '#00382f' : 'var(--text2)';
+    btn.style.borderColor = active ? '#00f5d4' : 'var(--border)';
   });
   if (which === 'schedule') renderSuppSchedule();
   if (which === 'checkin')  renderSuppCheckin();
@@ -5452,7 +5428,7 @@ function renderSuppStack() {
       });
     });
 
-    card.addEventListener('mouseenter', () => { if(isActive) { card.style.boxShadow = 'var(--shadow-lg)'; card.style.borderColor = 'var(--teal)'; }});
+    card.addEventListener('mouseenter', () => { if(isActive) { card.style.boxShadow = 'var(--shadow-lg)'; card.style.borderColor = 'rgba(0,245,212,0.3)'; }});
     card.addEventListener('mouseleave', () => { card.style.boxShadow = 'var(--shadow)'; card.style.borderColor = 'var(--border)'; });
     grid.appendChild(card);
   });
@@ -6567,7 +6543,7 @@ function renderGymWorkouts() {
     card.style.cssText = 'padding:0;cursor:pointer;transition:all 0.15s;overflow:hidden;border-radius:var(--radius);';
 
     // Header section with teal accent top bar
-    var headerHtml = '<div style="border-top:3px solid var(--teal);padding:14px 14px 10px;">';
+    var headerHtml = '<div style="border-top:3px solid #00f5d4;padding:14px 14px 10px;">';
     headerHtml += '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">';
     headerHtml += '<div style="flex:1;min-width:0;">';
     // Large emoji + name
@@ -6577,7 +6553,7 @@ function renderGymWorkouts() {
     headerHtml += '</div>';
     if (w.meta) headerHtml += '<div style="font-size:11px;color:var(--text3);margin-bottom:6px;">' + escapeHtml(w.meta) + '</div>';
     headerHtml += '<div style="display:flex;flex-wrap:wrap;gap:4px;">';
-    if (exCount) headerHtml += '<span style="font-size:10px;padding:2px 7px;border-radius:10px;background:var(--teal-light);color:var(--teal-text);font-weight:600;">' + exCount + ' exercises</span>';
+    if (exCount) headerHtml += '<span style="font-size:10px;padding:2px 7px;border-radius:10px;background:rgba(0,245,212,0.12);color:#00f5d4;font-weight:600;">' + exCount + ' exercises</span>';
     if (w.badge && w.badge !== w.name) headerHtml += '<span style="font-size:10px;padding:2px 7px;border-radius:10px;background:var(--bg2);color:var(--text3);">' + escapeHtml(w.badge) + '</span>';
     headerHtml += '</div>';
     headerHtml += '</div>';
@@ -6588,7 +6564,7 @@ function renderGymWorkouts() {
     headerHtml += '</div>';
 
     // Expand hint bar
-    headerHtml += '<div class="gym-expand-hint" style="padding:7px 14px;background:var(--teal-light);border-top:1px solid var(--teal-mid);font-size:11px;color:var(--text3);text-align:center;letter-spacing:0.03em;">▾ Tap to see exercises</div>';
+    headerHtml += '<div class="gym-expand-hint" style="padding:7px 14px;background:rgba(0,245,212,0.06);border-top:1px solid rgba(0,245,212,0.18);font-size:11px;color:#888;text-align:center;letter-spacing:0.03em;">▾ Tap to see exercises</div>';
 
     // Expandable section (hidden by default)
     var expandHtml = '<div class="gym-card-expand" style="display:none;margin-top:12px;border-top:1px solid var(--border);padding-top:12px;">';
@@ -6629,14 +6605,14 @@ function renderGymWorkouts() {
       document.querySelectorAll('.gym-grid-card').forEach(function(c) {
         c.querySelector('.gym-card-expand').style.display = 'none';
         c.querySelector('.gym-expand-hint').style.display = '';
-        c.style.borderColor = 'var(--teal)';
-        c.style.boxShadow = 'var(--shadow)';
+        c.style.borderColor = 'rgba(0,245,212,0.4)';
+        c.style.boxShadow = '0 0 20px rgba(0,245,212,0.12), 0 2px 8px rgba(0,0,0,0.5)';
       });
       if (!isOpen) {
         expandEl.style.display = 'block';
         hintEl.style.display = 'none';
-        card.style.borderColor = 'var(--teal)';
-        card.style.boxShadow = 'var(--shadow-lg)';
+        card.style.borderColor = 'rgba(0,245,212,0.8)';
+        card.style.boxShadow = '0 0 30px rgba(0,245,212,0.22), 0 2px 8px rgba(0,0,0,0.5)';
       }
     });
 
@@ -6987,9 +6963,9 @@ function routinesTab(which) {
     if (!view || !btn) return;
     var active = (v === which);
     view.style.display    = active ? 'block' : 'none';
-    btn.style.background  = active ? 'var(--teal)' : 'var(--card)';
-    btn.style.color       = active ? 'var(--teal-on)' : 'var(--text2)';
-    btn.style.borderColor = active ? 'var(--teal)' : 'var(--border)';
+    btn.style.background  = active ? '#00f5d4' : 'var(--card)';
+    btn.style.color       = active ? '#00382f' : 'var(--text2)';
+    btn.style.borderColor = active ? '#00f5d4' : 'var(--border)';
   });
   if (which === 'checklist') renderRoutinesChecklist();
   if (which === 'tweaks')    renderRoutinesTweaks();
@@ -7230,8 +7206,8 @@ function renderRoutinesTweaks() {
     var workoutTypes = day.workoutTypes || [];
     var firstType    = workoutTypes[0];
     var firstWorkout = firstType ? lib[firstType] : null;
-    var RT_CAT_COLOR = { gym:'var(--teal)', run:'var(--purple)', class:'var(--amber)', rest:'var(--text3)', gray:'var(--text3)' };
-    var RT_CAT_BG    = { gym:'var(--teal-light)', run:'var(--purple-light)', class:'var(--amber-light)', rest:'var(--bg2)', gray:'rgba(136,136,136,0.08)' };
+    var RT_CAT_COLOR = { gym:'#00f5d4', run:'#bf5fff', class:'#d4ff00', rest:'#888', gray:'#888' };
+    var RT_CAT_BG    = { gym:'rgba(0,245,212,0.10)', run:'rgba(191,95,255,0.18)', class:'rgba(212,255,0,0.08)', rest:'rgba(136,136,136,0.08)', gray:'rgba(136,136,136,0.08)' };
     var rtCat = !firstWorkout ? 'gray'
       : (firstWorkout.type === 'run' || firstWorkout.color === 'run') ? 'run'
       : (firstWorkout.type === 'class' || firstWorkout.color === 'class') ? 'class'
@@ -7390,7 +7366,7 @@ function savePantry(p) { setData(PANTRY_KEY, p); scheduleSave(); }
 
 function renderPantry() {
   const pantry = loadPantry();
-  const LOC_ACCENT = { fridge:'var(--teal)', freezer:'var(--purple)', cupboard:'var(--text2)', counter:'var(--amber)' };
+  const LOC_ACCENT = { fridge:'#00f5d4', freezer:'#bf5fff', cupboard:'#d4ff00', counter:'#f5a623' };
   PANTRY_LOCATIONS.forEach(loc => {
     const el = document.getElementById('pantry-' + loc);
     if (!el) return;
@@ -7405,13 +7381,13 @@ function renderPantry() {
           const count = item.count || 1;
           const depleted = count <= 0;
           const nameStyle = 'font-size:12px;font-weight:500;cursor:pointer;'
-            + (depleted ? 'text-decoration:line-through;color:var(--text3);' : 'color:var(--text);');
+            + (depleted ? 'text-decoration:line-through;color:var(--text3);' : 'color:#e5e2e1;');
           const countStyle = 'font-size:11px;font-weight:700;padding:1px 7px;border-radius:999px;cursor:pointer;'
             + 'background:' + (depleted ? 'rgba(255,80,80,0.15)' : 'var(--border)') + ';'
             + 'color:' + (depleted ? 'rgba(255,80,80,0.7)' : accent) + ';'
             + 'border:1px solid ' + (depleted ? 'rgba(255,80,80,0.2)' : 'rgba(255,255,255,0.1)') + ';'
             + 'transition:background 0.12s;';
-          return '<div title="Tap name to edit · Tap count to use one" style="display:inline-flex;align-items:center;gap:7px;padding:7px 12px;background:var(--card-high);border:1px solid var(--border);border-radius:10px;' + (depleted ? 'opacity:0.45;' : '') + '">'
+          return '<div title="Tap name to edit · Tap count to use one" style="display:inline-flex;align-items:center;gap:7px;padding:7px 12px;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.1);border-radius:10px;' + (depleted ? 'opacity:0.45;' : '') + '">'
             + '<span onclick="editPantryItem(\'' + loc + '\',' + idx + ')" style="' + nameStyle + '">' + escapeHtml(item.name) + (item.size ? '<span style="font-size:10px;color:var(--text3);margin-left:3px;">' + escapeHtml(item.size) + '</span>' : '') + '</span>'
             + '<span onclick="decrementPantryItem(\'' + loc + '\',' + idx + ')" style="' + countStyle + '">×' + count + '</span>'
             + '</div>';
@@ -7457,11 +7433,11 @@ function renderBuyAgain() {
   if (!section || !el) return;
   if (list.length === 0) { section.style.display = 'none'; return; }
   section.style.display = 'block';
-  const LOC_ACCENT = { fridge:'var(--teal)', freezer:'var(--purple)', cupboard:'var(--text2)', counter:'var(--amber)' };
+  const LOC_ACCENT = { fridge:'#00f5d4', freezer:'#bf5fff', cupboard:'#d4ff00', counter:'#f5a623' };
   el.innerHTML = list.map((item, idx) => {
     const accent = LOC_ACCENT[item.loc] || '#888';
-    return '<div style="display:inline-flex;align-items:center;gap:8px;padding:8px 12px;background:var(--card-high);border:1px solid var(--border);border-radius:10px;">'
-      + '<span style="font-size:12px;font-weight:500;color:var(--text);">' + escapeHtml(item.name) + (item.size ? '<span style="font-size:10px;color:var(--text3);margin-left:3px;">' + escapeHtml(item.size) + '</span>' : '') + '</span>'
+    return '<div style="display:inline-flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.1);border-radius:10px;">'
+      + '<span style="font-size:12px;font-weight:500;color:#e5e2e1;">' + escapeHtml(item.name) + (item.size ? '<span style="font-size:10px;color:var(--text3);margin-left:3px;">' + escapeHtml(item.size) + '</span>' : '') + '</span>'
       + '<button onclick="restoreFromBuyAgain(' + idx + ')" title="Back in stock — restore to kitchen" style="font-size:11px;padding:2px 8px;background:' + accent + '20;color:' + accent + ';border:1px solid ' + accent + '44;border-radius:999px;cursor:pointer;font-family:Manrope,sans-serif;font-weight:700;">+ Got it</button>'
       + '<button onclick="deleteBuyAgainItem(' + idx + ')" title="Remove" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:14px;padding:0 2px;line-height:1;" onmouseover="this.style.color=\'var(--red)\'" onmouseout="this.style.color=\'var(--text3)\'">✕</button>'
       + '</div>';
@@ -7657,22 +7633,22 @@ function parseOcadoImport() {
 
 const LOC_CYCLE = ['fridge','freezer','cupboard','counter'];
 const LOC_ICONS = { fridge:'🧊', freezer:'❄️', cupboard:'🗄️', counter:'🍎' };
-const LOC_COLORS = { fridge:'var(--teal-light)', freezer:'var(--purple-light)', cupboard:'var(--bg2)', counter:'var(--amber-light)' };
-const LOC_TEXT   = { fridge:'var(--teal-text)', freezer:'var(--purple-text)', cupboard:'var(--text2)', counter:'var(--amber-text)' };
+const LOC_COLORS = { fridge:'rgba(0,245,212,0.15)', freezer:'rgba(191,95,255,0.15)', cupboard:'rgba(212,255,0,0.10)', counter:'rgba(245,166,35,0.15)' };
+const LOC_TEXT   = { fridge:'#00f5d4', freezer:'#bf5fff', cupboard:'#d4ff00', counter:'#f5a623' };
 
 function renderOcadoReview() {
   const list = document.getElementById('ocado-review-list');
   if (!list) return;
   list.innerHTML = _ocadoParsedItems.map((item, i) => {
     const c = LOC_COLORS[item.loc]; const t = LOC_TEXT[item.loc];
-    return '<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--bg2);border-radius:8px;">'
+    return '<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(255,255,255,0.04);border-radius:8px;">'
       + '<div style="flex:1;min-width:0;">'
       + '<div style="font-size:13px;font-weight:500;">' + escapeHtml(item.name) + (item.size ? ' <span style="color:var(--text3);font-size:11px;">' + escapeHtml(item.size) + '</span>' : '') + '</div>'
       + '</div>'
       + '<div style="display:flex;align-items:center;gap:4px;">'
-      + '<button onclick="ocadoCountStep(' + i + ',-1)" style="width:22px;height:22px;border-radius:50%;background:var(--border);border:1px solid rgba(255,255,255,0.12);color:var(--text);font-size:13px;cursor:pointer;">−</button>'
+      + '<button onclick="ocadoCountStep(' + i + ',-1)" style="width:22px;height:22px;border-radius:50%;background:var(--border);border:1px solid rgba(255,255,255,0.12);color:#e5e2e1;font-size:13px;cursor:pointer;">−</button>'
       + '<span style="font-size:13px;font-weight:700;min-width:20px;text-align:center;" id="ocado-count-' + i + '">' + item.count + '</span>'
-      + '<button onclick="ocadoCountStep(' + i + ',1)" style="width:22px;height:22px;border-radius:50%;background:var(--border);border:1px solid rgba(255,255,255,0.12);color:var(--text);font-size:13px;cursor:pointer;">+</button>'
+      + '<button onclick="ocadoCountStep(' + i + ',1)" style="width:22px;height:22px;border-radius:50%;background:var(--border);border:1px solid rgba(255,255,255,0.12);color:#e5e2e1;font-size:13px;cursor:pointer;">+</button>'
       + '</div>'
       + '<button onclick="ocadoCycleLoc(' + i + ')" style="padding:4px 10px;border-radius:999px;background:' + c + ';border:1px solid ' + t.replace(')', ',0.3)').replace('rgb','rgba') + ';color:' + t + ';font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:Manrope,sans-serif;" id="ocado-loc-' + i + '">'
       + LOC_ICONS[item.loc] + ' ' + item.loc.charAt(0).toUpperCase() + item.loc.slice(1)
@@ -7726,10 +7702,10 @@ function showNotificationWithUndo(msg, undoFn) {
   if (!el) {
     el = document.createElement('div');
     el.id = 'app-toast';
-    el.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--card);color:var(--text);padding:10px 20px;border-radius:999px;font-family:Manrope,sans-serif;font-size:13px;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,0.4);z-index:99999;opacity:0;transition:opacity 0.2s,transform 0.2s;pointer-events:none;border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;gap:12px;';
+    el.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:#1e1e1e;color:#e5e2e1;padding:10px 20px;border-radius:999px;font-family:Manrope,sans-serif;font-size:13px;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,0.4);z-index:99999;opacity:0;transition:opacity 0.2s,transform 0.2s;pointer-events:none;border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;gap:12px;';
     document.body.appendChild(el);
   }
-  el.innerHTML = '<span>' + msg + '</span><button onclick="(function(){' + 'document.getElementById(\'app-toast\').style.opacity=\'0\';' + 'undoOcadoImport();' + '})()" style="background:var(--teal);border:1px solid var(--teal);color:var(--teal-on);border-radius:999px;padding:3px 12px;font-size:12px;font-weight:700;cursor:pointer;font-family:Manrope,sans-serif;pointer-events:all;">Undo</button>';
+  el.innerHTML = '<span>' + msg + '</span><button onclick="(function(){' + 'document.getElementById(\'app-toast\').style.opacity=\'0\';' + 'undoOcadoImport();' + '})()" style="background:rgba(0,245,212,0.15);border:1px solid rgba(0,245,212,0.4);color:#00f5d4;border-radius:999px;padding:3px 12px;font-size:12px;font-weight:700;cursor:pointer;font-family:Manrope,sans-serif;pointer-events:all;">Undo</button>';
   el.style.pointerEvents = 'all';
   el.style.opacity = '1';
   el.style.transform = 'translateX(-50%) translateY(0)';
@@ -7990,7 +7966,7 @@ function renderSuggestionsPantryPreview() {
     return;
   }
   el.innerHTML = allItems.slice(0, 20).map(i =>
-    '<span style="font-size:11px;padding:3px 10px;background:var(--teal-light);color:var(--teal-text);border:1px solid var(--teal-mid);border-radius:999px;">'
+    '<span style="font-size:11px;padding:3px 10px;background:rgba(0,245,212,0.10);color:#00f5d4;border:1px solid rgba(0,245,212,0.25);border-radius:999px;">'
     + escapeHtml(i.name) + (i.qty ? ' (' + escapeHtml(i.qty) + ')' : '') + '</span>'
   ).join('') + (allItems.length > 20 ? '<span style="font-size:11px;color:var(--text3);"> +' + (allItems.length - 20) + ' more</span>' : '');
 }
@@ -8047,8 +8023,8 @@ async function getMealSuggestions() {
     if (results) {
       window._suggestedMeals = meals;
       results.innerHTML = meals.map((m, idx) => {
-        const slotColors = { Breakfast:'var(--teal)', Lunch:'var(--purple)', Snack:'var(--amber)', Dinner:'var(--teal)' };
-        const col = slotColors[m.slot] || 'var(--teal)';
+        const slotColors = { Breakfast:'#00f5d4', Lunch:'#bf5fff', Snack:'#f5a623', Dinner:'#00f5d4' };
+        const col = slotColors[m.slot] || '#00f5d4';
         return '<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;">'
           + '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">'
           + '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:' + col + ';">' + escapeHtml(m.slot) + '</div>'
@@ -8057,9 +8033,9 @@ async function getMealSuggestions() {
           + '<div style="font-size:15px;font-weight:700;margin-bottom:4px;">' + escapeHtml(m.name) + '</div>'
           + '<div style="font-size:13px;color:var(--text2);margin-bottom:10px;">' + escapeHtml(m.desc) + '</div>'
           + '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">'
-          + '<span style="font-size:11px;padding:3px 8px;border-radius:999px;background:var(--coral-light);color:var(--coral);">' + (m.kcal || '—') + ' kcal</span>'
-          + '<span style="font-size:11px;padding:3px 8px;border-radius:999px;background:var(--teal-light);color:var(--teal-text);">' + (m.protein || '—') + 'g protein</span>'
-          + '<button onclick="saveToMyRecipes(window._suggestedMeals[' + idx + '])" style="margin-left:auto;font-size:11px;padding:4px 12px;border-radius:999px;background:var(--teal-light);color:var(--teal-text);border:1px solid var(--teal-mid);0.25);cursor:pointer;font-family:\'Manrope\',sans-serif;font-weight:600;">📖 Save to My Recipes</button>'
+          + '<span style="font-size:11px;padding:3px 8px;border-radius:999px;background:rgba(245,90,60,0.12);color:#f55a3c;">' + (m.kcal || '—') + ' kcal</span>'
+          + '<span style="font-size:11px;padding:3px 8px;border-radius:999px;background:rgba(0,245,212,0.10);color:#00f5d4;">' + (m.protein || '—') + 'g protein</span>'
+          + '<button onclick="saveToMyRecipes(window._suggestedMeals[' + idx + '])" style="margin-left:auto;font-size:11px;padding:4px 12px;border-radius:999px;background:rgba(0,245,212,0.12);color:#00f5d4;border:1px solid rgba(0,245,212,0.25);cursor:pointer;font-family:\'Manrope\',sans-serif;font-weight:600;">📖 Save to My Recipes</button>'
           + '</div>'
           + '</div>';
       }).join('');
@@ -8202,8 +8178,8 @@ function renderSavedRecipes() {
     return;
   }
   el.innerHTML = recipes.map((r, idx) => {
-    const slotColors = { Breakfast:'var(--teal)', Lunch:'var(--purple)', Snack:'var(--amber)', Dinner:'var(--teal)' };
-    const col = slotColors[r.slot] || 'var(--teal)';
+    const slotColors = { Breakfast:'#00f5d4', Lunch:'#bf5fff', Snack:'#f5a623', Dinner:'#00f5d4' };
+    const col = slotColors[r.slot] || '#00f5d4';
     return '<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">'
       + '<div style="flex:1;">'
       + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">'
@@ -8212,9 +8188,9 @@ function renderSavedRecipes() {
       + '<div style="font-size:15px;font-weight:700;margin-bottom:4px;">' + escapeHtml(r.name) + '</div>'
       + (r.desc ? '<div style="font-size:13px;color:var(--text2);margin-bottom:8px;">' + escapeHtml(r.desc) + '</div>' : '')
       + '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">'
-      + (r.kcal ? '<span style="font-size:11px;padding:3px 8px;border-radius:999px;background:var(--coral-light);color:var(--coral);">' + r.kcal + ' kcal</span>' : '')
-      + (r.protein ? '<span style="font-size:11px;padding:3px 8px;border-radius:999px;background:var(--teal-light);color:var(--teal-text);">' + r.protein + 'g protein</span>' : '')
-      + '<a href="https://www.google.com/search?q=' + encodeURIComponent(r.name + ' recipe') + '" target="_blank" style="font-size:11px;padding:3px 10px;border-radius:999px;background:rgba(245,166,35,0.12);color:var(--amber-text);text-decoration:none;border:1px solid rgba(245,166,35,0.25);">🔍 Find recipe →</a>'
+      + (r.kcal ? '<span style="font-size:11px;padding:3px 8px;border-radius:999px;background:rgba(245,90,60,0.12);color:#f55a3c;">' + r.kcal + ' kcal</span>' : '')
+      + (r.protein ? '<span style="font-size:11px;padding:3px 8px;border-radius:999px;background:rgba(0,245,212,0.10);color:#00f5d4;">' + r.protein + 'g protein</span>' : '')
+      + '<a href="https://www.google.com/search?q=' + encodeURIComponent(r.name + ' recipe') + '" target="_blank" style="font-size:11px;padding:3px 10px;border-radius:999px;background:rgba(245,166,35,0.12);color:#f5a623;text-decoration:none;border:1px solid rgba(245,166,35,0.25);">🔍 Find recipe →</a>'
       + '</div>'
       + '</div>'
       + '<button onclick="deleteFromMyRecipes(' + idx + ')" title="Remove" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:18px;padding:2px 4px;line-height:1;flex-shrink:0;" onmouseover="this.style.color=\'var(--red)\'" onmouseout="this.style.color=\'var(--text3)\'">✕</button>'
@@ -8278,8 +8254,8 @@ async function getPlannerSuggestions() {
     if (loading) loading.style.display = 'none';
     if (results) {
       results.innerHTML = meals.map((m, idx) => {
-        const slotColors = { Breakfast:'var(--teal)', Lunch:'var(--purple)', Snack:'var(--amber)', Dinner:'var(--teal)' };
-        const col = slotColors[m.slot] || 'var(--teal)';
+        const slotColors = { Breakfast:'#00f5d4', Lunch:'#bf5fff', Snack:'#f5a623', Dinner:'#00f5d4' };
+        const col = slotColors[m.slot] || '#00f5d4';
         return '<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;">'
           + '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">'
           + '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:' + col + ';">' + escapeHtml(m.slot) + '</div>'
@@ -8288,9 +8264,9 @@ async function getPlannerSuggestions() {
           + '<div style="font-size:15px;font-weight:700;margin-bottom:4px;">' + escapeHtml(m.name) + '</div>'
           + '<div style="font-size:13px;color:var(--text2);margin-bottom:10px;">' + escapeHtml(m.desc) + '</div>'
           + '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">'
-          + '<span style="font-size:11px;padding:3px 8px;border-radius:999px;background:var(--coral-light);color:var(--coral);">' + (m.kcal || '—') + ' kcal</span>'
-          + '<span style="font-size:11px;padding:3px 8px;border-radius:999px;background:var(--teal-light);color:var(--teal-text);">' + (m.protein || '—') + 'g protein</span>'
-          + '<button onclick="saveToMyRecipes(window._plannerSuggestedMeals[' + idx + '])" style="font-size:11px;padding:4px 12px;border-radius:999px;background:var(--teal-light);color:var(--teal-text);border:1px solid var(--teal-mid);0.25);cursor:pointer;font-family:\'Manrope\',sans-serif;font-weight:600;">＋ Save to My Recipes</button>'
+          + '<span style="font-size:11px;padding:3px 8px;border-radius:999px;background:rgba(245,90,60,0.12);color:#f55a3c;">' + (m.kcal || '—') + ' kcal</span>'
+          + '<span style="font-size:11px;padding:3px 8px;border-radius:999px;background:rgba(0,245,212,0.10);color:#00f5d4;">' + (m.protein || '—') + 'g protein</span>'
+          + '<button onclick="saveToMyRecipes(window._plannerSuggestedMeals[' + idx + '])" style="font-size:11px;padding:4px 12px;border-radius:999px;background:rgba(0,245,212,0.12);color:#00f5d4;border:1px solid rgba(0,245,212,0.25);cursor:pointer;font-family:\'Manrope\',sans-serif;font-weight:600;">＋ Save to My Recipes</button>'
           + '</div>'
           + '</div>';
       }).join('');
@@ -8482,7 +8458,7 @@ function renderEarlyFinishPills() {
     const isActive = extras.includes(d);
     return '<button onclick="toggleEarlyFinishDay(\'' + d + '\')" style="'
       + 'padding:5px 12px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:\'Manrope\',sans-serif;transition:all 0.15s;border:1.5px solid '
-      + (isActive ? 'rgba(96,165,250,0.6);background:rgba(96,165,250,0.15);color:var(--blue);' : 'var(--border);background:var(--card);color:var(--text3);')
+      + (isActive ? 'rgba(96,165,250,0.6);background:rgba(96,165,250,0.15);color:#60a5fa;' : 'var(--border);background:var(--card);color:var(--text3);')
       + '">' + DAY_SHORT[d] + '</button>';
   }).join('');
 }
@@ -8601,14 +8577,14 @@ function renderWeekPickerBar() {
       const hasPlan = w.offset !== 0 && loadFutureWeek(w.offset) !== null;
       return '<button onclick="switchWeekView(' + w.offset + ')" style="'
         + 'padding:6px 14px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:\'Manrope\',sans-serif;transition:all 0.15s;border:1.5px solid '
-        + (isActive ? 'var(--teal);background:var(--teal);color:var(--teal-on);' : (hasPlan ? 'var(--teal-mid);background:var(--teal-light);color:var(--teal);' : 'var(--border);background:var(--card);color:var(--text2);'))
+        + (isActive ? 'var(--teal);background:var(--teal);color:#00382f;' : (hasPlan ? 'rgba(0,245,212,0.3);background:rgba(0,245,212,0.06);color:var(--teal);' : 'var(--border);background:var(--card);color:var(--text2);'))
         + '">' + w.label + (hasPlan && !isActive ? ' ✓' : '') + '</button>';
     }).join('');
 
   if (_currentWeekOffset !== 0) {
     // Show save/clear controls for future/past weeks
     el.innerHTML += '<div style="margin-left:auto;display:flex;gap:8px;">'
-      + '<button onclick="saveFutureWeekFromCurrent()" style="padding:6px 14px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:\'Manrope\',sans-serif;background:var(--teal-light);color:var(--teal-text);border:1px solid var(--teal-mid);0.25);">Save plan for this week</button>'
+      + '<button onclick="saveFutureWeekFromCurrent()" style="padding:6px 14px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:\'Manrope\',sans-serif;background:rgba(0,245,212,0.12);color:#00f5d4;border:1px solid rgba(0,245,212,0.25);">Save plan for this week</button>'
       + '<button onclick="clearFutureWeekCurrent()" style="padding:6px 14px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:\'Manrope\',sans-serif;background:rgba(255,107,107,0.08);color:var(--red);border:1px solid rgba(255,107,107,0.2);">Clear</button>'
       + '</div>';
   }
@@ -8659,7 +8635,7 @@ loadWorkoutRoutine = function() {
 const ALL_EATING_STYLES = ['standard','early','omad','rest_keto'];
 const EATING_STYLE_LABELS = { standard:'Standard', early:'Early finish', omad:'OMAD', rest_keto:'Keto' };
 const EATING_STYLE_EMOJI  = { standard:'🥗', early:'🕕', omad:'🍽️', rest_keto:'🥑' };
-const EATING_STYLE_COLOR  = { standard:'var(--teal)', early:'var(--blue)', omad:'var(--amber)', rest_keto:'var(--purple)' };
+const EATING_STYLE_COLOR  = { standard:'#00f5d4', early:'#60a5fa', omad:'#f5a623', rest_keto:'#bf5fff' };
 
 let _twWeekOffset = 0;
 
@@ -8688,7 +8664,7 @@ function renderTWPicker() {
   el.innerHTML = weeks.map(w => {
     const active = w.o === _twWeekOffset;
     return '<button onclick="twSwitchWeek(' + w.o + ')" style="padding:6px 14px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:\'Manrope\',sans-serif;transition:all 0.15s;border:1.5px solid '
-      + (active ? 'var(--teal);background:var(--teal);color:var(--teal-on)' : 'var(--border);background:var(--card);color:var(--text2)')
+      + (active ? 'var(--teal);background:var(--teal);color:#131313' : 'var(--border);background:var(--card);color:var(--text2)')
       + ';">' + w.l + '</button>';
   }).join('');
 
@@ -8716,7 +8692,7 @@ function renderTWGrid() {
   const lib = getWorkoutLibrary();
   const dates = getWeekDates(_twWeekOffset);
   const DAY_SHORT_TW = {mon:'Mon',tue:'Tue',wed:'Wed',thu:'Thu',fri:'Fri',sat:'Sat',sun:'Sun'};
-  const CAT_COLOR = {gym:'var(--teal-text)',run:'var(--purple-text)',class:'var(--amber-text)',rest:'var(--text3)'};
+  const CAT_COLOR = {gym:'#00f5d4',run:'#bf5fff',class:'#d4ff00',rest:'#888'};
 
   function getCat(type) {
     if (!type) return 'gym';
@@ -8756,16 +8732,14 @@ function renderTWGrid() {
     const styleEmoji = EATING_STYLE_EMOJI[style] || '🥗';
     const styleShort = (EATING_STYLE_LABELS[style] || style).split(' ')[0]; // first word only
 
-    const CAT_BORDER = {gym:'var(--teal-mid)',run:'var(--purple-light)',class:'var(--amber-light)',rest:'var(--border)'};
-    const CAT_BG = {gym:'var(--teal-light)',run:'var(--purple-light)',class:'var(--amber-light)',rest:'var(--bg2)'};
-    const border = isToday ? 'var(--teal)' : (isRest ? 'var(--border)' : CAT_BORDER[primaryCat]);
-    const bg = isToday ? 'var(--teal-light)' : (isRest ? 'var(--card)' : 'var(--card)');
+    const border = isToday ? 'var(--teal)' : (isRest ? 'var(--border)' : accentColor + '55');
+    const bg = isToday ? 'var(--teal)0f' : 'var(--card)';
 
     return '<div onclick="twSelectDay(\'' + day.dayKey + '\')" style="cursor:pointer;border-radius:var(--radius-sm);background:' + bg + ';border:1.5px solid ' + border + ';padding:10px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;min-height:110px;transition:border-color 0.15s;" onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1">'
       + '<div style="font-size:11px;font-weight:700;color:' + (isToday ? 'var(--teal)' : 'var(--text)') + ';font-family:\'Space Grotesk\',sans-serif;">' + DAY_SHORT_TW[day.dayKey] + '</div>'
       + '<div style="font-size:10px;color:var(--text3);margin-bottom:4px;">' + dateStr + '</div>'
       + '<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;">' + workoutLines + '</div>'
-      + '<div style="margin-top:4px;padding:2px 7px;border-radius:999px;background:var(--bg2);color:' + styleColor + ';font-size:10px;font-weight:700;white-space:nowrap;border:1px solid var(--border);">' + styleEmoji + ' ' + styleShort + '</div>'
+      + '<div style="margin-top:4px;padding:2px 7px;border-radius:999px;background:' + styleColor + '20;color:' + styleColor + ';font-size:10px;font-weight:700;white-space:nowrap;">' + styleEmoji + ' ' + styleShort + '</div>'
     + '</div>';
   }).join('') + '</div>';
 }
@@ -8824,7 +8798,7 @@ function renderTWDayPanel(dayKey) {
   const styleInfo = (typeof EATING_STYLES !== 'undefined' && EATING_STYLES[style]) || { label: EATING_STYLE_LABELS[style], sub:'', why:'' };
   const styleColor = EATING_STYLE_COLOR[style] || '#888';
   const DAY_LABELS = {mon:'Monday',tue:'Tuesday',wed:'Wednesday',thu:'Thursday',fri:'Friday',sat:'Saturday',sun:'Sunday'};
-  const CAT_COLOR = {gym:'var(--teal-text)',run:'var(--purple-text)',class:'var(--amber-text)',rest:'var(--text3)'};
+  const CAT_COLOR = {gym:'#00f5d4',run:'#bf5fff',class:'#d4ff00',rest:'#888'};
 
   function getWCat(type) {
     const w = lib[type];
@@ -8913,7 +8887,7 @@ function renderTWDayPanel(dayKey) {
               + ALL_EATING_STYLES.map(function(s) {
                   const isActive = s === style;
                   return '<button onclick="twSetStyle(\'' + dayKey + '\',\'' + s + '\')" '
-                    + 'style="display:block;width:100%;text-align:left;padding:10px 14px;background:' + (isActive ? 'var(--teal-light)' : 'none') + ';border:none;color:' + (isActive ? 'var(--teal)' : 'var(--text)') + ';font-size:13px;font-family:\'Manrope\',sans-serif;cursor:pointer;font-weight:' + (isActive ? '700' : '400') + ';">'
+                    + 'style="display:block;width:100%;text-align:left;padding:10px 14px;background:' + (isActive ? 'rgba(0,245,212,0.08)' : 'none') + ';border:none;color:' + (isActive ? 'var(--teal)' : 'var(--text)') + ';font-size:13px;font-family:\'Manrope\',sans-serif;cursor:pointer;font-weight:' + (isActive ? '700' : '400') + ';">'
                     + EATING_STYLE_EMOJI[s] + ' ' + EATING_STYLE_LABELS[s]
                     + (isActive ? ' ✓' : '')
                     + '</button>';
