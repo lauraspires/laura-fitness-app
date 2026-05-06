@@ -8625,8 +8625,24 @@ function renderTWDayPanel(dayKey) {
         + workoutSection
       + '</div>'
       + '<div>'
-        + '<div style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);font-family:\'Manrope\',sans-serif;margin-bottom:12px;font-weight:700;">Food plan'
-        + (isOverridden ? ' <span style="color:var(--teal);font-size:10px;text-transform:none;letter-spacing:0;">· custom</span>' : '')
+        + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">'
+          + '<div style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);font-family:\'Manrope\',sans-serif;font-weight:700;">Food plan'
+          + (isOverridden ? ' <span style="color:var(--teal);font-size:10px;text-transform:none;letter-spacing:0;">· custom</span>' : '')
+          + '</div>'
+          + '<div style="position:relative;">'
+            + '<button onclick="twToggleStyleMenu(\'' + dayKey + '\')" style="padding:4px 10px;border-radius:999px;border:1px solid var(--border);background:var(--card);color:var(--text2);font-size:11px;font-family:\'Manrope\',sans-serif;cursor:pointer;font-weight:600;">Change ▾</button>'
+            + '<div id="tw-style-menu-' + dayKey + '" style="display:none;position:absolute;right:0;top:calc(100% + 6px);background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-lg);z-index:100;min-width:160px;overflow:hidden;">'
+              + ALL_EATING_STYLES.map(function(s) {
+                  const isActive = s === style;
+                  return '<button onclick="twSetStyle(\'' + dayKey + '\',\'' + s + '\')" '
+                    + 'style="display:block;width:100%;text-align:left;padding:10px 14px;background:' + (isActive ? 'rgba(0,245,212,0.08)' : 'none') + ';border:none;color:' + (isActive ? 'var(--teal)' : 'var(--text)') + ';font-size:13px;font-family:\'Manrope\',sans-serif;cursor:pointer;font-weight:' + (isActive ? '700' : '400') + ';">'
+                    + EATING_STYLE_EMOJI[s] + ' ' + EATING_STYLE_LABELS[s]
+                    + (isActive ? ' ✓' : '')
+                    + '</button>';
+                }).join('')
+              + (isOverridden ? '<div style="border-top:1px solid var(--border);"><button onclick="twClearStyle(\'' + dayKey + '\')" style="display:block;width:100%;text-align:left;padding:10px 14px;background:none;border:none;color:var(--text3);font-size:12px;font-family:\'Manrope\',sans-serif;cursor:pointer;">↩ Reset to default</button></div>' : '')
+            + '</div>'
+          + '</div>'
         + '</div>'
         + '<div style="padding:12px 14px;border-radius:var(--radius-sm);background:' + styleColor + '12;border:1px solid ' + styleColor + '33;margin-bottom:14px;">'
           + '<div style="font-weight:700;color:' + styleColor + ';margin-bottom:4px;font-size:15px;">' + EATING_STYLE_EMOJI[style] + ' ' + styleInfo.label + '</div>'
