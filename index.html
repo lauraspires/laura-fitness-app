@@ -748,8 +748,8 @@
     }
     .pwo-cell {
       font-size: 9px;
-      color: var(--text2);
-      padding: 5px 3px;
+      color: #c0bebb;
+      padding: 6px 4px;
       border-right: 1px solid var(--border);
       overflow: hidden;
       text-overflow: ellipsis;
@@ -757,10 +757,12 @@
       cursor: pointer;
       display: flex;
       align-items: center;
+      justify-content: center;
       line-height: 1.2;
+      text-align: center;
     }
     .pwo-cell:last-child { border-right: none; }
-    .pwo-cell.selected-col { background: rgba(0,245,212,0.06); }
+    .pwo-cell.selected-col { background: rgba(0,245,212,0.08); color: var(--teal); }
     .pwo-header-row .pwo-cell {
       font-size: 8px;
       font-weight: 700;
@@ -769,8 +771,11 @@
       color: var(--text3);
       background: var(--bg2);
       justify-content: center;
+      padding: 7px 4px;
     }
     .pwo-header-row .pwo-cell.selected-col { color: var(--teal); background: rgba(0,245,212,0.08); }
+    .pwo-slot-label { font-size: 9px; }
+    .pwo-row { min-height: 32px; }
 
     /* ── THIS WEEK: dashboard-style 7-cell strip on mobile ── */
     #thisweek-grid > div {
@@ -833,10 +838,64 @@
       grid-template-columns: 1fr !important;
     }
 
-    /* ── KITCHEN / SHOPPING: single column ── */
-    #pantry-sections {
-      grid-template-columns: 1fr !important;
+    /* ── KITCHEN: hide grid, show category strip ── */
+    #pantry-sections { display: none !important; }
+    #kitchen-mobile-wrap { display: block !important; }
+
+    /* Kitchen category strip — 4 equal wide tabs */
+    #kitchen-cat-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 14px;
     }
+    .kitchen-cat-cell {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 4px 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .kitchen-cat-cell.selected {
+      background: rgba(0,245,212,0.12);
+      border-color: var(--teal);
+    }
+    .kitchen-cat-emoji { font-size: 20px; margin-bottom: 4px; line-height: 1; }
+    .kitchen-cat-label { font-size: 10px; font-weight: 700; color: var(--text2); font-family: 'Manrope', sans-serif; }
+    .kitchen-cat-count { font-size: 9px; color: var(--text3); margin-top: 2px; }
+
+    /* Kitchen bottom sheet */
+    #kitchen-sheet-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 200;
+    }
+    #kitchen-sheet-backdrop.open { display: block; }
+    #kitchen-bottom-sheet {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      max-height: 82vh;
+      background: var(--sidebar-bg);
+      border-radius: 20px 20px 0 0;
+      z-index: 201;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.32,0.72,0,1);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 0 0 max(24px, env(safe-area-inset-bottom));
+    }
+    #kitchen-bottom-sheet.open { transform: translateY(0); }
+    #kitchen-sheet-handle {
+      width: 36px; height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      margin: 10px auto 0;
+    }
+    #kitchen-sheet-content { padding: 0 16px 8px; }
 
     /* ── ROUTINES / SUPPLEMENTS: remove narrow max-width constraints ── */
     #routines-checklist-list label,
@@ -1688,6 +1747,11 @@
     </div>
   </div>
 
+  <!-- Mobile kitchen: category strip (hidden on desktop) -->
+  <div id="kitchen-mobile-wrap" style="display:none;">
+    <div id="kitchen-cat-strip"></div>
+  </div>
+
   <!-- Buy Again section -->
   <div id="pantry-buy-again-section" style="display:none;margin-top:20px;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
@@ -1865,7 +1929,7 @@
     <div class="page-sub">Your weekly eating schedule — what you're having each day</div>
   </div>
   <div id="planner-tab-planner">
-    <div id="planner-grid" style="display:flex;flex-direction:column;gap:8px;"></div>
+    <div id="planner-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"></div>
     <!-- Mobile planner: strip + week overview (hidden on desktop) -->
     <div id="planner-mobile-wrap" style="display:none;">
       <div id="planner-strip"></div>
@@ -4034,6 +4098,88 @@ function renderPlannerDaySheet(dayKey, el) {
 
   el.innerHTML = html;
 }
+
+// ── KITCHEN MOBILE: category strip + bottom sheet ──
+const KITCHEN_CATS = [
+  { key: 'fridge',   emoji: '🧊', label: 'Fridge'   },
+  { key: 'freezer',  emoji: '❄️', label: 'Freezer'  },
+  { key: 'cupboard', emoji: '🗄️', label: 'Cupboard' },
+  { key: 'counter',  emoji: '🍎', label: 'Counter'  },
+];
+let _kitchenSelectedCat = null;
+
+function renderKitchenMobile() {
+  if (window.innerWidth >= 768) return;
+  const pantry = loadPantry();
+  const strip = document.getElementById('kitchen-cat-strip');
+  if (!strip) return;
+  strip.innerHTML = KITCHEN_CATS.map(cat => {
+    const count = (pantry[cat.key] || []).length;
+    const isSelected = _kitchenSelectedCat === cat.key;
+    return `<div class="kitchen-cat-cell${isSelected ? ' selected' : ''}" onclick="kitchenSelectCat('${cat.key}')">
+      <div class="kitchen-cat-emoji">${cat.emoji}</div>
+      <div class="kitchen-cat-label">${cat.label}</div>
+      <div class="kitchen-cat-count">${count} item${count !== 1 ? 's' : ''}</div>
+    </div>`;
+  }).join('');
+}
+
+function kitchenSelectCat(catKey) {
+  _kitchenSelectedCat = catKey;
+  renderKitchenMobile();
+  const cat = KITCHEN_CATS.find(c => c.key === catKey);
+  const pantry = loadPantry();
+  const items = pantry[catKey] || [];
+  const content = document.getElementById('kitchen-sheet-content');
+  const sheet = document.getElementById('kitchen-bottom-sheet');
+  const backdrop = document.getElementById('kitchen-sheet-backdrop');
+  if (!content || !sheet || !backdrop) return;
+
+  const LOC_ACCENT = { fridge:'#00f5d4', freezer:'#00f5d4', cupboard:'#9ca3af', counter:'#9ca3af' };
+  const accent = LOC_ACCENT[catKey] || '#e5e2e1';
+
+  let html = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-top:12px;">
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:${accent};">${cat.emoji} ${cat.label}</div>
+    <button onclick="addPantryItem('${catKey}')" style="font-size:12px;padding:6px 14px;background:rgba(0,245,212,0.12);color:var(--teal);border:1px solid rgba(0,245,212,0.25);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
+  </div>`;
+
+  if (items.length === 0) {
+    html += '<div style="text-align:center;padding:32px 0;font-size:13px;color:var(--text3);">Nothing here yet — tap + Add to get started</div>';
+  } else {
+    html += '<div style="display:flex;flex-wrap:wrap;gap:8px;padding-bottom:8px;">';
+    items.forEach((item, idx) => {
+      const count = item.count || 1;
+      const depleted = count <= 0;
+      html += `<div style="display:inline-flex;align-items:center;gap:8px;padding:9px 14px;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.1);border-radius:12px;${depleted ? 'opacity:0.45;' : ''}">
+        <span onclick="editPantryItem('${catKey}',${idx});kitchenCloseSheet();" style="font-size:13px;font-weight:500;cursor:pointer;${depleted ? 'text-decoration:line-through;color:var(--text3);' : 'color:#e5e2e1;'}">${escapeHtml(item.name)}${item.size ? `<span style="font-size:10px;color:var(--text3);margin-left:3px;">${escapeHtml(item.size)}</span>` : ''}</span>
+        <span onclick="decrementPantryItem('${catKey}',${idx});renderKitchenMobile();kitchenSelectCat('${catKey}');" style="font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;cursor:pointer;background:var(--border);color:${accent};border:1px solid rgba(255,255,255,0.1);">×${count}</span>
+      </div>`;
+    });
+    html += '</div>';
+  }
+
+  content.innerHTML = html;
+  backdrop.classList.add('open');
+  requestAnimationFrame(() => sheet.classList.add('open'));
+  document.body.style.overflow = 'hidden';
+}
+
+function kitchenCloseSheet() {
+  const sheet = document.getElementById('kitchen-bottom-sheet');
+  const backdrop = document.getElementById('kitchen-sheet-backdrop');
+  if (sheet) sheet.classList.remove('open');
+  if (backdrop) backdrop.classList.remove('open');
+  document.body.style.overflow = '';
+  _kitchenSelectedCat = null;
+  renderKitchenMobile();
+}
+
+// Hook renderKitchenMobile into renderPantry
+const _origRenderPantry = renderPantry;
+renderPantry = function() {
+  _origRenderPantry();
+  renderKitchenMobile();
+};
 
 // Hook renderPlannerMobile into renderPlanner
 const _origRenderPlanner = renderPlanner;
@@ -9465,6 +9611,13 @@ function renderTWDayPanel(dayKey, targetEl) {
 <div id="tw-bottom-sheet" role="dialog" aria-modal="true">
   <div id="tw-sheet-handle"></div>
   <div id="tw-sheet-content"></div>
+</div>
+
+<!-- Bottom sheet for My Kitchen category (mobile) -->
+<div id="kitchen-sheet-backdrop" onclick="kitchenCloseSheet()"></div>
+<div id="kitchen-bottom-sheet">
+  <div id="kitchen-sheet-handle"></div>
+  <div id="kitchen-sheet-content"></div>
 </div>
 
 <!-- PWA Service Worker Registration -->
