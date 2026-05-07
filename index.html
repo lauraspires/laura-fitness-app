@@ -725,9 +725,9 @@
     .stat-card {
       padding: 12px 14px !important;
     }
-    /* Progress tracker: 2-column grid on mobile instead of 4 */
-    #page-progress .grid-4 {
-      grid-template-columns: 1fr 1fr !important;
+    /* Dashboard top stats: stack on mobile */
+    #dash-top-stats {
+      grid-template-columns: 1fr !important;
     }
 
     /* Workout day strip: 3-2-2 layout on mobile */
@@ -1085,26 +1085,28 @@
     <div class="page-sub">5 days training · David Lloyd Purley & Beckenham · Weight loss + strength</div>
   </div>
 
-  <div class="grid-4" style="margin-bottom:20px;">
-    <div class="stat-card">
-      <div class="stat-val" id="dash-stat-current-weight">64 <span style="font-size:16px;color:var(--text3);">kg</span></div>
-      <div class="stat-label">Current weight</div>
-      <div class="stat-sub">5ft / 152cm</div>
+  <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin-bottom:20px;" id="dash-top-stats">
+    <div class="stat-card" style="padding:16px 18px;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:8px;">Weight trend</div>
+      <canvas id="dash-sparkline" height="36" style="width:100%;display:block;margin-bottom:8px;"></canvas>
+      <div style="display:flex;align-items:baseline;gap:8px;">
+        <span class="stat-val" id="dash-stat-current-weight" style="font-size:22px;">64 <span style="font-size:14px;color:var(--text3);">kg</span></span>
+        <span id="dash-trend-badge" style="font-size:11px;font-weight:700;padding:2px 7px;border-radius:999px;background:rgba(0,245,212,0.12);color:var(--teal);"></span>
+      </div>
+      <div class="stat-sub" id="dash-trend-sub">No entries yet</div>
     </div>
-    <div class="stat-card">
-      <div class="stat-val">57 <span style="font-size:16px;color:var(--text3);">kg</span></div>
-      <div class="stat-label">Goal weight</div>
-      <div class="stat-sub">7kg to lose</div>
+    <div class="stat-card" style="padding:16px 18px;text-align:center;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:8px;">Goal</div>
+      <div class="stat-val" style="font-size:22px;">57 <span style="font-size:14px;color:var(--text3);">kg</span></div>
+      <div class="stat-sub" id="dash-togo-sub">7.0 kg to go</div>
+      <div style="background:var(--bg2);border-radius:999px;height:4px;margin-top:10px;overflow:hidden;"><div id="dash-bar-mini" style="background:var(--teal);height:4px;border-radius:999px;width:0%;transition:width 0.4s;"></div></div>
     </div>
-    <div class="stat-card">
-      <div class="stat-val">~14 <span style="font-size:16px;color:var(--text3);">wks</span></div>
-      <div class="stat-label">Estimated timeline</div>
-      <div class="stat-sub">At 0.5kg/week</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val">1,500 <span style="font-size:16px;color:var(--text3);">kcal</span></div>
-      <div class="stat-label">Daily calorie target</div>
-      <div class="stat-sub">120g protein/day</div>
+    <div class="stat-card" style="padding:16px 18px;text-align:center;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:8px;">Daily targets</div>
+      <div style="font-size:18px;font-weight:700;color:var(--text);" id="dash-kcal-val">1,500</div>
+      <div class="stat-sub">kcal</div>
+      <div style="font-size:14px;font-weight:700;color:var(--teal);margin-top:6px;" id="dash-protein-val">120g</div>
+      <div class="stat-sub">protein</div>
     </div>
   </div>
 
@@ -1337,17 +1339,12 @@
 
   <!-- ── TAB: Running Plans ── -->
   <div id="training-tab-plans" class="etab-page">
-    <div class="card" style="margin-bottom:16px;background:var(--bg2);border:1px dashed var(--border);">
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
-        <div>
-          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;">Sync status</div>
-          <div id="rp-sync-status" style="font-size:14px;color:var(--text2);margin-top:4px;">Checking…</div>
-        </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <button onclick="forceBackupNow()" style="padding:8px 14px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:600;cursor:pointer;font-size:13px;">↑ Backup to Drive</button>
-          <button onclick="restoreLocalBackup()" style="padding:8px 14px;background:var(--card);color:var(--text2);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:500;cursor:pointer;font-size:13px;">↻ Restore from this device</button>
-        </div>
-      </div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+      <span style="font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:0.07em;">Sync:</span>
+      <span id="rp-sync-status" style="font-size:12px;color:var(--text2);">Checking…</span>
+      <div style="flex:1;"></div>
+      <button onclick="forceBackupNow()" style="padding:5px 11px;background:var(--teal);color:#131313;border:none;border-radius:var(--radius-sm);font-family:'Manrope',sans-serif;font-weight:700;cursor:pointer;font-size:11px;">↑ Backup</button>
+      <button onclick="restoreLocalBackup()" style="padding:5px 11px;background:var(--card);color:var(--text2);border:1px solid var(--border);border-radius:var(--radius-sm);font-family:'Manrope',sans-serif;font-weight:500;cursor:pointer;font-size:11px;">↻ Restore</button>
     </div>
     <div class="card" style="margin-bottom:20px;">
       <div class="card-title" style="margin-bottom:16px;">Add a new running plan</div>
@@ -1359,7 +1356,7 @@
       </div>
       <button onclick="addRunningPlan()" style="width:100%;padding:12px 16px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:600;cursor:pointer;font-size:14px;">+ Add plan</button>
     </div>
-    <div id="running-plans-list" style="display:flex;flex-direction:column;gap:10px;">
+    <div id="running-plans-list" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
       <div style="text-align:center;color:var(--text3);padding:40px 20px;font-size:14px;">No running plans yet. Add one to get started!</div>
     </div>
   </div>
@@ -3438,6 +3435,7 @@ function updateDashboard() {
   const totalRange = START_WEIGHT - GOAL_WEIGHT;
   const pct      = Math.min(100, Math.max(0, Math.round((START_WEIGHT - current) / totalRange * 100)));
 
+  // Legacy weight progress card (still exists on dashboard)
   const cl = document.getElementById('dash-current-label');
   const bar = document.getElementById('dash-bar');
   const lostEl = document.getElementById('dash-lost');
@@ -3452,8 +3450,41 @@ function updateDashboard() {
   const sbCurrent = document.getElementById('sidebar-current-weight');
   if (sbCurrent) sbCurrent.textContent = current.toFixed(1) + 'kg';
 
+  // New compact top stats
   const statCard = document.getElementById('dash-stat-current-weight');
-  if (statCard) statCard.innerHTML = current.toFixed(1) + ' <span style="font-size:16px;color:var(--text3);">kg</span>';
+  if (statCard) statCard.innerHTML = current.toFixed(1) + ' <span style="font-size:14px;color:var(--text3);">kg</span>';
+
+  const trendBadge = document.getElementById('dash-trend-badge');
+  const trendSub = document.getElementById('dash-trend-sub');
+  if (weightEntries.length >= 2) {
+    const prev = weightEntries[weightEntries.length - 2].weight;
+    const diff = parseFloat((current - prev).toFixed(1));
+    if (trendBadge) {
+      if (diff < 0) { trendBadge.textContent = '▼ ' + Math.abs(diff) + 'kg'; trendBadge.style.background = 'rgba(0,245,212,0.12)'; trendBadge.style.color = 'var(--teal)'; }
+      else if (diff > 0) { trendBadge.textContent = '▲ ' + diff + 'kg'; trendBadge.style.background = 'rgba(239,68,68,0.1)'; trendBadge.style.color = 'var(--red)'; }
+      else { trendBadge.textContent = '= same'; trendBadge.style.background = 'var(--bg2)'; trendBadge.style.color = 'var(--text3)'; }
+    }
+    if (trendSub) trendSub.textContent = 'Last: ' + formatDate(weightEntries[weightEntries.length-1].date);
+  } else {
+    if (trendBadge) trendBadge.textContent = '';
+    if (trendSub) trendSub.textContent = weightEntries.length ? 'Only 1 entry so far' : 'No entries yet — tap + to log';
+  }
+
+  const miniBar = document.getElementById('dash-bar-mini');
+  if (miniBar) miniBar.style.width = pct + '%';
+  const togoSub = document.getElementById('dash-togo-sub');
+  if (togoSub) togoSub.textContent = (togo > 0 ? togo.toFixed(1) + ' kg to go' : '🎉 Goal reached!');
+
+  // Update calorie/protein from settings
+  const calTarget = getData('profile_calorie_target', 1500);
+  const protTarget = getData('profile_protein_target', 120);
+  const kcalEl = document.getElementById('dash-kcal-val');
+  const protEl = document.getElementById('dash-protein-val');
+  if (kcalEl) kcalEl.textContent = Number(calTarget).toLocaleString();
+  if (protEl) protEl.textContent = protTarget + 'g';
+
+  // Sparkline
+  renderDashSparkline(weightEntries);
 
   // update the subtitle on the dashboard weight card
   const weightSub = document.getElementById('dash-weight-sub');
@@ -3464,6 +3495,50 @@ function updateDashboard() {
       weightSub.textContent = 'No entries yet — tap + to log';
     }
   }
+}
+
+function renderDashSparkline(weightEntries) {
+  const canvas = document.getElementById('dash-sparkline');
+  if (!canvas) return;
+  const recent = weightEntries.slice(-12);
+  if (recent.length < 2) { canvas.style.display = 'none'; return; }
+  canvas.style.display = 'block';
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.parentElement ? (canvas.parentElement.getBoundingClientRect().width - 36) : 200;
+  const H = 36;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, W, H);
+  const vals = recent.map(function(e) { return e.weight; });
+  const minV = Math.min.apply(null, vals) - 0.3;
+  const maxV = Math.max.apply(null, vals) + 0.3;
+  const xS = function(i) { return (i / (recent.length - 1)) * W; };
+  const yS = function(v) { return H - 4 - ((v - minV) / (maxV - minV)) * (H - 8); };
+  // Fill area
+  ctx.beginPath();
+  ctx.moveTo(xS(0), H);
+  recent.forEach(function(e, i) { ctx.lineTo(xS(i), yS(e.weight)); });
+  ctx.lineTo(xS(recent.length - 1), H);
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(0,245,212,0.08)';
+  ctx.fill();
+  // Line
+  ctx.beginPath();
+  ctx.strokeStyle = '#00f5d4';
+  ctx.lineWidth = 1.5;
+  ctx.lineJoin = 'round';
+  recent.forEach(function(e, i) { i === 0 ? ctx.moveTo(xS(i), yS(e.weight)) : ctx.lineTo(xS(i), yS(e.weight)); });
+  ctx.stroke();
+  // Last dot
+  const last = recent[recent.length - 1];
+  ctx.beginPath();
+  ctx.arc(xS(recent.length - 1), yS(last.weight), 3, 0, Math.PI * 2);
+  ctx.fillStyle = '#00f5d4';
+  ctx.fill();
 }
 
 function openQuickLogModal() {
@@ -8891,25 +8966,29 @@ function renderDynamicWeeklyOverview() {
 function renderDashboardNutritionWidget(groups) {
   const el = document.getElementById('dashboard-nutrition-widget');
   if (!el) return;
-  if (!groups) {
-    // Build groups fresh
-    const routine = loadWorkoutRoutine();
-    const gMap = {};
-    routine.forEach(day => {
-      const style = day.dayKey === 'sat' ? 'omad' : getDayEatingStyle(day.dayKey, day.workoutTypes || []);
-      if (!gMap[style]) gMap[style] = [];
-      gMap[style].push(day.dayKey);
-    });
-    groups = gMap;
-  }
-  el.innerHTML = Object.entries(groups).map(([style, dayKeys]) => {
-    const s = EATING_STYLES[style] || EATING_STYLES.standard;
-    const dayNames = dayKeys.map(d => DAY_LABELS_LONG[d] || d).join(', ');
-    return '<div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">'
-      + '<span style="color:var(--text2);">' + escapeHtml(dayNames) + '</span>'
-      + '<span class="badge ' + s.badge + '">' + escapeHtml(s.label) + '</span>'
-      + '</div>';
-  }).join('');
+  const routine = loadWorkoutRoutine();
+  const DAY_ORDER = ['mon','tue','wed','thu','fri','sat','sun'];
+  const DAY_SHORT = {mon:'Mon',tue:'Tue',wed:'Wed',thu:'Thu',fri:'Fri',sat:'Sat',sun:'Sun'};
+  const todayKey = ['sun','mon','tue','wed','thu','fri','sat'][new Date().getDay()];
+  // Build per-day style map
+  const styleMap = {};
+  routine.forEach(function(day) {
+    styleMap[day.dayKey] = day.dayKey === 'sat' ? 'omad' : getDayEatingStyle(day.dayKey, day.workoutTypes || []);
+  });
+  el.innerHTML = '<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px;">'
+    + DAY_ORDER.map(function(d) {
+      const style = styleMap[d] || 'standard';
+      const s = EATING_STYLES[style] || EATING_STYLES.standard;
+      const isToday = d === todayKey;
+      const shortLabel = (s.label || style).split(' ')[0];
+      const emoji = EATING_STYLE_EMOJI[style] || '🥗';
+      return '<div style="text-align:center;background:var(--bg2);border-radius:8px;padding:7px 2px 6px;border:1px solid ' + (isToday ? 'var(--teal)' : 'var(--border)') + ';">'
+        + '<div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:' + (isToday ? 'var(--teal)' : 'var(--text3)') + ';margin-bottom:3px;">' + DAY_SHORT[d] + '</div>'
+        + '<div style="font-size:14px;line-height:1;margin-bottom:3px;">' + emoji + '</div>'
+        + '<div style="font-size:8px;font-weight:700;color:' + (EATING_STYLE_COLOR[style] || '#888') + ';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 2px;">' + shortLabel + '</div>'
+        + '</div>';
+    }).join('')
+    + '</div>';
 }
 
 // ─────────────────────────────────────────────
