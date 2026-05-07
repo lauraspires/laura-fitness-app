@@ -695,19 +695,49 @@
     /* Main padding tighter on small phones */
     .main { padding: 16px 14px 60px !important; }
 
-    /* ── THIS WEEK: horizontal scroll strip on mobile ── */
+    /* ── THIS WEEK: vertical stacked list on mobile ── */
     #thisweek-grid > div {
       display: flex !important;
-      flex-direction: row !important;
-      overflow-x: auto !important;
-      -webkit-overflow-scrolling: touch !important;
-      gap: 8px !important;
-      padding-bottom: 8px !important;
+      flex-direction: column !important;
+      gap: 6px !important;
     }
     #thisweek-grid > div > div {
-      flex: 0 0 110px !important;
-      min-width: 110px !important;
-      max-width: 110px !important;
+      flex: unset !important;
+      min-width: unset !important;
+      max-width: unset !important;
+      width: 100% !important;
+      min-height: unset !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      padding: 12px 14px !important;
+      gap: 12px !important;
+      text-align: left !important;
+    }
+    /* Day label column */
+    #thisweek-grid .tw-day-label-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 40px;
+    }
+    /* Workout content fills remaining space */
+    #thisweek-grid .tw-day-content-col {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    /* ── THIS WEEK: swap desktop/mobile layouts ── */
+    .tw-desktop-only { display: none !important; }
+    .tw-mobile-row   { display: flex !important; }
+
+    /* Each card: override the column flex to be a row */
+    #thisweek-grid > div > div {
+      flex-direction: row !important;
+      min-height: unset !important;
+      text-align: left !important;
     }
 
     /* ── THIS WEEK day panel: stack workout + food vertically ── */
@@ -8829,11 +8859,32 @@ function renderTWGrid() {
     const bg = isToday ? 'rgba(0,245,212,0.07)' : 'var(--card)';
     const outerBorder = isToday ? '1px solid var(--teal)' : '1px solid var(--border)';
 
+    // Mobile row: emoji(s) + workout name(s) inline
+    const workoutRowContent = isRest
+      ? '<span style="font-size:18px;">😴</span><span style="font-size:13px;color:var(--text3);margin-left:8px;">Rest day</span>'
+      : wts.map(t => {
+          const w = lib[t];
+          return w ? '<span style="font-size:18px;">' + w.emoji + '</span><span style="font-size:13px;font-weight:600;color:' + accentColor + ';margin-left:6px;">' + w.name + '</span>' : '';
+        }).join('<span style="font-size:11px;color:var(--text3);margin:0 4px;">+</span>');
+
     return '<div onclick="twSelectDay(\'' + day.dayKey + '\')" style="cursor:pointer;border-radius:var(--radius-sm);background:' + bg + ';border:' + outerBorder + ';border-left:3px ' + leftBorderStyle + ' ' + leftBorderColor + ';' + (isToday ? 'box-shadow:0 0 0 1px rgba(0,245,212,0.3);' : '') + 'padding:10px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;min-height:110px;transition:border-color 0.15s;" onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1">'
+      // Desktop layout (column)
+      + '<div class="tw-desktop-only" style="display:contents;">'
       + '<div style="font-size:11px;font-weight:700;color:' + (isToday ? 'var(--teal)' : 'var(--text)') + ';font-family:\'Space Grotesk\',sans-serif;">' + DAY_SHORT_TW[day.dayKey] + '</div>'
       + '<div style="font-size:10px;color:var(--text3);margin-bottom:4px;">' + dateStr + '</div>'
       + '<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;">' + workoutLines + '</div>'
       + '<div style="margin-top:4px;padding:2px 7px;border-radius:999px;background:' + styleColor + '20;color:' + styleColor + ';font-size:10px;font-weight:700;white-space:nowrap;">' + styleEmoji + ' ' + styleShort + '</div>'
+      + '</div>'
+      // Mobile layout (row) — hidden on desktop via CSS, shown on mobile
+      + '<div class="tw-mobile-row" style="display:none;width:100%;align-items:center;gap:12px;">'
+      + '<div style="min-width:42px;display:flex;flex-direction:column;align-items:center;">'
+      + '<div style="font-size:12px;font-weight:700;color:' + (isToday ? 'var(--teal)' : 'var(--text)') + ';font-family:\'Space Grotesk\',sans-serif;">' + DAY_SHORT_TW[day.dayKey] + '</div>'
+      + '<div style="font-size:10px;color:var(--text3);">' + dateStr + '</div>'
+      + '</div>'
+      + '<div style="flex:1;display:flex;align-items:center;flex-wrap:wrap;gap:2px;">' + workoutRowContent + '</div>'
+      + '<div style="padding:3px 9px;border-radius:999px;background:' + styleColor + '20;color:' + styleColor + ';font-size:11px;font-weight:700;white-space:nowrap;flex-shrink:0;">' + styleEmoji + ' ' + styleShort + '</div>'
+      + '<div style="color:var(--text3);font-size:14px;flex-shrink:0;">›</div>'
+      + '</div>'
     + '</div>';
   }).join('') + '</div>';
 }
