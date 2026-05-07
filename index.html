@@ -494,9 +494,10 @@
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
 
   @media (max-width: 900px) {
-    .sidebar { transform: translateX(-240px); transition: transform 0.3s ease; }
+    .sidebar { transform: translateX(-240px); transition: transform 0.3s ease; padding-top: 56px; }
     .sidebar.open { transform: translateX(0); }
-    .hub-switcher { padding-top: 64px !important; }
+    .sidebar-logo { padding-top: 12px !important; padding-bottom: 12px !important; margin-bottom: 8px !important; }
+    .sidebar-scroll { padding-top: 8px !important; }
     .main { margin-left: 0; padding: 20px; }
     .grid-4 { grid-template-columns: 1fr 1fr; }
     .grid-3 { grid-template-columns: 1fr 1fr; }
@@ -2768,6 +2769,11 @@ function launchApp() {
   if (typeof renderShoppingTickList === 'function') renderShoppingTickList();
   if (typeof updateAllClassBadges === 'function') updateAllClassBadges();
   if (typeof updateAllRunBadges === 'function') updateAllRunBadges();
+  // Keep API key in localStorage in sync with Drive data so mobile always finds it
+  try {
+    const k = getData(API_KEY_STORE, '');
+    if (k) localStorage.setItem(API_KEY_STORE, k);
+  } catch(e) {}
   setSyncStatus('ok', 'Synced');
 }
 
@@ -7264,8 +7270,8 @@ function saveApiKeySettings() {
   if (!key.trim()) { showNotification('Please enter a key first'); return; }
   setData(API_KEY_STORE, key.trim());
   scheduleSave();
-  // Migrate away from localStorage if present
-  try { localStorage.removeItem(API_KEY_STORE); } catch(e) {}
+  // Also persist directly to localStorage so mobile can always find it
+  try { localStorage.setItem(API_KEY_STORE, key.trim()); } catch(e) {}
   updateApiKeyStatus();
   showNotification('API key saved — will sync to Google Drive');
 }
