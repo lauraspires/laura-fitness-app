@@ -887,7 +887,7 @@
 
   <div class="sidebar-footer">
     <div class="stat-mini">
-      <div class="stat-mini-item"><div class="stat-mini-val">64kg</div><div class="stat-mini-label">Current</div></div>
+      <div class="stat-mini-item"><div class="stat-mini-val" id="sidebar-current-weight">64kg</div><div class="stat-mini-label">Current</div></div>
       <div class="stat-mini-item"><div class="stat-mini-val">→</div><div class="stat-mini-label"></div></div>
       <div class="stat-mini-item"><div class="stat-mini-val">57kg</div><div class="stat-mini-label">Goal</div></div>
     </div>
@@ -908,7 +908,7 @@
 
   <div class="grid-4" style="margin-bottom:20px;">
     <div class="stat-card">
-      <div class="stat-val">64 <span style="font-size:16px;color:var(--text3);">kg</span></div>
+      <div class="stat-val" id="dash-stat-current-weight">64 <span style="font-size:16px;color:var(--text3);">kg</span></div>
       <div class="stat-label">Current weight</div>
       <div class="stat-sub">5ft / 152cm</div>
     </div>
@@ -3278,8 +3278,11 @@ function updateDashboard() {
   if (togoEl) togoEl.textContent = (togo > 0 ? togo.toFixed(1) : '0.0') + 'kg';
   if (entriesEl) entriesEl.textContent = weightEntries.length;
 
-  const sbCurrent = document.querySelector('.stat-mini-item:first-child .stat-mini-val');
+  const sbCurrent = document.getElementById('sidebar-current-weight');
   if (sbCurrent) sbCurrent.textContent = current.toFixed(1) + 'kg';
+
+  const statCard = document.getElementById('dash-stat-current-weight');
+  if (statCard) statCard.innerHTML = current.toFixed(1) + ' <span style="font-size:16px;color:var(--text3);">kg</span>';
 
   // update the subtitle on the dashboard weight card
   const weightSub = document.getElementById('dash-weight-sub');
