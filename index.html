@@ -695,6 +695,83 @@
     /* Main padding tighter on small phones */
     .main { padding: 16px 14px 60px !important; }
 
+    /* ── MEAL PLANNER: mobile layout ── */
+    #planner-grid { display: none !important; }
+    #planner-mobile-wrap { display: block !important; }
+
+    /* Planner strip — same as TW strip */
+    #planner-strip {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+    .planner-strip-cell {
+      border-radius: 8px;
+      padding: 8px 2px 6px;
+      text-align: center;
+      cursor: pointer;
+      background: var(--card);
+      border: 1px solid var(--border);
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .planner-strip-cell.selected {
+      background: rgba(0,245,212,0.12);
+      border-color: var(--teal);
+    }
+
+    /* Week overview grid */
+    #planner-week-overview {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+    .pwo-row {
+      display: grid;
+      grid-template-columns: 44px repeat(7, 1fr);
+      border-bottom: 1px solid var(--border);
+    }
+    .pwo-row:last-child { border-bottom: none; }
+    .pwo-slot-label {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text3);
+      padding: 6px 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg2);
+      border-right: 1px solid var(--border);
+    }
+    .pwo-cell {
+      font-size: 9px;
+      color: var(--text2);
+      padding: 5px 3px;
+      border-right: 1px solid var(--border);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      line-height: 1.2;
+    }
+    .pwo-cell:last-child { border-right: none; }
+    .pwo-cell.selected-col { background: rgba(0,245,212,0.06); }
+    .pwo-header-row .pwo-cell {
+      font-size: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text3);
+      background: var(--bg2);
+      justify-content: center;
+    }
+    .pwo-header-row .pwo-cell.selected-col { color: var(--teal); background: rgba(0,245,212,0.08); }
+
     /* ── THIS WEEK: dashboard-style 7-cell strip on mobile ── */
     #thisweek-grid > div {
       display: grid !important;
@@ -1750,6 +1827,11 @@
         <div class="stat-card"><div class="stat-val" id="pt-earldays">1</div><div class="stat-label">Early finish days</div><div class="stat-sub">Thu WFH</div></div>
       </div>
       <div id="planner-grid" style="display:flex;flex-direction:column;gap:8px;"></div>
+      <!-- Mobile planner: strip + week overview (hidden on desktop) -->
+      <div id="planner-mobile-wrap" style="display:none;">
+        <div id="planner-strip"></div>
+        <div id="planner-week-overview"></div>
+      </div>
       <div style="text-align:center;margin-top:20px;">
         <button onclick="resetPlanner()" style="font-size:13px;color:var(--text3);background:none;border:1px solid var(--border);cursor:pointer;padding:8px 20px;border-radius:999px;font-family:'Manrope', sans-serif;" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text3)'">Reset to default plan</button>
       </div>
@@ -3809,6 +3891,157 @@ function renderPlanner() {
   if (el('pt-avgcal')) el('pt-avgcal').innerHTML = avg(totalKcal) + '<span style="font-size:16px;color:var(--text3);"> kcal</span>';
   if (el('pt-avgpro')) el('pt-avgpro').innerHTML = avg(totalPro) + '<span style="font-size:16px;color:var(--text3);">g</span>';
 }
+
+// ── MOBILE PLANNER ──────────────────────────────────────────
+let _plannerSelectedDay = null;
+
+function renderPlannerMobile() {
+  if (window.innerWidth >= 768) return;
+  const DAYS = buildPlannerDays();
+  plannerState = loadPlannerState();
+  const DAY_SHORT = { mon:'Mon', tue:'Tue', wed:'Wed', thu:'Thu', fri:'Fri', sat:'Sat', sun:'Sun' };
+  const todayKey = ['sun','mon','tue','wed','thu','fri','sat'][new Date().getDay()];
+
+  // ── Strip ──
+  const strip = document.getElementById('planner-strip');
+  if (strip) {
+    strip.innerHTML = DAYS.map(day => {
+      const c = COLOR_MAP[day.color];
+      const isSelected = _plannerSelectedDay === day.key;
+      const isToday = day.key === todayKey;
+      return `<div class="planner-strip-cell${isSelected ? ' selected' : ''}" onclick="plannerSelectDay('${day.key}')">
+        <div class="tw-strip-letter${isToday ? ' today' : ''}">${DAY_SHORT[day.key]}</div>
+        <div class="tw-strip-emoji">${day.emoji.split(' + ')[0]}</div>
+        <div class="tw-strip-name" style="color:${c.text};">${day.tag.split(' + ')[0]}</div>
+        <div class="tw-strip-dot" style="background:${c.text};opacity:0.8;"></div>
+      </div>`;
+    }).join('');
+  }
+
+  // ── Week overview table ──
+  const overview = document.getElementById('planner-week-overview');
+  if (!overview) return;
+
+  const dayKeys = DAYS.map(d => d.key);
+  const DAY_INITIALS = { mon:'M', tue:'T', wed:'W', thu:'T', fri:'F', sat:'S', sun:'S' };
+
+  // Header row
+  let html = '<div class="pwo-row pwo-header-row">'
+    + '<div class="pwo-slot-label"></div>'
+    + DAYS.map(d => `<div class="pwo-cell${_plannerSelectedDay === d.key ? ' selected-col' : ''}" onclick="plannerSelectDay('${d.key}')">${DAY_INITIALS[d.key]}</div>`).join('')
+    + '</div>';
+
+  // Slot rows
+  SLOTS.forEach(slot => {
+    html += '<div class="pwo-row">'
+      + `<div class="pwo-slot-label">${SLOT_ICONS[slot]}</div>`
+      + DAYS.map(d => {
+          const mealName = plannerState[d.key] && plannerState[d.key][slot];
+          const isEatingOut = mealName === EATING_OUT_SENTINEL;
+          const isSelected = _plannerSelectedDay === d.key;
+          let label = '';
+          if (isEatingOut) label = '🍽️ Out';
+          else if (mealName && mealName.startsWith && mealName.startsWith(RECIME_SENTINEL_PREFIX)) label = '🍳 ReciMe';
+          else if (mealName) label = mealName.split(' ').slice(0,3).join(' ');
+          else label = '—';
+          return `<div class="pwo-cell${isSelected ? ' selected-col' : ''}" onclick="plannerSelectDay('${d.key}')" title="${mealName || ''}">${label}</div>`;
+        }).join('')
+      + '</div>';
+  });
+
+  overview.innerHTML = html;
+}
+
+function plannerSelectDay(dayKey) {
+  _plannerSelectedDay = dayKey;
+  renderPlannerMobile();
+
+  const content = document.getElementById('planner-sheet-content');
+  const backdrop = document.getElementById('planner-sheet-backdrop');
+  const sheet = document.getElementById('planner-bottom-sheet');
+  if (!content || !sheet || !backdrop) return;
+
+  renderPlannerDaySheet(dayKey, content);
+  backdrop.style.display = 'block';
+  requestAnimationFrame(() => sheet.style.transform = 'translateY(0)');
+  document.body.style.overflow = 'hidden';
+}
+
+function plannerCloseSheet() {
+  const sheet = document.getElementById('planner-bottom-sheet');
+  const backdrop = document.getElementById('planner-sheet-backdrop');
+  if (sheet) sheet.style.transform = 'translateY(100%)';
+  if (backdrop) backdrop.style.display = 'none';
+  document.body.style.overflow = '';
+  _plannerSelectedDay = null;
+  renderPlannerMobile();
+}
+
+function renderPlannerDaySheet(dayKey, el) {
+  const DAYS = buildPlannerDays();
+  const day = DAYS.find(d => d.key === dayKey);
+  if (!day || !el) return;
+  plannerState = loadPlannerState();
+  const c = COLOR_MAP[day.color];
+  const totals = getDayTotals(dayKey);
+
+  let html = `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+    <div>
+      <div style="font-size:20px;font-weight:700;font-family:'Space Grotesk',sans-serif;color:${c.text};">${day.label}</div>
+      <div style="font-size:12px;color:var(--text3);">${day.emoji} ${day.tag}</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="text-align:right;">
+        <div style="font-size:14px;font-weight:700;color:${c.text};">${totals.kcal} kcal</div>
+        <div style="font-size:11px;color:var(--text3);">${totals.pro}g protein</div>
+      </div>
+      <button onclick="plannerCloseSheet()" style="background:none;border:none;color:var(--text3);font-size:20px;cursor:pointer;padding:4px;line-height:1;">✕</button>
+    </div>
+  </div>`;
+
+  SLOTS.forEach(slot => {
+    const mealName = plannerState[dayKey] && plannerState[dayKey][slot];
+    const isEatingOut = mealName === EATING_OUT_SENTINEL;
+    const isReciMe = mealName && mealName.startsWith && mealName.startsWith(RECIME_SENTINEL_PREFIX);
+    const meal = getMealData(slot, mealName);
+
+    let cardContent = '';
+    if (isEatingOut) {
+      const eoData = getEoData(dayKey, slot);
+      cardContent = `<div style="font-size:13px;font-weight:600;color:var(--amber);">🍽️ Eating out</div>
+        <div style="font-size:11px;color:var(--text3);">${eoData && eoData.note ? eoData.note : 'Tap to add details'}</div>`;
+    } else if (isReciMe) {
+      const rmKey = mealName.replace(RECIME_SENTINEL_PREFIX,'');
+      const stored = loadReciMeData()[rmKey] || { name:'ReciMe meal' };
+      cardContent = `<div style="font-size:13px;font-weight:600;color:var(--amber);">🍳 ${stored.name}</div>`;
+    } else {
+      cardContent = `<div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;">${meal.name}</div>
+        <div style="font-size:11px;color:var(--text3);line-height:1.4;">${meal.desc.length > 60 ? meal.desc.substring(0,60)+'…' : meal.desc}</div>
+        <div style="display:flex;gap:5px;margin-top:5px;flex-wrap:wrap;">
+          ${meal.kcal ? `<span style="font-size:10px;font-weight:600;padding:2px 6px;border-radius:999px;background:var(--coral-light);color:var(--coral);">${meal.kcal} kcal</span>` : ''}
+          ${meal.pro ? `<span style="font-size:10px;font-weight:600;padding:2px 6px;border-radius:999px;background:var(--teal-light);color:var(--teal);">${meal.pro}g</span>` : ''}
+        </div>`;
+    }
+
+    html += `<div style="margin-bottom:10px;">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);margin-bottom:5px;">${SLOT_ICONS[slot]} ${SLOT_LABELS[slot]}</div>
+      <div style="background:var(--bg);border:1px solid ${c.border};border-radius:var(--radius-sm);padding:10px 12px;cursor:pointer;"
+           onclick="openModal('${dayKey}','${slot}');plannerCloseSheet();">
+        ${cardContent}
+        <div style="font-size:10px;color:var(--text3);margin-top:5px;">✏️ tap to swap</div>
+      </div>
+    </div>`;
+  });
+
+  el.innerHTML = html;
+}
+
+// Hook renderPlannerMobile into renderPlanner
+const _origRenderPlanner = renderPlanner;
+renderPlanner = function() {
+  _origRenderPlanner();
+  renderPlannerMobile();
+};
 
 function openModal(dayKey, slot) {
   const DAYS = buildPlannerDays();
@@ -9222,6 +9455,13 @@ function renderTWDayPanel(dayKey, targetEl) {
     <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'Manrope', sans-serif;margin-bottom:10px;">Choose a replacement</div>
     <div id="modal-options" style="display:flex;flex-direction:column;gap:8px;"></div>
   </div>
+</div>
+
+<!-- Bottom sheet for Meal Planner day detail (mobile) -->
+<div id="planner-sheet-backdrop" onclick="plannerCloseSheet()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:200;"></div>
+<div id="planner-bottom-sheet" style="position:fixed;left:0;right:0;bottom:0;max-height:85vh;background:var(--sidebar-bg);border-radius:20px 20px 0 0;z-index:201;transform:translateY(100%);transition:transform 0.3s cubic-bezier(0.32,0.72,0,1);overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 0 max(24px,env(safe-area-inset-bottom));">
+  <div style="width:36px;height:4px;background:var(--border);border-radius:2px;margin:10px auto 14px;"></div>
+  <div id="planner-sheet-content" style="padding:0 16px 8px;"></div>
 </div>
 
 <!-- Bottom sheet for This Week day detail (mobile) -->
