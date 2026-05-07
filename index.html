@@ -1194,11 +1194,8 @@
 
   <!-- ── TAB: Gym Workouts ── -->
   <div id="training-tab-gym" class="etab-page active">
-    <div class="card" style="margin-bottom:16px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-        <div style="font-size:13.5px;color:var(--text2);line-height:1.7;max-width:680px;"><strong style="color:var(--text);">Progressive overload is the key.</strong> Track your weights every session. When you hit the top of the rep range for 2 sessions in a row, add 2.5kg and work back up. David Lloyd Purley and Beckenham both have full free weights and cable areas.</div>
-        <button onclick="openAddGymWorkoutModal()" style="padding:8px 16px;background:var(--teal-light);color:var(--teal);border:1.5px solid var(--teal);border-radius:999px;font-family:'Manrope',sans-serif;font-weight:700;cursor:pointer;font-size:13px;white-space:nowrap;flex-shrink:0;">+ Add workout</button>
-      </div>
+    <div style="margin-bottom:16px;">
+      <button onclick="openAddGymWorkoutModal()" style="padding:8px 16px;background:var(--teal-light);color:var(--teal);border:1.5px solid var(--teal);border-radius:999px;font-family:'Manrope',sans-serif;font-weight:700;cursor:pointer;font-size:13px;">+ Add workout</button>
     </div>
     <div id="gym-workouts-list"></div>
   </div>
@@ -2609,8 +2606,9 @@ function goTo(page, el) {
   // Per-page init — always reset to first sub-tab on every navigation
   if (page === 'pantry') { try { renderPantry(); } catch(e) {} try { renderBuyAgain(); } catch(e) {} try { renderKitchenMobile(); } catch(e) {} try { kitchenSelectCat('fridge'); } catch(e) {} }
   if (page === 'mealplan') {
-    try { renderPlannerStrip(); } catch(e) {}
     try {
+      _plannerSelectedDay = null; // reset so auto-open never triggers toggle-off
+      renderPlannerStrip();
       const _todayKey = ['sun','mon','tue','wed','thu','fri','sat'][new Date().getDay()];
       const _autoKey = ['mon','tue','wed','thu','fri','sat','sun'].includes(_todayKey) ? _todayKey : 'mon';
       plannerSelectDay(_autoKey);
@@ -2625,6 +2623,7 @@ function goTo(page, el) {
     try { switchEat('guide', document.querySelector('#nutr-tab-guide .eating-tabs .etab')); } catch(e) {}
   }
   if (page === 'thisweek') {
+    _twSelectedDay = null; // reset so auto-open never triggers toggle-off
     renderThisWeekPage();
     try {
       const _twTodayKey = ['sun','mon','tue','wed','thu','fri','sat'][new Date().getDay()];
@@ -9586,33 +9585,15 @@ function renderTWDayPanel(dayKey, targetEl) {
   </div>
 </div>
 
-<div id="planner-sheet-backdrop" onclick="plannerCloseSheet()" style="display:none;"></div>
-<div id="planner-bottom-sheet" style="position:fixed;inset:0;background:var(--bg);z-index:201;transform:translateX(100%);transition:transform 0.28s cubic-bezier(0.32,0.72,0,1);overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 0 max(24px,env(safe-area-inset-bottom));">
-  <div id="planner-sheet-topbar" style="display:flex;align-items:center;gap:12px;padding:14px 16px 10px;border-bottom:1px solid var(--border);margin-bottom:8px;position:sticky;top:0;background:var(--bg);z-index:1;">
-    <button onclick="plannerCloseSheet()" style="background:none;border:none;color:var(--teal);font-size:16px;font-weight:700;cursor:pointer;padding:4px;font-family:'Manrope',sans-serif;display:flex;align-items:center;gap:6px;">← Back</button>
-  </div>
-  <div id="planner-sheet-content" style="padding:0 16px 8px;"></div>
-</div>
+<!-- Planner sheet elements kept for JS references — hidden, not used for display -->
+<div id="planner-sheet-backdrop" style="display:none;"></div>
+<div id="planner-bottom-sheet" style="display:none;"><div id="planner-sheet-content"></div></div>
 
-<!-- Full-screen slide for This Week day detail (mobile) -->
-<div id="tw-sheet-backdrop" onclick="twCloseSheet()"></div>
-<div id="tw-bottom-sheet" role="dialog" aria-modal="true">
-  <div id="tw-sheet-topbar">
-    <button onclick="twCloseSheet()" style="background:none;border:none;color:var(--teal);font-size:16px;font-weight:700;cursor:pointer;padding:4px;font-family:'Manrope',sans-serif;display:flex;align-items:center;gap:6px;">← Back</button>
-  </div>
-  <div id="tw-sheet-handle"></div>
-  <div id="tw-sheet-content"></div>
-</div>
-
-<!-- Full-screen slide for My Kitchen category (mobile) -->
-<div id="kitchen-sheet-backdrop" onclick="kitchenCloseSheet()"></div>
-<div id="kitchen-bottom-sheet">
-  <div id="kitchen-sheet-topbar">
-    <button onclick="kitchenCloseSheet()" style="background:none;border:none;color:var(--teal);font-size:16px;font-weight:700;cursor:pointer;padding:4px;font-family:'Manrope',sans-serif;display:flex;align-items:center;gap:6px;">← Back</button>
-  </div>
-  <div id="kitchen-sheet-handle"></div>
-  <div id="kitchen-sheet-content"></div>
-</div>
+<!-- Sheet elements kept for JS references — hidden, not used for display -->
+<div id="tw-sheet-backdrop" style="display:none;"></div>
+<div id="tw-bottom-sheet" style="display:none;"><div id="tw-sheet-handle"></div><div id="tw-sheet-content"></div></div>
+<div id="kitchen-sheet-backdrop" style="display:none;"></div>
+<div id="kitchen-bottom-sheet" style="display:none;"><div id="kitchen-sheet-handle"></div><div id="kitchen-sheet-content"></div></div>
 
 <!-- PWA Service Worker Registration -->
 <script>
