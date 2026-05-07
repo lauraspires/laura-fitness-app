@@ -2543,7 +2543,7 @@ function goTo(page, el) {
     try { renderPlanner(); } catch(e) {}
   }
   if (page === 'thisweek') renderThisWeekPage();
-  if (page === 'settings') { updateApiKeyStatus(); populateProfileSettingsInputs(); }
+  if (page === 'settings') { updateApiKeyStatus(); populateProfileSettingsInputs(); populateApiKeyInput(); }
   if (page === 'routines') {
     // Always reset to Daily Rituals, then Overview inside it
     try { switchWellbeingTab1('routines', document.getElementById('wtab-routines')); } catch(e) {}
@@ -7248,28 +7248,34 @@ function renderRoutinesTweaks() {
 const API_KEY_STORE = 'laura_anthropic_api_key';
 
 function getAnthropicApiKey() {
-  // Primary: dedicated localStorage entry (never touched by Drive sync)
+  // 1. Drive-synced gAppData — the authoritative source across all devices
+  const synced = getData(API_KEY_STORE, '');
+  if (synced) return synced;
+  // 2. Local localStorage fallback (same device, survives if Drive is slow/offline)
   try {
     const local = localStorage.getItem(API_KEY_STORE);
     if (local) return local;
   } catch(e) {}
-  // Secondary: Drive-synced gAppData (populated after sign-in)
-  const synced = getData(API_KEY_STORE, '');
-  if (synced) return synced;
   return '';
 }
 function hasAnthropicApiKey() { return !!getAnthropicApiKey(); }
 
-function saveApiKeySettings() {
+async function saveApiKeySettings() {
   const key = (document.getElementById('settings-api-key') || {}).value || '';
   if (!key.trim()) { showNotification('Please enter a key first'); return; }
-  // Write to localStorage immediately — this is the primary storage for the key
-  try { localStorage.setItem(API_KEY_STORE, key.trim()); } catch(e) {}
-  // Also write to gAppData so it syncs to Drive for future cross-device use
+  // Write to gAppData
   setData(API_KEY_STORE, key.trim());
-  scheduleSave();
+  // Also to localStorage as local fallback
+  try { localStorage.setItem(API_KEY_STORE, key.trim()); } catch(e) {}
   updateApiKeyStatus();
-  showNotification('API key saved');
+  // Save to Drive immediately (not debounced) so a refresh won't lose it
+  setSyncStatus('saving', 'Saving…');
+  try {
+    await saveToDrive();
+    showNotification('API key saved & synced to Drive ✓');
+  } catch(e) {
+    showNotification('API key saved locally — sync failed, try again');
+  }
 }
 
 function toggleApiKeyVisibility(btn) {
@@ -7285,6 +7291,13 @@ function toggleApiKeyVisibility(btn) {
     inp.type = 'password';
     btn.textContent = 'Show';
   }
+}
+
+function populateApiKeyInput() {
+  const inp = document.getElementById('settings-api-key');
+  if (!inp) return;
+  const k = getAnthropicApiKey();
+  if (k) inp.value = k; // pre-fill so user can see it's there (still masked as password type)
 }
 
 function updateApiKeyStatus() {
