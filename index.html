@@ -725,9 +725,12 @@
     .stat-card {
       padding: 12px 14px !important;
     }
-    /* Dashboard top stats: stack on mobile */
+    /* Dashboard top stats: weight spans full row, goal+targets side-by-side below */
     #dash-top-stats {
-      grid-template-columns: 1fr !important;
+      grid-template-columns: 1fr 1fr !important;
+    }
+    #dash-top-stats > div:first-child {
+      grid-column: 1 / -1 !important;
     }
 
     /* Workout day strip: 3-2-2 layout on mobile */
@@ -816,36 +819,8 @@
     .tw-desktop-only { display: none !important; }
     .tw-mobile-row   { display: flex !important; flex-direction: column !important; align-items: center !important; width: 100% !important; gap: 3px !important; }
     /* ── BOTTOM SHEET ── */
-    #tw-sheet-backdrop {
-      display: none;
-    }
-    #tw-sheet-backdrop.open { display: none; }
-    #tw-bottom-sheet {
-      position: fixed;
-      inset: 0;
-      background: var(--bg);
-      z-index: 201;
-      transform: translateX(100%);
-      transition: transform 0.28s cubic-bezier(0.32,0.72,0,1);
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      padding: 0 0 max(24px, env(safe-area-inset-bottom));
-    }
-    #tw-bottom-sheet.open { transform: translateX(0); }
-    #tw-sheet-handle { display: none; }
-    #tw-sheet-content { padding: 0 16px 8px; }
-    #tw-sheet-topbar {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 16px 10px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 8px;
-      position: sticky;
-      top: 0;
-      background: var(--bg);
-      z-index: 1;
-    }
+    /* TW bottom sheet hidden — mobile uses inline panel same as desktop */
+    #tw-sheet-backdrop, #tw-bottom-sheet { display: none !important; }
 
     /* ── THIS WEEK day panel: stack workout + food vertically ── */
     .tw-day-panel-grid {
@@ -855,37 +830,8 @@
     /* Kitchen category strip — tighter gap on mobile */
     #kitchen-cat-strip { gap: 6px !important; margin-bottom: 12px !important; }
 
-    /* Kitchen bottom sheet — full-screen slide */
-    #kitchen-sheet-backdrop {
-      display: none;
-    }
-    #kitchen-sheet-backdrop.open { display: none; }
-    #kitchen-bottom-sheet {
-      position: fixed;
-      inset: 0;
-      background: var(--bg);
-      z-index: 201;
-      transform: translateX(100%);
-      transition: transform 0.28s cubic-bezier(0.32,0.72,0,1);
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      padding: 0 0 max(24px, env(safe-area-inset-bottom));
-    }
-    #kitchen-bottom-sheet.open { transform: translateX(0); }
-    #kitchen-sheet-handle { display: none; }
-    #kitchen-sheet-content { padding: 0 16px 8px; }
-    #kitchen-sheet-topbar {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 16px 10px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 8px;
-      position: sticky;
-      top: 0;
-      background: var(--bg);
-      z-index: 1;
-    }
+    /* Kitchen bottom sheet hidden — mobile uses inline panel same as desktop */
+    #kitchen-sheet-backdrop, #kitchen-bottom-sheet { display: none !important; }
 
     /* ── ROUTINES / SUPPLEMENTS: remove narrow max-width constraints ── */
     #routines-checklist-list label,
@@ -910,20 +856,8 @@
     }
   }
 
-  /* ── FULL-SCREEN SLIDES (mobile — used for This Week, Meal Plan, Kitchen detail views) ── */
-  #tw-bottom-sheet,
-  #kitchen-bottom-sheet,
-  #planner-bottom-sheet {
-    display: block; /* always exists, just off-screen until opened */
-  }
-  @media (min-width: 768px) {
-    /* On desktop these views are inline panels — hide the full-screen slides */
-    #tw-bottom-sheet,
-    #kitchen-bottom-sheet,
-    #planner-bottom-sheet {
-      display: none !important;
-    }
-  }
+  /* Planner bottom sheet hidden — mobile uses inline panel same as desktop */
+  #planner-sheet-backdrop, #planner-bottom-sheet { display: none !important; }
 
   /* ── WIDTH CONSTRAINTS (desktop only — content should only be as wide as it needs to be) ── */
   @media (min-width: 601px) {
@@ -1263,7 +1197,7 @@
     <div class="card" style="margin-bottom:16px;">
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
         <div style="font-size:13.5px;color:var(--text2);line-height:1.7;max-width:680px;"><strong style="color:var(--text);">Progressive overload is the key.</strong> Track your weights every session. When you hit the top of the rep range for 2 sessions in a row, add 2.5kg and work back up. David Lloyd Purley and Beckenham both have full free weights and cable areas.</div>
-        <button onclick="openAddGymWorkoutModal()" style="padding:10px 18px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:600;cursor:pointer;font-size:14px;white-space:nowrap;flex-shrink:0;">+ Add workout</button>
+        <button onclick="openAddGymWorkoutModal()" style="padding:8px 16px;background:var(--teal-light);color:var(--teal);border:1.5px solid var(--teal);border-radius:999px;font-family:'Manrope',sans-serif;font-weight:700;cursor:pointer;font-size:13px;white-space:nowrap;flex-shrink:0;">+ Add workout</button>
       </div>
     </div>
     <div id="gym-workouts-list"></div>
@@ -4065,27 +3999,14 @@ function plannerSelectDay(dayKey) {
   _plannerSelectedDay = dayKey;
   renderPlannerStrip();
 
-  if (window.innerWidth < 768) {
-    // Mobile: bottom sheet
-    const content = document.getElementById('planner-sheet-content');
-    const backdrop = document.getElementById('planner-sheet-backdrop');
-    const sheet = document.getElementById('planner-bottom-sheet');
-    if (!content || !sheet || !backdrop) return;
-    renderPlannerDaySheet(dayKey, content);
-    requestAnimationFrame(() => sheet.style.transform = 'translateX(0)');
-  } else {
-    // Desktop: inline panel below strip
-    const panel = document.getElementById('planner-day-panel');
-    if (!panel) return;
-    panel.style.display = 'block';
-    renderPlannerDaySheet(dayKey, panel);
-  }
+  // Always use inline panel (desktop and mobile)
+  const panel = document.getElementById('planner-day-panel');
+  if (!panel) return;
+  panel.style.display = 'block';
+  renderPlannerDaySheet(dayKey, panel);
 }
 
 function plannerCloseSheet() {
-  const sheet = document.getElementById('planner-bottom-sheet');
-  const backdrop = document.getElementById('planner-sheet-backdrop');
-  if (sheet) sheet.style.transform = 'translateX(100%)';
   _plannerSelectedDay = null;
   renderPlannerStrip();
   const panel = document.getElementById('planner-day-panel');
@@ -4099,9 +4020,7 @@ function renderPlannerDaySheet(dayKey, el) {
   plannerState = loadPlannerState();
   const c = COLOR_MAP[day.color];
   const totals = getDayTotals(dayKey);
-  const isMobile = window.innerWidth < 768;
-
-  let html = `<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-top:${isMobile ? '0' : '4px'};">`;
+  let html = `<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-top:4px;">`;
   html += `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
     <div>
       <div style="font-size:20px;font-weight:700;font-family:'Space Grotesk',sans-serif;color:${c.text};">${day.label}</div>
@@ -4210,21 +4129,11 @@ function kitchenSelectCat(catKey) {
   _kitchenSelectedCat = catKey;
   renderKitchenStrip();
 
-  if (window.innerWidth < 768) {
-    // Mobile: bottom sheet
-    const content = document.getElementById('kitchen-sheet-content');
-    const sheet = document.getElementById('kitchen-bottom-sheet');
-    const backdrop = document.getElementById('kitchen-sheet-backdrop');
-    if (!content || !sheet || !backdrop) return;
-    content.innerHTML = buildKitchenCatHtml(catKey);
-    requestAnimationFrame(() => sheet.classList.add('open'));
-  } else {
-    // Desktop: inline panel below strip
-    const panel = document.getElementById('kitchen-day-panel');
-    if (!panel) return;
-    panel.style.display = 'block';
-    panel.innerHTML = `<div class="card" style="margin-top:4px;">${buildKitchenCatHtml(catKey)}</div>`;
-  }
+  // Always use inline panel (desktop and mobile)
+  const panel = document.getElementById('kitchen-day-panel');
+  if (!panel) return;
+  panel.style.display = 'block';
+  panel.innerHTML = `<div class="card" style="margin-top:4px;">${buildKitchenCatHtml(catKey)}</div>`;
 }
 
 function kitchenCloseSheet() {
@@ -9419,21 +9328,8 @@ function twSelectDay(dayKey) {
   _twSelectedDay = dayKey;
   renderTWGrid(); // update strip highlight
 
-  if (isMobile) {
-    // Render into the bottom sheet instead of the inline panel
-    const sheetContent = document.getElementById('tw-sheet-content');
-    const backdrop = document.getElementById('tw-sheet-backdrop');
-    const sheet = document.getElementById('tw-bottom-sheet');
-    if (!sheetContent || !sheet || !backdrop) return;
-
-    // Build the panel content into the sheet
-    renderTWDayPanel(dayKey, sheetContent);
-
-    // Open
-    requestAnimationFrame(() => sheet.classList.add('open'));
-  } else {
-    renderTWDayPanel(dayKey);
-  }
+  // Always use inline panel (desktop and mobile)
+  renderTWDayPanel(dayKey);
 }
 
 function twUpdateWorkout(dayKey, slotIndex, newType) {
@@ -9463,12 +9359,10 @@ function twUpdateWorkout(dayKey, slotIndex, newType) {
 }
 
 function twCloseSheet() {
-  const sheet = document.getElementById('tw-bottom-sheet');
-  const backdrop = document.getElementById('tw-sheet-backdrop');
-  if (!sheet || !backdrop) return;
-  sheet.classList.remove('open');
   _twSelectedDay = null;
   renderTWGrid();
+  const panel = document.getElementById('thisweek-day-panel');
+  if (panel) panel.style.display = 'none';
 }
 
 function renderTWDayPanel(dayKey, targetEl) {
