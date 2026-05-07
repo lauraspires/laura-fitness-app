@@ -2692,7 +2692,13 @@ function goTo(page, el) {
     nutritionTab('guide', document.getElementById('nutr-tab-btn-guide'));
     try { switchEat('guide', document.querySelector('#nutr-tab-guide .eating-tabs .etab')); } catch(e) {}
   }
-  if (page === 'thisweek') renderThisWeekPage();
+  if (page === 'thisweek') {
+    renderThisWeekPage();
+    try {
+      const _twTodayKey = ['sun','mon','tue','wed','thu','fri','sat'][new Date().getDay()];
+      twSelectDay(_twTodayKey);
+    } catch(e) {}
+  }
   if (page === 'settings') { updateApiKeyStatus(); populateProfileSettingsInputs(); populateApiKeyInput(); }
   if (page === 'routines') {
     // Always reset to Daily Rituals, then Overview inside it
