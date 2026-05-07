@@ -2769,10 +2769,13 @@ function launchApp() {
   if (typeof renderShoppingTickList === 'function') renderShoppingTickList();
   if (typeof updateAllClassBadges === 'function') updateAllClassBadges();
   if (typeof updateAllRunBadges === 'function') updateAllRunBadges();
-  // Keep API key in localStorage in sync with Drive data so mobile always finds it
+  // If API key is in localStorage but not in Drive data, push it into Drive too
   try {
-    const k = getData(API_KEY_STORE, '');
-    if (k) localStorage.setItem(API_KEY_STORE, k);
+    const localKey = localStorage.getItem(API_KEY_STORE);
+    if (localKey && !getData(API_KEY_STORE, '')) {
+      setData(API_KEY_STORE, localKey);
+      scheduleSave();
+    }
   } catch(e) {}
   setSyncStatus('ok', 'Synced');
 }
@@ -7245,22 +7248,14 @@ function renderRoutinesTweaks() {
 const API_KEY_STORE = 'laura_anthropic_api_key';
 
 function getAnthropicApiKey() {
-  // 1. Prefer Drive-synced / in-memory value
+  // Primary: dedicated localStorage entry (never touched by Drive sync)
+  try {
+    const local = localStorage.getItem(API_KEY_STORE);
+    if (local) return local;
+  } catch(e) {}
+  // Secondary: Drive-synced gAppData (populated after sign-in)
   const synced = getData(API_KEY_STORE, '');
   if (synced) return synced;
-  // 2. Legacy standalone localStorage entry
-  const legacy = localStorage.getItem(API_KEY_STORE);
-  if (legacy) return legacy;
-  // 3. Check the localStorage fallback blob (covers mobile where Drive loaded a
-  //    snapshot that predates the key being saved, but a later desktop session
-  //    wrote it into the fallback blob via scheduleSave)
-  try {
-    const blob = localStorage.getItem('laura_app_data_fallback');
-    if (blob) {
-      const parsed = JSON.parse(blob);
-      if (parsed && parsed[API_KEY_STORE]) return parsed[API_KEY_STORE];
-    }
-  } catch(e) {}
   return '';
 }
 function hasAnthropicApiKey() { return !!getAnthropicApiKey(); }
@@ -7268,12 +7263,13 @@ function hasAnthropicApiKey() { return !!getAnthropicApiKey(); }
 function saveApiKeySettings() {
   const key = (document.getElementById('settings-api-key') || {}).value || '';
   if (!key.trim()) { showNotification('Please enter a key first'); return; }
+  // Write to localStorage immediately — this is the primary storage for the key
+  try { localStorage.setItem(API_KEY_STORE, key.trim()); } catch(e) {}
+  // Also write to gAppData so it syncs to Drive for future cross-device use
   setData(API_KEY_STORE, key.trim());
   scheduleSave();
-  // Also persist directly to localStorage so mobile can always find it
-  try { localStorage.setItem(API_KEY_STORE, key.trim()); } catch(e) {}
   updateApiKeyStatus();
-  showNotification('API key saved — will sync to Google Drive');
+  showNotification('API key saved');
 }
 
 function toggleApiKeyVisibility(btn) {
