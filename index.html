@@ -128,27 +128,39 @@
     --radius-sm:     10px;
   }
   body.light {
-    --bg:            #edecea;
-    --bg2:           #e3e2df;
-    --card:          #f4f2ef;
-    --card-high:     #e9e7e4;
-    --sidebar-bg:    #e6e4e1;
+    --bg:            #f0efec;
+    --bg2:           #e6e4e0;
+    --card:          #fafaf8;
+    --card-high:     #eceae6;
+    --sidebar-bg:    #e8e6e2;
     --text:          #18181a;
-    --text2:         #6c7a8b;
+    --text2:         #52606d;
     --text3:         #8b96a4;
-    --border:        rgba(0,0,0,0.08);
-    --border2:       rgba(0,0,0,0.13);
-    --teal:          #009e88;
-    --teal-light:    rgba(0,158,136,0.10);
-    --teal-mid:      rgba(0,158,136,0.18);
+    --border:        rgba(0,0,0,0.09);
+    --border2:       rgba(0,0,0,0.14);
+    --teal:          #007a6a;
+    --teal-light:    rgba(0,122,106,0.10);
+    --teal-mid:      rgba(0,122,106,0.20);
     --coral:         #c95a47;
+    --coral-light:   rgba(201,90,71,0.12);
     --amber:         #b45309;
+    --amber-light:   rgba(180,83,9,0.12);
     --blue:          #2563eb;
-    --purple:        #7c4ddb;
+    --blue-light:    rgba(37,99,235,0.12);
+    --purple:        #6d46c9;
+    --purple-light:  rgba(109,70,201,0.12);
     --red:           #d94444;
-    --shadow:        0 2px 12px rgba(0,0,0,0.10);
-    --shadow-lg:     0 8px 32px rgba(0,0,0,0.18);
+    --red-light:     rgba(217,68,68,0.12);
+    --shadow:        0 2px 12px rgba(0,0,0,0.08);
+    --shadow-lg:     0 8px 32px rgba(0,0,0,0.14);
   }
+
+  /* Light mode card border overrides — keep left borders visible on light bg */
+  body.light .card-gym  { border-left-color: #9ca3af; }
+  body.light .card-run  { border-left-color: #007a6a; }
+  body.light .card-class { border-left-color: #9ca3af; }
+  body.light .card-counter { border-left-color: #007a6a; }
+  body.light .hub-link:hover { color: #18181a; }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -273,53 +285,50 @@
     box-shadow: var(--shadow);
     border: 1px solid var(--border);
   }
-  /* Finance Hub-inspired category cards */
+  /* Workout category cards — neutral background, left-border differentiation */
   .card-gym {
-    background: linear-gradient(145deg,#021310 0%,#042e26 100%);
-    border: 1px solid rgba(0,245,212,0.45);
-    box-shadow: 0 0 40px rgba(0,245,212,0.12), 0 2px 16px rgba(0,0,0,0.5);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid #6b7280;
+    box-shadow: var(--shadow);
     border-radius: var(--radius);
     padding: 22px;
     position: relative;
     overflow: hidden;
   }
   .card-run {
-    background: linear-gradient(145deg,#130820 0%,#220a36 100%);
-    border: 1px solid rgba(191,95,255,0.45);
-    box-shadow: 0 0 40px rgba(191,95,255,0.12), 0 2px 16px rgba(0,0,0,0.5);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid #00f5d4;
+    box-shadow: var(--shadow);
     border-radius: var(--radius);
     padding: 22px;
     position: relative;
     overflow: hidden;
   }
   .card-class {
-    background: linear-gradient(145deg,#141200 0%,#2a2600 100%);
-    border: 1px solid rgba(212,255,0,0.45);
-    box-shadow: 0 0 40px rgba(212,255,0,0.10), 0 2px 16px rgba(0,0,0,0.5);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px dashed #6b7280;
+    box-shadow: var(--shadow);
     border-radius: var(--radius);
     padding: 22px;
     position: relative;
     overflow: hidden;
   }
   .card-counter {
-    background: linear-gradient(145deg,#161000 0%,#2a1f00 100%);
-    border: 1px solid rgba(251,191,36,0.45);
-    box-shadow: 0 0 40px rgba(251,191,36,0.12), 0 2px 16px rgba(0,0,0,0.5);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid #00f5d4;
+    box-shadow: var(--shadow);
     border-radius: var(--radius);
     padding: 22px;
     position: relative;
     overflow: hidden;
   }
+  /* Remove old circle decoration — no longer needed with left-border design */
   .card-gym::before, .card-run::before, .card-class::before, .card-counter::before {
-    content: '';
-    position: absolute;
-    top: -40px;
-    right: -40px;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: var(--bg2);
-    pointer-events: none;
+    display: none;
   }
   .card-sm { padding: 16px 18px; }
   .card-title { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 500; margin-bottom: 4px; color: var(--teal); }
@@ -333,8 +342,8 @@
   .badge-blue { background: var(--blue-light); color: var(--blue); }
   .badge-purple { background: var(--purple-light); color: var(--purple); }
   .badge-red { background: var(--red-light); color: var(--red); }
-  .badge-run { background: rgba(191,95,255,0.12); color: #bf5fff; }
-  .badge-class { background: rgba(212,255,0,0.10); color: #d4ff00; }
+  .badge-run { background: var(--teal-light); color: var(--teal); }
+  .badge-class { background: rgba(107,114,128,0.15); color: #9ca3af; }
 
   /* ---- STAT CARDS ---- */
   .stat-card { background: var(--card); border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow); border: 1px solid var(--border); }
@@ -365,13 +374,13 @@
   .ddp-row:last-child { border-bottom: none; }
   .ddp-row span:last-child { color: var(--text3); font-size: 12px; font-variant-numeric: tabular-nums; }
   .ddp-link { display: inline-block; margin-top: 8px; font-size: 12px; color: var(--teal); background: none; border: none; padding: 0; cursor: pointer; font-family: 'Manrope', sans-serif; text-decoration: underline; text-underline-offset: 3px; }
-  /* Neon colours for run/class day types in week strip */
-  .day-type-class { color: #d4ff00 !important; }
-  .day-type-run { color: #bf5fff !important; }
+  /* Workout type colours in week strip */
+  .day-type-class { color: #9ca3af !important; }
+  .day-type-run { color: var(--teal) !important; }
   .dt-run { color: var(--blue); background: var(--blue-light); }
   .dt-spin { color: var(--amber); background: var(--amber-light); }
   .dt-rest { color: var(--text2); background: var(--bg2); }
-  .dt-longrun { color: var(--purple); background: var(--purple-light); }
+  .dt-longrun { color: var(--teal); background: var(--teal-light); }
 
   /* ---- WORKOUT DETAIL ---- */
   .workout-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
@@ -477,7 +486,7 @@
   .goal-bar-fill { height: 100%; border-radius: 999px; background: var(--teal); }
 
   /* ---- PROGRESS ---- */
-  .progress-note { font-size: 13px; color: var(--text2); line-height: 1.6; padding: 14px 16px; background: var(--amber-light); border-radius: var(--radius-sm); border-left: 3px solid var(--amber); margin-bottom: 16px; }
+  .progress-note { font-size: 13px; color: var(--text2); line-height: 1.6; padding: 14px 16px; background: var(--teal-light); border-radius: var(--radius-sm); border-left: 3px solid var(--teal); margin-bottom: 16px; }
 
   /* scrollbar */
   ::-webkit-scrollbar { width: 5px; }
@@ -487,7 +496,7 @@
   @media (max-width: 900px) {
     .sidebar { transform: translateX(-240px); transition: transform 0.3s ease; }
     .sidebar.open { transform: translateX(0); }
-    .sidebar-logo { padding-top: 64px !important; }
+    .hub-switcher { padding-top: 64px !important; }
     .main { margin-left: 0; padding: 20px; }
     .grid-4 { grid-template-columns: 1fr 1fr; }
     .grid-3 { grid-template-columns: 1fr 1fr; }
@@ -985,24 +994,24 @@
 
   <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">Weekly goals</div>
   <div class="grid-4">
-    <div class="stat-card card-gym" style="border-color:rgba(0,245,212,0.4);box-shadow:0 0 20px rgba(0,245,212,0.12),0 2px 8px rgba(0,0,0,0.5);">
+    <div class="stat-card card-gym">
       <div style="font-size:22px;margin-bottom:6px;">🏋️</div>
-      <div style="font-size:14px;font-weight:700;color:#00f5d4;line-height:1.2;margin-bottom:4px;">3 gym sessions</div>
+      <div style="font-size:14px;font-weight:700;color:var(--text);line-height:1.2;margin-bottom:4px;">3 gym sessions</div>
       <div class="stat-label">Push · Pull · Legs</div>
     </div>
-    <div class="stat-card card-class" style="border-color:rgba(212,255,0,0.4);box-shadow:0 0 20px rgba(212,255,0,0.08),0 2px 8px rgba(0,0,0,0.5);">
+    <div class="stat-card card-class">
       <div style="font-size:22px;margin-bottom:6px;">🔥</div>
-      <div style="font-size:14px;font-weight:700;color:#d4ff00;line-height:1.2;margin-bottom:4px;">Blaze</div>
+      <div style="font-size:14px;font-weight:700;color:var(--text);line-height:1.2;margin-bottom:4px;">Blaze</div>
       <div class="stat-label">Primary fat-burn session</div>
     </div>
-    <div class="stat-card card-class" style="border-color:rgba(212,255,0,0.4);box-shadow:0 0 20px rgba(212,255,0,0.08),0 2px 8px rgba(0,0,0,0.5);">
+    <div class="stat-card card-class">
       <div style="font-size:22px;margin-bottom:6px;">🚴</div>
-      <div style="font-size:14px;font-weight:700;color:#d4ff00;line-height:1.2;margin-bottom:4px;">Cyclone</div>
+      <div style="font-size:14px;font-weight:700;color:var(--text);line-height:1.2;margin-bottom:4px;">Cyclone</div>
       <div class="stat-label">Low-impact cardio and endurance</div>
     </div>
-    <div class="stat-card card-run" style="border-color:rgba(191,95,255,0.4);box-shadow:0 0 20px rgba(191,95,255,0.12),0 2px 8px rgba(0,0,0,0.5);">
+    <div class="stat-card card-run">
       <div style="font-size:22px;margin-bottom:6px;">🏃</div>
-      <div style="font-size:14px;font-weight:700;color:#bf5fff;line-height:1.2;margin-bottom:4px;">2 runs/week</div>
+      <div style="font-size:14px;font-weight:700;color:var(--teal);line-height:1.2;margin-bottom:4px;">2 runs/week</div>
       <div class="stat-label">Intervals + easy runs</div>
     </div>
   </div>
@@ -1111,8 +1120,8 @@
         <div class="workout-header"><span class="badge badge-class" id="class-badge-blaze">Flexible</span><div><div class="workout-title">Blaze</div><div class="workout-meta">45 min · ~500 kcal · 85–95% HR</div></div></div>
         <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Your primary fat-burning session. Treadmill sprints, sled, punch bags and strength stations. Friday morning — gets the weekend off to a great start and your metabolism firing all day.</div>
         <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
-          <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Book the 7:20am Purley slot in advance via David Lloyd app — fills fast</div>
-          <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Small snack the night before if you struggle with fasted morning sessions</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#9ca3af;"></span>Book the 7:20am Purley slot in advance via David Lloyd app — fills fast</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#9ca3af;"></span>Small snack the night before if you struggle with fasted morning sessions</div>
         </div>
         <div id="class-times-manager-blaze"></div>
       </div>
@@ -1120,8 +1129,8 @@
         <div class="workout-header"><span class="badge badge-class" id="class-badge-cyclone">Tue 7:00am · Purley</span><div><div class="workout-title">Cyclone</div><div class="workout-meta">45 min · ~400 kcal · 75–90% HR</div></div></div>
         <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Tuesday 7am at Purley. Low-impact, high calorie burn. A great start to the working day — you'll be done by 8am. Match resistance to the instructor on all climbs.</div>
         <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
-          <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Banana or small snack 30 min before — no time for a full breakfast at 7am</div>
-          <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Adjust saddle height before the warm-up starts</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#9ca3af;"></span>Banana or small snack 30 min before — no time for a full breakfast at 7am</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#9ca3af;"></span>Adjust saddle height before the warm-up starts</div>
         </div>
         <div id="class-times-manager-cyclone"></div>
       </div>
@@ -1129,8 +1138,8 @@
         <div class="workout-header"><span class="badge badge-class" id="class-badge-rhythm">Flexible</span><div><div class="workout-title">Rhythm</div><div class="workout-meta">45 min · ~400 kcal · 75–90% HR</div></div></div>
         <div style="font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:12px;">Indoor cycling class option. Low-impact, high calorie burn. Can be scheduled flexibly throughout the week based on class availability.</div>
         <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
-          <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Adjust resistance to match the instructor cues</div>
-          <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span>Bring water — you'll sweat more than Cyclone</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#9ca3af;"></span>Adjust resistance to match the instructor cues</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:#9ca3af;"></span>Bring water — you'll sweat more than Cyclone</div>
         </div>
         <div id="class-times-manager-rhythm"></div>
       </div>
@@ -1152,8 +1161,8 @@
         <div class="workout-header"><span class="badge badge-run" id="run-badge-page-easy_run">Flexible</span><div><div class="workout-title">Easy run</div><div class="workout-meta">20–30 min · Easy pace · 4–5/10 effort</div></div></div>
         <div style="font-size:13.5px;color:var(--text2);line-height:1.7;">A gentle, conversational-pace run. Great for active recovery or adding volume without stress. No watch pressure — just move at a pace that feels comfortable.</div>
         <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
-          <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>If you can't hold a sentence, slow down — this is meant to be easy</div>
-          <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Perfect substitute when legs are too heavy for intervals</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:var(--teal);"></span>If you can't hold a sentence, slow down — this is meant to be easy</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:var(--teal);"></span>Perfect substitute when legs are too heavy for intervals</div>
         </div>
         <div id="run-times-manager-easy_run"></div>
       </div>
@@ -1161,8 +1170,8 @@
         <div class="workout-header"><span class="badge badge-run" id="run-badge-page-runna">Flexible</span><div><div class="workout-title">Runna</div><div class="workout-meta">20–40 min · Varies · Tracking via app</div></div></div>
         <div style="font-size:13.5px;color:var(--text2);line-height:1.7;">Run tracking and training through the Runna app. Flexible duration and intensity — perfect for building running consistency without fixed gym times.</div>
         <div class="tip-box-f"><div class="tip-box-title">Key tips</div>
-          <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Use app for GPS tracking and pacing feedback</div>
-          <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span>Can be done anytime, anywhere</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:var(--teal);"></span>Use app for GPS tracking and pacing feedback</div>
+          <div class="tip-item"><span class="tip-dot-f" style="background:var(--teal);"></span>Can be done anytime, anywhere</div>
         </div>
         <div id="run-times-manager-runna"></div>
       </div>
@@ -1248,10 +1257,10 @@
       <div class="tip-box-f" id="summary-weekly-logic">
         <div class="tip-box-title">Eating by activity type</div>
         <div class="tip-item"><span class="tip-dot-f" style="background:#00f5d4;"></span><strong>Gym / strength days</strong> — Standard three-meal plan. Protein priority. Keep carbs moderate to fuel the session and top up glycogen after.</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span><strong>Run days</strong> — Standard plan. Carbs matter more here — eat a small carb snack 30–60 min before a long run if needed. Replenish after.</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:#d4ff00;"></span><strong>Class days (Blaze / Cyclone / Rhythm)</strong> — Standard plan. High intensity burns through glycogen fast. Don't skip meals on class days.</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:var(--teal);"></span><strong>Run days</strong> — Standard plan. Carbs matter more here — eat a small carb snack 30–60 min before a long run if needed. Replenish after.</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:#9ca3af;"></span><strong>Class days (Blaze / Cyclone / Rhythm)</strong> — Standard plan. High intensity burns through glycogen fast. Don't skip meals on class days.</div>
         <div class="tip-item"><span class="tip-dot-f" style="background:#60a5fa;"></span><strong>WFH / Early finish days</strong> — Eating window closes by 6pm. More control over your environment. Herbal tea in the evening kills hunger without calories.</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:#bf5fff;"></span><strong>Rest days</strong> — Keto. No performance carbs needed. Low insulin all day means your body burns stored fat. Eggs, meat, fish, cheese, avocado, nuts.</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:var(--teal);"></span><strong>Rest days</strong> — Keto. No performance carbs needed. Low insulin all day means your body burns stored fat. Eggs, meat, fish, cheese, avocado, nuts.</div>
         <div class="tip-item"><span class="tip-dot-f" style="background:#f5a623;"></span><strong>Saturday (volunteer)</strong> — OMAD. You're busy all morning, so the fast happens naturally. One big meal ~1–2pm, then done for the day.</div>
       </div>
     </div>
@@ -1311,26 +1320,26 @@
 
     <div id="eat-keto" class="etab-page">
       <div class="card">
-        <div class="meal-row"><div class="meal-time-col">8am<br>Breakfast</div><div><div class="meal-name-main">Scrambled eggs + smoked salmon + avocado</div><div class="meal-desc-col">3 eggs scrambled in butter, 2 slices smoked salmon, half an avocado. No toast.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">480 kcal</span><span class="badge badge-teal" style="font-size:11px;">35g protein</span><span class="badge badge-purple" style="font-size:11px;">Keto</span></div></div><div class="meal-icon-col">🥑</div></div>
-        <div class="meal-row"><div class="meal-time-col">1pm<br>Lunch</div><div><div class="meal-name-main">Chicken thigh + feta salad</div><div class="meal-desc-col">2 plain chicken thighs, big bowl of spinach, 40g feta crumbled, olive oil + lemon dressing. No carbs, very filling.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">450 kcal</span><span class="badge badge-teal" style="font-size:11px;">40g protein</span><span class="badge badge-purple" style="font-size:11px;">Keto</span></div></div><div class="meal-icon-col">🥗</div></div>
-        <div class="meal-row"><div class="meal-time-col">4pm<br>Snack (opt)</div><div><div class="meal-name-main">Cheese + plain nuts</div><div class="meal-desc-col">30g cheddar, small handful of almonds or walnuts. Zero effort.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">200 kcal</span><span class="badge badge-teal" style="font-size:11px;">8g protein</span><span class="badge badge-purple" style="font-size:11px;">Keto</span></div></div><div class="meal-icon-col">🧀</div></div>
-        <div class="meal-row" style="border-bottom:none;"><div class="meal-time-col">6:30pm<br>Dinner</div><div><div class="meal-name-main">Salmon + courgette in crème fraîche</div><div class="meal-desc-col">1 salmon fillet pan-fried 4 min each side in butter, 1 courgette sliced and sautéed with garlic, full-fat crème fraîche dolloped on top.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">430 kcal</span><span class="badge badge-teal" style="font-size:11px;">38g protein</span><span class="badge badge-purple" style="font-size:11px;">Keto</span></div></div><div class="meal-icon-col">🐟</div></div>
+        <div class="meal-row"><div class="meal-time-col">8am<br>Breakfast</div><div><div class="meal-name-main">Scrambled eggs + smoked salmon + avocado</div><div class="meal-desc-col">3 eggs scrambled in butter, 2 slices smoked salmon, half an avocado. No toast.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">480 kcal</span><span class="badge badge-teal" style="font-size:11px;">35g protein</span><span class="badge badge-teal" style="font-size:11px;">Keto</span></div></div><div class="meal-icon-col">🥑</div></div>
+        <div class="meal-row"><div class="meal-time-col">1pm<br>Lunch</div><div><div class="meal-name-main">Chicken thigh + feta salad</div><div class="meal-desc-col">2 plain chicken thighs, big bowl of spinach, 40g feta crumbled, olive oil + lemon dressing. No carbs, very filling.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">450 kcal</span><span class="badge badge-teal" style="font-size:11px;">40g protein</span><span class="badge badge-teal" style="font-size:11px;">Keto</span></div></div><div class="meal-icon-col">🥗</div></div>
+        <div class="meal-row"><div class="meal-time-col">4pm<br>Snack (opt)</div><div><div class="meal-name-main">Cheese + plain nuts</div><div class="meal-desc-col">30g cheddar, small handful of almonds or walnuts. Zero effort.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">200 kcal</span><span class="badge badge-teal" style="font-size:11px;">8g protein</span><span class="badge badge-teal" style="font-size:11px;">Keto</span></div></div><div class="meal-icon-col">🧀</div></div>
+        <div class="meal-row" style="border-bottom:none;"><div class="meal-time-col">6:30pm<br>Dinner</div><div><div class="meal-name-main">Salmon + courgette in crème fraîche</div><div class="meal-desc-col">1 salmon fillet pan-fried 4 min each side in butter, 1 courgette sliced and sautéed with garlic, full-fat crème fraîche dolloped on top.</div><div class="meal-macros"><span class="badge badge-coral" style="font-size:11px;">430 kcal</span><span class="badge badge-teal" style="font-size:11px;">38g protein</span><span class="badge badge-teal" style="font-size:11px;">Keto</span></div></div><div class="meal-icon-col">🐟</div></div>
       </div>
       <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:14px 16px;margin-top:12px;display:flex;gap:20px;justify-content:center;">
         <div style="text-align:center;"><div style="font-family:'Space Grotesk', sans-serif;font-size:22px;font-weight:700;">1,560</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Total kcal</div></div>
         <div style="text-align:center;"><div style="font-family:'Space Grotesk', sans-serif;font-size:22px;font-weight:700;">121g</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Protein</div></div>
         <div style="text-align:center;"><div style="font-family:'Space Grotesk', sans-serif;font-size:22px;font-weight:700;">~20 min</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Cook time</div></div>
       </div>
-      <div style="background:var(--purple-light);border-radius:var(--radius-sm);padding:12px 16px;margin-top:12px;font-size:13px;color:var(--purple);"><strong>Keto rules:</strong> Eat freely from eggs, meat, fish, cheese, cream, avocado, nuts, all non-starchy veg. Avoid bread, rice, pasta, oats, fruit (except berries), anything with sugar.</div>
+      <div style="background:var(--teal-light);border-radius:var(--radius-sm);padding:12px 16px;margin-top:12px;font-size:13px;color:var(--teal);"><strong>Keto rules:</strong> Eat freely from eggs, meat, fish, cheese, cream, avocado, nuts, all non-starchy veg. Avoid bread, rice, pasta, oats, fruit (except berries), anything with sugar.</div>
     </div>
 
     <div id="eat-guide" class="etab-page active">
       <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:12px;font-family:'Manrope',sans-serif;">Your eating approaches</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
-        <div class="card" style="border-left:3px solid #bf5fff;">
+        <div class="card" style="border-left:3px solid var(--teal);">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="font-size:24px;">🥑</div><div><div style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;">Keto</div><div style="font-size:11px;color:var(--text3);">Under 20–50g carbs · Rest days</div></div></div>
           <div style="font-size:12.5px;color:var(--text2);line-height:1.6;margin-bottom:10px;">Switches your fuel source from glucose to fat (ketones). Keeps insulin low, maximises fat burning, teaches metabolic flexibility.</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.6;"><span style="color:#bf5fff;font-weight:600;">Eat:</span> Eggs · Meat · Fish · Cheese · Avocado · Non-starchy veg<br><span style="color:var(--red);font-weight:600;">Avoid:</span> Bread · Rice · Pasta · Oats · Fruit (berries OK) · Sugar</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.6;"><span style="color:var(--teal);font-weight:600;">Eat:</span> Eggs · Meat · Fish · Cheese · Avocado · Non-starchy veg<br><span style="color:var(--red);font-weight:600;">Avoid:</span> Bread · Rice · Pasta · Oats · Fruit (berries OK) · Sugar</div>
         </div>
         <div class="card" style="border-left:3px solid #f5a623;">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="font-size:24px;">🍽️</div><div><div style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;">OMAD — One Meal a Day</div><div style="font-size:11px;color:var(--text3);">20–23 hour fast · Saturdays</div></div></div>
@@ -1373,7 +1382,7 @@
       </div>
 
       <!-- Extended fasting — not in current plan -->
-      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;margin-top:4px;font-family:'Manrope',sans-serif;">Extended &amp; therapeutic fasting <span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:999px;background:rgba(191,95,255,0.12);color:#bf5fff;border:1px solid rgba(191,95,255,0.25);margin-left:6px;text-transform:none;letter-spacing:0;">Not currently in your plan</span></div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;margin-top:4px;font-family:'Manrope',sans-serif;">Extended &amp; therapeutic fasting <span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--teal-light);color:var(--teal);border:1px solid var(--teal-mid);margin-left:6px;text-transform:none;letter-spacing:0;">Not currently in your plan</span></div>
       <div style="font-size:12px;color:var(--text3);margin-bottom:10px;line-height:1.6;">These approaches exist for specific goals — deeper autophagy, metabolic reset, therapeutic benefit. They're not part of your current routine, but good to understand.</div>
       <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:20px;">
         <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;display:grid;grid-template-columns:100px 1fr;gap:12px;align-items:start;">
@@ -1405,7 +1414,7 @@
           <div style="font-size:12.5px;color:var(--text2);">Eat only eggs, butter, and full-fat cheese for 3–5 days. A strict keto-style reset that breaks stalls and resets insulin sensitivity. No other foods. Very filling due to high fat and protein content. Re-introduce other foods gradually.</div>
         </div>
       </div>
-      <div style="background:rgba(191,95,255,0.06);border:1px solid rgba(191,95,255,0.2);border-radius:var(--radius);padding:14px 18px;font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:20px;"><span style="color:#bf5fff;font-weight:700;">Important — </span>Extended fasts beyond 24 hours should be approached gradually. Build up from OMAD → 24h → 48h. Always prioritise electrolytes (sodium, potassium, magnesium) during any fast over 24 hours. Break longer fasts gently with something easy to digest — not a large meal.</div>
+      <div style="background:var(--teal-light);border:1px solid var(--teal-mid);border-radius:var(--radius);padding:14px 18px;font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:20px;"><span style="color:var(--teal);font-weight:700;">Important — </span>Extended fasts beyond 24 hours should be approached gradually. Build up from OMAD → 24h → 48h. Always prioritise electrolytes (sodium, potassium, magnesium) during any fast over 24 hours. Break longer fasts gently with something easy to digest — not a large meal.</div>
 
       <div style="background:rgba(0,245,212,0.06);border:1px solid rgba(0,245,212,0.15);border-radius:var(--radius);padding:14px 18px;font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:20px;"><span style="color:#00f5d4;font-weight:700;">The key insight — </span>Fasting works because it lowers insulin. When insulin is low, your body can access stored body fat for energy.</div>
 
@@ -1442,7 +1451,7 @@
         <div class="tip-box-title">The one-ingredient rule</div>
         <div class="tip-item"><span class="tip-dot-f"></span>If a product has more ingredients than you can count on one hand, put it back</div>
         <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Sugar cravings peak at days 3–7 then drop sharply — push through the first week</div>
-        <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>1–2 squares of 85%+ dark chocolate is a clean, low-sugar way to satisfy a sweet craving</div>
+        <div class="tip-item"><span class="tip-dot-f" style="background:var(--teal);"></span>1–2 squares of 85%+ dark chocolate is a clean, low-sugar way to satisfy a sweet craving</div>
       </div>
     </div><!-- end eat-guide -->
   </div><!-- end nutr-tab-guide -->
@@ -1459,7 +1468,7 @@
         <div style="background:var(--blue-light);border-radius:var(--radius-sm);padding:16px;"><div style="font-size:20px;margin-bottom:8px;">🫒</div><div style="font-size:13px;font-weight:600;color:var(--blue);margin-bottom:5px;">Ask about sauces</div><div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Most hidden sugar lives in sauces and dressings. Ask for dressings on the side, swap glazes for olive oil and lemon.</div></div>
         <div style="background:var(--amber-light);border-radius:var(--radius-sm);padding:16px;"><div style="font-size:20px;margin-bottom:8px;">🥗</div><div style="font-size:13px;font-weight:600;color:var(--amber);margin-bottom:5px;">Swap the starch</div><div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Most restaurants will swap chips or rice for salad, extra veg or a side of greens. Just ask.</div></div>
         <div style="background:var(--coral-light);border-radius:var(--radius-sm);padding:16px;"><div style="font-size:20px;margin-bottom:8px;">🚫</div><div style="font-size:13px;font-weight:600;color:var(--coral);margin-bottom:5px;">Skip the bread basket</div><div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Ask the server not to bring it, or move it to the far end of the table.</div></div>
-        <div style="background:var(--purple-light);border-radius:var(--radius-sm);padding:16px;"><div style="font-size:20px;margin-bottom:8px;">🍷</div><div style="font-size:13px;font-weight:600;color:var(--purple);margin-bottom:5px;">Drinks matter</div><div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Sparkling water, still water, or dry wine (small glass). Avoid soft drinks, cocktails, fruit juices.</div></div>
+        <div style="background:var(--teal-light);border-radius:var(--radius-sm);padding:16px;"><div style="font-size:20px;margin-bottom:8px;">🍷</div><div style="font-size:13px;font-weight:600;color:var(--teal);margin-bottom:5px;">Drinks matter</div><div style="font-size:12.5px;color:var(--text2);line-height:1.6;">Sparkling water, still water, or dry wine (small glass). Avoid soft drinks, cocktails, fruit juices.</div></div>
         <div style="background:var(--bg2);border-radius:var(--radius-sm);padding:16px;"><div style="font-size:20px;margin-bottom:8px;">🍮</div><div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:5px;">Pudding strategy</div><div style="font-size:12.5px;color:var(--text2);line-height:1.6;">A cheese board is almost always the cleanest dessert option. Share if possible.</div></div>
       </div>
     </div>
@@ -1552,32 +1561,32 @@
     <!-- Fridge -->
     <div class="card-gym" style="border-radius:var(--radius);padding:18px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#00f5d4;">🧊 Fridge</div>
-        <button onclick="addPantryItem('fridge')" style="font-size:11px;padding:4px 12px;background:rgba(0,245,212,0.12);color:#00f5d4;border:1px solid rgba(0,245,212,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--teal);">🧊 Fridge</div>
+        <button onclick="addPantryItem('fridge')" style="font-size:11px;padding:4px 12px;background:var(--teal-light);color:var(--teal);border:1px solid var(--teal-mid);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
       </div>
       <div id="pantry-fridge"></div>
     </div>
     <!-- Freezer -->
     <div class="card-run" style="border-radius:var(--radius);padding:18px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#bf5fff;">❄️ Freezer</div>
-        <button onclick="addPantryItem('freezer')" style="font-size:11px;padding:4px 12px;background:rgba(191,95,255,0.12);color:#bf5fff;border:1px solid rgba(191,95,255,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--teal);">❄️ Freezer</div>
+        <button onclick="addPantryItem('freezer')" style="font-size:11px;padding:4px 12px;background:var(--teal-light);color:var(--teal);border:1px solid var(--teal-mid);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
       </div>
       <div id="pantry-freezer"></div>
     </div>
     <!-- Cupboard -->
     <div class="card-class" style="border-radius:var(--radius);padding:18px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#d4ff00;">🗄️ Cupboard</div>
-        <button onclick="addPantryItem('cupboard')" style="font-size:11px;padding:4px 12px;background:rgba(212,255,0,0.10);color:#d4ff00;border:1px solid rgba(212,255,0,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--text2);">🗄️ Cupboard</div>
+        <button onclick="addPantryItem('cupboard')" style="font-size:11px;padding:4px 12px;background:rgba(107,114,128,0.12);color:#9ca3af;border:1px solid rgba(107,114,128,0.25);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
       </div>
       <div id="pantry-cupboard"></div>
     </div>
     <!-- Counter -->
     <div class="card-counter" style="border-radius:var(--radius);padding:18px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#fbbf24;">🍎 Counter</div>
-        <button onclick="addPantryItem('counter')" style="font-size:11px;padding:4px 12px;background:rgba(251,191,36,0.12);color:#fbbf24;border:1px solid rgba(251,191,36,0.3);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--text2);">🍎 Counter</div>
+        <button onclick="addPantryItem('counter')" style="font-size:11px;padding:4px 12px;background:rgba(107,114,128,0.12);color:#9ca3af;border:1px solid rgba(107,114,128,0.25);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
       </div>
       <div id="pantry-counter"></div>
     </div>
@@ -1710,7 +1719,7 @@
     <div class="tip-item"><span class="tip-dot-f"></span>Meat, fish, eggs, veg — never need to check a label. Just buy and cook.</div>
     <div class="tip-item"><span class="tip-dot-f"></span>Dairy: label should say milk (or cream) + cultures. Nothing else.</div>
     <div class="tip-item"><span class="tip-dot-f" style="background:var(--amber);"></span>Tinned fish: fish + water or olive oil + salt only. Reject anything else.</div>
-    <div class="tip-item"><span class="tip-dot-f" style="background:var(--purple);"></span>Batch-boil 6 eggs on Sunday — grab them cold all week as zero-prep protein</div>
+    <div class="tip-item"><span class="tip-dot-f" style="background:var(--teal);"></span>Batch-boil 6 eggs on Sunday — grab them cold all week as zero-prep protein</div>
   </div>
 </div>
 
@@ -3375,14 +3384,14 @@ const DEFAULT_PLAN = {
 };
 
 const COLOR_MAP = {
-  teal:   { bg:'linear-gradient(145deg,#021310,#042e26)', text:'#00f5d4', border:'rgba(0,245,212,0.4)' },
-  amber:  { bg:'linear-gradient(145deg,#161000,#2a1f00)', text:'#fbbf24', border:'rgba(251,191,36,0.4)' },
-  blue:   { bg:'linear-gradient(145deg,#081424,#0d2040)', text:'#60a5fa', border:'rgba(96,165,250,0.4)' },
-  coral:  { bg:'linear-gradient(145deg,#1a0a08,#2e1210)', text:'#f4816a', border:'rgba(244,129,106,0.4)' },
-  gray:   { bg:'linear-gradient(145deg,#161616,#222222)', text:'rgba(255,255,255,0.5)', border:'rgba(255,255,255,0.22)' },
-  purple: { bg:'linear-gradient(145deg,#130820,#220a36)', text:'#a78bfa', border:'rgba(167,139,250,0.4)' },
-  run:    { bg:'linear-gradient(145deg,#130820,#220a36)', text:'#a78bfa', border:'rgba(167,139,250,0.4)' },
-  class:  { bg:'linear-gradient(145deg,#161000,#2a1f00)', text:'#fbbf24', border:'rgba(251,191,36,0.4)' },
+  teal:   { bg:'var(--card)', text:'#00f5d4', border:'rgba(0,245,212,0.4)' },
+  amber:  { bg:'var(--card)', text:'#f5a623', border:'rgba(245,166,35,0.4)' },
+  blue:   { bg:'var(--card)', text:'#60a5fa', border:'rgba(96,165,250,0.4)' },
+  coral:  { bg:'var(--card)', text:'#f4816a', border:'rgba(244,129,106,0.4)' },
+  gray:   { bg:'var(--card)', text:'#9ca3af', border:'rgba(107,114,128,0.3)' },
+  purple: { bg:'var(--card)', text:'#00f5d4', border:'rgba(0,245,212,0.4)' },
+  run:    { bg:'var(--card)', text:'#00f5d4', border:'rgba(0,245,212,0.4)' },
+  class:  { bg:'var(--card)', text:'#9ca3af', border:'rgba(107,114,128,0.3)' },
 };
 
 let plannerState = {};
@@ -3718,7 +3727,7 @@ function openModal(dayKey, slot) {
     card.style.cssText = `border:1.5px solid ${isActive ? 'var(--teal)' : 'var(--border)'};background:${isActive ? 'var(--teal-light)' : 'var(--bg)'};border-radius:var(--radius-sm);padding:12px 14px;cursor:pointer;transition:all 0.15s;`;
     card.innerHTML = `
       <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px;">
-        <div style="font-size:13.5px;font-weight:600;color:${isActive ? 'var(--teal)' : 'var(--text)'};">${m.name}${isActive ? ' ✓' : ''}${isCustom ? ' <span style="font-size:10px;background:var(--purple-light);color:var(--purple);padding:1px 6px;border-radius:999px;">custom</span>' : ''}</div>
+        <div style="font-size:13.5px;font-weight:600;color:${isActive ? 'var(--teal)' : 'var(--text)'};">${m.name}${isActive ? ' ✓' : ''}${isCustom ? ' <span style="font-size:10px;background:var(--teal-light);color:var(--teal);padding:1px 6px;border-radius:999px;">custom</span>' : ''}</div>
         <div style="font-size:11px;color:var(--text3);flex-shrink:0;font-family:'Manrope', sans-serif;">${m.cook}</div>
       </div>
       <div style="font-size:12px;color:var(--text2);margin-bottom:8px;line-height:1.5;">${m.desc}</div>
@@ -3902,10 +3911,10 @@ const CUSTOM_MEALS_KEY = 'laura_custom_meals_v1';
 
 const CAT_META = {
   recovery:  { color:'teal',   label:'Recovery'  },
-  cognitive: { color:'purple', label:'Cognitive' },
+  cognitive: { color:'teal',   label:'Cognitive' },
   longevity: { color:'blue',   label:'Longevity' },
   strength:  { color:'coral',  label:'Strength'  },
-  sleep:     { color:'purple', label:'Sleep'     },
+  sleep:     { color:'teal',   label:'Sleep'     },
   immune:    { color:'teal',   label:'Immune'    },
   general:   { color:'gray',   label:'General'   },
 };
@@ -3935,7 +3944,7 @@ const SUPP_DAYS = [
   { key:'thu', label:'Thursday',  emoji:'🦵', tag:'Legs + Run · WFH', color:'teal'   },
   { key:'fri', label:'Friday',    emoji:'🔥', tag:'HIIT class',      color:'coral'  },
   { key:'sat', label:'Saturday',  emoji:'🤝', tag:'Rest',              color:'gray'   },
-  { key:'sun', label:'Sunday',    emoji:'🏋️', tag:'Pull + Run',        color:'purple' },
+  { key:'sun', label:'Sunday',    emoji:'🏋️', tag:'Pull + Run',        color:'teal'   },
 ];
 
 const DAILY_ROUTINE_KEY = 'laura_daily_routine_v1';
@@ -4091,16 +4100,16 @@ function renderDayCards() {
       if (w.type === 'rest') return 'rest';
       return 'gym'; // strength, swim, anything else
     }
-    const CATEGORY_COLOR = { gym:'#00f5d4', run:'#bf5fff', class:'#d4ff00', rest:'#888' };
+    const CATEGORY_COLOR = { gym:'#9ca3af', run:'#00f5d4', class:'#9ca3af', rest:'#6b7280' };
     const CATEGORY_GRAD  = {
-      gym:   'linear-gradient(145deg,#021310 0%,#042e26 100%)',
-      run:   'linear-gradient(145deg,#130820 0%,#220a36 100%)',
-      class: 'linear-gradient(145deg,#141200 0%,#2a2600 100%)',
-      rest:  'linear-gradient(145deg,#161616 0%,#222222 100%)'
+      gym:   'var(--card)',
+      run:   'var(--card)',
+      class: 'var(--card)',
+      rest:  'var(--card)'
     };
-    const CATEGORY_BORDER = { gym:'rgba(0,245,212,0.4)', run:'rgba(191,95,255,0.4)', class:'rgba(212,255,0,0.4)', rest:'rgba(255,255,255,0.22)' };
-    const CATEGORY_GLOW   = { gym:'rgba(0,245,212,0.12)', run:'rgba(191,95,255,0.12)', class:'rgba(212,255,0,0.08)', rest:'rgba(255,255,255,0.10)' };
-    const CATEGORY_BORDER_STYLE = { gym:'solid', run:'solid', class:'solid', rest:'dashed' };
+    const CATEGORY_BORDER = { gym:'#6b7280', run:'#00f5d4', class:'#6b7280', rest:'rgba(255,255,255,0.15)' };
+    const CATEGORY_GLOW   = { gym:'transparent', run:'rgba(0,245,212,0.06)', class:'transparent', rest:'transparent' };
+    const CATEGORY_BORDER_STYLE = { gym:'solid', run:'solid', class:'dashed', rest:'dashed' };
 
     const cats = workoutTypes.map(t => getCardCategory(t));
     const primaryCat = cats[0] || 'gym';
@@ -4109,21 +4118,11 @@ function renderDayCards() {
     const textColor = CATEGORY_COLOR[primaryCat];
     const dayTypeStyle = `color:${textColor};`;
 
-    // Apply Finance Hub card style
-    if (secondaryCat) {
-      const g1 = CATEGORY_COLOR[primaryCat] + '22';
-      const g2 = CATEGORY_COLOR[secondaryCat] + '22';
-      card.style.background = `linear-gradient(135deg,#0d0d0d 0%,#0d0d0d 45%,#0d0d0d 100%)`;
-      card.style.borderImage = 'none';
-      card.style.border = `1px solid ${CATEGORY_BORDER[primaryCat]}`;
-      card.style.boxShadow = `0 0 20px ${CATEGORY_GLOW[primaryCat]}, 0 2px 8px rgba(0,0,0,0.5)`;
-      // Overlay gradient via pseudo-like inner div — use background shorthand with two gradients
-      card.style.background = `linear-gradient(135deg,${g1} 0%,${g1} 45%,${g2} 55%,${g2} 100%), linear-gradient(145deg,#0d0d0d,#1a1a1a)`;
-    } else {
-      card.style.background = CATEGORY_GRAD[primaryCat];
-      card.style.border = `1px ${CATEGORY_BORDER_STYLE[primaryCat]} ${CATEGORY_BORDER[primaryCat]}`;
-      card.style.boxShadow = `0 0 20px ${CATEGORY_GLOW[primaryCat]}, 0 2px 8px rgba(0,0,0,0.5)`;
-    }
+    // Apply neutral card with left-border differentiation
+    card.style.background = 'var(--card)';
+    card.style.border = '1px solid var(--border)';
+    card.style.borderLeft = `3px ${CATEGORY_BORDER_STYLE[primaryCat]} ${CATEGORY_BORDER[primaryCat]}`;
+    card.style.boxShadow = CATEGORY_GLOW[primaryCat] !== 'transparent' ? `0 0 16px ${CATEGORY_GLOW[primaryCat]}` : 'var(--shadow)';
 
     const staticTag = firstWorkout?.tag || 'Workout';
     // For class workouts, show the live selected slot time instead of the static tag
@@ -4207,17 +4206,17 @@ function renderDashboardWeek() {
         }
       });
 
-      // Use the same Finance Hub card style as the week strip
-      const DW_CAT_COLOR  = { gym:'#00f5d4', run:'#bf5fff', class:'#d4ff00', rest:'#888' };
+      // Neutral card with left-border differentiation
+      const DW_CAT_COLOR  = { gym:'#9ca3af', run:'#00f5d4', class:'#9ca3af', rest:'#6b7280' };
       const DW_CAT_GRAD   = {
-        gym:   'linear-gradient(145deg,#021310 0%,#042e26 100%)',
-        run:   'linear-gradient(145deg,#130820 0%,#220a36 100%)',
-        class: 'linear-gradient(145deg,#141200 0%,#2a2600 100%)',
-        rest:  'linear-gradient(145deg,#161616 0%,#222222 100%)'
+        gym:   'var(--card)',
+        run:   'var(--card)',
+        class: 'var(--card)',
+        rest:  'var(--card)'
       };
-      const DW_CAT_BORDER = { gym:'rgba(0,245,212,0.4)', run:'rgba(191,95,255,0.4)', class:'rgba(212,255,0,0.4)', rest:'rgba(255,255,255,0.22)' };
-      const DW_CAT_GLOW   = { gym:'rgba(0,245,212,0.12)', run:'rgba(191,95,255,0.12)', class:'rgba(212,255,0,0.08)', rest:'rgba(255,255,255,0.10)' };
-      const DW_CAT_BORDER_STYLE = { gym:'solid', run:'solid', class:'solid', rest:'dashed' };
+      const DW_CAT_BORDER = { gym:'#6b7280', run:'#00f5d4', class:'#6b7280', rest:'rgba(255,255,255,0.15)' };
+      const DW_CAT_GLOW   = { gym:'transparent', run:'rgba(0,245,212,0.06)', class:'transparent', rest:'transparent' };
+      const DW_CAT_BORDER_STYLE = { gym:'solid', run:'solid', class:'dashed', rest:'dashed' };
       function getDwCat(type) {
         if (!type) return 'gym';
         const w = _libDw[type];
@@ -4231,22 +4230,11 @@ function renderDashboardWeek() {
       const dwPrimary = dwCats[0] || 'gym';
       const dwSecondary = dwCats.length > 1 && dwCats[1] !== dwPrimary ? dwCats[1] : null;
       const labelColor = DW_CAT_COLOR[dwPrimary];
-      let cellBg, cellBorder, cellShadow;
-      if (dwSecondary) {
-        const g1 = DW_CAT_COLOR[dwPrimary] + '22';
-        const g2 = DW_CAT_COLOR[dwSecondary] + '22';
-        cellBg = `linear-gradient(135deg,${g1} 0%,${g1} 45%,${g2} 55%,${g2} 100%), linear-gradient(145deg,#0d0d0d,#1a1a1a)`;
-        cellBorder = DW_CAT_BORDER[dwPrimary];
-        cellShadow = `0 0 20px ${DW_CAT_GLOW[dwPrimary]}, 0 2px 8px rgba(0,0,0,0.5)`;
-      } else {
-        cellBg = DW_CAT_GRAD[dwPrimary];
-        cellBorder = DW_CAT_BORDER[dwPrimary];
-        cellShadow = `0 0 20px ${DW_CAT_GLOW[dwPrimary]}, 0 2px 8px rgba(0,0,0,0.5)`;
-      }
-
-      const cellBorderStyle = DW_CAT_BORDER_STYLE[dwPrimary];
+      const cellLeftBorderStyle = DW_CAT_BORDER_STYLE[dwPrimary];
+      const cellLeftBorderColor = DW_CAT_BORDER[dwPrimary];
+      const cellShadow = DW_CAT_GLOW[dwPrimary] !== 'transparent' ? `0 0 14px ${DW_CAT_GLOW[dwPrimary]}` : 'var(--shadow)';
       html += `
-        <div class="wm-cell" style="background:${cellBg};border:1px ${cellBorderStyle} ${cellBorder};box-shadow:${cellShadow};">
+        <div class="wm-cell" style="background:var(--card);border:1px solid var(--border);border-left:3px ${cellLeftBorderStyle} ${cellLeftBorderColor};box-shadow:${cellShadow};">
           <div class="wm-day">${dayKey.charAt(0).toUpperCase() + dayKey.slice(1)}</div>
           <div class="wm-emoji">${combinedEmoji}</div>
           <div class="wm-label" style="color:${labelColor};">${combinedName}</div>
@@ -4293,8 +4281,8 @@ function renderRoutinesGrid() {
         }
       });
 
-      const RG_CAT_COLOR = { gym:'#00f5d4', run:'#bf5fff', class:'#d4ff00', rest:'#888' };
-      const RG_CAT_BG    = { gym:'rgba(0,245,212,0.10)', run:'rgba(191,95,255,0.18)', class:'rgba(212,255,0,0.08)', rest:'rgba(136,136,136,0.08)' };
+      const RG_CAT_COLOR = { gym:'#9ca3af', run:'#00f5d4', class:'#9ca3af', rest:'#6b7280' };
+      const RG_CAT_BG    = { gym:'rgba(107,114,128,0.08)', run:'rgba(0,245,212,0.08)', class:'rgba(107,114,128,0.06)', rest:'rgba(107,114,128,0.05)' };
       function getRgCat(type) {
         if (!type) return 'gym';
         const w = _libRg[type];
@@ -4568,15 +4556,15 @@ function renderRunTimesManager(workoutType) {
     times.forEach(t => {
       const isSelected = t.id === selectedId;
       const item = document.createElement('div');
-      item.style.cssText = `display:flex;justify-content:space-between;align-items:flex-start;padding:8px 10px;background:var(--card);border-radius:var(--radius-sm);border:1.5px solid ${isSelected ? '#bf5fff' : 'var(--border)'};`;
+      item.style.cssText = `display:flex;justify-content:space-between;align-items:flex-start;padding:8px 10px;background:var(--card);border-radius:var(--radius-sm);border:1.5px solid ${isSelected ? '#00f5d4' : 'var(--border)'};`;
       const info = document.createElement('div');
       info.style.cssText = 'flex:1;';
-      info.innerHTML = `<div style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:13px;">${isSelected ? '<span style="font-size:10px;background:#bf5fff;color:#fff;padding:2px 6px;border-radius:999px;font-weight:700;">MY SLOT</span>' : ''}${(DAY_SHORT[t.day] || t.day)}${t.time ? ' · ' + t.time : ''}</div>`;
+      info.innerHTML = `<div style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:13px;">${isSelected ? '<span style="font-size:10px;background:#00f5d4;color:#003830;padding:2px 6px;border-radius:999px;font-weight:700;">MY SLOT</span>' : ''}${(DAY_SHORT[t.day] || t.day)}${t.time ? ' · ' + t.time : ''}</div>`;
       const btns = document.createElement('div');
       btns.style.cssText = 'display:flex;flex-direction:column;gap:4px;align-items:flex-end;';
       if (!isSelected) {
         const sel = document.createElement('button');
-        sel.style.cssText = 'padding:3px 8px;background:rgba(191,95,255,0.12);border:1px solid #bf5fff;border-radius:var(--radius-sm);color:#bf5fff;font-size:11px;cursor:pointer;font-weight:600;white-space:nowrap;';
+        sel.style.cssText = 'padding:3px 8px;background:rgba(0,245,212,0.12);border:1px solid #00f5d4;border-radius:var(--radius-sm);color:#00f5d4;font-size:11px;cursor:pointer;font-weight:600;white-space:nowrap;';
         sel.textContent = '★ Set as my slot';
         sel.onclick = () => { setSelectedRunTime(workoutType, t.id); renderRunTimesManager(workoutType); updateRunBadge(workoutType); if (typeof renderDayCards === 'function') renderDayCards(); };
         btns.appendChild(sel);
@@ -4596,7 +4584,7 @@ function renderRunTimesManager(workoutType) {
   const addBtn = document.createElement('button');
   addBtn.style.cssText = `width:100%;margin-top:${times.length > 0 ? '10px' : '0'};padding:9px 12px;background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius-sm);color:var(--text2);font-size:13px;font-weight:500;cursor:pointer;transition:all 0.15s;font-family:'Manrope', sans-serif;`;
   addBtn.textContent = '+ Add time';
-  addBtn.onmouseover = () => { addBtn.style.borderColor = '#bf5fff'; addBtn.style.color = '#bf5fff'; };
+  addBtn.onmouseover = () => { addBtn.style.borderColor = 'var(--teal)'; addBtn.style.color = 'var(--teal)'; };
   addBtn.onmouseout  = () => { addBtn.style.borderColor = 'var(--border)'; addBtn.style.color = 'var(--text2)'; };
   addBtn.onclick = () => openRunTimeModal(workoutType);
   container.appendChild(addBtn);
@@ -4623,7 +4611,7 @@ function renderRunTimes(workoutType) {
   pills.style.cssText = 'display:flex;flex-wrap:wrap;gap:4px;';
   times.forEach(t => {
     const pill = document.createElement('div');
-    pill.style.cssText = 'padding:3px 8px;background:rgba(191,95,255,0.18);border:1px solid rgba(191,95,255,0.3);border-radius:999px;font-size:11px;color:#bf5fff;';
+    pill.style.cssText = 'padding:3px 8px;background:rgba(0,245,212,0.12);border:1px solid rgba(0,245,212,0.25);border-radius:999px;font-size:11px;color:#00f5d4;';
     pill.textContent = `${DAY_SHORT[t.day] || t.day}${t.time ? ' ' + t.time : ''}`;
     pills.appendChild(pill);
   });
@@ -4655,7 +4643,7 @@ function openRunTimeModal(workoutType) {
       </div>
       <div style="display:flex;gap:10px;">
         <button onclick="closeModal()" style="flex:1;padding:11px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text2);font-family:'Manrope',sans-serif;font-size:14px;cursor:pointer;">Cancel</button>
-        <button onclick="confirmAddRunTime('${workoutType}')" style="flex:2;padding:11px;background:#bf5fff;border:none;border-radius:var(--radius-sm);color:#fff;font-family:'Manrope',sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Add slot</button>
+        <button onclick="confirmAddRunTime('${workoutType}')" style="flex:2;padding:11px;background:#00f5d4;border:none;border-radius:var(--radius-sm);color:#00382f;font-family:'Manrope',sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Add slot</button>
       </div>
     </div>`;
   modal.style.display = 'flex';
@@ -4762,9 +4750,9 @@ function renderClassTimesManager(workoutType) {
   // Colour per workout type: swim=teal, classes=neon yellow
   const _wLib = getWorkoutLibrary ? getWorkoutLibrary() : {};
   const _wColor = _wLib[workoutType] ? _wLib[workoutType].color : 'class';
-  const accentColor = _wColor === 'teal' ? '#00f5d4' : '#d4ff00';
-  const accentBg    = _wColor === 'teal' ? 'rgba(0,245,212,0.10)' : 'rgba(212,255,0,0.10)';
-  const accentText  = _wColor === 'teal' ? '#00382f' : '#2a3300';
+  const accentColor = '#00f5d4';
+  const accentBg    = 'rgba(0,245,212,0.10)';
+  const accentText  = '#00382f';
 
   const times = getClassTimes(workoutType);
   const sorted = sortedClassTimes(times);
@@ -6370,7 +6358,7 @@ const BUILTIN_GYM_WORKOUTS = [
     id: 'pull',
     name: 'Pull',
     emoji: '🏋️',
-    color: 'purple',
+    color: 'teal',
     badge: 'Strength · Pull',
     meta: 'Back · Biceps · Rear delts  |  ~55 min',
     exercises: [
@@ -6450,7 +6438,7 @@ const BUILTIN_GYM_WORKOUTS = [
     id: 'glutes',
     name: 'Glutes',
     emoji: '🍑',
-    color: 'purple',
+    color: 'gray',
     badge: 'Strength · Glutes',
     meta: 'Glute focus + posterior chain  |  ~45 min',
     exercises: [
@@ -6789,7 +6777,7 @@ var WT_CAT_META = {
   recovery:   { color:'teal',   label:'Recovery'      },
   skin:       { color:'coral',  label:'Skin & Beauty' },
   metabolism: { color:'amber',  label:'Metabolism'    },
-  sleep:      { color:'purple', label:'Sleep'         },
+  sleep:      { color:'teal',   label:'Sleep'         },
   breathwork: { color:'blue',   label:'Breathwork'    },
   heat:       { color:'coral',  label:'Heat Therapy'  },
   light:      { color:'amber',  label:'Light Therapy' },
@@ -7212,8 +7200,8 @@ function renderRoutinesTweaks() {
     var workoutTypes = day.workoutTypes || [];
     var firstType    = workoutTypes[0];
     var firstWorkout = firstType ? lib[firstType] : null;
-    var RT_CAT_COLOR = { gym:'#00f5d4', run:'#bf5fff', class:'#d4ff00', rest:'#888', gray:'#888' };
-    var RT_CAT_BG    = { gym:'rgba(0,245,212,0.10)', run:'rgba(191,95,255,0.18)', class:'rgba(212,255,0,0.08)', rest:'rgba(136,136,136,0.08)', gray:'rgba(136,136,136,0.08)' };
+    var RT_CAT_COLOR = { gym:'#9ca3af', run:'#00f5d4', class:'#9ca3af', rest:'#6b7280', gray:'#6b7280' };
+    var RT_CAT_BG    = { gym:'rgba(107,114,128,0.08)', run:'rgba(0,245,212,0.08)', class:'rgba(107,114,128,0.06)', rest:'rgba(107,114,128,0.05)', gray:'rgba(107,114,128,0.05)' };
     var rtCat = !firstWorkout ? 'gray'
       : (firstWorkout.type === 'run' || firstWorkout.color === 'run') ? 'run'
       : (firstWorkout.type === 'class' || firstWorkout.color === 'class') ? 'class'
@@ -7251,10 +7239,23 @@ function renderRoutinesTweaks() {
 const API_KEY_STORE = 'laura_anthropic_api_key';
 
 function getAnthropicApiKey() {
-  // Prefer Drive-synced value; fall back to legacy localStorage value on first run
+  // 1. Prefer Drive-synced / in-memory value
   const synced = getData(API_KEY_STORE, '');
   if (synced) return synced;
-  return localStorage.getItem(API_KEY_STORE) || '';
+  // 2. Legacy standalone localStorage entry
+  const legacy = localStorage.getItem(API_KEY_STORE);
+  if (legacy) return legacy;
+  // 3. Check the localStorage fallback blob (covers mobile where Drive loaded a
+  //    snapshot that predates the key being saved, but a later desktop session
+  //    wrote it into the fallback blob via scheduleSave)
+  try {
+    const blob = localStorage.getItem('laura_app_data_fallback');
+    if (blob) {
+      const parsed = JSON.parse(blob);
+      if (parsed && parsed[API_KEY_STORE]) return parsed[API_KEY_STORE];
+    }
+  } catch(e) {}
+  return '';
 }
 function hasAnthropicApiKey() { return !!getAnthropicApiKey(); }
 
@@ -7372,7 +7373,7 @@ function savePantry(p) { setData(PANTRY_KEY, p); scheduleSave(); }
 
 function renderPantry() {
   const pantry = loadPantry();
-  const LOC_ACCENT = { fridge:'#00f5d4', freezer:'#bf5fff', cupboard:'#d4ff00', counter:'#f5a623' };
+  const LOC_ACCENT = { fridge:'#00f5d4', freezer:'#00f5d4', cupboard:'#9ca3af', counter:'#9ca3af' };
   PANTRY_LOCATIONS.forEach(loc => {
     const el = document.getElementById('pantry-' + loc);
     if (!el) return;
@@ -7439,7 +7440,7 @@ function renderBuyAgain() {
   if (!section || !el) return;
   if (list.length === 0) { section.style.display = 'none'; return; }
   section.style.display = 'block';
-  const LOC_ACCENT = { fridge:'#00f5d4', freezer:'#bf5fff', cupboard:'#d4ff00', counter:'#f5a623' };
+  const LOC_ACCENT = { fridge:'#00f5d4', freezer:'#00f5d4', cupboard:'#9ca3af', counter:'#9ca3af' };
   el.innerHTML = list.map((item, idx) => {
     const accent = LOC_ACCENT[item.loc] || '#888';
     return '<div style="display:inline-flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.1);border-radius:10px;">'
@@ -7639,8 +7640,8 @@ function parseOcadoImport() {
 
 const LOC_CYCLE = ['fridge','freezer','cupboard','counter'];
 const LOC_ICONS = { fridge:'🧊', freezer:'❄️', cupboard:'🗄️', counter:'🍎' };
-const LOC_COLORS = { fridge:'rgba(0,245,212,0.15)', freezer:'rgba(191,95,255,0.15)', cupboard:'rgba(212,255,0,0.10)', counter:'rgba(245,166,35,0.15)' };
-const LOC_TEXT   = { fridge:'#00f5d4', freezer:'#bf5fff', cupboard:'#d4ff00', counter:'#f5a623' };
+const LOC_COLORS = { fridge:'rgba(0,245,212,0.15)', freezer:'rgba(0,245,212,0.12)', cupboard:'rgba(107,114,128,0.12)', counter:'rgba(107,114,128,0.10)' };
+const LOC_TEXT   = { fridge:'#00f5d4', freezer:'#00f5d4', cupboard:'#9ca3af', counter:'#9ca3af' };
 
 function renderOcadoReview() {
   const list = document.getElementById('ocado-review-list');
@@ -8029,7 +8030,7 @@ async function getMealSuggestions() {
     if (results) {
       window._suggestedMeals = meals;
       results.innerHTML = meals.map((m, idx) => {
-        const slotColors = { Breakfast:'#00f5d4', Lunch:'#bf5fff', Snack:'#f5a623', Dinner:'#00f5d4' };
+        const slotColors = { Breakfast:'#00f5d4', Lunch:'#00f5d4', Snack:'#9ca3af', Dinner:'#00f5d4' };
         const col = slotColors[m.slot] || '#00f5d4';
         return '<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;">'
           + '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">'
@@ -8184,7 +8185,7 @@ function renderSavedRecipes() {
     return;
   }
   el.innerHTML = recipes.map((r, idx) => {
-    const slotColors = { Breakfast:'#00f5d4', Lunch:'#bf5fff', Snack:'#f5a623', Dinner:'#00f5d4' };
+    const slotColors = { Breakfast:'#00f5d4', Lunch:'#00f5d4', Snack:'#9ca3af', Dinner:'#00f5d4' };
     const col = slotColors[r.slot] || '#00f5d4';
     return '<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">'
       + '<div style="flex:1;">'
@@ -8260,7 +8261,7 @@ async function getPlannerSuggestions() {
     if (loading) loading.style.display = 'none';
     if (results) {
       results.innerHTML = meals.map((m, idx) => {
-        const slotColors = { Breakfast:'#00f5d4', Lunch:'#bf5fff', Snack:'#f5a623', Dinner:'#00f5d4' };
+        const slotColors = { Breakfast:'#00f5d4', Lunch:'#00f5d4', Snack:'#9ca3af', Dinner:'#00f5d4' };
         const col = slotColors[m.slot] || '#00f5d4';
         return '<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;">'
           + '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">'
@@ -8327,7 +8328,7 @@ function getDayEatingStyle(dayKey, workoutTypes) {
 const EATING_STYLES = {
   standard:  { label:'Standard day',   sub:'Three meals · ~1,450 kcal · 137g protein', badge:'badge-teal',   badgeText:'3 meals',      why:'Training day — steady fuel across three meals supports performance and muscle recovery.' },
   early:     { label:'Early finish',   sub:'Done by 6pm · ~1,240 kcal · 116g protein', badge:'badge-blue',   badgeText:'By 6pm',       why:'Eating window closes by 6pm. More control over your environment means it\'s easier to stick to. Creates a deficit without feeling deprived.' },
-  rest_keto: { label:'Keto day',       sub:'No carbs · ~1,400 kcal · 121g protein',    badge:'badge-purple', badgeText:'Keto',         why:'Rest day — no performance carbs needed. Going keto on a low-activity day teaches your body to burn fat as fuel and keeps insulin low.' },
+  rest_keto: { label:'Keto day',       sub:'No carbs · ~1,400 kcal · 121g protein',    badge:'badge-teal', badgeText:'Keto',         why:'Rest day — no performance carbs needed. Going keto on a low-activity day teaches your body to burn fat as fuel and keeps insulin low.' },
   omad:      { label:'OMAD',           sub:'One big meal · ~1,200 kcal · 110g protein', badge:'badge-amber',  badgeText:'1 meal',       why:'Volunteer Saturday — busy morning means you\'re naturally not thinking about food. One big satisfying meal in the afternoon works with that rhythm.' },
 };
 
@@ -8641,7 +8642,7 @@ loadWorkoutRoutine = function() {
 const ALL_EATING_STYLES = ['standard','early','omad','rest_keto'];
 const EATING_STYLE_LABELS = { standard:'Standard', early:'Early finish', omad:'OMAD', rest_keto:'Keto' };
 const EATING_STYLE_EMOJI  = { standard:'🥗', early:'🕕', omad:'🍽️', rest_keto:'🥑' };
-const EATING_STYLE_COLOR  = { standard:'#00f5d4', early:'#60a5fa', omad:'#f5a623', rest_keto:'#bf5fff' };
+const EATING_STYLE_COLOR  = { standard:'#00f5d4', early:'#60a5fa', omad:'#f5a623', rest_keto:'#00f5d4' };
 
 let _twWeekOffset = 0;
 
@@ -8698,14 +8699,14 @@ function renderTWGrid() {
   const lib = getWorkoutLibrary();
   const dates = getWeekDates(_twWeekOffset);
   const DAY_SHORT_TW = {mon:'Mon',tue:'Tue',wed:'Wed',thu:'Thu',fri:'Fri',sat:'Sat',sun:'Sun'};
-  const CAT_COLOR  = {gym:'#00f5d4', run:'#a78bfa', class:'#fbbf24', rest:'rgba(255,255,255,0.35)'};
+  const CAT_COLOR  = {gym:'#9ca3af', run:'#00f5d4', class:'#9ca3af', rest:'rgba(255,255,255,0.25)'};
   const CAT_BG     = {
-    gym:   'linear-gradient(145deg,#021310 0%,#042e26 100%)',
-    run:   'linear-gradient(145deg,#130820 0%,#220a36 100%)',
-    class: 'linear-gradient(145deg,#161000 0%,#2a1f00 100%)',
+    gym:   'var(--card)',
+    run:   'var(--card)',
+    class: 'var(--card)',
     rest:  'var(--card)'
   };
-  const CAT_BORDER = {gym:'rgba(0,245,212,0.45)', run:'rgba(167,139,250,0.45)', class:'rgba(251,191,36,0.45)', rest:'var(--border)'};
+  const CAT_BORDER = {gym:'#6b7280', run:'#00f5d4', class:'#6b7280 dashed', rest:'var(--border)'};
 
   function getCat(type) {
     if (!type) return 'rest';
@@ -8728,7 +8729,7 @@ function renderTWGrid() {
     const isToday = _twWeekOffset === 0 && day.dayKey === todayKey;
     const wts = day.workoutTypes || [];
     const primaryCat = getCat(wts[0]);
-    const accentColor = wts.length === 0 ? '#555' : CAT_COLOR[primaryCat];
+    const accentColor = wts.length === 0 ? 'var(--text3)' : (primaryCat === 'run' ? '#00f5d4' : 'var(--text2)');
     const isRest = wts.length === 0 || (wts.length === 1 && (lib[wts[0]] || {}).type === 'rest');
 
     // Workout display: emoji + short name
@@ -8745,10 +8746,13 @@ function renderTWGrid() {
     const styleEmoji = EATING_STYLE_EMOJI[style] || '🥗';
     const styleShort = (EATING_STYLE_LABELS[style] || style).split(' ')[0]; // first word only
 
-    const border = isToday ? 'var(--teal)' : CAT_BORDER[primaryCat];
-    const bg = isToday ? 'rgba(0,245,212,0.12)' : CAT_BG[primaryCat];
+    // Left-border colour: run=teal solid, gym=grey solid, class=grey (dashed via outline), rest=transparent
+    const leftBorderColor = isRest ? 'transparent' : (primaryCat === 'run' ? '#00f5d4' : '#6b7280');
+    const leftBorderStyle = (!isRest && primaryCat === 'class') ? 'dashed' : 'solid';
+    const bg = isToday ? 'rgba(0,245,212,0.07)' : 'var(--card)';
+    const outerBorder = isToday ? '1px solid var(--teal)' : '1px solid var(--border)';
 
-    return '<div onclick="twSelectDay(\'' + day.dayKey + '\')" style="cursor:pointer;border-radius:var(--radius-sm);background:' + bg + ';border:1.5px solid ' + border + ';' + (isToday ? 'box-shadow:0 0 0 2px var(--teal);' : '') + 'padding:10px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;min-height:110px;transition:border-color 0.15s;" onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1">'
+    return '<div onclick="twSelectDay(\'' + day.dayKey + '\')" style="cursor:pointer;border-radius:var(--radius-sm);background:' + bg + ';border:' + outerBorder + ';border-left:3px ' + leftBorderStyle + ' ' + leftBorderColor + ';' + (isToday ? 'box-shadow:0 0 0 1px rgba(0,245,212,0.3);' : '') + 'padding:10px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;min-height:110px;transition:border-color 0.15s;" onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1">'
       + '<div style="font-size:11px;font-weight:700;color:' + (isToday ? 'var(--teal)' : 'var(--text)') + ';font-family:\'Space Grotesk\',sans-serif;">' + DAY_SHORT_TW[day.dayKey] + '</div>'
       + '<div style="font-size:10px;color:var(--text3);margin-bottom:4px;">' + dateStr + '</div>'
       + '<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;">' + workoutLines + '</div>'
@@ -8811,7 +8815,7 @@ function renderTWDayPanel(dayKey) {
   const styleInfo = (typeof EATING_STYLES !== 'undefined' && EATING_STYLES[style]) || { label: EATING_STYLE_LABELS[style], sub:'', why:'' };
   const styleColor = EATING_STYLE_COLOR[style] || '#888';
   const DAY_LABELS = {mon:'Monday',tue:'Tuesday',wed:'Wednesday',thu:'Thursday',fri:'Friday',sat:'Saturday',sun:'Sunday'};
-  const CAT_COLOR = {gym:'#00f5d4',run:'#bf5fff',class:'#d4ff00',rest:'#888'};
+  const CAT_COLOR = {gym:'#9ca3af',run:'#00f5d4',class:'#9ca3af',rest:'#6b7280'};
 
   function getWCat(type) {
     const w = lib[type];
