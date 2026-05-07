@@ -8867,7 +8867,12 @@ function renderTWGrid() {
           return w ? '<span style="font-size:18px;">' + w.emoji + '</span><span style="font-size:13px;font-weight:600;color:' + accentColor + ';margin-left:6px;">' + w.name + '</span>' : '';
         }).join('<span style="font-size:11px;color:var(--text3);margin:0 4px;">+</span>');
 
-    return '<div onclick="twSelectDay(\'' + day.dayKey + '\')" style="cursor:pointer;border-radius:var(--radius-sm);background:' + bg + ';border:' + outerBorder + ';border-left:3px ' + leftBorderStyle + ' ' + leftBorderColor + ';' + (isToday ? 'box-shadow:0 0 0 1px rgba(0,245,212,0.3);' : '') + 'padding:10px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;min-height:110px;transition:border-color 0.15s;" onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1">'
+    const isSelected = _twSelectedDay === day.dayKey;
+    const selectedBg = isSelected ? 'rgba(0,245,212,0.10)' : bg;
+    const selectedBorder = isSelected ? '1px solid var(--teal)' : outerBorder;
+    const selectedShadow = isSelected ? 'box-shadow:0 0 0 1px rgba(0,245,212,0.4);' : (isToday ? 'box-shadow:0 0 0 1px rgba(0,245,212,0.3);' : '');
+
+    return '<div data-daykey="' + day.dayKey + '" onclick="twSelectDay(\'' + day.dayKey + '\')" style="cursor:pointer;border-radius:var(--radius-sm);background:' + selectedBg + ';border:' + selectedBorder + ';border-left:3px ' + leftBorderStyle + ' ' + leftBorderColor + ';' + selectedShadow + 'padding:10px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;min-height:110px;transition:background 0.15s,border-color 0.15s;" onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1">'
       // Desktop layout (column)
       + '<div class="tw-desktop-only" style="display:contents;">'
       + '<div style="font-size:11px;font-weight:700;color:' + (isToday ? 'var(--teal)' : 'var(--text)') + ';font-family:\'Space Grotesk\',sans-serif;">' + DAY_SHORT_TW[day.dayKey] + '</div>'
@@ -8883,7 +8888,7 @@ function renderTWGrid() {
       + '</div>'
       + '<div style="flex:1;display:flex;align-items:center;flex-wrap:wrap;gap:2px;">' + workoutRowContent + '</div>'
       + '<div style="padding:3px 9px;border-radius:999px;background:' + styleColor + '20;color:' + styleColor + ';font-size:11px;font-weight:700;white-space:nowrap;flex-shrink:0;">' + styleEmoji + ' ' + styleShort + '</div>'
-      + '<div style="color:var(--text3);font-size:14px;flex-shrink:0;">›</div>'
+      + '<div style="color:' + (isSelected ? 'var(--teal)' : 'var(--text3)') + ';font-size:14px;flex-shrink:0;transition:transform 0.2s;">' + (isSelected ? '↓' : '›') + '</div>'
       + '</div>'
     + '</div>';
   }).join('') + '</div>';
@@ -8925,8 +8930,24 @@ document.addEventListener('click', function(e) {
 let _twSelectedDay = null;
 
 function twSelectDay(dayKey) {
+  // Toggle off if tapping the already-selected day
+  if (_twSelectedDay === dayKey) {
+    _twSelectedDay = null;
+    renderTWGrid();
+    const panel = document.getElementById('thisweek-day-panel');
+    if (panel) panel.style.display = 'none';
+    return;
+  }
   _twSelectedDay = dayKey;
+  renderTWGrid();       // re-render grid so selected highlight + arrow update
   renderTWDayPanel(dayKey);
+  // On mobile: scroll the panel into view so user doesn't have to hunt for it
+  setTimeout(function() {
+    const panel = document.getElementById('thisweek-day-panel');
+    if (panel && window.innerWidth < 768) {
+      panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 50);
 }
 
 function renderTWDayPanel(dayKey) {
