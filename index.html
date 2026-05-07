@@ -988,11 +988,14 @@
 
   <div class="nav-section">
     <div class="nav-label">Nutrition</div>
-    <button class="nav-item" onclick="goTo('nutrition', this)">
-      <span class="nav-icon">📚</span> Nutrition Guide
+    <button class="nav-item" onclick="goTo('mealplan', this)">
+      <span class="nav-icon">📅</span> Meal Plan
     </button>
     <button class="nav-item" onclick="goTo('pantry', this)">
       <span class="nav-icon">🥕</span> Kitchen & Food
+    </button>
+    <button class="nav-item" onclick="goTo('nutrition', this)">
+      <span class="nav-icon">📚</span> Nutrition Guide
     </button>
   </div>
 
@@ -1617,7 +1620,6 @@
 
   <div class="eating-tabs" style="margin-bottom:20px;flex-wrap:wrap;">
     <div class="etab active" id="ptab-pantry" onclick="switchPantryTab('pantry',this)">🥕 My Kitchen</div>
-    <div class="etab" id="ptab-planner" onclick="switchPantryTab('planner',this)">📅 Meal Planner</div>
     <div class="etab" id="ptab-shop" onclick="switchPantryTab('shop',this)">🛒 Shopping</div>
     <div class="etab" id="ptab-suggest" onclick="switchPantryTab('suggest',this)">✨ Recipe Ideas</div>
     <div class="etab" id="ptab-recipes" onclick="switchPantryTab('recipes',this)">📖 My Recipes</div>
@@ -1817,27 +1819,6 @@
   </div>
 </div>
 
-  <!-- ── TAB: Meal Planner ── -->
-  <div id="pantry-tab-planner" class="etab-page">
-    <div id="planner-tab-planner">
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;" id="planner-totals">
-        <div class="stat-card"><div class="stat-val" id="pt-avgcal">—</div><div class="stat-label">Avg daily calories</div></div>
-        <div class="stat-card"><div class="stat-val" id="pt-avgpro">—</div><div class="stat-label">Avg daily protein</div></div>
-        <div class="stat-card"><div class="stat-val" id="pt-ketodays">2</div><div class="stat-label">Keto days</div><div class="stat-sub">Fri / Sun</div></div>
-        <div class="stat-card"><div class="stat-val" id="pt-earldays">1</div><div class="stat-label">Early finish days</div><div class="stat-sub">Thu WFH</div></div>
-      </div>
-      <div id="planner-grid" style="display:flex;flex-direction:column;gap:8px;"></div>
-      <!-- Mobile planner: strip + week overview (hidden on desktop) -->
-      <div id="planner-mobile-wrap" style="display:none;">
-        <div id="planner-strip"></div>
-        <div id="planner-week-overview"></div>
-      </div>
-      <div style="text-align:center;margin-top:20px;">
-        <button onclick="resetPlanner()" style="font-size:13px;color:var(--text3);background:none;border:1px solid var(--border);cursor:pointer;padding:8px 20px;border-radius:999px;font-family:'Manrope', sans-serif;" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text3)'">Reset to default plan</button>
-      </div>
-    </div>
-  </div>
-
   <!-- ── TAB: My Recipes ── -->
   <div id="pantry-tab-recipes" class="etab-page">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
@@ -1875,6 +1856,26 @@
   </div>
 
 </div><!-- end page-pantry -->
+
+<!-- ===================== MEAL PLAN ===================== -->
+<div id="page-mealplan" class="page">
+  <div class="page-header">
+    <div class="page-eyebrow">Nutrition</div>
+    <div class="page-title">Meal Plan</div>
+    <div class="page-sub">Your weekly eating schedule — what you're having each day</div>
+  </div>
+  <div id="planner-tab-planner">
+    <div id="planner-grid" style="display:flex;flex-direction:column;gap:8px;"></div>
+    <!-- Mobile planner: strip + week overview (hidden on desktop) -->
+    <div id="planner-mobile-wrap" style="display:none;">
+      <div id="planner-strip"></div>
+      <div id="planner-week-overview"></div>
+    </div>
+    <div style="text-align:center;margin-top:20px;">
+      <button onclick="resetPlanner()" style="font-size:13px;color:var(--text3);background:none;border:1px solid var(--border);cursor:pointer;padding:8px 20px;border-radius:999px;font-family:'Manrope', sans-serif;" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text3)'">Reset to default plan</button>
+    </div>
+  </div>
+</div><!-- end page-mealplan -->
 
 <div id="page-routines" class="page">
   <div class="page-header">
@@ -2647,6 +2648,7 @@ function goTo(page, el) {
 
   // Per-page init — always reset to first sub-tab on every navigation
   if (page === 'pantry') { try { renderPantry(); } catch(e) {} try { renderBuyAgain(); } catch(e) {} }
+  if (page === 'mealplan') { try { renderPlanner(); } catch(e) {} }
   if (page === 'training') {
     // Always reset to first (Gym) sub-tab
     try { trainingTab('gym', document.querySelector('#page-training .etab')); } catch(e) {}
@@ -2654,9 +2656,6 @@ function goTo(page, el) {
   if (page === 'nutrition') {
     nutritionTab('guide', document.getElementById('nutr-tab-btn-guide'));
     try { switchEat('guide', document.querySelector('#nutr-tab-guide .eating-tabs .etab')); } catch(e) {}
-  }
-  if (page === 'pantry') {
-    try { renderPlanner(); } catch(e) {}
   }
   if (page === 'thisweek') renderThisWeekPage();
   if (page === 'settings') { updateApiKeyStatus(); populateProfileSettingsInputs(); populateApiKeyInput(); }
@@ -8437,7 +8436,7 @@ function switchWellbeingTab2(id, el) {
 }
 
 function switchPantryTab(id, el) {
-  ['pantry','shop','planner','suggest','recipes'].forEach(t => {
+  ['pantry','shop','suggest','recipes'].forEach(t => {
     const pane = document.getElementById('pantry-tab-' + t);
     const tab  = document.getElementById('ptab-' + t);
     if (pane) pane.classList.toggle('active', t === id);
@@ -8450,9 +8449,6 @@ function switchPantryTab(id, el) {
   if (id === 'pantry') {
     try { renderPantry(); } catch(e) {}
     try { renderBuyAgain(); } catch(e) {}
-  }
-  if (id === 'planner') {
-    try { renderPlanner(); } catch(e) {}
   }
   if (id === 'suggest') {
     try { renderSuggestionsPantryPreview(); } catch(e) {}
