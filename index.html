@@ -512,6 +512,102 @@
   }
   .hamburger { display:none;position:fixed;top:max(14px, env(safe-area-inset-top));left:max(14px, env(safe-area-inset-left));z-index:95;background:var(--sidebar-bg);border:1px solid var(--border);border-radius:8px;padding:8px 10px;cursor:pointer;color:var(--text);font-size:16px; }
 
+  /* ── STRIP CELLS: global styles (apply on all screen sizes) ── */
+  .planner-strip-cell {
+    border-radius: 8px;
+    padding: 8px 2px 6px;
+    text-align: center;
+    cursor: pointer;
+    background: var(--card);
+    border: 1px solid var(--border);
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .planner-strip-cell.selected {
+    background: rgba(0,245,212,0.12);
+    border-color: var(--teal);
+  }
+
+  /* Strip cell typography — used by both This Week and Meal Plan strips */
+  .tw-strip-letter { font-size:9px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text3); font-family:'Manrope',sans-serif; margin-bottom:3px; }
+  .tw-strip-letter.today { color:var(--teal) !important; font-weight:700; }
+  .tw-strip-emoji  { font-size:17px; margin-bottom:2px; line-height:1; }
+  .tw-strip-name   { font-size:10px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; width:100%; }
+  .tw-strip-dot    { width:5px; height:5px; border-radius:50%; margin:3px auto 0; opacity:0.85; }
+
+  /* Kitchen category strip cells */
+  .kitchen-cat-cell {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 4px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .kitchen-cat-cell.selected {
+    background: rgba(0,245,212,0.12);
+    border-color: var(--teal);
+  }
+  .kitchen-cat-emoji { font-size: 20px; margin-bottom: 4px; line-height: 1; }
+  .kitchen-cat-label { font-size: 10px; font-weight: 700; color: var(--text2); font-family: 'Manrope', sans-serif; }
+  .kitchen-cat-count { font-size: 9px; color: var(--text3); margin-top: 2px; }
+
+  /* Week overview grid — global (used on mobile, hidden on desktop) */
+  #planner-week-overview {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+  .pwo-row {
+    display: grid;
+    grid-template-columns: 44px repeat(7, 1fr);
+    border-bottom: 1px solid var(--border);
+    min-height: 40px;
+  }
+  .pwo-row:last-child { border-bottom: none; }
+  .pwo-slot-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text3);
+    padding: 6px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+  }
+  .pwo-cell {
+    font-size: 10px;
+    color: #c0bebb;
+    padding: 6px 4px;
+    border-right: 1px solid var(--border);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    text-align: center;
+  }
+  .pwo-cell:last-child { border-right: none; }
+  .pwo-cell.selected-col { background: rgba(0,245,212,0.08); color: var(--teal); }
+  .pwo-header-row .pwo-cell {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text3);
+    background: var(--bg2);
+    justify-content: center;
+    padding: 7px 4px;
+  }
+  .pwo-header-row .pwo-cell.selected-col { color: var(--teal); background: rgba(0,245,212,0.08); }
+
   /* ---- MOBILE FIXES (≤600px) ---- */
   @media (max-width: 600px) {
     /* Progress tracker: stack form fields vertically */
@@ -696,79 +792,13 @@
     .main { padding: 16px 14px 60px !important; }
 
     /* ── MEAL PLANNER: show week overview on mobile ── */
-    #planner-mobile-wrap { display: block !important; }
-
-    /* Planner strip cells — tighter on mobile */
-    .planner-strip-cell {
-      border-radius: 8px;
-      padding: 8px 2px 6px;
-      text-align: center;
-      cursor: pointer;
-      background: var(--card);
-      border: 1px solid var(--border);
-      transition: background 0.15s, border-color 0.15s;
-    }
-    .planner-strip-cell.selected {
-      background: rgba(0,245,212,0.12);
-      border-color: var(--teal);
-    }
-
-    /* Week overview grid */
-    #planner-week-overview {
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      margin-bottom: 16px;
-    }
-    .pwo-row {
-      display: grid;
-      grid-template-columns: 44px repeat(7, 1fr);
-      border-bottom: 1px solid var(--border);
-    }
-    .pwo-row:last-child { border-bottom: none; }
-    .pwo-slot-label {
-      font-size: 9px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--text3);
-      padding: 6px 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--bg2);
-      border-right: 1px solid var(--border);
-    }
-    .pwo-cell {
-      font-size: 9px;
-      color: #c0bebb;
-      padding: 6px 4px;
-      border-right: 1px solid var(--border);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      line-height: 1.2;
-      text-align: center;
-    }
-    .pwo-cell:last-child { border-right: none; }
-    .pwo-cell.selected-col { background: rgba(0,245,212,0.08); color: var(--teal); }
-    .pwo-header-row .pwo-cell {
-      font-size: 8px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--text3);
-      background: var(--bg2);
-      justify-content: center;
-      padding: 7px 4px;
-    }
-    .pwo-header-row .pwo-cell.selected-col { color: var(--teal); background: rgba(0,245,212,0.08); }
-    .pwo-slot-label { font-size: 9px; }
-    .pwo-row { min-height: 32px; }
+    #planner-mobile-wrap { display: flex !important; flex-direction: column; flex: 1; }
+    #planner-week-overview { flex: 1; min-height: 45vh; }
+    /* Larger text in week overview on mobile */
+    .pwo-row { min-height: 46px; }
+    .pwo-cell { font-size: 11px; padding: 8px 4px; }
+    .pwo-slot-label { font-size: 11px; padding: 8px 4px; }
+    .pwo-header-row .pwo-cell { font-size: 10px; padding: 9px 4px; }
 
     /* ── THIS WEEK: dashboard-style 7-cell strip on mobile ── */
     #thisweek-grid > div {
@@ -788,13 +818,6 @@
     /* Hide desktop layout inside strip cells, show mobile compact */
     .tw-desktop-only { display: none !important; }
     .tw-mobile-row   { display: flex !important; flex-direction: column !important; align-items: center !important; width: 100% !important; gap: 3px !important; }
-    /* Strip cell typography — mirrors wm-* classes */
-    .tw-strip-letter { font-size:9px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text3); font-family:'Manrope',sans-serif; margin-bottom:3px; }
-    .tw-strip-letter.today { color:var(--teal) !important; font-weight:700; }
-    .tw-strip-emoji  { font-size:17px; margin-bottom:2px; line-height:1; }
-    .tw-strip-name   { font-size:10px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; width:100%; }
-    .tw-strip-dot    { width:5px; height:5px; border-radius:50%; margin:3px auto 0; opacity:0.85; }
-
     /* ── BOTTOM SHEET ── */
     #tw-sheet-backdrop {
       display: none;
@@ -833,22 +856,6 @@
 
     /* Kitchen category strip — tighter gap on mobile */
     #kitchen-cat-strip { gap: 6px !important; margin-bottom: 12px !important; }
-    .kitchen-cat-cell {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 4px 8px;
-      text-align: center;
-      cursor: pointer;
-      transition: background 0.15s, border-color 0.15s;
-    }
-    .kitchen-cat-cell.selected {
-      background: rgba(0,245,212,0.12);
-      border-color: var(--teal);
-    }
-    .kitchen-cat-emoji { font-size: 20px; margin-bottom: 4px; line-height: 1; }
-    .kitchen-cat-label { font-size: 10px; font-weight: 700; color: var(--text2); font-family: 'Manrope', sans-serif; }
-    .kitchen-cat-count { font-size: 9px; color: var(--text3); margin-top: 2px; }
 
     /* Kitchen bottom sheet */
     #kitchen-sheet-backdrop {
@@ -2668,8 +2675,15 @@ function goTo(page, el) {
   }
 
   // Per-page init — always reset to first sub-tab on every navigation
-  if (page === 'pantry') { try { renderPantry(); } catch(e) {} try { renderBuyAgain(); } catch(e) {} try { renderKitchenMobile(); } catch(e) {} }
-  if (page === 'mealplan') { try { renderPlanner(); } catch(e) {} }
+  if (page === 'pantry') { try { renderPantry(); } catch(e) {} try { renderBuyAgain(); } catch(e) {} try { renderKitchenMobile(); } catch(e) {} try { kitchenSelectCat('fridge'); } catch(e) {} }
+  if (page === 'mealplan') {
+    try { renderPlanner(); } catch(e) {}
+    try {
+      const _todayKey = ['sun','mon','tue','wed','thu','fri','sat'][new Date().getDay()];
+      const _autoKey = ['mon','tue','wed','thu','fri','sat','sun'].includes(_todayKey) ? _todayKey : 'mon';
+      plannerSelectDay(_autoKey);
+    } catch(e) {}
+  }
   if (page === 'training') {
     // Always reset to first (Gym) sub-tab
     try { trainingTab('gym', document.querySelector('#page-training .etab')); } catch(e) {}
@@ -8570,6 +8584,7 @@ function switchPantryTab(id, el) {
     try { renderPantry(); } catch(e) {}
     try { renderBuyAgain(); } catch(e) {}
     try { renderKitchenMobile(); } catch(e) {}
+    try { kitchenSelectCat('fridge'); } catch(e) {}
   }
   if (id === 'suggest') {
     try { renderSuggestionsPantryPreview(); } catch(e) {}
