@@ -695,17 +695,10 @@
     /* Main padding tighter on small phones */
     .main { padding: 16px 14px 60px !important; }
 
-    /* ── MEAL PLANNER: mobile layout ── */
-    #planner-grid { display: none !important; }
+    /* ── MEAL PLANNER: show week overview on mobile ── */
     #planner-mobile-wrap { display: block !important; }
 
-    /* Planner strip — same as TW strip */
-    #planner-strip {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 4px;
-      margin-bottom: 12px;
-    }
+    /* Planner strip cells — tighter on mobile */
     .planner-strip-cell {
       border-radius: 8px;
       padding: 8px 2px 6px;
@@ -838,17 +831,8 @@
       grid-template-columns: 1fr !important;
     }
 
-    /* ── KITCHEN: hide grid, show category strip ── */
-    #pantry-sections { display: none !important; }
-    #kitchen-mobile-wrap { display: block !important; }
-
-    /* Kitchen category strip — 4 equal wide tabs */
-    #kitchen-cat-strip {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-      margin-bottom: 14px;
-    }
+    /* Kitchen category strip — tighter gap on mobile */
+    #kitchen-cat-strip { gap: 6px !important; margin-bottom: 12px !important; }
     .kitchen-cat-cell {
       background: var(--card);
       border: 1px solid var(--border);
@@ -1686,13 +1670,12 @@
 
   <div id="pantry-tab-pantry" class="etab-page active">
 
-  <!-- Import bar -->
-  <div class="card" style="margin-bottom:16px;">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:10px;">
-      <div class="card-title" style="margin:0;">Import from Ocado</div>
-      <button onclick="toggleOcadoImport()" style="padding:8px 18px;background:#00f5d4;color:#00382f;border:none;border-radius:999px;font-family:'Manrope',sans-serif;font-size:12px;font-weight:700;cursor:pointer;">📋 Paste order</button>
-    </div>
-    <div id="ocado-import-panel" style="display:none;">
+  <!-- Ocado import — compact button + collapsible panel -->
+  <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
+    <button onclick="toggleOcadoImport()" style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:var(--bg2);color:var(--text3);border:1px solid var(--border);border-radius:999px;font-family:'Manrope',sans-serif;font-size:11px;font-weight:600;cursor:pointer;">📋 Import from Ocado</button>
+  </div>
+  <div class="card" id="ocado-import-card" style="display:none;margin-bottom:16px;">
+    <div id="ocado-import-panel">
       <div style="font-size:12.5px;color:var(--text2);margin-bottom:8px;">Paste your Ocado confirmation email text below. It'll pull out the items — then you can assign each one to the right location before saving.</div>
       <textarea id="ocado-paste-input" placeholder="Paste Ocado email here…" style="width:100%;min-height:100px;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-family:'Manrope',sans-serif;font-size:13px;resize:vertical;box-sizing:border-box;"></textarea>
       <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
@@ -1711,46 +1694,18 @@
     </div>
   </div>
 
-  <!-- Pantry sections — 2×2 grid -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;" id="pantry-sections">
-    <!-- Fridge -->
-    <div class="card-gym" style="border-radius:var(--radius);padding:18px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--teal);">🧊 Fridge</div>
-        <button onclick="addPantryItem('fridge')" style="font-size:11px;padding:4px 12px;background:var(--teal-light);color:var(--teal);border:1px solid var(--teal-mid);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
-      </div>
-      <div id="pantry-fridge"></div>
-    </div>
-    <!-- Freezer -->
-    <div class="card-run" style="border-radius:var(--radius);padding:18px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--teal);">❄️ Freezer</div>
-        <button onclick="addPantryItem('freezer')" style="font-size:11px;padding:4px 12px;background:var(--teal-light);color:var(--teal);border:1px solid var(--teal-mid);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
-      </div>
-      <div id="pantry-freezer"></div>
-    </div>
-    <!-- Cupboard -->
-    <div class="card-class" style="border-radius:var(--radius);padding:18px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--text2);">🗄️ Cupboard</div>
-        <button onclick="addPantryItem('cupboard')" style="font-size:11px;padding:4px 12px;background:rgba(107,114,128,0.12);color:#9ca3af;border:1px solid rgba(107,114,128,0.25);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
-      </div>
-      <div id="pantry-cupboard"></div>
-    </div>
-    <!-- Counter -->
-    <div class="card-counter" style="border-radius:var(--radius);padding:18px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--text2);">🍎 Counter</div>
-        <button onclick="addPantryItem('counter')" style="font-size:11px;padding:4px 12px;background:rgba(107,114,128,0.12);color:#9ca3af;border:1px solid rgba(107,114,128,0.25);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
-      </div>
-      <div id="pantry-counter"></div>
-    </div>
+  <!-- Hidden pantry divs — keep data targets in DOM for renderPantry() -->
+  <div style="display:none;">
+    <div id="pantry-fridge"></div>
+    <div id="pantry-freezer"></div>
+    <div id="pantry-cupboard"></div>
+    <div id="pantry-counter"></div>
   </div>
 
-  <!-- Mobile kitchen: category strip (hidden on desktop) -->
-  <div id="kitchen-mobile-wrap" style="display:none;">
-    <div id="kitchen-cat-strip"></div>
-  </div>
+  <!-- Kitchen category strip — same on desktop and mobile -->
+  <div id="kitchen-cat-strip" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px;"></div>
+  <!-- Category detail panel (desktop: inline below strip; mobile: bottom sheet) -->
+  <div id="kitchen-day-panel" style="display:none;"></div>
 
   <!-- Buy Again section -->
   <div id="pantry-buy-again-section" style="display:none;margin-top:20px;">
@@ -1929,10 +1884,12 @@
     <div class="page-sub">Your weekly eating schedule — what you're having each day</div>
   </div>
   <div id="planner-tab-planner">
-    <div id="planner-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"></div>
-    <!-- Mobile planner: strip + week overview (hidden on desktop) -->
+    <!-- Unified day strip — same on desktop and mobile -->
+    <div id="planner-strip" style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:16px;"></div>
+    <!-- Day detail panel — shown on desktop below the strip; on mobile a bottom sheet opens instead -->
+    <div id="planner-day-panel" style="display:none;"></div>
+    <!-- Mobile-only week overview table (hidden on desktop) -->
     <div id="planner-mobile-wrap" style="display:none;">
-      <div id="planner-strip"></div>
       <div id="planner-week-overview"></div>
     </div>
     <div style="text-align:center;margin-top:20px;">
@@ -3955,79 +3912,80 @@ function renderPlanner() {
   if (el('pt-avgpro')) el('pt-avgpro').innerHTML = avg(totalPro) + '<span style="font-size:16px;color:var(--text3);">g</span>';
 }
 
-// ── MOBILE PLANNER ──────────────────────────────────────────
+// ── PLANNER: unified day strip + detail panel (desktop) / bottom sheet (mobile) ──
 let _plannerSelectedDay = null;
 
-function renderPlannerMobile() {
-  if (window.innerWidth >= 768) return;
+function renderPlannerStrip() {
   const DAYS = buildPlannerDays();
   plannerState = loadPlannerState();
   const DAY_SHORT = { mon:'Mon', tue:'Tue', wed:'Wed', thu:'Thu', fri:'Fri', sat:'Sat', sun:'Sun' };
   const todayKey = ['sun','mon','tue','wed','thu','fri','sat'][new Date().getDay()];
 
-  // ── Strip ──
   const strip = document.getElementById('planner-strip');
-  if (strip) {
-    strip.innerHTML = DAYS.map(day => {
-      const c = COLOR_MAP[day.color];
-      const isSelected = _plannerSelectedDay === day.key;
-      const isToday = day.key === todayKey;
-      return `<div class="planner-strip-cell${isSelected ? ' selected' : ''}" onclick="plannerSelectDay('${day.key}')">
-        <div class="tw-strip-letter${isToday ? ' today' : ''}">${DAY_SHORT[day.key]}</div>
-        <div class="tw-strip-emoji">${day.emoji.split(' + ')[0]}</div>
-        <div class="tw-strip-name" style="color:${c.text};">${day.tag.split(' + ')[0]}</div>
-        <div class="tw-strip-dot" style="background:${c.text};opacity:0.8;"></div>
-      </div>`;
-    }).join('');
-  }
+  if (!strip) return;
+  strip.innerHTML = DAYS.map(day => {
+    const c = COLOR_MAP[day.color];
+    const isSelected = _plannerSelectedDay === day.key;
+    const isToday = day.key === todayKey;
+    return `<div class="planner-strip-cell${isSelected ? ' selected' : ''}" onclick="plannerSelectDay('${day.key}')">
+      <div class="tw-strip-letter${isToday ? ' today' : ''}">${DAY_SHORT[day.key]}</div>
+      <div class="tw-strip-emoji">${day.emoji.split(' + ')[0]}</div>
+      <div class="tw-strip-name" style="color:${c.text};">${day.tag.split(' + ')[0]}</div>
+      <div class="tw-strip-dot" style="background:${c.text};opacity:0.8;"></div>
+    </div>`;
+  }).join('');
 
-  // ── Week overview table ──
+  // Mobile-only week overview table
   const overview = document.getElementById('planner-week-overview');
   if (!overview) return;
-
-  const dayKeys = DAYS.map(d => d.key);
   const DAY_INITIALS = { mon:'M', tue:'T', wed:'W', thu:'T', fri:'F', sat:'S', sun:'S' };
-
-  // Header row
-  let html = '<div class="pwo-row pwo-header-row">'
-    + '<div class="pwo-slot-label"></div>'
+  let html = '<div class="pwo-row pwo-header-row"><div class="pwo-slot-label"></div>'
     + DAYS.map(d => `<div class="pwo-cell${_plannerSelectedDay === d.key ? ' selected-col' : ''}" onclick="plannerSelectDay('${d.key}')">${DAY_INITIALS[d.key]}</div>`).join('')
     + '</div>';
-
-  // Slot rows
   SLOTS.forEach(slot => {
-    html += '<div class="pwo-row">'
-      + `<div class="pwo-slot-label">${SLOT_ICONS[slot]}</div>`
+    html += '<div class="pwo-row"><div class="pwo-slot-label">' + SLOT_ICONS[slot] + '</div>'
       + DAYS.map(d => {
           const mealName = plannerState[d.key] && plannerState[d.key][slot];
-          const isEatingOut = mealName === EATING_OUT_SENTINEL;
           const isSelected = _plannerSelectedDay === d.key;
-          let label = '';
-          if (isEatingOut) label = '🍽️ Out';
-          else if (mealName && mealName.startsWith && mealName.startsWith(RECIME_SENTINEL_PREFIX)) label = '🍳 ReciMe';
-          else if (mealName) label = mealName.split(' ').slice(0,3).join(' ');
-          else label = '—';
+          let label = mealName === EATING_OUT_SENTINEL ? '🍽️' : (mealName && mealName.startsWith && mealName.startsWith(RECIME_SENTINEL_PREFIX)) ? '🍳' : mealName ? mealName.split(' ').slice(0,2).join(' ') : '—';
           return `<div class="pwo-cell${isSelected ? ' selected-col' : ''}" onclick="plannerSelectDay('${d.key}')" title="${mealName || ''}">${label}</div>`;
         }).join('')
       + '</div>';
   });
-
   overview.innerHTML = html;
 }
 
+function renderPlannerMobile() { renderPlannerStrip(); }
+
 function plannerSelectDay(dayKey) {
+  // Toggle off if tapping same day
+  if (_plannerSelectedDay === dayKey) {
+    _plannerSelectedDay = null;
+    renderPlannerStrip();
+    const panel = document.getElementById('planner-day-panel');
+    if (panel) panel.style.display = 'none';
+    return;
+  }
   _plannerSelectedDay = dayKey;
-  renderPlannerMobile();
+  renderPlannerStrip();
 
-  const content = document.getElementById('planner-sheet-content');
-  const backdrop = document.getElementById('planner-sheet-backdrop');
-  const sheet = document.getElementById('planner-bottom-sheet');
-  if (!content || !sheet || !backdrop) return;
-
-  renderPlannerDaySheet(dayKey, content);
-  backdrop.style.display = 'block';
-  requestAnimationFrame(() => sheet.style.transform = 'translateY(0)');
-  document.body.style.overflow = 'hidden';
+  if (window.innerWidth < 768) {
+    // Mobile: bottom sheet
+    const content = document.getElementById('planner-sheet-content');
+    const backdrop = document.getElementById('planner-sheet-backdrop');
+    const sheet = document.getElementById('planner-bottom-sheet');
+    if (!content || !sheet || !backdrop) return;
+    renderPlannerDaySheet(dayKey, content);
+    backdrop.style.display = 'block';
+    requestAnimationFrame(() => sheet.style.transform = 'translateY(0)');
+    document.body.style.overflow = 'hidden';
+  } else {
+    // Desktop: inline panel below strip
+    const panel = document.getElementById('planner-day-panel');
+    if (!panel) return;
+    panel.style.display = 'block';
+    renderPlannerDaySheet(dayKey, panel);
+  }
 }
 
 function plannerCloseSheet() {
@@ -4037,7 +3995,9 @@ function plannerCloseSheet() {
   if (backdrop) backdrop.style.display = 'none';
   document.body.style.overflow = '';
   _plannerSelectedDay = null;
-  renderPlannerMobile();
+  renderPlannerStrip();
+  const panel = document.getElementById('planner-day-panel');
+  if (panel) panel.style.display = 'none';
 }
 
 function renderPlannerDaySheet(dayKey, el) {
@@ -4047,8 +4007,10 @@ function renderPlannerDaySheet(dayKey, el) {
   plannerState = loadPlannerState();
   const c = COLOR_MAP[day.color];
   const totals = getDayTotals(dayKey);
+  const isMobile = window.innerWidth < 768;
 
-  let html = `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+  let html = `<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-top:${isMobile ? '0' : '4px'};">`;
+  html += `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
     <div>
       <div style="font-size:20px;font-weight:700;font-family:'Space Grotesk',sans-serif;color:${c.text};">${day.label}</div>
       <div style="font-size:12px;color:var(--text3);">${day.emoji} ${day.tag}</div>
@@ -4058,7 +4020,7 @@ function renderPlannerDaySheet(dayKey, el) {
         <div style="font-size:14px;font-weight:700;color:${c.text};">${totals.kcal} kcal</div>
         <div style="font-size:11px;color:var(--text3);">${totals.pro}g protein</div>
       </div>
-      <button onclick="plannerCloseSheet()" style="background:none;border:none;color:var(--text3);font-size:20px;cursor:pointer;padding:4px;line-height:1;">✕</button>
+      ${isMobile ? `<button onclick="plannerCloseSheet()" style="background:none;border:none;color:var(--text3);font-size:20px;cursor:pointer;padding:4px;line-height:1;">✕</button>` : ''}
     </div>
   </div>`;
 
@@ -4096,10 +4058,11 @@ function renderPlannerDaySheet(dayKey, el) {
     </div>`;
   });
 
+  html += '</div>'; // close card wrapper
   el.innerHTML = html;
 }
 
-// ── KITCHEN MOBILE: category strip + bottom sheet ──
+// ── KITCHEN: unified category strip + detail panel (desktop) / bottom sheet (mobile) ──
 const KITCHEN_CATS = [
   { key: 'fridge',   emoji: '🧊', label: 'Fridge'   },
   { key: 'freezer',  emoji: '❄️', label: 'Freezer'  },
@@ -4108,8 +4071,7 @@ const KITCHEN_CATS = [
 ];
 let _kitchenSelectedCat = null;
 
-function renderKitchenMobile() {
-  if (window.innerWidth >= 768) return;
+function renderKitchenStrip() {
   const pantry = loadPantry();
   const strip = document.getElementById('kitchen-cat-strip');
   if (!strip) return;
@@ -4124,21 +4086,14 @@ function renderKitchenMobile() {
   }).join('');
 }
 
-function kitchenSelectCat(catKey) {
-  _kitchenSelectedCat = catKey;
-  renderKitchenMobile();
+function buildKitchenCatHtml(catKey) {
   const cat = KITCHEN_CATS.find(c => c.key === catKey);
   const pantry = loadPantry();
   const items = pantry[catKey] || [];
-  const content = document.getElementById('kitchen-sheet-content');
-  const sheet = document.getElementById('kitchen-bottom-sheet');
-  const backdrop = document.getElementById('kitchen-sheet-backdrop');
-  if (!content || !sheet || !backdrop) return;
-
   const LOC_ACCENT = { fridge:'#00f5d4', freezer:'#00f5d4', cupboard:'#9ca3af', counter:'#9ca3af' };
   const accent = LOC_ACCENT[catKey] || '#e5e2e1';
 
-  let html = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-top:12px;">
+  let html = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-top:4px;">
     <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:${accent};">${cat.emoji} ${cat.label}</div>
     <button onclick="addPantryItem('${catKey}')" style="font-size:12px;padding:6px 14px;background:rgba(0,245,212,0.12);color:var(--teal);border:1px solid rgba(0,245,212,0.25);border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;">+ Add</button>
   </div>`;
@@ -4151,17 +4106,36 @@ function kitchenSelectCat(catKey) {
       const count = item.count || 1;
       const depleted = count <= 0;
       html += `<div style="display:inline-flex;align-items:center;gap:8px;padding:9px 14px;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.1);border-radius:12px;${depleted ? 'opacity:0.45;' : ''}">
-        <span onclick="editPantryItem('${catKey}',${idx});kitchenCloseSheet();" style="font-size:13px;font-weight:500;cursor:pointer;${depleted ? 'text-decoration:line-through;color:var(--text3);' : 'color:#e5e2e1;'}">${escapeHtml(item.name)}${item.size ? `<span style="font-size:10px;color:var(--text3);margin-left:3px;">${escapeHtml(item.size)}</span>` : ''}</span>
-        <span onclick="decrementPantryItem('${catKey}',${idx});renderKitchenMobile();kitchenSelectCat('${catKey}');" style="font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;cursor:pointer;background:var(--border);color:${accent};border:1px solid rgba(255,255,255,0.1);">×${count}</span>
+        <span onclick="editPantryItem('${catKey}',${idx});" style="font-size:13px;font-weight:500;cursor:pointer;${depleted ? 'text-decoration:line-through;color:var(--text3);' : 'color:#e5e2e1;'}">${escapeHtml(item.name)}${item.size ? `<span style="font-size:10px;color:var(--text3);margin-left:3px;">${escapeHtml(item.size)}</span>` : ''}</span>
+        <span onclick="decrementPantryItem('${catKey}',${idx});kitchenSelectCat('${catKey}');" style="font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;cursor:pointer;background:var(--border);color:${accent};border:1px solid rgba(255,255,255,0.1);">×${count}</span>
       </div>`;
     });
     html += '</div>';
   }
+  return html;
+}
 
-  content.innerHTML = html;
-  backdrop.classList.add('open');
-  requestAnimationFrame(() => sheet.classList.add('open'));
-  document.body.style.overflow = 'hidden';
+function kitchenSelectCat(catKey) {
+  _kitchenSelectedCat = catKey;
+  renderKitchenStrip();
+
+  if (window.innerWidth < 768) {
+    // Mobile: bottom sheet
+    const content = document.getElementById('kitchen-sheet-content');
+    const sheet = document.getElementById('kitchen-bottom-sheet');
+    const backdrop = document.getElementById('kitchen-sheet-backdrop');
+    if (!content || !sheet || !backdrop) return;
+    content.innerHTML = buildKitchenCatHtml(catKey);
+    backdrop.classList.add('open');
+    requestAnimationFrame(() => sheet.classList.add('open'));
+    document.body.style.overflow = 'hidden';
+  } else {
+    // Desktop: inline panel below strip
+    const panel = document.getElementById('kitchen-day-panel');
+    if (!panel) return;
+    panel.style.display = 'block';
+    panel.innerHTML = `<div class="card" style="margin-top:4px;">${buildKitchenCatHtml(catKey)}</div>`;
+  }
 }
 
 function kitchenCloseSheet() {
@@ -4171,16 +4145,19 @@ function kitchenCloseSheet() {
   if (backdrop) backdrop.classList.remove('open');
   document.body.style.overflow = '';
   _kitchenSelectedCat = null;
-  renderKitchenMobile();
+  renderKitchenStrip();
+  const panel = document.getElementById('kitchen-day-panel');
+  if (panel) panel.style.display = 'none';
 }
 
-// renderKitchenMobile is called explicitly from goTo('pantry') — no hook needed here
+// Called from goTo('pantry') and switchPantryTab('pantry')
+function renderKitchenMobile() { renderKitchenStrip(); }
 
-// Hook renderPlannerMobile into renderPlanner
+// Hook: after renderPlanner (which clears planner-grid), re-render the unified strip
 const _origRenderPlanner = renderPlanner;
 renderPlanner = function() {
   _origRenderPlanner();
-  renderPlannerMobile();
+  renderPlannerStrip();
 };
 
 function openModal(dayKey, slot) {
@@ -8057,10 +8034,12 @@ document.addEventListener('keydown', function(e) {
 let _ocadoParsedItems = []; // [{name, size, count, loc}]
 
 function toggleOcadoImport() {
+  const card = document.getElementById('ocado-import-card');
   const panel = document.getElementById('ocado-import-panel');
   if (!panel) return;
-  const showing = panel.style.display !== 'none';
-  panel.style.display = showing ? 'none' : 'block';
+  const showing = card ? card.style.display !== 'none' : panel.style.display !== 'none';
+  if (card) card.style.display = showing ? 'none' : 'block';
+  else panel.style.display = showing ? 'none' : 'block';
   if (!showing) {
     document.getElementById('ocado-review-panel').style.display = 'none';
     document.getElementById('ocado-import-result').style.display = 'none';
