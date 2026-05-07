@@ -818,33 +818,34 @@
     /* ── BOTTOM SHEET ── */
     #tw-sheet-backdrop {
       display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.55);
-      z-index: 200;
     }
-    #tw-sheet-backdrop.open { display: block; }
+    #tw-sheet-backdrop.open { display: none; }
     #tw-bottom-sheet {
       position: fixed;
-      left: 0; right: 0; bottom: 0;
-      max-height: 80vh;
-      background: var(--sidebar-bg);
-      border-radius: 20px 20px 0 0;
+      inset: 0;
+      background: var(--bg);
       z-index: 201;
-      transform: translateY(100%);
-      transition: transform 0.3s cubic-bezier(0.32,0.72,0,1);
+      transform: translateX(100%);
+      transition: transform 0.28s cubic-bezier(0.32,0.72,0,1);
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       padding: 0 0 max(24px, env(safe-area-inset-bottom));
     }
-    #tw-bottom-sheet.open { transform: translateY(0); }
-    #tw-sheet-handle {
-      width: 36px; height: 4px;
-      background: var(--border);
-      border-radius: 2px;
-      margin: 10px auto 14px;
-    }
+    #tw-bottom-sheet.open { transform: translateX(0); }
+    #tw-sheet-handle { display: none; }
     #tw-sheet-content { padding: 0 16px 8px; }
+    #tw-sheet-topbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px 10px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 8px;
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 1;
+    }
 
     /* ── THIS WEEK day panel: stack workout + food vertically ── */
     .tw-day-panel-grid {
@@ -854,36 +855,37 @@
     /* Kitchen category strip — tighter gap on mobile */
     #kitchen-cat-strip { gap: 6px !important; margin-bottom: 12px !important; }
 
-    /* Kitchen bottom sheet */
+    /* Kitchen bottom sheet — full-screen slide */
     #kitchen-sheet-backdrop {
       display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.55);
-      z-index: 200;
     }
-    #kitchen-sheet-backdrop.open { display: block; }
+    #kitchen-sheet-backdrop.open { display: none; }
     #kitchen-bottom-sheet {
       position: fixed;
-      left: 0; right: 0; bottom: 0;
-      max-height: 82vh;
-      background: var(--sidebar-bg);
-      border-radius: 20px 20px 0 0;
+      inset: 0;
+      background: var(--bg);
       z-index: 201;
-      transform: translateY(100%);
-      transition: transform 0.3s cubic-bezier(0.32,0.72,0,1);
+      transform: translateX(100%);
+      transition: transform 0.28s cubic-bezier(0.32,0.72,0,1);
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       padding: 0 0 max(24px, env(safe-area-inset-bottom));
     }
-    #kitchen-bottom-sheet.open { transform: translateY(0); }
-    #kitchen-sheet-handle {
-      width: 36px; height: 4px;
-      background: var(--border);
-      border-radius: 2px;
-      margin: 10px auto 0;
-    }
+    #kitchen-bottom-sheet.open { transform: translateX(0); }
+    #kitchen-sheet-handle { display: none; }
     #kitchen-sheet-content { padding: 0 16px 8px; }
+    #kitchen-sheet-topbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px 10px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 8px;
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 1;
+    }
 
     /* ── ROUTINES / SUPPLEMENTS: remove narrow max-width constraints ── */
     #routines-checklist-list label,
@@ -905,6 +907,21 @@
     #wb1-tab-supplements {
       width: 100% !important;
       box-sizing: border-box !important;
+    }
+  }
+
+  /* ── FULL-SCREEN SLIDES (mobile — used for This Week, Meal Plan, Kitchen detail views) ── */
+  #tw-bottom-sheet,
+  #kitchen-bottom-sheet,
+  #planner-bottom-sheet {
+    display: block; /* always exists, just off-screen until opened */
+  }
+  @media (min-width: 768px) {
+    /* On desktop these views are inline panels — hide the full-screen slides */
+    #tw-bottom-sheet,
+    #kitchen-bottom-sheet,
+    #planner-bottom-sheet {
+      display: none !important;
     }
   }
 
@@ -1065,12 +1082,6 @@
   </div><!-- end sidebar-scroll -->
 
   <div class="sidebar-footer">
-    <div class="stat-mini">
-      <div class="stat-mini-item"><div class="stat-mini-val" id="sidebar-current-weight">64kg</div><div class="stat-mini-label">Current</div></div>
-      <div class="stat-mini-item"><div class="stat-mini-val">→</div><div class="stat-mini-label"></div></div>
-      <div class="stat-mini-item"><div class="stat-mini-val">57kg</div><div class="stat-mini-label">Goal</div></div>
-    </div>
-    
   </div>
 </nav>
 
@@ -1346,15 +1357,8 @@
       <button onclick="forceBackupNow()" style="padding:5px 11px;background:var(--teal);color:#131313;border:none;border-radius:var(--radius-sm);font-family:'Manrope',sans-serif;font-weight:700;cursor:pointer;font-size:11px;">↑ Backup</button>
       <button onclick="restoreLocalBackup()" style="padding:5px 11px;background:var(--card);color:var(--text2);border:1px solid var(--border);border-radius:var(--radius-sm);font-family:'Manrope',sans-serif;font-weight:500;cursor:pointer;font-size:11px;">↻ Restore</button>
     </div>
-    <div class="card" style="margin-bottom:20px;">
-      <div class="card-title" style="margin-bottom:16px;">Add a new running plan</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-        <input type="text" id="planName" placeholder="Plan name (e.g. 10K Training)" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
-        <input type="number" id="planDuration" placeholder="Duration (weeks)" min="1" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
-        <input type="date" id="planStartDate" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
-        <input type="date" id="planEndDate" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope', sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
-      </div>
-      <button onclick="addRunningPlan()" style="width:100%;padding:12px 16px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:600;cursor:pointer;font-size:14px;">+ Add plan</button>
+    <div style="margin-bottom:16px;">
+      <button onclick="document.getElementById('add-plan-modal').style.display='flex'" style="padding:8px 16px;background:var(--teal-light);color:var(--teal);border:1.5px solid var(--teal);border-radius:999px;font-family:'Manrope',sans-serif;font-weight:700;cursor:pointer;font-size:13px;">+ Add running plan</button>
     </div>
     <div id="running-plans-list" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
       <div style="text-align:center;color:var(--text3);padding:40px 20px;font-size:14px;">No running plans yet. Add one to get started!</div>
@@ -2671,7 +2675,7 @@ function goTo(page, el) {
   // Per-page init — always reset to first sub-tab on every navigation
   if (page === 'pantry') { try { renderPantry(); } catch(e) {} try { renderBuyAgain(); } catch(e) {} try { renderKitchenMobile(); } catch(e) {} try { kitchenSelectCat('fridge'); } catch(e) {} }
   if (page === 'mealplan') {
-    try { renderPlanner(); } catch(e) {}
+    try { renderPlannerStrip(); } catch(e) {}
     try {
       const _todayKey = ['sun','mon','tue','wed','thu','fri','sat'][new Date().getDay()];
       const _autoKey = ['mon','tue','wed','thu','fri','sat','sun'].includes(_todayKey) ? _todayKey : 'mon';
@@ -4068,9 +4072,7 @@ function plannerSelectDay(dayKey) {
     const sheet = document.getElementById('planner-bottom-sheet');
     if (!content || !sheet || !backdrop) return;
     renderPlannerDaySheet(dayKey, content);
-    backdrop.style.display = 'block';
-    requestAnimationFrame(() => sheet.style.transform = 'translateY(0)');
-    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => sheet.style.transform = 'translateX(0)');
   } else {
     // Desktop: inline panel below strip
     const panel = document.getElementById('planner-day-panel');
@@ -4083,9 +4085,7 @@ function plannerSelectDay(dayKey) {
 function plannerCloseSheet() {
   const sheet = document.getElementById('planner-bottom-sheet');
   const backdrop = document.getElementById('planner-sheet-backdrop');
-  if (sheet) sheet.style.transform = 'translateY(100%)';
-  if (backdrop) backdrop.style.display = 'none';
-  document.body.style.overflow = '';
+  if (sheet) sheet.style.transform = 'translateX(100%)';
   _plannerSelectedDay = null;
   renderPlannerStrip();
   const panel = document.getElementById('planner-day-panel');
@@ -4112,7 +4112,6 @@ function renderPlannerDaySheet(dayKey, el) {
         <div style="font-size:14px;font-weight:700;color:${c.text};">${totals.kcal} kcal</div>
         <div style="font-size:11px;color:var(--text3);">${totals.pro}g protein</div>
       </div>
-      ${isMobile ? `<button onclick="plannerCloseSheet()" style="background:none;border:none;color:var(--text3);font-size:20px;cursor:pointer;padding:4px;line-height:1;">✕</button>` : ''}
     </div>
   </div>`;
 
@@ -4218,9 +4217,7 @@ function kitchenSelectCat(catKey) {
     const backdrop = document.getElementById('kitchen-sheet-backdrop');
     if (!content || !sheet || !backdrop) return;
     content.innerHTML = buildKitchenCatHtml(catKey);
-    backdrop.classList.add('open');
     requestAnimationFrame(() => sheet.classList.add('open'));
-    document.body.style.overflow = 'hidden';
   } else {
     // Desktop: inline panel below strip
     const panel = document.getElementById('kitchen-day-panel');
@@ -4234,8 +4231,6 @@ function kitchenCloseSheet() {
   const sheet = document.getElementById('kitchen-bottom-sheet');
   const backdrop = document.getElementById('kitchen-sheet-backdrop');
   if (sheet) sheet.classList.remove('open');
-  if (backdrop) backdrop.classList.remove('open');
-  document.body.style.overflow = '';
   _kitchenSelectedCat = null;
   renderKitchenStrip();
   const panel = document.getElementById('kitchen-day-panel');
@@ -9435,9 +9430,7 @@ function twSelectDay(dayKey) {
     renderTWDayPanel(dayKey, sheetContent);
 
     // Open
-    backdrop.classList.add('open');
     requestAnimationFrame(() => sheet.classList.add('open'));
-    document.body.style.overflow = 'hidden'; // prevent page scroll behind sheet
   } else {
     renderTWDayPanel(dayKey);
   }
@@ -9474,8 +9467,6 @@ function twCloseSheet() {
   const backdrop = document.getElementById('tw-sheet-backdrop');
   if (!sheet || !backdrop) return;
   sheet.classList.remove('open');
-  backdrop.classList.remove('open');
-  document.body.style.overflow = '';
   _twSelectedDay = null;
   renderTWGrid();
 }
@@ -9684,22 +9675,47 @@ function renderTWDayPanel(dayKey, targetEl) {
 </div>
 
 <!-- Bottom sheet for Meal Planner day detail (mobile) -->
-<div id="planner-sheet-backdrop" onclick="plannerCloseSheet()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:200;"></div>
-<div id="planner-bottom-sheet" style="position:fixed;left:0;right:0;bottom:0;max-height:85vh;background:var(--sidebar-bg);border-radius:20px 20px 0 0;z-index:201;transform:translateY(100%);transition:transform 0.3s cubic-bezier(0.32,0.72,0,1);overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 0 max(24px,env(safe-area-inset-bottom));">
-  <div style="width:36px;height:4px;background:var(--border);border-radius:2px;margin:10px auto 14px;"></div>
+<!-- Add Running Plan modal -->
+<div id="add-plan-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9000;align-items:center;justify-content:center;">
+  <div style="background:var(--card);border-radius:var(--radius);padding:24px;width:90%;max-width:440px;box-shadow:0 8px 32px rgba(0,0,0,0.4);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+      <div class="card-title" style="margin:0;">New running plan</div>
+      <button onclick="document.getElementById('add-plan-modal').style.display='none'" style="background:none;border:none;color:var(--text3);font-size:20px;cursor:pointer;line-height:1;padding:4px;">✕</button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
+      <input type="text" id="planName" placeholder="Plan name" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope',sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;grid-column:1/-1;" />
+      <input type="number" id="planDuration" placeholder="Duration (weeks)" min="1" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope',sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
+      <input type="date" id="planStartDate" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope',sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
+      <input type="date" id="planEndDate" style="padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope',sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;" />
+    </div>
+    <button onclick="addRunningPlan();document.getElementById('add-plan-modal').style.display='none'" style="width:100%;padding:12px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'Manrope',sans-serif;font-weight:700;cursor:pointer;font-size:14px;">+ Add plan</button>
+  </div>
+</div>
+
+<div id="planner-sheet-backdrop" onclick="plannerCloseSheet()" style="display:none;"></div>
+<div id="planner-bottom-sheet" style="position:fixed;inset:0;background:var(--bg);z-index:201;transform:translateX(100%);transition:transform 0.28s cubic-bezier(0.32,0.72,0,1);overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 0 max(24px,env(safe-area-inset-bottom));">
+  <div id="planner-sheet-topbar" style="display:flex;align-items:center;gap:12px;padding:14px 16px 10px;border-bottom:1px solid var(--border);margin-bottom:8px;position:sticky;top:0;background:var(--bg);z-index:1;">
+    <button onclick="plannerCloseSheet()" style="background:none;border:none;color:var(--teal);font-size:16px;font-weight:700;cursor:pointer;padding:4px;font-family:'Manrope',sans-serif;display:flex;align-items:center;gap:6px;">← Back</button>
+  </div>
   <div id="planner-sheet-content" style="padding:0 16px 8px;"></div>
 </div>
 
-<!-- Bottom sheet for This Week day detail (mobile) -->
+<!-- Full-screen slide for This Week day detail (mobile) -->
 <div id="tw-sheet-backdrop" onclick="twCloseSheet()"></div>
 <div id="tw-bottom-sheet" role="dialog" aria-modal="true">
+  <div id="tw-sheet-topbar">
+    <button onclick="twCloseSheet()" style="background:none;border:none;color:var(--teal);font-size:16px;font-weight:700;cursor:pointer;padding:4px;font-family:'Manrope',sans-serif;display:flex;align-items:center;gap:6px;">← Back</button>
+  </div>
   <div id="tw-sheet-handle"></div>
   <div id="tw-sheet-content"></div>
 </div>
 
-<!-- Bottom sheet for My Kitchen category (mobile) -->
+<!-- Full-screen slide for My Kitchen category (mobile) -->
 <div id="kitchen-sheet-backdrop" onclick="kitchenCloseSheet()"></div>
 <div id="kitchen-bottom-sheet">
+  <div id="kitchen-sheet-topbar">
+    <button onclick="kitchenCloseSheet()" style="background:none;border:none;color:var(--teal);font-size:16px;font-weight:700;cursor:pointer;padding:4px;font-family:'Manrope',sans-serif;display:flex;align-items:center;gap:6px;">← Back</button>
+  </div>
   <div id="kitchen-sheet-handle"></div>
   <div id="kitchen-sheet-content"></div>
 </div>
