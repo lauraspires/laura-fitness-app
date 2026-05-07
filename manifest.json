@@ -1,0 +1,25 @@
+{
+  "name": "Health Hub",
+  "short_name": "Health Hub",
+  "description": "Your personal health and fitness tracker",
+  "start_url": "/health-hub/",
+  "scope": "/health-hub/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#131313",
+  "theme_color": "#00f5d4",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
