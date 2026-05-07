@@ -293,30 +293,27 @@
   .card-gym {
     background: var(--card);
     border: 1px solid var(--border);
-    border-left: 4px solid #6b7280;
-    box-shadow: var(--shadow);
+    border-left: 3px solid #6b7280;
     border-radius: var(--radius);
-    padding: 22px;
+    padding: 14px 16px;
     position: relative;
     overflow: hidden;
   }
   .card-run {
     background: var(--card);
     border: 1px solid var(--border);
-    border-left: 4px solid #00f5d4;
-    box-shadow: var(--shadow);
+    border-left: 3px solid #00f5d4;
     border-radius: var(--radius);
-    padding: 22px;
+    padding: 14px 16px;
     position: relative;
     overflow: hidden;
   }
   .card-class {
     background: var(--card);
     border: 1px solid var(--border);
-    border-left: 4px dashed #6b7280;
-    box-shadow: var(--shadow);
+    border-left: 3px dashed #6b7280;
     border-radius: var(--radius);
-    padding: 22px;
+    padding: 14px 16px;
     position: relative;
     overflow: hidden;
   }
@@ -387,9 +384,9 @@
   .dt-longrun { color: var(--teal); background: var(--teal-light); }
 
   /* ---- WORKOUT DETAIL ---- */
-  .workout-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
-  .workout-title { font-family: 'Space Grotesk', sans-serif; font-size: 22px; }
-  .workout-meta { font-size: 14px; color: var(--text2); margin-top: 2px; }
+  .workout-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .workout-title { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; }
+  .workout-meta { font-size: 12px; color: var(--text2); margin-top: 2px; }
 
   .ex-table { width: 100%; border-collapse: collapse; }
   .ex-table th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); font-family: 'Manrope', sans-serif; padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 500; }
@@ -1261,7 +1258,7 @@
 
   <!-- ── TAB: Classes & Running ── -->
   <div id="training-tab-classes" class="etab-page">
-    <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">Classes</div>
+    <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);">Classes</div>
     <div class="grid-2" style="margin-bottom:20px;">
       <div class="card-class">
         <div class="workout-header"><span class="badge badge-class" id="class-badge-blaze">Flexible</span><div><div class="workout-title">Blaze</div><div class="workout-meta">45 min · ~500 kcal · 85–95% HR</div></div></div>
@@ -1292,7 +1289,7 @@
       </div>
     </div>
 
-    <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">Running</div>
+    <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);">Running</div>
     <div class="grid-2" style="margin-bottom:20px;">
       <div class="card-run">
         <div class="workout-header"><span class="badge badge-run" id="run-badge-page-interval_run">Flexible</span><div><div class="workout-title">Interval run</div><div class="workout-meta">30–35 min · 6 × 2 min efforts</div></div></div>
@@ -1324,7 +1321,7 @@
       </div>
     </div>
 
-    <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">Other</div>
+    <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);">Other</div>
     <div class="grid-2">
       <div class="card-gym">
         <div class="workout-header"><span class="badge badge-teal" id="class-badge-swim">Flexible</span><div><div class="workout-title">Swimming</div><div class="workout-meta">30–45 min · ~350 kcal · Low impact</div></div></div>
@@ -1362,7 +1359,7 @@
       </div>
       <button onclick="addRunningPlan()" style="width:100%;padding:12px 16px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:600;cursor:pointer;font-size:14px;">+ Add plan</button>
     </div>
-    <div id="running-plans-list" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+    <div id="running-plans-list" style="display:flex;flex-direction:column;gap:10px;">
       <div style="text-align:center;color:var(--text3);padding:40px 20px;font-size:14px;">No running plans yet. Add one to get started!</div>
     </div>
   </div>
@@ -6600,70 +6597,84 @@ function renderRunningPlans() {
     return new Date(b.startDate) - new Date(a.startDate);
   });
 
+  var today = new Date();
+
   plans.forEach(function(plan) {
     var startDate = new Date(plan.startDate);
-    var startFormatted = startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    var endFormatted = plan.endDate ? new Date(plan.endDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '—';
+    var endDate = plan.endDate ? new Date(plan.endDate) : null;
+    var startFormatted = startDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+    var endFormatted = endDate ? endDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : '—';
+
+    // Progress calculation
+    var totalDays = endDate ? Math.max(1, Math.round((endDate - startDate) / 86400000)) : (plan.duration || 12) * 7;
+    var elapsed = Math.max(0, Math.round((today - startDate) / 86400000));
+    var pct = Math.min(100, Math.max(0, Math.round(elapsed / totalDays * 100)));
+    var weeksIn = Math.min(plan.duration || 12, Math.max(0, Math.ceil(elapsed / 7)));
+    var totalWeeks = plan.duration || 12;
+    var hasStarted = today >= startDate;
+    var daysAway = hasStarted ? 0 : Math.round((startDate - today) / 86400000);
+
+    // Emojis based on plan name hints
+    var emoji = '🏃';
+    var n = (plan.name || '').toLowerCase();
+    if (n.indexOf('half') >= 0 || n.indexOf('hm') >= 0) emoji = '🏅';
+    else if (n.indexOf('marathon') >= 0 || n.indexOf('full') >= 0) emoji = '🏆';
+    else if (n.indexOf('5k') >= 0) emoji = '💨';
+    else if (n.indexOf('10k') >= 0) emoji = '🎽';
+    else if (n.indexOf('speed') >= 0 || n.indexOf('interval') >= 0) emoji = '⚡';
 
     var card = document.createElement('div');
-    card.className = 'card';
-    card.style.cssText = 'display:flex;justify-content:space-between;align-items:center;' + (plan.completed ? 'opacity:0.6;' : '');
+    card.style.cssText = 'background:var(--card);border:1px solid var(--border);border-left:3px solid var(--teal);border-radius:var(--radius);padding:12px 14px;display:flex;align-items:center;gap:12px;' + (plan.completed ? 'opacity:0.55;' : '');
 
-    var leftSection = document.createElement('div');
-    leftSection.style.cssText = 'flex:1;';
+    // Icon circle
+    var iconHtml = '<div style="width:44px;height:44px;background:rgba(0,245,212,0.1);border:1px solid rgba(0,245,212,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">' + emoji + '</div>';
 
-    var planTitle = document.createElement('div');
-    planTitle.style.cssText = "font-family:Space Grotesk, sans-serif;font-size:18px;font-weight:700;margin-bottom:8px;" + (plan.completed ? 'text-decoration:line-through;' : '');
-    planTitle.textContent = plan.name;
+    // Main content
+    var titleStyle = 'font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px;' + (plan.completed ? 'text-decoration:line-through;' : '');
+    var metaText = totalWeeks + ' weeks · Started ' + startFormatted + (endDate ? ' · Ends ' + endFormatted : '');
 
-    var planMeta = document.createElement('div');
-    planMeta.style.cssText = 'display:flex;gap:16px;font-size:13px;color:var(--text2);';
+    var weekBadge = hasStarted
+      ? (plan.completed ? 'Completed' : 'Week ' + weeksIn + ' of ' + totalWeeks)
+      : daysAway + ' days away';
+    var weekBadgeStyle = plan.completed
+      ? 'background:rgba(0,245,212,0.12);color:var(--teal);'
+      : (hasStarted ? 'background:rgba(0,245,212,0.12);color:var(--teal);' : 'background:var(--bg2);color:var(--text3);');
+    var pctBadgeStyle = 'background:var(--bg2);color:var(--text3);';
 
-    var durationEl = document.createElement('div');
-    durationEl.innerHTML = '<span style="color:var(--text3);font-size:11px;text-transform:uppercase;letter-spacing:0.05em;font-weight:600;">Duration</span><div style="margin-top:2px;">' + plan.duration + ' weeks</div>';
+    var progressBar = hasStarted && !plan.completed
+      ? '<div style="background:var(--bg2);border-radius:999px;height:3px;margin-top:8px;overflow:hidden;"><div style="background:var(--teal);height:3px;border-radius:999px;width:' + pct + '%;"></div></div>'
+      : '';
 
-    var startEl = document.createElement('div');
-    startEl.innerHTML = '<span style="color:var(--text3);font-size:11px;text-transform:uppercase;letter-spacing:0.05em;font-weight:600;">Started</span><div style="margin-top:2px;">' + startFormatted + '</div>';
+    var badgesHtml = '<div style="display:flex;gap:5px;margin-top:7px;flex-wrap:wrap;">'
+      + '<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;' + weekBadgeStyle + '">' + escapeHtml(weekBadge) + '</span>'
+      + (hasStarted && !plan.completed ? '<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;' + pctBadgeStyle + '">' + pct + '% done</span>' : '')
+      + '</div>';
 
-    var endEl = document.createElement('div');
-    endEl.innerHTML = '<span style="color:var(--text3);font-size:11px;text-transform:uppercase;letter-spacing:0.05em;font-weight:600;">Finish date</span><div style="margin-top:2px;">' + endFormatted + '</div>';
+    var contentHtml = '<div style="flex:1;min-width:0;">'
+      + '<div style="' + titleStyle + '">' + escapeHtml(plan.name) + '</div>'
+      + '<div style="font-size:11px;color:var(--text3);">' + escapeHtml(metaText) + '</div>'
+      + progressBar
+      + badgesHtml
+      + '</div>';
 
-    planMeta.appendChild(durationEl);
-    planMeta.appendChild(startEl);
-    planMeta.appendChild(endEl);
+    // Actions
+    var actionsHtml = '<div style="display:flex;gap:6px;align-items:center;flex-shrink:0;margin-left:4px;">';
+    actionsHtml += '<input type="checkbox" title="Mark complete" style="width:16px;height:16px;cursor:pointer;accent-color:var(--teal);">';
+    actionsHtml += '<button title="Edit" style="background:var(--bg2);color:var(--text2);border:1px solid var(--border);border-radius:6px;width:28px;height:28px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;">✎</button>';
+    actionsHtml += '<button title="Delete" style="background:var(--red-light);color:var(--red);border:none;border-radius:6px;width:28px;height:28px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;">✕</button>';
+    actionsHtml += '</div>';
 
-    leftSection.appendChild(planTitle);
-    leftSection.appendChild(planMeta);
+    card.innerHTML = iconHtml + contentHtml + actionsHtml;
 
-    var rightSection = document.createElement('div');
-    rightSection.style.cssText = 'display:flex;gap:10px;flex-shrink:0;margin-left:16px;align-items:center;';
+    // Wire up events
+    var cb = card.querySelector('input[type=checkbox]');
+    cb.checked = plan.completed;
+    cb.onchange = function() { toggleRunningPlanComplete(plan.id); };
 
-    var checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.checked = plan.completed;
-    checkbox.style.cssText = 'width:20px;height:20px;cursor:pointer;';
-    checkbox.onchange = function() { toggleRunningPlanComplete(plan.id); };
+    var btns = card.querySelectorAll('button');
+    btns[0].onclick = function() { openRunningPlanEditor(plan.id); };
+    btns[1].onclick = function() { deleteRunningPlan(plan.id); };
 
-    var editBtn = document.createElement('button');
-    editBtn.textContent = '✎';
-    editBtn.style.cssText = 'background:var(--blue-light);color:var(--blue);border:none;border-radius:6px;width:32px;height:32px;cursor:pointer;font-size:16px;font-weight:600;transition:opacity 0.15s;';
-    editBtn.onmouseover = function() { this.style.opacity = '0.7'; };
-    editBtn.onmouseout = function() { this.style.opacity = '1'; };
-    editBtn.onclick = function() { openRunningPlanEditor(plan.id); };
-
-    var deleteBtn = document.createElement('button');
-    deleteBtn.textContent = '✕';
-    deleteBtn.style.cssText = 'background:var(--red-light);color:var(--red);border:none;border-radius:6px;width:32px;height:32px;cursor:pointer;font-size:16px;font-weight:600;transition:opacity 0.15s;';
-    deleteBtn.onmouseover = function() { this.style.opacity = '0.7'; };
-    deleteBtn.onmouseout = function() { this.style.opacity = '1'; };
-    deleteBtn.onclick = function() { deleteRunningPlan(plan.id); };
-
-    rightSection.appendChild(checkbox);
-    rightSection.appendChild(editBtn);
-    rightSection.appendChild(deleteBtn);
-
-    card.appendChild(leftSection);
-    card.appendChild(rightSection);
     listEl.appendChild(card);
   });
 }
@@ -7016,16 +7027,14 @@ function renderGymWorkouts() {
     var card = document.createElement('div');
     card.className = 'card-gym gym-grid-card';
     card.id = cardId;
-    card.style.cssText = 'padding:0;cursor:pointer;transition:all 0.15s;overflow:hidden;border-radius:var(--radius);';
+    card.style.cssText = 'cursor:pointer;transition:all 0.15s;';
 
-    // Header section with teal accent top bar
-    var headerHtml = '<div style="border-top:3px solid #00f5d4;padding:14px 14px 10px;">';
-    headerHtml += '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">';
+    // Header: emoji + name + badge pills
+    var headerHtml = '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px;">';
     headerHtml += '<div style="flex:1;min-width:0;">';
-    // Large emoji + name
     headerHtml += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">';
-    headerHtml += '<span style="font-size:22px;line-height:1;">' + escapeHtml(w.emoji || '💪') + '</span>';
-    headerHtml += '<span style="font-size:14px;font-weight:700;">' + escapeHtml(w.name) + '</span>';
+    headerHtml += '<span style="font-size:20px;line-height:1;">' + escapeHtml(w.emoji || '💪') + '</span>';
+    headerHtml += '<span style="font-size:14px;font-weight:700;color:var(--text);">' + escapeHtml(w.name) + '</span>';
     headerHtml += '</div>';
     if (w.meta) headerHtml += '<div style="font-size:11px;color:var(--text3);margin-bottom:6px;">' + escapeHtml(w.meta) + '</div>';
     headerHtml += '<div style="display:flex;flex-wrap:wrap;gap:4px;">';
@@ -7034,16 +7043,15 @@ function renderGymWorkouts() {
     headerHtml += '</div>';
     headerHtml += '</div>';
     if (isCustom) {
-      headerHtml += '<button onclick="event.stopPropagation();deleteCustomGymWorkout(\'' + escapeHtml(w.id) + '\')" style="background:var(--red-light);color:var(--red);border:none;border-radius:6px;width:28px;height:28px;cursor:pointer;font-size:14px;font-weight:600;flex-shrink:0;" title="Delete">✕</button>';
+      headerHtml += '<button onclick="event.stopPropagation();deleteCustomGymWorkout(\'' + escapeHtml(w.id) + '\')" style="background:var(--red-light);color:var(--red);border:none;border-radius:6px;width:26px;height:26px;cursor:pointer;font-size:13px;font-weight:600;flex-shrink:0;display:flex;align-items:center;justify-content:center;" title="Delete">✕</button>';
     }
     headerHtml += '</div>';
-    headerHtml += '</div>';
 
-    // Expand hint bar
-    headerHtml += '<div class="gym-expand-hint" style="padding:7px 14px;background:rgba(0,245,212,0.06);border-top:1px solid rgba(0,245,212,0.18);font-size:11px;color:#888;text-align:center;letter-spacing:0.03em;">▾ Tap to see exercises</div>';
+    // Expand hint
+    headerHtml += '<div class="gym-expand-hint" style="font-size:11px;color:var(--text3);text-align:center;padding-top:4px;letter-spacing:0.03em;">▾ Tap to see exercises</div>';
 
     // Expandable section (hidden by default)
-    var expandHtml = '<div class="gym-card-expand" style="display:none;margin-top:12px;border-top:1px solid var(--border);padding-top:12px;">';
+    var expandHtml = '<div class="gym-card-expand" style="display:none;margin-top:10px;border-top:1px solid var(--border);padding-top:10px;">';
     if (w.exercises && w.exercises.length) {
       expandHtml += '<table class="ex-table"><thead><tr><th>Exercise</th><th>Type</th><th>Sets</th><th>Reps</th><th>Rest</th></tr></thead><tbody>';
       w.exercises.forEach(function(ex) {
@@ -7080,15 +7088,16 @@ function renderGymWorkouts() {
       // Collapse all other cards first
       document.querySelectorAll('.gym-grid-card').forEach(function(c) {
         c.querySelector('.gym-card-expand').style.display = 'none';
-        c.querySelector('.gym-expand-hint').style.display = '';
-        c.style.borderColor = 'rgba(0,245,212,0.4)';
-        c.style.boxShadow = '0 0 20px rgba(0,245,212,0.12), 0 2px 8px rgba(0,0,0,0.5)';
+        var h = c.querySelector('.gym-expand-hint');
+        if (h) h.style.display = '';
+        c.style.background = 'var(--card)';
+        c.style.borderColor = 'var(--border)';
       });
       if (!isOpen) {
         expandEl.style.display = 'block';
-        hintEl.style.display = 'none';
-        card.style.borderColor = 'rgba(0,245,212,0.8)';
-        card.style.boxShadow = '0 0 30px rgba(0,245,212,0.22), 0 2px 8px rgba(0,0,0,0.5)';
+        if (hintEl) hintEl.style.display = 'none';
+        card.style.background = 'rgba(0,245,212,0.05)';
+        card.style.borderColor = 'var(--teal)';
       }
     });
 
