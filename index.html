@@ -2711,7 +2711,7 @@ function goTo(page, el) {
   }
 
   // Per-page init — always reset to first sub-tab on every navigation
-  if (page === 'pantry') { try { renderPantry(); } catch(e) {} try { renderBuyAgain(); } catch(e) {} }
+  if (page === 'pantry') { try { renderPantry(); } catch(e) {} try { renderBuyAgain(); } catch(e) {} try { renderKitchenMobile(); } catch(e) {} }
   if (page === 'mealplan') { try { renderPlanner(); } catch(e) {} }
   if (page === 'training') {
     // Always reset to first (Gym) sub-tab
@@ -4174,12 +4174,7 @@ function kitchenCloseSheet() {
   renderKitchenMobile();
 }
 
-// Hook renderKitchenMobile into renderPantry
-const _origRenderPantry = renderPantry;
-renderPantry = function() {
-  _origRenderPantry();
-  renderKitchenMobile();
-};
+// renderKitchenMobile is called explicitly from goTo('pantry') — no hook needed here
 
 // Hook renderPlannerMobile into renderPlanner
 const _origRenderPlanner = renderPlanner;
@@ -8595,6 +8590,7 @@ function switchPantryTab(id, el) {
   if (id === 'pantry') {
     try { renderPantry(); } catch(e) {}
     try { renderBuyAgain(); } catch(e) {}
+    try { renderKitchenMobile(); } catch(e) {}
   }
   if (id === 'suggest') {
     try { renderSuggestionsPantryPreview(); } catch(e) {}
