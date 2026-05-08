@@ -528,6 +528,19 @@
   /* ---- PAGES ---- */
   .page { display: none !important; }
   .page.active { display: block !important; }
+  /* ID-level overrides to beat any mobile #id { display:flex !important } rules */
+  #page-overview:not(.active),
+  #page-thisweek:not(.active),
+  #page-training:not(.active),
+  #page-nutrition:not(.active),
+  #page-pantry:not(.active),
+  #page-mealplan:not(.active),
+  #page-routines:not(.active),
+  #page-sleep:not(.active),
+  #page-wellbeing-ref:not(.active),
+  #page-settings:not(.active) { display: none !important; }
+  /* When active, preserve whatever display the page needs (flex or block) */
+  #page-overview.active { display: flex !important; }
 
   /* ---- PAGE HEADER ---- */
   .page-header { margin-bottom: 28px; }
@@ -3322,21 +3335,6 @@ function goTo(page, el) {
     pageEl.classList.add('active');
     pageEl.style.display = 'block';
   }
-  // DEBUG: big toast showing overview computed display
-  (function() {
-    requestAnimationFrame(function() {
-      var ov = document.getElementById('page-overview');
-      var tgt = document.getElementById('page-' + page);
-      var ovComp = ov ? window.getComputedStyle(ov).display : '?';
-      var tgtComp = tgt ? window.getComputedStyle(tgt).display : '?';
-      var msg = 'overview:' + ovComp + ' | ' + page + ':' + tgtComp;
-      var t = document.createElement('div');
-      t.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#000;color:#0f0;font-size:18px;font-weight:bold;padding:20px 24px;border-radius:12px;z-index:99999;text-align:center;border:2px solid #0f0;';
-      t.textContent = msg;
-      document.body.appendChild(t);
-      setTimeout(function(){ t.remove(); }, 6000);
-    });
-  })();
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   if (el) el.classList.add('active');
 
