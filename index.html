@@ -10190,9 +10190,13 @@ function renderTWDayPanel(dayKey, targetEl) {
   var SL_KEY = 'sleepTrackerEntries';
 
   function slLoadEntries() {
-    try { return JSON.parse(localStorage.getItem(SL_KEY) || '[]'); } catch(e) { return []; }
+    try { return getData(SL_KEY, []); } catch(e) { return []; }
   }
-  function slSaveEntries(arr) { try { localStorage.setItem(SL_KEY, JSON.stringify(arr)); } catch(e) {} }
+  function slSaveEntries(arr) {
+    try { setData(SL_KEY, arr); scheduleSave(); } catch(e) {
+      try { localStorage.setItem(SL_KEY, JSON.stringify(arr)); } catch(e2) {}
+    }
+  }
 
   // Sub-tab switching
   window.slShowTab = function(name, btn) {
