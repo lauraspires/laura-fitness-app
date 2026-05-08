@@ -107,6 +107,167 @@
 .cp-item { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--text2); line-height: 1.5; padding: 4px 0; }
 .cp-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
 
+
+  /* ═══════════════════════════════════════════
+     SLEEP TRACKER — scoped styles
+  ═══════════════════════════════════════════ */
+  #wb2-tab-sleep .sl-today-bar {
+    display:flex; align-items:center; gap:8px; overflow-x:auto;
+    padding:0 0 14px; scrollbar-width:none; flex-wrap:nowrap;
+  }
+  #wb2-tab-sleep .sl-today-bar::-webkit-scrollbar { display:none; }
+  #wb2-tab-sleep .sl-date-label {
+    font-size:11px; font-weight:600; color:var(--text3);
+    white-space:nowrap; letter-spacing:.05em; text-transform:uppercase; flex-shrink:0;
+  }
+  #wb2-tab-sleep .sl-chip {
+    display:flex; align-items:center; gap:5px; background:var(--bg2);
+    border:1px solid var(--border); border-radius:999px; padding:5px 11px;
+    white-space:nowrap; flex-shrink:0;
+  }
+  #wb2-tab-sleep .sl-chip-label { font-size:10px; color:var(--text3); font-weight:600; letter-spacing:.04em; }
+  #wb2-tab-sleep .sl-chip-val { font-size:12px; font-weight:700; color:var(--teal); }
+  #wb2-tab-sleep .sl-week-grid {
+    display:grid; grid-template-columns:repeat(7,1fr); gap:5px; margin-bottom:12px;
+  }
+  #wb2-tab-sleep .sl-wday { display:flex; flex-direction:column; align-items:center; gap:4px; }
+  #wb2-tab-sleep .sl-wday-label { font-size:9px; color:var(--text3); font-weight:600; text-transform:uppercase; }
+  #wb2-tab-sleep .sl-dot {
+    width:34px; height:34px; border-radius:50%; display:flex; align-items:center;
+    justify-content:center; font-size:11px; font-weight:700;
+  }
+  #wb2-tab-sleep .sl-dot.green { background:rgba(0,245,212,.15); color:#00f5d4; border:1px solid rgba(0,245,212,.3); }
+  #wb2-tab-sleep .sl-dot.amber { background:rgba(245,200,66,.15); color:#f5c842; border:1px solid rgba(245,200,66,.3); }
+  #wb2-tab-sleep .sl-dot.red   { background:rgba(255,107,107,.15); color:#ff6b6b; border:1px solid rgba(255,107,107,.3); }
+  #wb2-tab-sleep .sl-dot.today { box-shadow:0 0 0 2px var(--teal); }
+  #wb2-tab-sleep .sl-dot.empty { background:var(--bg3); color:var(--text3); border:1px solid var(--border); }
+  #wb2-tab-sleep .sl-wscore { font-size:9px; color:var(--text3); }
+  #wb2-tab-sleep .sl-week-avgs {
+    display:flex; justify-content:space-between; padding-top:10px;
+    border-top:1px solid var(--border); margin-top:2px;
+  }
+  #wb2-tab-sleep .sl-wavg-lbl { font-size:10px; color:var(--text3); text-transform:uppercase; letter-spacing:.04em; text-align:center; }
+  #wb2-tab-sleep .sl-wavg-val { font-size:15px; font-weight:700; color:var(--teal); font-family:'Space Grotesk',sans-serif; margin-top:2px; text-align:center; }
+  #wb2-tab-sleep .sl-slider-row { margin-bottom:14px; }
+  #wb2-tab-sleep .sl-slider-hdr { display:flex; justify-content:space-between; align-items:center; margin-bottom:7px; }
+  #wb2-tab-sleep .sl-slider-label { font-size:14px; font-weight:600; color:var(--text); }
+  #wb2-tab-sleep .sl-slider-val { font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; color:var(--teal); min-width:36px; text-align:right; }
+  #wb2-tab-sleep input[type="range"].sl-range {
+    width:100%; height:6px; -webkit-appearance:none; appearance:none;
+    background:var(--bg3); border-radius:999px; outline:none; cursor:pointer;
+  }
+  #wb2-tab-sleep input[type="range"].sl-range::-webkit-slider-thumb {
+    -webkit-appearance:none; width:22px; height:22px; border-radius:50%;
+    background:var(--teal); cursor:pointer;
+  }
+  #wb2-tab-sleep .sl-metrics-grid {
+    display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:4px;
+  }
+  #wb2-tab-sleep .sl-mf { display:flex; flex-direction:column; gap:5px; }
+  #wb2-tab-sleep .sl-ml { font-size:11px; font-weight:600; color:var(--text3); text-transform:uppercase; letter-spacing:.04em; }
+  #wb2-tab-sleep .sl-mi {
+    background:var(--bg2); border:1px solid var(--border); border-radius:10px;
+    color:var(--text); font-family:'Manrope',sans-serif; font-size:17px; font-weight:700;
+    padding:9px 10px; width:100%; text-align:center; outline:none; transition:border-color .2s;
+  }
+  #wb2-tab-sleep .sl-mi:focus { border-color:var(--teal); }
+  #wb2-tab-sleep .sl-mu { font-size:10px; color:var(--text3); text-align:center; margin-top:2px; }
+  #wb2-tab-sleep .sl-whoop-collapsed { display:none; align-items:center; justify-content:space-between; }
+  #wb2-tab-sleep .sl-whoop-collapsed.visible { display:flex; }
+  #wb2-tab-sleep .sl-sum-chips { display:flex; gap:6px; flex-wrap:wrap; }
+  #wb2-tab-sleep .sl-sum-chip {
+    background:rgba(0,245,212,.1); border:1px solid rgba(0,245,212,.2);
+    border-radius:999px; padding:4px 10px; font-size:12px; font-weight:600; color:var(--teal);
+  }
+  #wb2-tab-sleep .sl-btn-edit {
+    background:none; border:1px solid var(--border); border-radius:8px; color:var(--text2);
+    font-family:'Manrope',sans-serif; font-size:13px; font-weight:600;
+    padding:6px 14px; cursor:pointer; white-space:nowrap; flex-shrink:0; margin-left:10px;
+  }
+  #wb2-tab-sleep .sl-cl-title {
+    font-size:12px; font-weight:700; color:var(--text3); text-transform:uppercase;
+    letter-spacing:.05em; margin-bottom:10px;
+  }
+  #wb2-tab-sleep .sl-items { display:flex; flex-direction:column; gap:2px; margin-bottom:10px; }
+  #wb2-tab-sleep .sl-ci {
+    display:flex; align-items:center; gap:12px; padding:10px 12px;
+    border-radius:10px; cursor:pointer; user-select:none;
+  }
+  #wb2-tab-sleep .sl-ci:hover { background:var(--bg3); }
+  #wb2-tab-sleep .sl-ci.checked { background:rgba(0,245,212,0.06); }
+  #wb2-tab-sleep .sl-cbox {
+    width:20px; height:20px; border-radius:6px; border:2px solid var(--text3);
+    flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:.15s;
+  }
+  #wb2-tab-sleep .sl-ci.checked .sl-cbox { background:var(--teal); border-color:var(--teal); }
+  #wb2-tab-sleep .sl-ctick { display:none; color:#00382f; font-size:13px; font-weight:700; }
+  #wb2-tab-sleep .sl-ci.checked .sl-ctick { display:block; }
+  #wb2-tab-sleep .sl-clabel { font-size:14px; color:var(--text); }
+  #wb2-tab-sleep .sl-add-row { display:flex; gap:8px; margin-bottom:14px; }
+  #wb2-tab-sleep .sl-add-input {
+    flex:1; background:var(--bg2); border:1px solid var(--border); border-radius:10px;
+    color:var(--text); font-family:'Manrope',sans-serif; font-size:14px;
+    padding:9px 12px; outline:none;
+  }
+  #wb2-tab-sleep .sl-add-input:focus { border-color:var(--teal); }
+  #wb2-tab-sleep .sl-btn-add {
+    background:none; border:1px solid var(--teal); border-radius:10px; color:var(--teal);
+    font-family:'Manrope',sans-serif; font-size:13px; font-weight:600;
+    padding:9px 14px; cursor:pointer; white-space:nowrap;
+  }
+  #wb2-tab-sleep .sl-divider { height:1px; background:var(--border); margin:14px 0; }
+  #wb2-tab-sleep .sl-btn-save {
+    width:100%; background:var(--teal); color:#00382f; font-family:'Space Grotesk',sans-serif;
+    font-size:15px; font-weight:700; border:none; border-radius:12px;
+    padding:15px; cursor:pointer; margin-top:4px;
+  }
+  #wb2-tab-sleep .sl-bar-chart { display:flex; flex-direction:column; gap:8px; }
+  #wb2-tab-sleep .sl-bar-row { display:flex; align-items:center; gap:10px; }
+  #wb2-tab-sleep .sl-bar-lbl { font-size:12px; color:var(--text2); min-width:30px; text-align:right; flex-shrink:0; }
+  #wb2-tab-sleep .sl-bar-track { flex:1; height:10px; background:var(--bg3); border-radius:999px; overflow:hidden; }
+  #wb2-tab-sleep .sl-bar-fill { height:100%; border-radius:999px; background:var(--teal); }
+  #wb2-tab-sleep .sl-bar-fill.amber { background:#f5c842; }
+  #wb2-tab-sleep .sl-bar-fill.red   { background:#ff6b6b; }
+  #wb2-tab-sleep .sl-bar-score { font-size:12px; font-weight:700; color:var(--text); min-width:28px; }
+  #wb2-tab-sleep .sl-ptable-wrap { overflow-x:auto; }
+  #wb2-tab-sleep .sl-ptable { width:100%; border-collapse:collapse; min-width:320px; }
+  #wb2-tab-sleep .sl-ptable th {
+    text-align:left; font-size:11px; font-weight:700; color:var(--text3);
+    text-transform:uppercase; letter-spacing:.04em; padding:8px 10px;
+    border-bottom:1px solid var(--border);
+  }
+  #wb2-tab-sleep .sl-ptable td {
+    padding:10px 10px; font-size:13px; border-bottom:1px solid var(--border); color:var(--text);
+  }
+  #wb2-tab-sleep .sl-ptable tr:last-child td { border-bottom:none; }
+  #wb2-tab-sleep .sl-delta-pos { color:var(--teal); font-weight:700; }
+  #wb2-tab-sleep .sl-delta-neg { color:#ff6b6b; font-weight:700; }
+  #wb2-tab-sleep .sl-subtabs { display:flex; gap:0; margin-bottom:18px; border-bottom:1px solid var(--border); }
+  #wb2-tab-sleep .sl-stab {
+    flex:1; background:none; border:none; border-bottom:2px solid transparent;
+    color:var(--text3); font-family:'Manrope',sans-serif; font-size:13px; font-weight:600;
+    padding:9px 8px; cursor:pointer; min-height:44px;
+  }
+  #wb2-tab-sleep .sl-stab.active { color:var(--teal); border-bottom-color:var(--teal); }
+  #wb2-tab-sleep .sl-subpanel { display:none; }
+  #wb2-tab-sleep .sl-subpanel.active { display:block; }
+  #wb2-tab-sleep .sl-tag { background:var(--bg3); border-radius:999px; padding:3px 8px; font-size:11px; color:var(--text2); display:inline-block; margin:2px; }
+  #wb2-tab-sleep table.sl-htable { width:100%; border-collapse:collapse; min-width:460px; }
+  #wb2-tab-sleep table.sl-htable th {
+    text-align:left; font-size:11px; font-weight:700; color:var(--text3);
+    text-transform:uppercase; letter-spacing:.05em; padding:8px 10px;
+    border-bottom:1px solid var(--border);
+  }
+  #wb2-tab-sleep table.sl-htable td {
+    padding:11px 10px; font-size:13px; border-bottom:1px solid var(--border); color:var(--text); vertical-align:top;
+  }
+  #wb2-tab-sleep table.sl-htable tr:last-child td { border-bottom:none; }
+  #wb2-tab-sleep .sl-pill {
+    display:inline-block; padding:3px 9px; border-radius:999px; font-size:12px; font-weight:700;
+  }
+  #wb2-tab-sleep .sl-pill.green { background:rgba(0,245,212,.12); color:#00f5d4; }
+  #wb2-tab-sleep .sl-pill.amber { background:rgba(245,200,66,.12); color:#f5c842; }
+  #wb2-tab-sleep .sl-pill.red   { background:rgba(255,107,107,.12); color:#ff6b6b; }
 </style>
 <style>
     :root {
@@ -2223,10 +2384,203 @@
     <div class="page-sub">Whoop recovery guide · Longevity protocols · Wellness kit</div>
   </div>
   <div class="eating-tabs" style="margin-bottom:20px;">
-    <div class="etab active" id="wtab-tools" onclick="switchWellbeingTab2('tools',this)">🔴 My Kit</div>
+    <div class="etab active" id="wtab-sleep" onclick="switchWellbeingTab2('sleep',this)">😴 Sleep Log</div>
+    <div class="etab" id="wtab-tools" onclick="switchWellbeingTab2('tools',this)">🔴 My Kit</div>
     <div class="etab" id="wtab-whoop" onclick="switchWellbeingTab2('whoop',this)">🫀 Whoop</div>
     <div class="etab" id="wtab-longevity" onclick="switchWellbeingTab2('longevity',this)">🌿 Longevity</div>
   </div>
+
+
+  <!-- ======= SLEEP TRACKER TAB ======= -->
+  <div id="wb2-tab-sleep" class="etab-page active">
+
+    <!-- Today summary chips -->
+    <div class="sl-today-bar">
+      <span class="sl-date-label" id="sl-today-date">Today</span>
+      <div class="sl-chip"><span class="sl-chip-label">SLEEP</span><span class="sl-chip-val" id="sl-chip-sleep">—</span></div>
+      <div class="sl-chip"><span class="sl-chip-label">REC</span><span class="sl-chip-val" id="sl-chip-rec">—</span></div>
+      <div class="sl-chip"><span class="sl-chip-label">HRV</span><span class="sl-chip-val" id="sl-chip-hrv">—</span></div>
+      <div class="sl-chip"><span class="sl-chip-label">RHR</span><span class="sl-chip-val" id="sl-chip-rhr">—</span></div>
+    </div>
+
+    <!-- Sub-tabs: Log / History / Trends -->
+    <div class="sl-subtabs">
+      <button class="sl-stab active" onclick="slShowTab('log',this)">Log</button>
+      <button class="sl-stab" onclick="slShowTab('history',this)">History</button>
+      <button class="sl-stab" onclick="slShowTab('trends',this)">Trends</button>
+    </div>
+
+    <!-- ── LOG ── -->
+    <div id="sl-tab-log" class="sl-subpanel active">
+
+      <!-- Last 7 days grid -->
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">Last 7 Days — Sleep Scores</div>
+        <div class="sl-week-grid" id="sl-week-grid"></div>
+        <div class="sl-week-avgs">
+          <div style="text-align:center"><div class="sl-wavg-lbl">Avg Sleep</div><div class="sl-wavg-val" id="sl-avg-sleep">—</div></div>
+          <div style="text-align:center"><div class="sl-wavg-lbl">Avg Rec</div><div class="sl-wavg-val" id="sl-avg-rec">—</div></div>
+          <div style="text-align:center"><div class="sl-wavg-lbl">Avg HRV</div><div class="sl-wavg-val" id="sl-avg-hrv">—</div></div>
+          <div style="text-align:center"><div class="sl-wavg-lbl">Avg RHR</div><div class="sl-wavg-val" id="sl-avg-rhr">—</div></div>
+        </div>
+      </div>
+
+      <!-- WHOOP scores card -->
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">WHOOP Scores
+          <span style="font-size:11px;color:var(--text3);font-weight:500;text-transform:none;letter-spacing:0" id="sl-whoop-date"></span>
+        </div>
+        <!-- Collapsed summary (shown after save) -->
+        <div class="sl-whoop-collapsed" id="sl-whoop-collapsed">
+          <div class="sl-sum-chips" id="sl-sum-chips"></div>
+          <button class="sl-btn-edit" onclick="slExpandWhoop()">Edit</button>
+        </div>
+        <!-- Expanded form -->
+        <div id="sl-whoop-expanded">
+          <div class="sl-slider-row">
+            <div class="sl-slider-hdr">
+              <span class="sl-slider-label">Sleep Score</span>
+              <span class="sl-slider-val" id="sl-sleep-val">—</span>
+            </div>
+            <input type="range" class="sl-range" id="sl-sleep-slider" min="0" max="100" value="0"
+              oninput="slOnSleepSlide(this.value)">
+          </div>
+          <div class="sl-slider-row">
+            <div class="sl-slider-hdr">
+              <span class="sl-slider-label">Recovery Score</span>
+              <span class="sl-slider-val" id="sl-rec-val">—</span>
+            </div>
+            <input type="range" class="sl-range" id="sl-rec-slider" min="0" max="100" value="0"
+              oninput="slOnRecSlide(this.value)">
+          </div>
+          <div class="sl-metrics-grid">
+            <div class="sl-mf">
+              <label class="sl-ml">HRV</label>
+              <input type="number" class="sl-mi" id="sl-inp-hrv" placeholder="—"
+                min="0" max="200" onfocus="this.select()" oninput="slUpdateChip('hrv',this.value)">
+              <div class="sl-mu">ms</div>
+            </div>
+            <div class="sl-mf">
+              <label class="sl-ml">RHR</label>
+              <input type="number" class="sl-mi" id="sl-inp-rhr" placeholder="—"
+                min="30" max="120" onfocus="this.select()" oninput="slUpdateChip('rhr',this.value)">
+              <div class="sl-mu">bpm</div>
+            </div>
+            <div class="sl-mf">
+              <label class="sl-ml">Resp</label>
+              <input type="number" class="sl-mi" id="sl-inp-resp" placeholder="—"
+                min="10" max="30" step="0.1" onfocus="this.select()">
+              <div class="sl-mu">rpm</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Night Before checklist -->
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">Night Before</div>
+        <div class="sl-cl-title">Supplements</div>
+        <div class="sl-items" id="sl-supp-list">
+          <div class="sl-ci" onclick="slToggleCheck(this)">
+            <div class="sl-cbox"><span class="sl-ctick">✓</span></div>
+            <span class="sl-clabel">Magnesium Glycinate</span>
+          </div>
+          <div class="sl-ci" onclick="slToggleCheck(this)">
+            <div class="sl-cbox"><span class="sl-ctick">✓</span></div>
+            <span class="sl-clabel">Ashwagandha</span>
+          </div>
+          <div class="sl-ci" onclick="slToggleCheck(this)">
+            <div class="sl-cbox"><span class="sl-ctick">✓</span></div>
+            <span class="sl-clabel">L-Theanine</span>
+          </div>
+          <div class="sl-ci" onclick="slToggleCheck(this)">
+            <div class="sl-cbox"><span class="sl-ctick">✓</span></div>
+            <span class="sl-clabel">Deep Sleep Spray</span>
+          </div>
+        </div>
+        <div class="sl-add-row">
+          <input class="sl-add-input" id="sl-supp-input" type="text" placeholder="Add supplement…">
+          <button class="sl-btn-add" onclick="slAddItem('sl-supp-list','sl-supp-input')">+ Add</button>
+        </div>
+        <div class="sl-divider"></div>
+        <div class="sl-cl-title">Routine</div>
+        <div class="sl-items" id="sl-routine-list">
+          <div class="sl-ci" onclick="slToggleCheck(this)">
+            <div class="sl-cbox"><span class="sl-ctick">✓</span></div>
+            <span class="sl-clabel">No screens 1hr before bed</span>
+          </div>
+          <div class="sl-ci" onclick="slToggleCheck(this)">
+            <div class="sl-cbox"><span class="sl-ctick">✓</span></div>
+            <span class="sl-clabel">No caffeine after 2pm</span>
+          </div>
+          <div class="sl-ci" onclick="slToggleCheck(this)">
+            <div class="sl-cbox"><span class="sl-ctick">✓</span></div>
+            <span class="sl-clabel">No alcohol</span>
+          </div>
+          <div class="sl-ci" onclick="slToggleCheck(this)">
+            <div class="sl-cbox"><span class="sl-ctick">✓</span></div>
+            <span class="sl-clabel">Cool room (18–19°C)</span>
+          </div>
+          <div class="sl-ci" onclick="slToggleCheck(this)">
+            <div class="sl-cbox"><span class="sl-ctick">✓</span></div>
+            <span class="sl-clabel">Journal</span>
+          </div>
+        </div>
+        <div class="sl-add-row">
+          <input class="sl-add-input" id="sl-routine-input" type="text" placeholder="Add routine step…">
+          <button class="sl-btn-add" onclick="slAddItem('sl-routine-list','sl-routine-input')">+ Add</button>
+        </div>
+      </div>
+
+      <button class="sl-btn-save" onclick="slSaveEntry()">Save Tonight's Log</button>
+    </div><!-- /sl-tab-log -->
+
+    <!-- ── HISTORY ── -->
+    <div id="sl-tab-history" class="sl-subpanel">
+      <div class="card">
+        <div class="card-title">Recent Entries</div>
+        <div style="overflow-x:auto;">
+          <table class="sl-htable">
+            <thead>
+              <tr>
+                <th>Date</th><th>Sleep</th><th>Rec</th><th>HRV</th><th>RHR</th><th>Night Before</th>
+              </tr>
+            </thead>
+            <tbody id="sl-history-body">
+              <tr><td colspan="6" style="text-align:center;color:var(--text3);padding:20px;">No entries yet — log your first night above.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div><!-- /sl-tab-history -->
+
+    <!-- ── TRENDS ── -->
+    <div id="sl-tab-trends" class="sl-subpanel">
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">Last 7 Days — Sleep Score</div>
+        <div class="sl-bar-chart" id="sl-bar-chart">
+          <div style="text-align:center;color:var(--text3);padding:20px;font-size:13px;">Log a few nights to see your trends.</div>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">Pattern Matrix</div>
+        <p style="font-size:13px;color:var(--text3);margin-bottom:14px;">Avg sleep score on nights you used each item vs nights you didn't.</p>
+        <div class="sl-ptable-wrap">
+          <table class="sl-ptable">
+            <thead><tr><th>Item</th><th>With</th><th>Without</th><th>Delta</th></tr></thead>
+            <tbody id="sl-pattern-body">
+              <tr><td colspan="4" style="text-align:center;color:var(--text3);padding:20px;">Log more nights to build patterns.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" id="sl-best-combo" style="border-color:rgba(0,245,212,0.2);display:none;">
+        <div class="card-title" style="color:var(--teal)">Best Combo</div>
+        <p id="sl-best-text" style="font-size:14px;color:var(--text);line-height:1.6;"></p>
+      </div>
+    </div><!-- /sl-tab-trends -->
+
+  </div><!-- end wb2-tab-sleep -->
 
   <!-- ======= WHOOP TAB ======= -->
   <div id="wb2-tab-whoop" class="etab-page">
@@ -2765,8 +3119,8 @@ function goTo(page, el) {
       var el2 = document.getElementById(id);
       if (el2) el2.classList.remove('active');
     });
-    var wb2t = document.getElementById('wb2-tab-tools');
-    if (wb2t) wb2t.classList.add('active');
+    var wb2s = document.getElementById('wb2-tab-sleep');
+    if (wb2s) wb2s.classList.add('active');
   }
 
   // Per-page init — always reset to first sub-tab on every navigation
@@ -2803,7 +3157,7 @@ function goTo(page, el) {
   }
   if (page === 'wellbeing-ref') {
     // Always reset to My Kit tab
-    try { switchWellbeingTab2('tools', document.getElementById('wtab-tools')); } catch(e) {}
+    try { switchWellbeingTab2('sleep', document.getElementById('wtab-sleep')); } catch(e) {}
     if (typeof renderWtGrid === 'function') renderWtGrid();
   }
   if (window.innerWidth <= 900) closeSidebar();
@@ -8719,7 +9073,7 @@ function switchWellbeingTab1(id, el) {
 }
 
 function switchWellbeingTab2(id, el) {
-  ['whoop','longevity','tools'].forEach(t => {
+  ['sleep','whoop','longevity','tools'].forEach(t => {
     const pane = document.getElementById('wb2-tab-' + t);
     const tab  = document.getElementById('wtab-' + t);
     if (pane) pane.classList.toggle('active', t === id);
@@ -9828,6 +10182,286 @@ function renderTWDayPanel(dayKey, targetEl) {
         .catch(err => console.warn('SW registration failed:', err));
     });
   }
+
+// ═══════════════════════════════════════════
+// SLEEP TRACKER LOGIC
+// ═══════════════════════════════════════════
+(function() {
+  var SL_KEY = 'sleepTrackerEntries';
+
+  function slLoadEntries() {
+    try { return JSON.parse(localStorage.getItem(SL_KEY) || '[]'); } catch(e) { return []; }
+  }
+  function slSaveEntries(arr) { try { localStorage.setItem(SL_KEY, JSON.stringify(arr)); } catch(e) {} }
+
+  // Sub-tab switching
+  window.slShowTab = function(name, btn) {
+    ['log','history','trends'].forEach(function(t) {
+      var p = document.getElementById('sl-tab-' + t);
+      var b = btn.parentElement.querySelector('[onclick*="\'' + t + '\'"]');
+      if (p) p.classList.toggle('active', t === name);
+    });
+    document.querySelectorAll('#wb2-tab-sleep .sl-stab').forEach(function(b) {
+      b.classList.toggle('active', b.getAttribute('onclick').indexOf("'" + name + "'") !== -1);
+    });
+    if (name === 'history') slRenderHistory();
+    if (name === 'trends') slRenderTrends();
+  };
+
+  // Sliders
+  window.slOnSleepSlide = function(val) {
+    document.getElementById('sl-sleep-val').textContent = val;
+    document.getElementById('sl-chip-sleep').textContent = val;
+  };
+  window.slOnRecSlide = function(val) {
+    document.getElementById('sl-rec-val').textContent = val;
+    document.getElementById('sl-chip-rec').textContent = val;
+  };
+  window.slUpdateChip = function(key, val) {
+    if (key === 'hrv') document.getElementById('sl-chip-hrv').textContent = val ? val + 'ms' : '—';
+    if (key === 'rhr') document.getElementById('sl-chip-rhr').textContent = val ? val : '—';
+  };
+
+  // Checklist
+  window.slToggleCheck = function(item) { item.classList.toggle('checked'); };
+
+  // Add item to list
+  window.slAddItem = function(listId, inputId) {
+    var input = document.getElementById(inputId);
+    var text = (input.value || '').trim();
+    if (!text) return;
+    var list = document.getElementById(listId);
+    var div = document.createElement('div');
+    div.className = 'sl-ci';
+    div.setAttribute('onclick', 'slToggleCheck(this)');
+    div.innerHTML = '<div class="sl-cbox"><span class="sl-ctick">\u2713</span></div><span class="sl-clabel">' + text + '</span>';
+    list.appendChild(div);
+    input.value = '';
+  };
+
+  // Enter key for add inputs
+  function bindEnter(inputId, listId) {
+    var el = document.getElementById(inputId);
+    if (el) el.addEventListener('keydown', function(e) { if (e.key === 'Enter') slAddItem(listId, inputId); });
+  }
+  bindEnter('sl-supp-input', 'sl-supp-list');
+  bindEnter('sl-routine-input', 'sl-routine-list');
+
+  // Save entry
+  window.slSaveEntry = function() {
+    var sleep = parseInt(document.getElementById('sl-sleep-slider').value) || 0;
+    var rec   = parseInt(document.getElementById('sl-rec-slider').value) || 0;
+    var hrv   = document.getElementById('sl-inp-hrv').value || '';
+    var rhr   = document.getElementById('sl-inp-rhr').value || '';
+    var resp  = document.getElementById('sl-inp-resp').value || '';
+
+    // Collect checked items
+    var supps = [], routines = [];
+    document.querySelectorAll('#sl-supp-list .sl-ci.checked .sl-clabel').forEach(function(el) { supps.push(el.textContent); });
+    document.querySelectorAll('#sl-routine-list .sl-ci.checked .sl-clabel').forEach(function(el) { routines.push(el.textContent); });
+
+    var entry = {
+      date: new Date().toISOString().slice(0,10),
+      sleep: sleep, rec: rec,
+      hrv: hrv ? parseFloat(hrv) : null,
+      rhr: rhr ? parseInt(rhr) : null,
+      resp: resp ? parseFloat(resp) : null,
+      supps: supps, routines: routines
+    };
+
+    var entries = slLoadEntries();
+    // Replace today's entry if already exists
+    var idx = entries.findIndex(function(e) { return e.date === entry.date; });
+    if (idx >= 0) entries[idx] = entry; else entries.unshift(entry);
+    slSaveEntries(entries);
+
+    // Collapse WHOOP card
+    var chips = document.getElementById('sl-sum-chips');
+    chips.innerHTML = '';
+    [
+      {label:'Sleep', val:sleep},
+      {label:'Rec', val:rec},
+      {label:'HRV', val:hrv ? hrv + 'ms' : '—'},
+      {label:'RHR', val:rhr ? rhr + 'bpm' : '—'}
+    ].forEach(function(d) {
+      var s = document.createElement('span');
+      s.className = 'sl-sum-chip';
+      s.textContent = d.label + ' ' + (d.val || '—');
+      chips.appendChild(s);
+    });
+    document.getElementById('sl-whoop-expanded').style.display = 'none';
+    document.getElementById('sl-whoop-collapsed').classList.add('visible');
+
+    // Update chip bar
+    document.getElementById('sl-chip-sleep').textContent = sleep || '—';
+    document.getElementById('sl-chip-rec').textContent = rec || '—';
+    document.getElementById('sl-chip-hrv').textContent = hrv ? hrv + 'ms' : '—';
+    document.getElementById('sl-chip-rhr').textContent = rhr || '—';
+
+    // Re-render week grid
+    slRenderWeekGrid();
+  };
+
+  window.slExpandWhoop = function() {
+    document.getElementById('sl-whoop-expanded').style.display = '';
+    document.getElementById('sl-whoop-collapsed').classList.remove('visible');
+  };
+
+  // Render week grid (last 7 days)
+  function slRenderWeekGrid() {
+    var entries = slLoadEntries();
+    var grid = document.getElementById('sl-week-grid');
+    if (!grid) return;
+    var dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    var now = new Date();
+    var dots = [], sleepVals = [], recVals = [], hrvVals = [], rhrVals = [];
+    grid.innerHTML = '';
+    for (var i = 6; i >= 0; i--) {
+      var d = new Date(now);
+      d.setDate(now.getDate() - i);
+      var iso = d.toISOString().slice(0,10);
+      var isToday = (i === 0);
+      var entry = entries.find(function(e) { return e.date === iso; });
+      var dayDiv = document.createElement('div');
+      dayDiv.className = 'sl-wday';
+      var score = entry ? entry.sleep : null;
+      var cls = 'sl-dot empty' + (isToday ? ' today' : '');
+      if (score !== null) {
+        cls = 'sl-dot ' + (score >= 75 ? 'green' : score >= 55 ? 'amber' : 'red') + (isToday ? ' today' : '');
+      }
+      if (score !== null) { sleepVals.push(score); }
+      if (entry && entry.rec) recVals.push(entry.rec);
+      if (entry && entry.hrv) hrvVals.push(entry.hrv);
+      if (entry && entry.rhr) rhrVals.push(entry.rhr);
+      dayDiv.innerHTML = '<span class="sl-wday-label">' + dayNames[d.getDay()].slice(0,2) + '</span>' +
+        '<div class="' + cls + '">' + (score !== null ? score : '—') + '</div>' +
+        '<span class="sl-wscore">' + (score !== null ? score : '—') + '</span>';
+      grid.appendChild(dayDiv);
+    }
+    // Averages
+    function avg(arr) { return arr.length ? Math.round(arr.reduce(function(a,b){return a+b;},0)/arr.length) : null; }
+    var as = avg(sleepVals), ar = avg(recVals), ah = avg(hrvVals), ahr = avg(rhrVals);
+    var el = document.getElementById('sl-avg-sleep'); if(el) el.textContent = as !== null ? as : '—';
+    el = document.getElementById('sl-avg-rec');   if(el) el.textContent = ar !== null ? ar : '—';
+    el = document.getElementById('sl-avg-hrv');   if(el) el.textContent = ah !== null ? ah + 'ms' : '—';
+    el = document.getElementById('sl-avg-rhr');   if(el) el.textContent = ahr !== null ? ahr : '—';
+  }
+
+  // Render history table
+  function slRenderHistory() {
+    var entries = slLoadEntries();
+    var tbody = document.getElementById('sl-history-body');
+    if (!tbody) return;
+    if (!entries.length) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text3);padding:20px;">No entries yet — log your first night above.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = '';
+    entries.slice(0, 30).forEach(function(e) {
+      var d = new Date(e.date + 'T00:00:00');
+      var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var dateStr = days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()];
+      function pill(score) {
+        var cls = score >= 75 ? 'green' : score >= 55 ? 'amber' : 'red';
+        return '<span class="sl-pill ' + cls + '">' + score + '</span>';
+      }
+      var tags = e.supps.concat(e.routines).map(function(t) { return '<span class="sl-tag">' + t + '</span>'; }).join('');
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + dateStr + '</td>' +
+        '<td>' + pill(e.sleep) + '</td>' +
+        '<td>' + pill(e.rec) + '</td>' +
+        '<td>' + (e.hrv ? e.hrv + 'ms' : '—') + '</td>' +
+        '<td>' + (e.rhr || '—') + '</td>' +
+        '<td><div style="display:flex;flex-wrap:wrap;gap:3px;">' + tags + '</div></td>';
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Render trends
+  function slRenderTrends() {
+    var entries = slLoadEntries();
+    var barChart = document.getElementById('sl-bar-chart');
+    if (!barChart) return;
+    if (entries.length < 2) {
+      barChart.innerHTML = '<div style="text-align:center;color:var(--text3);padding:20px;font-size:13px;">Log a few nights to see your trends.</div>';
+      return;
+    }
+    var now = new Date(); var dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    barChart.innerHTML = '';
+    for (var i = 6; i >= 0; i--) {
+      var d = new Date(now); d.setDate(now.getDate() - i);
+      var iso = d.toISOString().slice(0,10);
+      var entry = entries.find(function(e) { return e.date === iso; });
+      if (!entry) continue;
+      var cls = entry.sleep >= 75 ? '' : entry.sleep >= 55 ? ' amber' : ' red';
+      var row = document.createElement('div');
+      row.className = 'sl-bar-row';
+      row.innerHTML = '<span class="sl-bar-lbl">' + dayNames[d.getDay()].slice(0,2) + '</span>' +
+        '<div class="sl-bar-track"><div class="sl-bar-fill' + cls + '" style="width:' + entry.sleep + '%"></div></div>' +
+        '<span class="sl-bar-score">' + entry.sleep + '</span>';
+      barChart.appendChild(row);
+    }
+    // Pattern matrix
+    var allItems = {};
+    entries.forEach(function(e) {
+      e.supps.concat(e.routines).forEach(function(item) { allItems[item] = true; });
+    });
+    var tbody = document.getElementById('sl-pattern-body');
+    if (tbody) {
+      tbody.innerHTML = '';
+      var rows = Object.keys(allItems).map(function(item) {
+        var withScores = [], withoutScores = [];
+        entries.forEach(function(e) {
+          var has = e.supps.indexOf(item) >= 0 || e.routines.indexOf(item) >= 0;
+          if (has) withScores.push(e.sleep); else withoutScores.push(e.sleep);
+        });
+        var w = withScores.length ? Math.round(withScores.reduce(function(a,b){return a+b;},0)/withScores.length) : null;
+        var wo = withoutScores.length ? Math.round(withoutScores.reduce(function(a,b){return a+b;},0)/withoutScores.length) : null;
+        var delta = (w !== null && wo !== null) ? w - wo : null;
+        return { item: item, w: w, wo: wo, delta: delta };
+      }).filter(function(r) { return r.w !== null; })
+        .sort(function(a,b) { return (b.delta||0) - (a.delta||0); });
+      rows.forEach(function(r) {
+        var dClass = r.delta > 0 ? 'sl-delta-pos' : r.delta < 0 ? 'sl-delta-neg' : '';
+        var dStr = r.delta !== null ? (r.delta > 0 ? '+' : '') + r.delta : '—';
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td>' + r.item + '</td><td>' + (r.w||'—') + '</td><td>' + (r.wo||'—') + '</td><td><span class="' + dClass + '">' + dStr + '</span></td>';
+        tbody.appendChild(tr);
+      });
+      if (!rows.length) tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text3);padding:20px;">Log more nights to build patterns.</td></tr>';
+      // Best combo
+      var best = rows.filter(function(r){return r.delta > 5;});
+      var bc = document.getElementById('sl-best-combo');
+      var bt = document.getElementById('sl-best-text');
+      if (bc && bt && best.length >= 2) {
+        bc.style.display = '';
+        var names = best.slice(0,4).map(function(r){return '<strong style="color:var(--teal)">' + r.item + '</strong>';}).join(' + ');
+        bt.innerHTML = 'Your best nights included: ' + names + '.';
+      } else if (bc) { bc.style.display = 'none'; }
+    }
+  }
+
+  // Init: set today date, render week grid
+  function slInit() {
+    var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var now = new Date();
+    var el = document.getElementById('sl-today-date');
+    if (el) el.textContent = days[now.getDay()] + ' ' + now.getDate() + ' ' + months[now.getMonth()];
+    var wd = document.getElementById('sl-whoop-date');
+    if (wd) wd.textContent = days[now.getDay()] + ' ' + now.getDate() + ' ' + months[now.getMonth()];
+    slRenderWeekGrid();
+  }
+
+  // Run init when DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', slInit);
+  } else {
+    slInit();
+  }
+})();
+
 </script>
 
 </body>
