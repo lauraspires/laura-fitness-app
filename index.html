@@ -654,27 +654,43 @@
       min-width: 90px;
     }
 
+    /* Main padding on mobile */
+    .main { padding: 16px 14px 80px !important; }
+
+    /* Page headers: tighter on mobile */
+    .page-header { margin-bottom: 18px !important; }
+    .page-title { font-size: 26px !important; }
+    .page-sub { font-size: 13px !important; }
+
+    /* Cards: reduce padding on mobile */
+    .card { padding: 14px !important; }
+    .card-gym, .card-run, .card-class { padding: 12px 14px !important; }
+
+    /* Grids: single column on mobile */
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr !important; gap: 10px !important; }
+
     /* Eating tabs: wrap onto two lines if needed */
-    .eating-tabs {
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-    .etab {
-      font-size: 12px !important;
-      padding: 6px 12px !important;
-    }
+    .eating-tabs { gap: 6px; flex-wrap: wrap; }
+    .etab { font-size: 12px !important; padding: 6px 12px !important; }
+
+    /* This Week day panel: stack workout + food vertically */
+    .tw-day-panel-grid { grid-template-columns: 1fr !important; }
+
+    /* Workout header: smaller on mobile */
+    .workout-header { margin-bottom: 8px !important; }
+    .workout-title { font-size: 14px !important; }
+    .workout-meta { font-size: 11px !important; }
+
+    /* Tip boxes: tighter on mobile */
+    .tip-box-f { padding: 12px !important; }
 
     /* Meal row: hide decorative icon, keep time + content */
-    .meal-row {
-      grid-template-columns: 80px 1fr !important;
-    }
-    .meal-icon-col {
-      display: none !important;
-    }
+    .meal-row { grid-template-columns: 70px 1fr !important; }
+    .meal-icon-col { display: none !important; }
 
-    /* Smaller page titles */
-    .page-title {
-      font-size: 26px !important;
+    /* Whoop / wellbeing grid: single column */
+    #wb2-tab-whoop > div[style*="grid-template-columns"] {
+      grid-template-columns: 1fr !important;
     }
 
     /* Planner totals: 2×2 grid */
@@ -1117,7 +1133,7 @@
         <div class="page-title">This Week</div>
         <div class="page-sub" id="thisweek-date-sub">Your workouts and food plan, side by side</div>
       </div>
-      <button onclick="openWorkoutEditor()" style="padding:10px 16px;background:var(--teal);color:#131313;border:none;border-radius:var(--radius-sm);font-family:'Manrope', sans-serif;font-weight:700;cursor:pointer;font-size:14px;white-space:nowrap;">Edit Routine</button>
+      <button onclick="openWorkoutEditor()" style="padding:8px 16px;background:var(--teal-light);color:var(--teal);border:1.5px solid var(--teal);border-radius:999px;font-family:'Manrope',sans-serif;font-weight:700;cursor:pointer;font-size:13px;white-space:nowrap;">Edit routine</button>
     </div>
   </div>
 
@@ -9202,7 +9218,8 @@ function renderTWGrid() {
   const todayDow = new Date().getDay();
   const todayKey = ['sun','mon','tue','wed','thu','fri','sat'][todayDow];
 
-  el.innerHTML = '<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;">'
+  // Single unified strip — same on mobile and desktop
+  el.innerHTML = '<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;">'
     + routine.map((day, idx) => {
     const dayDate = dates[idx];
     const dateStr = dayDate ? dayDate.toLocaleDateString('en-GB',{day:'numeric',month:'short'}) : '';
@@ -9211,58 +9228,23 @@ function renderTWGrid() {
     const primaryCat = getCat(wts[0]);
     const accentColor = wts.length === 0 ? 'var(--text3)' : (primaryCat === 'run' ? '#00f5d4' : 'var(--text2)');
     const isRest = wts.length === 0 || (wts.length === 1 && (lib[wts[0]] || {}).type === 'rest');
-
-    // Workout display: emoji + short name
-    const workoutLines = isRest
-      ? '<div style="font-size:20px;margin-bottom:4px;">😴</div><div style="font-size:11px;color:var(--text3);">Rest</div>'
-      : wts.map(t => {
-          const w = lib[t];
-          return w ? '<div style="font-size:18px;">' + w.emoji + '</div><div style="font-size:10px;font-weight:600;color:' + accentColor + ';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + w.name + '</div>' : '';
-        }).join('<div style="font-size:9px;color:var(--text3);margin:1px 0;">+</div>');
-
-    // Food style pill
     const style = getDayEatingStyle(day.dayKey, wts);
     const styleColor = EATING_STYLE_COLOR[style] || '#888';
     const styleEmoji = EATING_STYLE_EMOJI[style] || '🥗';
-    const styleShort = (EATING_STYLE_LABELS[style] || style).split(' ')[0]; // first word only
-
-    // Left-border colour: run=teal solid, gym=grey solid, class=grey (dashed via outline), rest=transparent
-    const leftBorderColor = isRest ? 'transparent' : (primaryCat === 'run' ? '#00f5d4' : '#6b7280');
-    const leftBorderStyle = (!isRest && primaryCat === 'class') ? 'dashed' : 'solid';
-    const bg = isToday ? 'rgba(0,245,212,0.07)' : 'var(--card)';
-    const outerBorder = isToday ? '1px solid var(--teal)' : '1px solid var(--border)';
-
-    // Mobile row: emoji(s) + workout name(s) inline
-    const workoutRowContent = isRest
-      ? '<span style="font-size:18px;">😴</span><span style="font-size:13px;color:var(--text3);margin-left:8px;">Rest day</span>'
-      : wts.map(t => {
-          const w = lib[t];
-          return w ? '<span style="font-size:18px;">' + w.emoji + '</span><span style="font-size:13px;font-weight:600;color:' + accentColor + ';margin-left:6px;">' + w.name + '</span>' : '';
-        }).join('<span style="font-size:11px;color:var(--text3);margin:0 4px;">+</span>');
-
     const isSelected = _twSelectedDay === day.dayKey;
-    const selectedBg = isSelected ? 'rgba(0,245,212,0.12)' : bg;
-    const selectedBorderColor = isSelected ? 'var(--teal)' : (isToday ? 'var(--teal)' : 'var(--border)');
-    const selectedShadow = isSelected ? 'box-shadow:0 0 0 1px rgba(0,245,212,0.5);' : (isToday ? 'box-shadow:0 0 0 1px rgba(0,245,212,0.25);' : '');
 
-    // Eating dot colour for the strip
-    const dotColor = styleColor;
+    const bg = isSelected ? 'rgba(0,245,212,0.12)' : (isToday ? 'rgba(0,245,212,0.05)' : 'var(--card)');
+    const borderColor = isSelected ? 'var(--teal)' : (isToday ? 'rgba(0,245,212,0.4)' : 'var(--border)');
+    const dayLabelColor = (isToday || isSelected) ? 'var(--teal)' : 'var(--text3)';
+    const emojiStr = isRest ? '😴' : wts.map(t => lib[t] ? lib[t].emoji : '').filter(Boolean).join(' ');
+    const nameStr = isRest ? 'Rest' : wts.map(t => lib[t] ? lib[t].name.split(' ')[0] : '').filter(Boolean).join('+');
 
-    return '<div data-daykey="' + day.dayKey + '" onclick="twSelectDay(\'' + day.dayKey + '\')" style="cursor:pointer;border-radius:var(--radius-sm);background:' + selectedBg + ';border:1px solid ' + selectedBorderColor + ';border-left:3px ' + leftBorderStyle + ' ' + leftBorderColor + ';' + selectedShadow + 'padding:10px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;min-height:110px;transition:background 0.15s,border-color 0.15s;" onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1">'
-      // ── Desktop layout (unchanged column) ──
-      + '<div class="tw-desktop-only" style="display:contents;">'
-      + '<div style="font-size:11px;font-weight:700;color:' + (isToday || isSelected ? 'var(--teal)' : 'var(--text)') + ';font-family:\'Space Grotesk\',sans-serif;">' + DAY_SHORT_TW[day.dayKey] + '</div>'
-      + '<div style="font-size:10px;color:var(--text3);margin-bottom:4px;">' + dateStr + '</div>'
-      + '<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;">' + workoutLines + '</div>'
-      + '<div style="margin-top:4px;padding:2px 7px;border-radius:999px;background:' + styleColor + '20;color:' + styleColor + ';font-size:10px;font-weight:700;white-space:nowrap;">' + styleEmoji + ' ' + styleShort + '</div>'
-      + '</div>'
-      // ── Mobile strip cell — mirrors wm-cell on dashboard ──
-      + '<div class="tw-mobile-row" style="display:none;">'
-      + '<div class="tw-strip-letter' + (isToday ? ' today' : '') + '">' + DAY_SHORT_TW[day.dayKey] + '</div>'
-      + '<div class="tw-strip-emoji">' + (isRest ? '😴' : wts.map(t => lib[t] ? lib[t].emoji : '').join('+')) + '</div>'
-      + '<div class="tw-strip-name" style="color:' + accentColor + ';">' + (isRest ? 'Rest' : wts.map(t => lib[t] ? lib[t].name : '').join('+')) + '</div>'
-      + '<div class="tw-strip-dot" style="background:' + dotColor + ';"></div>'
-      + '</div>'
+    return '<div onclick="twSelectDay(\'' + day.dayKey + '\')" style="cursor:pointer;border-radius:var(--radius-sm);background:' + bg + ';border:1px solid ' + borderColor + ';padding:10px 6px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px;transition:background 0.15s,border-color 0.15s;">'
+      + '<div style="font-size:11px;font-weight:700;color:' + dayLabelColor + ';font-family:\'Space Grotesk\',sans-serif;letter-spacing:0.03em;">' + DAY_SHORT_TW[day.dayKey] + '</div>'
+      + '<div style="font-size:9px;color:var(--text3);margin-bottom:2px;">' + dateStr + '</div>'
+      + '<div style="font-size:18px;line-height:1.1;">' + emojiStr + '</div>'
+      + '<div style="font-size:9px;font-weight:600;color:' + accentColor + ';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;line-height:1.2;">' + nameStr + '</div>'
+      + '<div style="width:6px;height:6px;border-radius:50%;background:' + styleColor + ';margin-top:3px;opacity:0.8;"></div>'
     + '</div>';
   }).join('') + '</div>';
 }
@@ -9469,38 +9451,98 @@ function renderTWDayPanel(dayKey, targetEl) {
     + '<div style="font-size:11px;color:var(--text3);margin-bottom:16px;">Tap to change — saves instantly</div>';
 
   el.style.display = 'block';
-  el.innerHTML = '<div class="card" style="border:1px solid ' + styleColor + '33;margin-bottom:8px;">'
-    + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">'
-      + '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:22px;font-weight:700;">' + DAY_LABELS[dayKey] + '</div>'
-      + '<button onclick="if(window.innerWidth<768){twCloseSheet();}else{document.getElementById(\'thisweek-day-panel\').style.display=\'none\';}" style="background:none;border:none;color:var(--text3);font-size:20px;cursor:pointer;padding:4px 8px;line-height:1;">✕</button>'
+
+  // ── Workout section ──
+  const workoutBadges = wts.length === 0
+    ? '<span style="font-size:13px;color:var(--text3);">😴 Rest day</span>'
+    : wts.map(t => {
+        const w = lib[t]; if (!w) return '';
+        const cat = getWCat(t);
+        const accent = CAT_COLOR[cat];
+        return '<span style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;background:' + accent + '15;border:1px solid ' + accent + '40;font-size:12px;font-weight:600;color:' + accent + ';">'
+          + w.emoji + ' ' + w.name + '</span>';
+      }).filter(Boolean).join(' ');
+
+  // Exercise list — compact table rows
+  let exerciseRows = '';
+  if (wts.length > 0) {
+    wts.forEach(function(t) {
+      const w = lib[t]; if (!w) return;
+      const cat = getWCat(t);
+      const accent = CAT_COLOR[cat];
+      if (typeof BUILTIN_GYM_WORKOUTS !== 'undefined') {
+        const data = BUILTIN_GYM_WORKOUTS.find(function(gw) { return gw.id === t; });
+        if (data && data.exercises && data.exercises.length) {
+          exerciseRows += '<div style="margin-top:12px;">';
+          if (wts.length > 1) exerciseRows += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:' + accent + ';margin-bottom:6px;">' + w.emoji + ' ' + w.name + '</div>';
+          data.exercises.forEach(function(ex) {
+            exerciseRows += '<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);">'
+              + '<div><div style="font-size:13px;color:var(--text);">' + ex.name + '</div>'
+              + (ex.focus ? '<div style="font-size:11px;color:var(--text3);">' + ex.focus + '</div>' : '') + '</div>'
+              + '<div style="display:flex;gap:10px;flex-shrink:0;">'
+              + '<span style="font-size:12px;font-weight:700;color:' + accent + ';">' + ex.sets + ' sets</span>'
+              + '<span style="font-size:12px;color:var(--text3);">' + ex.reps + '</span>'
+              + '</div></div>';
+          });
+          if (data.tips && data.tips.length) {
+            exerciseRows += '<div style="margin-top:8px;padding:8px 10px;background:' + accent + '0d;border-radius:6px;border-left:2px solid ' + accent + ';">'
+              + data.tips.slice(0,2).map(function(tip) { return '<div style="font-size:11px;color:var(--text2);line-height:1.5;">' + tip + '</div>'; }).join('')
+              + '</div>';
+          }
+          exerciseRows += '</div>';
+        } else if (w.meta) {
+          exerciseRows += '<div style="font-size:13px;color:var(--text2);padding:8px 0;border-bottom:1px solid var(--border);">' + w.meta + '</div>';
+        }
+      }
+    });
+  }
+
+  // ── Food section ──
+  const foodSummaryHtml = '<div style="padding:10px 12px;border-radius:8px;background:' + styleColor + '12;border:1px solid ' + styleColor + '30;margin-bottom:10px;">'
+    + '<div style="font-size:14px;font-weight:700;color:' + styleColor + ';margin-bottom:2px;">' + EATING_STYLE_EMOJI[style] + ' ' + styleInfo.label + '</div>'
+    + '<div style="font-size:12px;color:var(--text2);">' + (styleInfo.sub || '') + '</div>'
     + '</div>'
-    + '<div class="tw-day-panel-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">'
+    + tips.map(function(t) {
+        return '<div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;">'
+          + '<span style="color:' + styleColor + ';flex-shrink:0;font-size:14px;line-height:1.4;">·</span>'
+          + '<span style="font-size:12px;color:var(--text2);line-height:1.5;">' + t + '</span>'
+        + '</div>';
+      }).join('');
+
+  // ── Close button ──
+  const closeBtn = '<button onclick="document.getElementById(\'thisweek-day-panel\').style.display=\'none\';_twSelectedDay=null;renderTWGrid();" style="background:none;border:none;color:var(--text3);font-size:18px;cursor:pointer;padding:2px 6px;line-height:1;flex-shrink:0;">✕</button>';
+
+  el.innerHTML = '<div style="background:var(--card);border:1px solid ' + styleColor + '40;border-radius:var(--radius);padding:16px;margin-top:4px;">'
+    // Header row
+    + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">'
+      + '<div style="display:flex;align-items:center;gap:10px;">'
+        + '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:20px;font-weight:700;">' + DAY_LABELS[dayKey] + '</div>'
+        + workoutBadges
+      + '</div>'
+      + closeBtn
+    + '</div>'
+    // Workout picker
+    + '<div style="margin-bottom:14px;">'
+      + buildWorkoutSelect(0)
+      + (wts.length > 1 ? buildWorkoutSelect(1) : '')
+    + '</div>'
+    // 2-col content: exercises | food
+    + '<div class="tw-day-panel-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">'
       + '<div>'
-        + workoutPickerHtml
-        + '<div style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);font-family:\'Manrope\',sans-serif;margin-bottom:12px;font-weight:700;">Detail</div>'
-        + workoutSection
+        + '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:8px;">Exercise detail</div>'
+        + (exerciseRows || '<div style="font-size:13px;color:var(--text3);padding:8px 0;">Tap the dropdown above to assign a workout.</div>')
       + '</div>'
       + '<div>'
-        + '<div style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);font-family:\'Manrope\',sans-serif;font-weight:700;margin-bottom:8px;">Food plan'
-          + (isOverridden ? ' <span style="color:var(--teal);font-size:10px;text-transform:none;letter-spacing:0;">· custom</span>' : '')
+        + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">'
+          + '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);">Food plan' + (isOverridden ? ' <span style="color:var(--teal);font-size:10px;text-transform:none;letter-spacing:0;">· custom</span>' : '') + '</div>'
+          + (isOverridden ? '<button onclick="twClearStyle(\'' + dayKey + '\')" style="font-size:11px;color:var(--text3);background:none;border:none;padding:0;cursor:pointer;font-family:\'Manrope\',sans-serif;">↩ reset</button>' : '')
         + '</div>'
-        + '<select onchange="twSetStyle(\'' + dayKey + '\',this.value)" style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-family:\'Manrope\',sans-serif;font-size:13px;margin-bottom:8px;">'
+        + '<select onchange="twSetStyle(\'' + dayKey + '\',this.value)" style="width:100%;padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-family:\'Manrope\',sans-serif;font-size:13px;margin-bottom:10px;">'
           + ALL_EATING_STYLES.map(function(s) {
               return '<option value="' + s + '"' + (s === style ? ' selected' : '') + '>' + EATING_STYLE_EMOJI[s] + ' ' + EATING_STYLE_LABELS[s] + '</option>';
             }).join('')
         + '</select>'
-        + (isOverridden ? '<button onclick="twClearStyle(\'' + dayKey + '\')" style="font-size:11px;color:var(--text3);background:none;border:none;padding:0;cursor:pointer;font-family:\'Manrope\',sans-serif;margin-bottom:12px;">↩ Reset to default</button>' : '')
-        + '<div style="font-size:11px;color:var(--text3);margin-bottom:14px;">Tap to change — saves instantly</div>'
-        + '<div style="padding:12px 14px;border-radius:var(--radius-sm);background:' + styleColor + '12;border:1px solid ' + styleColor + '33;margin-bottom:14px;">'
-          + '<div style="font-weight:700;color:' + styleColor + ';margin-bottom:4px;font-size:15px;">' + EATING_STYLE_EMOJI[style] + ' ' + styleInfo.label + '</div>'
-          + '<div style="font-size:12px;color:var(--text2);">' + (styleInfo.sub || '') + '</div>'
-        + '</div>'
-        + tips.map(function(t) {
-            return '<div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:7px;">'
-              + '<span style="color:' + styleColor + ';flex-shrink:0;margin-top:3px;font-size:12px;">·</span>'
-              + '<span style="font-size:13px;color:var(--text2);line-height:1.5;">' + t + '</span>'
-            + '</div>';
-          }).join('')
+        + foodSummaryHtml
       + '</div>'
     + '</div>'
   + '</div>';
