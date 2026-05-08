@@ -888,7 +888,7 @@
       flex-wrap: wrap !important;
       gap: 14px !important;
     }
-    /* Running Plans add form + list: single column on mobile */
+    /* Running add form + list: single column on mobile */
     #page-runningplans .card > div[style*="grid-template-columns"],
     #running-plans-list {
       grid-template-columns: 1fr !important;
@@ -1521,14 +1521,14 @@
   <div class="page-header">
     <div class="page-eyebrow">Training</div>
     <div class="page-title">Training</div>
-    <div class="page-sub">Gym workouts, classes and running plans — all in one place</div>
+    <div class="page-sub">Gym workouts, classes and running — all in one place</div>
   </div>
 
   <!-- Tab bar -->
   <div class="eating-tabs" style="margin-bottom:20px;">
     <div class="etab active" id="training-tab-btn-gym" onclick="trainingTab('gym', this)">🏋️ Gym Workouts</div>
     <div class="etab" id="training-tab-btn-classes" onclick="trainingTab('classes', this)">🔥 Classes & Running</div>
-    <div class="etab" id="training-tab-btn-plans" onclick="trainingTab('plans', this)">📋 Running Plans</div>
+    <div class="etab" id="training-tab-btn-plans" onclick="trainingTab('plans', this)">📋 Running</div>
   </div>
 
   <!-- ── TAB: Gym Workouts ── -->
@@ -1618,7 +1618,7 @@
     </div>
   </div>
 
-  <!-- ── TAB: Running Plans ── -->
+  <!-- ── TAB: Running ── -->
   <div id="training-tab-plans" class="etab-page">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
       <span style="font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:0.07em;">Sync:</span>
@@ -1633,9 +1633,75 @@
     <div id="running-plans-list" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
       <div style="text-align:center;color:var(--text3);padding:40px 20px;font-size:14px;">No running plans yet. Add one to get started!</div>
     </div>
+    <!-- ── Personal Bests ── -->
+    <div style="margin-top:28px;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border);">🏅 Personal Bests</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+        <div style="font-size:13px;color:var(--text2);">Your best times and distances — tap a row to edit.</div>
+        <button onclick="openAddPBModal()" style="padding:7px 14px;background:var(--teal-light);color:var(--teal);border:1.5px solid var(--teal);border-radius:999px;font-family:'Manrope',sans-serif;font-weight:700;cursor:pointer;font-size:13px;">+ Add PB</button>
+      </div>
+      <div id="pb-table-wrap">
+        <table id="pb-table" style="width:100%;border-collapse:collapse;font-family:'Manrope',sans-serif;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);">
+              <th style="text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);padding:6px 8px 8px 0;font-weight:700;">Event</th>
+              <th style="text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);padding:6px 8px 8px;font-weight:700;">Time</th>
+              <th style="text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);padding:6px 8px 8px;font-weight:700;">Date</th>
+              <th style="text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);padding:6px 8px 8px;font-weight:700;">Notes</th>
+              <th style="width:32px;"></th>
+            </tr>
+          </thead>
+          <tbody id="pb-table-body">
+            <tr><td colspan="5" style="text-align:center;color:var(--text3);padding:28px 0;font-size:13px;">No PBs yet — add your first one!</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 
+
+<!-- Add/Edit PB modal -->
+<div id="pb-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9100;align-items:center;justify-content:center;">
+  <div style="background:var(--card);border-radius:var(--radius);padding:24px;width:90%;max-width:440px;box-shadow:0 8px 32px rgba(0,0,0,0.4);max-height:90vh;overflow-y:auto;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+      <div id="pb-modal-title" class="card-title" style="margin:0;">New PB</div>
+      <button onclick="closePBModal()" style="background:none;border:none;color:var(--text3);font-size:20px;cursor:pointer;line-height:1;padding:4px;">✕</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div>
+        <label style="display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);margin-bottom:5px;">Event</label>
+        <select id="pb-event" style="width:100%;padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope',sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;">
+          <option value="5K">5K</option>
+          <option value="10K">10K</option>
+          <option value="Half Marathon">Half Marathon</option>
+          <option value="Marathon">Marathon</option>
+          <option value="Parkrun">Parkrun</option>
+          <option value="1 mile">1 mile</option>
+          <option value="Other">Other</option>
+        </select>
+        <input id="pb-event-other" type="text" placeholder="Event name" style="display:none;margin-top:6px;width:100%;padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope',sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;box-sizing:border-box;" />
+      </div>
+      <div>
+        <label style="display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);margin-bottom:5px;">Time (mm:ss or hh:mm:ss)</label>
+        <input id="pb-time" type="text" placeholder="e.g. 24:32 or 1:52:10" style="width:100%;padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope',sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;box-sizing:border-box;" />
+      </div>
+      <div>
+        <label style="display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);margin-bottom:5px;">Date achieved</label>
+        <input id="pb-date" type="date" style="width:100%;padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope',sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;box-sizing:border-box;" />
+      </div>
+      <div>
+        <label style="display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);margin-bottom:5px;">Notes (optional)</label>
+        <input id="pb-notes" type="text" placeholder="e.g. Parkrun Beckenham, windy day" style="width:100%;padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Manrope',sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none;box-sizing:border-box;" />
+      </div>
+      <input type="hidden" id="pb-edit-id" value="" />
+      <div style="display:flex;gap:10px;margin-top:4px;">
+        <button onclick="savePBEntry()" style="flex:1;padding:12px 16px;background:var(--teal);color:#131313;border:none;border-radius:var(--radius-sm);font-family:'Manrope',sans-serif;font-weight:700;cursor:pointer;font-size:14px;">Save</button>
+        <button onclick="closePBModal()" style="padding:12px 16px;background:var(--card);color:var(--text2);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Manrope',sans-serif;font-weight:600;cursor:pointer;font-size:14px;">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ===================== NUTRITION ===================== -->
 <div id="page-nutrition" class="page">
@@ -5121,10 +5187,12 @@ function renderDashboardWeek() {
   });
 
   const dayOrder = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+  const _dwTodayKey = ['sun','mon','tue','wed','thu','fri','sat'][new Date().getDay()];
   let html = '';
 
   dayOrder.forEach(dayKey => {
     const day = routineByDay[dayKey];
+    const _dwIsToday = dayKey === _dwTodayKey;
     if (day) {
       // Get workouts from workoutTypes array
       const workoutTypes = day.workoutTypes || [];
@@ -5175,8 +5243,8 @@ function renderDashboardWeek() {
       const cellLeftBorderColor = DW_CAT_BORDER[dwPrimary];
       const cellShadow = DW_CAT_GLOW[dwPrimary] !== 'transparent' ? `0 0 14px ${DW_CAT_GLOW[dwPrimary]}` : 'var(--shadow)';
       html += `
-        <div class="wm-cell" style="background:var(--card);border:1px solid var(--border);border-left:3px ${cellLeftBorderStyle} ${cellLeftBorderColor};box-shadow:${cellShadow};">
-          <div class="wm-day">${dayKey.charAt(0).toUpperCase() + dayKey.slice(1)}</div>
+        <div class="wm-cell" style="background:${_dwIsToday ? 'rgba(0,245,212,0.05)' : 'var(--card)'};border:1px solid ${_dwIsToday ? 'var(--teal)' : 'var(--border)'};border-left:3px ${cellLeftBorderStyle} ${cellLeftBorderColor};box-shadow:${cellShadow};">
+          <div class="wm-day" style="color:${_dwIsToday ? 'var(--teal)' : ''}">${dayKey.charAt(0).toUpperCase() + dayKey.slice(1)}</div>
           <div class="wm-emoji">${combinedEmoji}</div>
           <div class="wm-label" style="color:${labelColor};">${combinedName}</div>
         </div>
@@ -6846,6 +6914,125 @@ function subtractDays(dateStr, days) {
   d.setDate(d.getDate() - days);
   return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
 }
+
+
+// ============================================================
+// PERSONAL BESTS
+// ============================================================
+const PB_KEY = 'runningPBs';
+
+function getPBs() {
+  return getData(PB_KEY, []);
+}
+
+function savePBs(pbs) {
+  setData(PB_KEY, pbs);
+  scheduleSave();
+  renderPBTable();
+}
+
+function renderPBTable() {
+  var tbody = document.getElementById('pb-table-body');
+  if (!tbody) return;
+  var pbs = getPBs();
+  if (!pbs.length) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text3);padding:28px 0;font-size:13px;">No PBs yet — add your first one!</td></tr>';
+    return;
+  }
+  tbody.innerHTML = pbs.map(function(pb) {
+    return '<tr style="border-bottom:1px solid var(--border);cursor:pointer;" onclick="openEditPBModal('' + pb.id + '')" title="Edit">'
+      + '<td style="padding:10px 8px 10px 0;font-size:14px;font-weight:600;color:var(--text);">' + escapeHtml(pb.event) + '</td>'
+      + '<td style="padding:10px 8px;font-size:14px;font-weight:700;color:var(--teal);">' + escapeHtml(pb.time) + '</td>'
+      + '<td style="padding:10px 8px;font-size:13px;color:var(--text2);">' + (pb.date ? escapeHtml(pb.date) : '—') + '</td>'
+      + '<td style="padding:10px 8px;font-size:12px;color:var(--text3);">' + (pb.notes ? escapeHtml(pb.notes) : '') + '</td>'
+      + '<td style="padding:10px 0 10px 4px;text-align:right;">'
+        + '<button onclick="event.stopPropagation();deletePBEntry('' + pb.id + '')" style="background:none;border:none;color:var(--text3);font-size:16px;cursor:pointer;line-height:1;padding:2px 4px;" title="Delete">✕</button>'
+      + '</td>'
+    + '</tr>';
+  }).join('');
+}
+
+function openAddPBModal() {
+  document.getElementById('pb-modal-title').textContent = 'New PB';
+  document.getElementById('pb-event').value = '5K';
+  document.getElementById('pb-event-other').style.display = 'none';
+  document.getElementById('pb-time').value = '';
+  document.getElementById('pb-date').value = '';
+  document.getElementById('pb-notes').value = '';
+  document.getElementById('pb-edit-id').value = '';
+  document.getElementById('pb-modal').style.display = 'flex';
+}
+
+function openEditPBModal(id) {
+  var pb = getPBs().find(function(p) { return p.id === id; });
+  if (!pb) return;
+  document.getElementById('pb-modal-title').textContent = 'Edit PB';
+  var eventSel = document.getElementById('pb-event');
+  var knownEvents = ['5K','10K','Half Marathon','Marathon','Parkrun','1 mile'];
+  if (knownEvents.indexOf(pb.event) >= 0) {
+    eventSel.value = pb.event;
+    document.getElementById('pb-event-other').style.display = 'none';
+  } else {
+    eventSel.value = 'Other';
+    document.getElementById('pb-event-other').style.display = 'block';
+    document.getElementById('pb-event-other').value = pb.event;
+  }
+  document.getElementById('pb-time').value = pb.time || '';
+  document.getElementById('pb-date').value = pb.date || '';
+  document.getElementById('pb-notes').value = pb.notes || '';
+  document.getElementById('pb-edit-id').value = id;
+  document.getElementById('pb-modal').style.display = 'flex';
+}
+
+function closePBModal() {
+  document.getElementById('pb-modal').style.display = 'none';
+}
+
+document.addEventListener('change', function(e) {
+  if (e.target && e.target.id === 'pb-event') {
+    document.getElementById('pb-event-other').style.display = e.target.value === 'Other' ? 'block' : 'none';
+  }
+});
+
+function savePBEntry() {
+  var eventSel = document.getElementById('pb-event').value;
+  var eventVal = eventSel === 'Other'
+    ? (document.getElementById('pb-event-other').value.trim() || 'Other')
+    : eventSel;
+  var time = document.getElementById('pb-time').value.trim();
+  var date = document.getElementById('pb-date').value;
+  var notes = document.getElementById('pb-notes').value.trim();
+  var editId = document.getElementById('pb-edit-id').value;
+  if (!time) { alert('Please enter a time for your PB.'); return; }
+  var pbs = getPBs();
+  if (editId) {
+    var idx = pbs.findIndex(function(p) { return p.id === editId; });
+    if (idx >= 0) pbs[idx] = { id: editId, event: eventVal, time: time, date: date, notes: notes };
+  } else {
+    pbs.push({ id: 'pb_' + Date.now(), event: eventVal, time: time, date: date, notes: notes });
+  }
+  savePBs(pbs);
+  closePBModal();
+}
+
+function deletePBEntry(id) {
+  if (!confirm('Delete this PB?')) return;
+  savePBs(getPBs().filter(function(p) { return p.id !== id; }));
+}
+
+// Render on training tab open
+(function() {
+  var _origTrainingTab = typeof trainingTab === 'function' ? trainingTab : null;
+  if (_origTrainingTab) {
+    trainingTab = function(tab, el) {
+      _origTrainingTab(tab, el);
+      if (tab === 'plans') setTimeout(renderPBTable, 50);
+    };
+  }
+  // Initial render
+  setTimeout(renderPBTable, 600);
+})();
+
 </script>
 
 <!-- RUNNING PLAN EDITOR MODAL -->
@@ -7642,7 +7829,7 @@ function deleteCustomGymWorkout(id) {
 // Initial render
 setTimeout(renderGymWorkouts, 150);
 
-// ===================== SYNC HELPERS (Running Plans page) =====================
+// ===================== SYNC HELPERS (Running page) =====================
 function updateRunningPlansSyncStatus() {
   var el = document.getElementById('rp-sync-status');
   if (!el) return;
@@ -9846,6 +10033,75 @@ function renderTWDayPanel(dayKey, targetEl) {
   const el = targetEl || document.getElementById('thisweek-day-panel');
   if (!el) return;
 
+  // Non-gym workout detail data for This Week panel
+  const TW_WORKOUT_DETAIL = {
+  "interval_run": {
+    "meta": "30–35 min · 6 × 2 min efforts",
+    "desc": "Run hard for 2 min, recover for 1 min easy jog. Repeat 6 times. Start with 4 and build. No gym needed — run local wherever you are. Burns more fat in less time than steady jogging.",
+    "tips": [
+      "Push hard on each 2-min effort — rate of perceived exertion 8/10",
+      "Recovery jog should be easy — slow right down",
+      "Build from 4 intervals to 6 as fitness improves"
+    ]
+  },
+  "long_run": {
+    "meta": "30–45 min · Conversational pace · 5–6/10",
+    "desc": "Thursday lunchtime run from home (WFH), and optionally Sunday after gym. Run slow enough to hold a full sentence. Beckenham Place Park and Purley Way are both ideal flat routes.",
+    "tips": [
+      "If you can't hold a conversation, slow down",
+      "Flat routes preferred — Beckenham Place Park or Purley Way"
+    ]
+  },
+  "easy_run": {
+    "meta": "20–30 min · Easy pace · 4–5/10 effort",
+    "desc": "A gentle, conversational-pace run. Great for active recovery or adding volume without stress. No watch pressure — just move at a pace that feels comfortable.",
+    "tips": [
+      "If you can't hold a sentence, slow down — this is meant to be easy",
+      "Perfect substitute when legs are too heavy for intervals"
+    ]
+  },
+  "runna": {
+    "meta": "20–40 min · Varies · Tracking via app",
+    "desc": "Run tracking and training through the Runna app. Flexible duration and intensity — perfect for building running consistency without fixed gym times.",
+    "tips": [
+      "Use app for GPS tracking and pacing feedback",
+      "Can be done anytime, anywhere"
+    ]
+  },
+  "blaze": {
+    "meta": "45 min · ~500 kcal · 85–95% HR",
+    "desc": "Your primary fat-burning session. Treadmill sprints, sled, punch bags and strength stations. Friday morning — gets the weekend off to a great start and your metabolism firing all day.",
+    "tips": [
+      "Book the 7:20am Purley slot in advance via David Lloyd app — fills fast",
+      "Small snack the night before if you struggle with fasted morning sessions"
+    ]
+  },
+  "cyclone": {
+    "meta": "45 min · ~400 kcal · 75–90% HR",
+    "desc": "Tuesday 7am at Purley. Low-impact, high calorie burn. A great start to the working day — you'll be done by 8am. Match resistance to the instructor on all climbs.",
+    "tips": [
+      "Banana or small snack 30 min before — no time for a full breakfast at 7am",
+      "Adjust saddle height before the warm-up starts"
+    ]
+  },
+  "rhythm": {
+    "meta": "45 min · ~400 kcal · 75–90% HR",
+    "desc": "Indoor cycling class option. Low-impact, high calorie burn. Can be scheduled flexibly throughout the week based on class availability.",
+    "tips": [
+      "Adjust resistance to match the instructor cues",
+      "Bring water — you'll sweat more than Cyclone"
+    ]
+  },
+  "swim": {
+    "meta": "30–45 min · ~350 kcal · Low impact",
+    "desc": "Full-body low-impact cardio. Great for recovery days and joint health. Can be added as a flexible cross-training option.",
+    "tips": [
+      "Great for recovery and active rest days",
+      "Low impact on joints — ideal for building volume without injury risk"
+    ]
+  }
+};
+
   const routine = loadWorkoutRoutine();
   const day = routine.find(d => d.dayKey === dayKey);
   if (!day) { el.style.display = 'none'; return; }
@@ -9986,8 +10242,23 @@ function renderTWDayPanel(dayKey, targetEl) {
               + '</div>';
           }
           exerciseRows += '</div>';
-        } else if (w.meta) {
-          exerciseRows += '<div style="font-size:13px;color:var(--text2);padding:8px 0;border-bottom:1px solid var(--border);">' + w.meta + '</div>';
+        } else {
+          // Non-gym workout: use rich detail data for run/class types
+          const _nonGymDetail = (typeof TW_WORKOUT_DETAIL !== 'undefined') ? TW_WORKOUT_DETAIL[t] : null;
+          if (_nonGymDetail) {
+            exerciseRows += '<div style="margin-top:10px;">';
+            if (wts.length > 1) exerciseRows += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:' + accent + ';margin-bottom:6px;">' + w.emoji + ' ' + w.name + '</div>';
+            exerciseRows += '<div style="font-size:11px;color:var(--text3);margin-bottom:6px;">' + (_nonGymDetail.meta || w.tag || '') + '</div>';
+            exerciseRows += '<div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:8px;">' + _nonGymDetail.desc + '</div>';
+            if (_nonGymDetail.tips && _nonGymDetail.tips.length) {
+              exerciseRows += '<div style="padding:8px 10px;background:' + accent + '0d;border-radius:6px;border-left:2px solid ' + accent + ';">'
+                + _nonGymDetail.tips.map(function(tip) { return '<div style="font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:2px;">· ' + tip + '</div>'; }).join('')
+                + '</div>';
+            }
+            exerciseRows += '</div>';
+          } else if (w.meta) {
+            exerciseRows += '<div style="font-size:13px;color:var(--text2);padding:8px 0;border-bottom:1px solid var(--border);">' + w.meta + '</div>';
+          }
         }
       }
     });
