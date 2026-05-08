@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { margin: 0; background: #131313; color: #e5e2e1; font-family: sans-serif; }
+  .page { display: none !important; }
+  .page.active { display: block !important; }
+  nav { position: fixed; bottom: 0; left: 0; right: 0; background: #222; display: flex; }
+  nav button { flex: 1; padding: 12px; color: white; background: none; border: none; font-size: 14px; }
+</style>
+</head>
+<body>
+<div id="page-a" class="page active" style="min-height:200vh;background:#1a3a1a;padding:20px;">
+  <h1>PAGE A (Dashboard)</h1>
+  <p>This is page A. It is very tall to simulate real content.</p>
+</div>
+<div id="page-b" class="page" style="background:#3a1a1a;padding:20px;">
+  <h1>PAGE B (Training)</h1>
+  <p>This is page B content.</p>
+</div>
+<div id="page-c" class="page" style="background:#1a1a3a;padding:20px;">
+  <h1>PAGE C (Sleep)</h1>
+  <p>This is page C content.</p>
+</div>
+<nav>
+  <button onclick="goTo('a')">A</button>
+  <button onclick="goTo('b')">B</button>
+  <button onclick="goTo('c')">C</button>
+</nav>
+<div id="log" style="position:fixed;top:0;right:0;background:rgba(0,0,0,0.8);padding:8px;font-size:11px;max-width:200px;"></div>
+<script>
+function goTo(page) {
+  var log = [];
+  document.querySelectorAll('.page').forEach(function(p) {
+    p.classList.remove('active');
+    p.style.display = 'none';
+    log.push('hide: ' + p.id);
+  });
+  var target = document.getElementById('page-' + page);
+  if (target) {
+    target.classList.add('active');
+    target.style.display = 'block';
+    log.push('show: ' + target.id);
+  }
+  window.scrollTo({top:0,behavior:'auto'});
+  document.getElementById('log').innerHTML = log.join('<br>') + '<br>time:' + Date.now();
+}
+</script>
+</body>
+</html>
