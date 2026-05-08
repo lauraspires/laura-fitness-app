@@ -523,8 +523,8 @@
   .main { margin-left: 240px; flex: 1; padding: 36px 36px 60px; min-width: 0; }
 
   /* ---- PAGES ---- */
-  .page { display: none; }
-  .page.active { display: block; }
+  .page { display: none !important; }
+  .page.active { display: block !important; }
 
   /* ---- PAGE HEADER ---- */
   .page-header { margin-bottom: 28px; }
@@ -1449,23 +1449,23 @@
 
 <!-- MOBILE BOTTOM NAV -->
 <nav class="mob-bottom-nav" id="mob-bottom-nav">
-  <button class="mob-nav-btn active" id="mbn-overview" onclick="goTo('overview',this);mbnSetActive(this)">
+  <button class="mob-nav-btn active" id="mbn-overview" onclick="goTo('overview',null);mbnSyncActive('overview')">
     <span class="mob-nav-icon">🏠</span>
     <span class="mob-nav-label">Home</span>
   </button>
-  <button class="mob-nav-btn" id="mbn-thisweek" onclick="goTo('thisweek',this);mbnSetActive(this)">
+  <button class="mob-nav-btn" id="mbn-thisweek" onclick="goTo('thisweek',null);mbnSyncActive('thisweek')">
     <span class="mob-nav-icon">📅</span>
     <span class="mob-nav-label">This Week</span>
   </button>
-  <button class="mob-nav-btn" id="mbn-training" onclick="goTo('training',this);mbnSetActive(this)">
+  <button class="mob-nav-btn" id="mbn-training" onclick="goTo('training',null);mbnSyncActive('training')">
     <span class="mob-nav-icon">💪</span>
     <span class="mob-nav-label">Training</span>
   </button>
-  <button class="mob-nav-btn" id="mbn-mealplan" onclick="goTo('mealplan',this);mbnSetActive(this)">
+  <button class="mob-nav-btn" id="mbn-mealplan" onclick="goTo('mealplan',null);mbnSyncActive('mealplan')">
     <span class="mob-nav-icon">🥗</span>
     <span class="mob-nav-label">Meals</span>
   </button>
-  <button class="mob-nav-btn" id="mbn-sleep" onclick="goTo('sleep',this);mbnSetActive(this)">
+  <button class="mob-nav-btn" id="mbn-sleep" onclick="goTo('sleep',null);mbnSyncActive('sleep')">
     <span class="mob-nav-icon">😴</span>
     <span class="mob-nav-label">Sleep</span>
   </button>
@@ -3318,7 +3318,7 @@ function goTo(page, el) {
     try { switchWellbeingTab2('tools', document.getElementById('wtab-tools')); } catch(e) {}
     if (typeof renderWtGrid === 'function') renderWtGrid();
   }
-  if (window.innerWidth <= 900) closeSidebar();
+  if (window.innerWidth <= 768) closeSidebar();
   // Scroll to top on every navigation
   try {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
@@ -10704,7 +10704,10 @@ function renderTWDayPanel(dayKey, targetEl) {
           var updated = 0;
           existing.forEach(function(en) {
             if (recMap[en.date] !== undefined) {
-              en.rec = recMap[en.date];
+              var row = recMap[en.date];
+              en.rec = row.rec;
+              if (row.hrv !== null) en.hrv = row.hrv;
+              if (row.rhr !== null) en.rhr = row.rhr;
               updated++;
             }
           });
@@ -10714,7 +10717,8 @@ function renderTWDayPanel(dayKey, targetEl) {
           var added = 0;
           dates.forEach(function(d) {
             if (!existingDates[d]) {
-              existing.push({ date: d, sleep: 0, rec: recMap[d], hrv: null, rhr: null, supps: [], routines: [] });
+              var row = recMap[d];
+              existing.push({ date: d, sleep: 0, rec: row.rec, hrv: row.hrv || null, rhr: row.rhr || null, supps: [], routines: [] });
               existingDates[d] = true;
               added++;
             }
@@ -10782,6 +10786,9 @@ function renderTWDayPanel(dayKey, targetEl) {
     }
     var iDate = colIdx(['cycle start', 'date']);
     var iRec  = colIdx(['recovery score', 'recovery %', 'recovery%']);
+    var iHRV  = colIdx(['heart rate variability', 'hrv (ms)', 'hrv']);
+    var iRHR  = colIdx(['resting heart rate', 'rhr (bpm)', 'rhr']);
+    console.log('[Cycles CSV] headers:', headers, 'iDate='+iDate, 'iRec='+iRec, 'iHRV='+iHRV, 'iRHR='+iRHR);
     if (iDate < 0 || iRec < 0) return {};
     var result = {};
     for (var li = 1; li < lines.length; li++) {
@@ -10809,7 +10816,15 @@ function renderTWDayPanel(dayKey, targetEl) {
       if (!dateStr) continue;
       var recRaw = cols[iRec] ? cols[iRec].replace(/[^\d.]/g,'') : '';
       var rec = recRaw ? Math.round(parseFloat(recRaw)) : null;
-      if (rec !== null && !isNaN(rec)) result[dateStr] = rec;
+      if (rec !== null && !isNaN(rec)) {
+        var hrvRaw = iHRV >= 0 && cols[iHRV] ? parseFloat(cols[iHRV].replace(/[^\d.]/g,'')) : NaN;
+        var rhrRaw = iRHR >= 0 && cols[iRHR] ? parseFloat(cols[iRHR].replace(/[^\d.]/g,'')) : NaN;
+        result[dateStr] = {
+          rec: rec,
+          hrv: isNaN(hrvRaw) ? null : Math.round(hrvRaw * 10) / 10,
+          rhr: isNaN(rhrRaw) ? null : Math.round(rhrRaw)
+        };
+      }
     }
     return result;
   }
@@ -10940,7 +10955,7 @@ function renderTWDayPanel(dayKey, targetEl) {
   // ── END WHOOP CSV IMPORT ──────────────────────────────────────────
 
   // Auto-populate Night Before checklists from Supplements/Routines tabs
-  function slPopulateNightBefore() {
+  window.slPopulateNightBefore = function() {
     // SUPPLEMENTS — pull sleep-category or before-bed supps
     var suppList = document.getElementById('sl-supp-list');
     if (suppList) {
@@ -11134,10 +11149,7 @@ function renderTWDayPanel(dayKey, targetEl) {
 
 
 // ── MOBILE BOTTOM NAV ──
-function mbnSetActive(btn) {
-  document.querySelectorAll('.mob-nav-btn').forEach(function(b) { b.classList.remove('active'); });
-  if (btn) btn.classList.add('active');
-}
+// mbnSetActive replaced by mbnSyncActive
 function mbnToggleMore() {
   document.getElementById('mob-more-drawer').classList.toggle('open');
   document.getElementById('mob-more-backdrop').classList.toggle('open');
@@ -11146,24 +11158,16 @@ function mbnCloseMore() {
   document.getElementById('mob-more-drawer').classList.remove('open');
   document.getElementById('mob-more-backdrop').classList.remove('open');
 }
-// Patch goTo so bottom nav stays in sync when navigating from sidebar (desktop)
-(function() {
-  var _origGoTo = window.goTo;
-  window.goTo = function(page, el) {
-    _origGoTo(page, el);
-    // sync bottom nav active state
-    var pageToBtn = {
-      overview:'mbn-overview', thisweek:'mbn-thisweek',
-      training:'mbn-training', mealplan:'mbn-mealplan', sleep:'mbn-sleep'
-    };
-    document.querySelectorAll('.mob-nav-btn').forEach(function(b) { b.classList.remove('active'); });
-    var btnId = pageToBtn[page];
-    if (btnId) {
-      var btn = document.getElementById(btnId);
-      if (btn) btn.classList.add('active');
-    }
+// Mobile bottom nav active state sync — called by mbnSetActive, not patching goTo
+function mbnSyncActive(page) {
+  var pageToBtn = {
+    overview:'mbn-overview', thisweek:'mbn-thisweek',
+    training:'mbn-training', mealplan:'mbn-mealplan', sleep:'mbn-sleep'
   };
-})();
+  document.querySelectorAll('.mob-nav-btn').forEach(function(b) { b.classList.remove('active'); });
+  var btnId = pageToBtn[page];
+  if (btnId) { var btn = document.getElementById(btnId); if (btn) btn.classList.add('active'); }
+}
 
 </script>
 
