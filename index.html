@@ -11139,7 +11139,7 @@ function renderTWDayPanel(dayKey, targetEl) {
         '<td>' + (e.hrv ? e.hrv + 'ms' : '—') + '</td>' +
         '<td>' + (e.rhr || '—') + '</td>' +
         '<td><div style="display:flex;flex-wrap:wrap;gap:3px;">' + (tags||'—') + '</div></td>' +
-        '<td><button onclick="event.stopPropagation();slOpenEditModal(\'' + e.date + '\')" style="padding:3px 10px;font-size:11px;font-family:'Manrope',sans-serif;font-weight:600;border:1.5px solid var(--border);border-radius:999px;background:var(--bg2);color:var(--text2);cursor:pointer;">Edit</button></td>';
+        '<td><button onclick="event.stopPropagation();slOpenEditModal(\'' + e.date + '\')" style="padding:3px 10px;font-size:11px;font-family:Manrope,sans-serif;font-weight:600;border:1.5px solid var(--border);border-radius:999px;background:var(--bg2);color:var(--text2);cursor:pointer;">Edit</button></td>';
       tbody.appendChild(tr);
     });
   }
@@ -11261,7 +11261,7 @@ function renderTWDayPanel(dayKey, targetEl) {
       var row = document.createElement('div');
       row.style.cssText = 'display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:var(--bg2);border-radius:6px;font-size:13px;';
       row.innerHTML = '<span style="color:var(--text);">' + item + '</span>' +
-        '<button onclick="slEditRemoveTag('' + type + '',' + idx + ')" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;padding:0 2px;line-height:1;">×</button>';
+        '<button onclick="slEditRemoveTag(\'' + type + '\',' + idx + ')" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;padding:0 2px;line-height:1;">×</button>';
       list.appendChild(row);
     });
   }
