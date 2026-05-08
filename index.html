@@ -111,163 +111,163 @@
   /* ═══════════════════════════════════════════
      SLEEP TRACKER — scoped styles
   ═══════════════════════════════════════════ */
-  #wb2-tab-sleep .sl-today-bar {
+  #wb1-tab-sleep .sl-today-bar {
     display:flex; align-items:center; gap:8px; overflow-x:auto;
     padding:0 0 14px; scrollbar-width:none; flex-wrap:nowrap;
   }
-  #wb2-tab-sleep .sl-today-bar::-webkit-scrollbar { display:none; }
-  #wb2-tab-sleep .sl-date-label {
+  #wb1-tab-sleep .sl-today-bar::-webkit-scrollbar { display:none; }
+  #wb1-tab-sleep .sl-date-label {
     font-size:11px; font-weight:600; color:var(--text3);
     white-space:nowrap; letter-spacing:.05em; text-transform:uppercase; flex-shrink:0;
   }
-  #wb2-tab-sleep .sl-chip {
+  #wb1-tab-sleep .sl-chip {
     display:flex; align-items:center; gap:5px; background:var(--bg2);
     border:1px solid var(--border); border-radius:999px; padding:5px 11px;
     white-space:nowrap; flex-shrink:0;
   }
-  #wb2-tab-sleep .sl-chip-label { font-size:10px; color:var(--text3); font-weight:600; letter-spacing:.04em; }
-  #wb2-tab-sleep .sl-chip-val { font-size:12px; font-weight:700; color:var(--teal); }
-  #wb2-tab-sleep .sl-week-grid {
+  #wb1-tab-sleep .sl-chip-label { font-size:10px; color:var(--text3); font-weight:600; letter-spacing:.04em; }
+  #wb1-tab-sleep .sl-chip-val { font-size:12px; font-weight:700; color:var(--teal); }
+  #wb1-tab-sleep .sl-week-grid {
     display:grid; grid-template-columns:repeat(7,1fr); gap:5px; margin-bottom:12px;
   }
-  #wb2-tab-sleep .sl-wday { display:flex; flex-direction:column; align-items:center; gap:4px; }
-  #wb2-tab-sleep .sl-wday-label { font-size:9px; color:var(--text3); font-weight:600; text-transform:uppercase; }
-  #wb2-tab-sleep .sl-dot {
+  #wb1-tab-sleep .sl-wday { display:flex; flex-direction:column; align-items:center; gap:4px; }
+  #wb1-tab-sleep .sl-wday-label { font-size:9px; color:var(--text3); font-weight:600; text-transform:uppercase; }
+  #wb1-tab-sleep .sl-dot {
     width:34px; height:34px; border-radius:50%; display:flex; align-items:center;
     justify-content:center; font-size:11px; font-weight:700;
   }
-  #wb2-tab-sleep .sl-dot.green { background:rgba(0,245,212,.15); color:#00f5d4; border:1px solid rgba(0,245,212,.3); }
-  #wb2-tab-sleep .sl-dot.amber { background:rgba(245,200,66,.15); color:#f5c842; border:1px solid rgba(245,200,66,.3); }
-  #wb2-tab-sleep .sl-dot.red   { background:rgba(255,107,107,.15); color:#ff6b6b; border:1px solid rgba(255,107,107,.3); }
-  #wb2-tab-sleep .sl-dot.today { box-shadow:0 0 0 2px var(--teal); }
-  #wb2-tab-sleep .sl-dot.empty { background:var(--bg3); color:var(--text3); border:1px solid var(--border); }
-  #wb2-tab-sleep .sl-wscore { font-size:9px; color:var(--text3); }
-  #wb2-tab-sleep .sl-week-avgs {
+  #wb1-tab-sleep .sl-dot.green { background:rgba(0,245,212,.15); color:#00f5d4; border:1px solid rgba(0,245,212,.3); }
+  #wb1-tab-sleep .sl-dot.amber { background:rgba(245,200,66,.15); color:#f5c842; border:1px solid rgba(245,200,66,.3); }
+  #wb1-tab-sleep .sl-dot.red   { background:rgba(255,107,107,.15); color:#ff6b6b; border:1px solid rgba(255,107,107,.3); }
+  #wb1-tab-sleep .sl-dot.today { box-shadow:0 0 0 2px var(--teal); }
+  #wb1-tab-sleep .sl-dot.empty { background:var(--bg3); color:var(--text3); border:1px solid var(--border); }
+  #wb1-tab-sleep .sl-wscore { font-size:9px; color:var(--text3); }
+  #wb1-tab-sleep .sl-week-avgs {
     display:flex; justify-content:space-between; padding-top:10px;
     border-top:1px solid var(--border); margin-top:2px;
   }
-  #wb2-tab-sleep .sl-wavg-lbl { font-size:10px; color:var(--text3); text-transform:uppercase; letter-spacing:.04em; text-align:center; }
-  #wb2-tab-sleep .sl-wavg-val { font-size:15px; font-weight:700; color:var(--teal); font-family:'Space Grotesk',sans-serif; margin-top:2px; text-align:center; }
-  #wb2-tab-sleep .sl-slider-row { margin-bottom:14px; }
-  #wb2-tab-sleep .sl-slider-hdr { display:flex; justify-content:space-between; align-items:center; margin-bottom:7px; }
-  #wb2-tab-sleep .sl-slider-label { font-size:14px; font-weight:600; color:var(--text); }
-  #wb2-tab-sleep .sl-slider-val { font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; color:var(--teal); min-width:36px; text-align:right; }
-  #wb2-tab-sleep input[type="range"].sl-range {
+  #wb1-tab-sleep .sl-wavg-lbl { font-size:10px; color:var(--text3); text-transform:uppercase; letter-spacing:.04em; text-align:center; }
+  #wb1-tab-sleep .sl-wavg-val { font-size:15px; font-weight:700; color:var(--teal); font-family:'Space Grotesk',sans-serif; margin-top:2px; text-align:center; }
+  #wb1-tab-sleep .sl-slider-row { margin-bottom:14px; }
+  #wb1-tab-sleep .sl-slider-hdr { display:flex; justify-content:space-between; align-items:center; margin-bottom:7px; }
+  #wb1-tab-sleep .sl-slider-label { font-size:14px; font-weight:600; color:var(--text); }
+  #wb1-tab-sleep .sl-slider-val { font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; color:var(--teal); min-width:36px; text-align:right; }
+  #wb1-tab-sleep input[type="range"].sl-range {
     width:100%; height:6px; -webkit-appearance:none; appearance:none;
     background:var(--bg3); border-radius:999px; outline:none; cursor:pointer;
   }
-  #wb2-tab-sleep input[type="range"].sl-range::-webkit-slider-thumb {
+  #wb1-tab-sleep input[type="range"].sl-range::-webkit-slider-thumb {
     -webkit-appearance:none; width:22px; height:22px; border-radius:50%;
     background:var(--teal); cursor:pointer;
   }
-  #wb2-tab-sleep .sl-metrics-grid {
+  #wb1-tab-sleep .sl-metrics-grid {
     display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:4px;
   }
-  #wb2-tab-sleep .sl-mf { display:flex; flex-direction:column; gap:5px; }
-  #wb2-tab-sleep .sl-ml { font-size:11px; font-weight:600; color:var(--text3); text-transform:uppercase; letter-spacing:.04em; }
-  #wb2-tab-sleep .sl-mi {
+  #wb1-tab-sleep .sl-mf { display:flex; flex-direction:column; gap:5px; }
+  #wb1-tab-sleep .sl-ml { font-size:11px; font-weight:600; color:var(--text3); text-transform:uppercase; letter-spacing:.04em; }
+  #wb1-tab-sleep .sl-mi {
     background:var(--bg2); border:1px solid var(--border); border-radius:10px;
     color:var(--text); font-family:'Manrope',sans-serif; font-size:17px; font-weight:700;
     padding:9px 10px; width:100%; text-align:center; outline:none; transition:border-color .2s;
   }
-  #wb2-tab-sleep .sl-mi:focus { border-color:var(--teal); }
-  #wb2-tab-sleep .sl-mu { font-size:10px; color:var(--text3); text-align:center; margin-top:2px; }
-  #wb2-tab-sleep .sl-whoop-collapsed { display:none; align-items:center; justify-content:space-between; }
-  #wb2-tab-sleep .sl-whoop-collapsed.visible { display:flex; }
-  #wb2-tab-sleep .sl-sum-chips { display:flex; gap:6px; flex-wrap:wrap; }
-  #wb2-tab-sleep .sl-sum-chip {
+  #wb1-tab-sleep .sl-mi:focus { border-color:var(--teal); }
+  #wb1-tab-sleep .sl-mu { font-size:10px; color:var(--text3); text-align:center; margin-top:2px; }
+  #wb1-tab-sleep .sl-whoop-collapsed { display:none; align-items:center; justify-content:space-between; }
+  #wb1-tab-sleep .sl-whoop-collapsed.visible { display:flex; }
+  #wb1-tab-sleep .sl-sum-chips { display:flex; gap:6px; flex-wrap:wrap; }
+  #wb1-tab-sleep .sl-sum-chip {
     background:rgba(0,245,212,.1); border:1px solid rgba(0,245,212,.2);
     border-radius:999px; padding:4px 10px; font-size:12px; font-weight:600; color:var(--teal);
   }
-  #wb2-tab-sleep .sl-btn-edit {
+  #wb1-tab-sleep .sl-btn-edit {
     background:none; border:1px solid var(--border); border-radius:8px; color:var(--text2);
     font-family:'Manrope',sans-serif; font-size:13px; font-weight:600;
     padding:6px 14px; cursor:pointer; white-space:nowrap; flex-shrink:0; margin-left:10px;
   }
-  #wb2-tab-sleep .sl-cl-title {
+  #wb1-tab-sleep .sl-cl-title {
     font-size:12px; font-weight:700; color:var(--text3); text-transform:uppercase;
     letter-spacing:.05em; margin-bottom:10px;
   }
-  #wb2-tab-sleep .sl-items { display:flex; flex-direction:column; gap:2px; margin-bottom:10px; }
-  #wb2-tab-sleep .sl-ci {
+  #wb1-tab-sleep .sl-items { display:flex; flex-direction:column; gap:2px; margin-bottom:10px; }
+  #wb1-tab-sleep .sl-ci {
     display:flex; align-items:center; gap:12px; padding:10px 12px;
     border-radius:10px; cursor:pointer; user-select:none;
   }
-  #wb2-tab-sleep .sl-ci:hover { background:var(--bg3); }
-  #wb2-tab-sleep .sl-ci.checked { background:rgba(0,245,212,0.06); }
-  #wb2-tab-sleep .sl-cbox {
+  #wb1-tab-sleep .sl-ci:hover { background:var(--bg3); }
+  #wb1-tab-sleep .sl-ci.checked { background:rgba(0,245,212,0.06); }
+  #wb1-tab-sleep .sl-cbox {
     width:20px; height:20px; border-radius:6px; border:2px solid var(--text3);
     flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:.15s;
   }
-  #wb2-tab-sleep .sl-ci.checked .sl-cbox { background:var(--teal); border-color:var(--teal); }
-  #wb2-tab-sleep .sl-ctick { display:none; color:#00382f; font-size:13px; font-weight:700; }
-  #wb2-tab-sleep .sl-ci.checked .sl-ctick { display:block; }
-  #wb2-tab-sleep .sl-clabel { font-size:14px; color:var(--text); }
-  #wb2-tab-sleep .sl-add-row { display:flex; gap:8px; margin-bottom:14px; }
-  #wb2-tab-sleep .sl-add-input {
+  #wb1-tab-sleep .sl-ci.checked .sl-cbox { background:var(--teal); border-color:var(--teal); }
+  #wb1-tab-sleep .sl-ctick { display:none; color:#00382f; font-size:13px; font-weight:700; }
+  #wb1-tab-sleep .sl-ci.checked .sl-ctick { display:block; }
+  #wb1-tab-sleep .sl-clabel { font-size:14px; color:var(--text); }
+  #wb1-tab-sleep .sl-add-row { display:flex; gap:8px; margin-bottom:14px; }
+  #wb1-tab-sleep .sl-add-input {
     flex:1; background:var(--bg2); border:1px solid var(--border); border-radius:10px;
     color:var(--text); font-family:'Manrope',sans-serif; font-size:14px;
     padding:9px 12px; outline:none;
   }
-  #wb2-tab-sleep .sl-add-input:focus { border-color:var(--teal); }
-  #wb2-tab-sleep .sl-btn-add {
+  #wb1-tab-sleep .sl-add-input:focus { border-color:var(--teal); }
+  #wb1-tab-sleep .sl-btn-add {
     background:none; border:1px solid var(--teal); border-radius:10px; color:var(--teal);
     font-family:'Manrope',sans-serif; font-size:13px; font-weight:600;
     padding:9px 14px; cursor:pointer; white-space:nowrap;
   }
-  #wb2-tab-sleep .sl-divider { height:1px; background:var(--border); margin:14px 0; }
-  #wb2-tab-sleep .sl-btn-save {
+  #wb1-tab-sleep .sl-divider { height:1px; background:var(--border); margin:14px 0; }
+  #wb1-tab-sleep .sl-btn-save {
     width:100%; background:var(--teal); color:#00382f; font-family:'Space Grotesk',sans-serif;
     font-size:15px; font-weight:700; border:none; border-radius:12px;
     padding:15px; cursor:pointer; margin-top:4px;
   }
-  #wb2-tab-sleep .sl-bar-chart { display:flex; flex-direction:column; gap:8px; }
-  #wb2-tab-sleep .sl-bar-row { display:flex; align-items:center; gap:10px; }
-  #wb2-tab-sleep .sl-bar-lbl { font-size:12px; color:var(--text2); min-width:30px; text-align:right; flex-shrink:0; }
-  #wb2-tab-sleep .sl-bar-track { flex:1; height:10px; background:var(--bg3); border-radius:999px; overflow:hidden; }
-  #wb2-tab-sleep .sl-bar-fill { height:100%; border-radius:999px; background:var(--teal); }
-  #wb2-tab-sleep .sl-bar-fill.amber { background:#f5c842; }
-  #wb2-tab-sleep .sl-bar-fill.red   { background:#ff6b6b; }
-  #wb2-tab-sleep .sl-bar-score { font-size:12px; font-weight:700; color:var(--text); min-width:28px; }
-  #wb2-tab-sleep .sl-ptable-wrap { overflow-x:auto; }
-  #wb2-tab-sleep .sl-ptable { width:100%; border-collapse:collapse; min-width:320px; }
-  #wb2-tab-sleep .sl-ptable th {
+  #wb1-tab-sleep .sl-bar-chart { display:flex; flex-direction:column; gap:8px; }
+  #wb1-tab-sleep .sl-bar-row { display:flex; align-items:center; gap:10px; }
+  #wb1-tab-sleep .sl-bar-lbl { font-size:12px; color:var(--text2); min-width:30px; text-align:right; flex-shrink:0; }
+  #wb1-tab-sleep .sl-bar-track { flex:1; height:10px; background:var(--bg3); border-radius:999px; overflow:hidden; }
+  #wb1-tab-sleep .sl-bar-fill { height:100%; border-radius:999px; background:var(--teal); }
+  #wb1-tab-sleep .sl-bar-fill.amber { background:#f5c842; }
+  #wb1-tab-sleep .sl-bar-fill.red   { background:#ff6b6b; }
+  #wb1-tab-sleep .sl-bar-score { font-size:12px; font-weight:700; color:var(--text); min-width:28px; }
+  #wb1-tab-sleep .sl-ptable-wrap { overflow-x:auto; }
+  #wb1-tab-sleep .sl-ptable { width:100%; border-collapse:collapse; min-width:320px; }
+  #wb1-tab-sleep .sl-ptable th {
     text-align:left; font-size:11px; font-weight:700; color:var(--text3);
     text-transform:uppercase; letter-spacing:.04em; padding:8px 10px;
     border-bottom:1px solid var(--border);
   }
-  #wb2-tab-sleep .sl-ptable td {
+  #wb1-tab-sleep .sl-ptable td {
     padding:10px 10px; font-size:13px; border-bottom:1px solid var(--border); color:var(--text);
   }
-  #wb2-tab-sleep .sl-ptable tr:last-child td { border-bottom:none; }
-  #wb2-tab-sleep .sl-delta-pos { color:var(--teal); font-weight:700; }
-  #wb2-tab-sleep .sl-delta-neg { color:#ff6b6b; font-weight:700; }
-  #wb2-tab-sleep .sl-subtabs { display:flex; gap:0; margin-bottom:18px; border-bottom:1px solid var(--border); }
-  #wb2-tab-sleep .sl-stab {
+  #wb1-tab-sleep .sl-ptable tr:last-child td { border-bottom:none; }
+  #wb1-tab-sleep .sl-delta-pos { color:var(--teal); font-weight:700; }
+  #wb1-tab-sleep .sl-delta-neg { color:#ff6b6b; font-weight:700; }
+  #wb1-tab-sleep .sl-subtabs { display:flex; gap:0; margin-bottom:18px; border-bottom:1px solid var(--border); }
+  #wb1-tab-sleep .sl-stab {
     flex:1; background:none; border:none; border-bottom:2px solid transparent;
     color:var(--text3); font-family:'Manrope',sans-serif; font-size:13px; font-weight:600;
     padding:9px 8px; cursor:pointer; min-height:44px;
   }
-  #wb2-tab-sleep .sl-stab.active { color:var(--teal); border-bottom-color:var(--teal); }
-  #wb2-tab-sleep .sl-subpanel { display:none; }
-  #wb2-tab-sleep .sl-subpanel.active { display:block; }
-  #wb2-tab-sleep .sl-tag { background:var(--bg3); border-radius:999px; padding:3px 8px; font-size:11px; color:var(--text2); display:inline-block; margin:2px; }
-  #wb2-tab-sleep table.sl-htable { width:100%; border-collapse:collapse; min-width:460px; }
-  #wb2-tab-sleep table.sl-htable th {
+  #wb1-tab-sleep .sl-stab.active { color:var(--teal); border-bottom-color:var(--teal); }
+  #wb1-tab-sleep .sl-subpanel { display:none; }
+  #wb1-tab-sleep .sl-subpanel.active { display:block; }
+  #wb1-tab-sleep .sl-tag { background:var(--bg3); border-radius:999px; padding:3px 8px; font-size:11px; color:var(--text2); display:inline-block; margin:2px; }
+  #wb1-tab-sleep table.sl-htable { width:100%; border-collapse:collapse; min-width:460px; }
+  #wb1-tab-sleep table.sl-htable th {
     text-align:left; font-size:11px; font-weight:700; color:var(--text3);
     text-transform:uppercase; letter-spacing:.05em; padding:8px 10px;
     border-bottom:1px solid var(--border);
   }
-  #wb2-tab-sleep table.sl-htable td {
+  #wb1-tab-sleep table.sl-htable td {
     padding:11px 10px; font-size:13px; border-bottom:1px solid var(--border); color:var(--text); vertical-align:top;
   }
-  #wb2-tab-sleep table.sl-htable tr:last-child td { border-bottom:none; }
-  #wb2-tab-sleep .sl-pill {
+  #wb1-tab-sleep table.sl-htable tr:last-child td { border-bottom:none; }
+  #wb1-tab-sleep .sl-pill {
     display:inline-block; padding:3px 9px; border-radius:999px; font-size:12px; font-weight:700;
   }
-  #wb2-tab-sleep .sl-pill.green { background:rgba(0,245,212,.12); color:#00f5d4; }
-  #wb2-tab-sleep .sl-pill.amber { background:rgba(245,200,66,.12); color:#f5c842; }
-  #wb2-tab-sleep .sl-pill.red   { background:rgba(255,107,107,.12); color:#ff6b6b; }
+  #wb1-tab-sleep .sl-pill.green { background:rgba(0,245,212,.12); color:#00f5d4; }
+  #wb1-tab-sleep .sl-pill.amber { background:rgba(245,200,66,.12); color:#f5c842; }
+  #wb1-tab-sleep .sl-pill.red   { background:rgba(255,107,107,.12); color:#ff6b6b; }
 </style>
 <style>
     :root {
@@ -2170,6 +2170,7 @@
   <div class="eating-tabs" style="margin-bottom:20px;">
     <div class="etab active" id="wtab-routines" onclick="switchWellbeingTab1('routines',this)">🌅 Daily Rituals</div>
     <div class="etab" id="wtab-supplements" onclick="switchWellbeingTab1('supplements',this)">💊 Supplements</div>
+    <div class="etab" id="wtab-sleep1" onclick="switchWellbeingTab1('sleep',this)">😴 Sleep Log</div>
   </div>
   <div id="wb1-tab-routines" class="etab-page active">
   <!-- SUB-TABS: Overview / Today / By Day -->
@@ -2375,24 +2376,8 @@
 </div>
 
 
-<!-- ===================== WELLBEING TOOLS ===================== -->
-
-<div id="page-wellbeing-ref" class="page">
-  <div class="page-header">
-    <div class="page-eyebrow">Wellbeing</div>
-    <div class="page-title">Health and Recovery</div>
-    <div class="page-sub">Whoop recovery guide · Longevity protocols · Wellness kit</div>
-  </div>
-  <div class="eating-tabs" style="margin-bottom:20px;">
-    <div class="etab active" id="wtab-sleep" onclick="switchWellbeingTab2('sleep',this)">😴 Sleep Log</div>
-    <div class="etab" id="wtab-tools" onclick="switchWellbeingTab2('tools',this)">🔴 My Kit</div>
-    <div class="etab" id="wtab-whoop" onclick="switchWellbeingTab2('whoop',this)">🫀 Whoop</div>
-    <div class="etab" id="wtab-longevity" onclick="switchWellbeingTab2('longevity',this)">🌿 Longevity</div>
-  </div>
-
-
-  <!-- ======= SLEEP TRACKER TAB ======= -->
-  <div id="wb2-tab-sleep" class="etab-page active">
+  <!-- ======= SLEEP LOG TAB ======= -->
+  <div id="wb1-tab-sleep" class="etab-page">
 
     <!-- Today summary chips -->
     <div class="sl-today-bar">
@@ -2412,8 +2397,6 @@
 
     <!-- ── LOG ── -->
     <div id="sl-tab-log" class="sl-subpanel active">
-
-      <!-- Last 7 days grid -->
       <div class="card" style="margin-bottom:14px;">
         <div class="card-title">Last 7 Days — Sleep Scores</div>
         <div class="sl-week-grid" id="sl-week-grid"></div>
@@ -2425,78 +2408,45 @@
         </div>
       </div>
 
-      <!-- WHOOP scores card -->
       <div class="card" style="margin-bottom:14px;">
         <div class="card-title">WHOOP Scores
           <span style="font-size:11px;color:var(--text3);font-weight:500;text-transform:none;letter-spacing:0" id="sl-whoop-date"></span>
         </div>
-        <!-- Collapsed summary (shown after save) -->
         <div class="sl-whoop-collapsed" id="sl-whoop-collapsed">
           <div class="sl-sum-chips" id="sl-sum-chips"></div>
           <button class="sl-btn-edit" onclick="slExpandWhoop()">Edit</button>
         </div>
-        <!-- Expanded form -->
         <div id="sl-whoop-expanded">
           <div class="sl-slider-row">
             <div class="sl-slider-hdr">
               <span class="sl-slider-label">Sleep Score</span>
               <span class="sl-slider-val" id="sl-sleep-val">—</span>
             </div>
-            <input type="range" class="sl-range" id="sl-sleep-slider" min="0" max="100" value="0"
-              oninput="slOnSleepSlide(this.value)">
+            <input type="range" class="sl-range" id="sl-sleep-slider" min="0" max="100" value="0" oninput="slOnSleepSlide(this.value)">
           </div>
           <div class="sl-slider-row">
             <div class="sl-slider-hdr">
               <span class="sl-slider-label">Recovery Score</span>
               <span class="sl-slider-val" id="sl-rec-val">—</span>
             </div>
-            <input type="range" class="sl-range" id="sl-rec-slider" min="0" max="100" value="0"
-              oninput="slOnRecSlide(this.value)">
+            <input type="range" class="sl-range" id="sl-rec-slider" min="0" max="100" value="0" oninput="slOnRecSlide(this.value)">
           </div>
           <div class="sl-metrics-grid">
-            <div class="sl-mf">
-              <label class="sl-ml">HRV</label>
-              <input type="number" class="sl-mi" id="sl-inp-hrv" placeholder="—"
-                min="0" max="200" onfocus="this.select()" oninput="slUpdateChip('hrv',this.value)">
-              <div class="sl-mu">ms</div>
-            </div>
-            <div class="sl-mf">
-              <label class="sl-ml">RHR</label>
-              <input type="number" class="sl-mi" id="sl-inp-rhr" placeholder="—"
-                min="30" max="120" onfocus="this.select()" oninput="slUpdateChip('rhr',this.value)">
-              <div class="sl-mu">bpm</div>
-            </div>
-            <div class="sl-mf">
-              <label class="sl-ml">Resp</label>
-              <input type="number" class="sl-mi" id="sl-inp-resp" placeholder="—"
-                min="10" max="30" step="0.1" onfocus="this.select()">
-              <div class="sl-mu">rpm</div>
-            </div>
+            <div class="sl-mf"><label class="sl-ml">HRV</label><input type="number" class="sl-mi" id="sl-inp-hrv" placeholder="—" min="0" max="200" onfocus="this.select()" oninput="slUpdateChip('hrv',this.value)"><div class="sl-mu">ms</div></div>
+            <div class="sl-mf"><label class="sl-ml">RHR</label><input type="number" class="sl-mi" id="sl-inp-rhr" placeholder="—" min="30" max="120" onfocus="this.select()" oninput="slUpdateChip('rhr',this.value)"><div class="sl-mu">bpm</div></div>
+            <div class="sl-mf"><label class="sl-ml">Resp</label><input type="number" class="sl-mi" id="sl-inp-resp" placeholder="—" min="10" max="30" step="0.1" onfocus="this.select()"><div class="sl-mu">rpm</div></div>
           </div>
         </div>
       </div>
 
-      <!-- Night Before checklist -->
       <div class="card" style="margin-bottom:14px;">
         <div class="card-title">Night Before</div>
         <div class="sl-cl-title">Supplements</div>
         <div class="sl-items" id="sl-supp-list">
-          <div class="sl-ci" onclick="slToggleCheck(this)">
-            <div class="sl-cbox"><span class="sl-ctick">✓</span></div>
-            <span class="sl-clabel">Magnesium Glycinate</span>
-          </div>
-          <div class="sl-ci" onclick="slToggleCheck(this)">
-            <div class="sl-cbox"><span class="sl-ctick">✓</span></div>
-            <span class="sl-clabel">Ashwagandha</span>
-          </div>
-          <div class="sl-ci" onclick="slToggleCheck(this)">
-            <div class="sl-cbox"><span class="sl-ctick">✓</span></div>
-            <span class="sl-clabel">L-Theanine</span>
-          </div>
-          <div class="sl-ci" onclick="slToggleCheck(this)">
-            <div class="sl-cbox"><span class="sl-ctick">✓</span></div>
-            <span class="sl-clabel">Deep Sleep Spray</span>
-          </div>
+          <div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">Magnesium Glycinate</span></div>
+          <div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">Ashwagandha</span></div>
+          <div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">L-Theanine</span></div>
+          <div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">Deep Sleep Spray</span></div>
         </div>
         <div class="sl-add-row">
           <input class="sl-add-input" id="sl-supp-input" type="text" placeholder="Add supplement…">
@@ -2505,33 +2455,17 @@
         <div class="sl-divider"></div>
         <div class="sl-cl-title">Routine</div>
         <div class="sl-items" id="sl-routine-list">
-          <div class="sl-ci" onclick="slToggleCheck(this)">
-            <div class="sl-cbox"><span class="sl-ctick">✓</span></div>
-            <span class="sl-clabel">No screens 1hr before bed</span>
-          </div>
-          <div class="sl-ci" onclick="slToggleCheck(this)">
-            <div class="sl-cbox"><span class="sl-ctick">✓</span></div>
-            <span class="sl-clabel">No caffeine after 2pm</span>
-          </div>
-          <div class="sl-ci" onclick="slToggleCheck(this)">
-            <div class="sl-cbox"><span class="sl-ctick">✓</span></div>
-            <span class="sl-clabel">No alcohol</span>
-          </div>
-          <div class="sl-ci" onclick="slToggleCheck(this)">
-            <div class="sl-cbox"><span class="sl-ctick">✓</span></div>
-            <span class="sl-clabel">Cool room (18–19°C)</span>
-          </div>
-          <div class="sl-ci" onclick="slToggleCheck(this)">
-            <div class="sl-cbox"><span class="sl-ctick">✓</span></div>
-            <span class="sl-clabel">Journal</span>
-          </div>
+          <div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">No screens 1hr before bed</span></div>
+          <div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">No caffeine after 2pm</span></div>
+          <div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">No alcohol</span></div>
+          <div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">Cool room (18–19°C)</span></div>
+          <div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">Journal</span></div>
         </div>
         <div class="sl-add-row">
           <input class="sl-add-input" id="sl-routine-input" type="text" placeholder="Add routine step…">
           <button class="sl-btn-add" onclick="slAddItem('sl-routine-list','sl-routine-input')">+ Add</button>
         </div>
       </div>
-
       <button class="sl-btn-save" onclick="slSaveEntry()">Save Tonight's Log</button>
     </div><!-- /sl-tab-log -->
 
@@ -2541,11 +2475,7 @@
         <div class="card-title">Recent Entries</div>
         <div style="overflow-x:auto;">
           <table class="sl-htable">
-            <thead>
-              <tr>
-                <th>Date</th><th>Sleep</th><th>Rec</th><th>HRV</th><th>RHR</th><th>Night Before</th>
-              </tr>
-            </thead>
+            <thead><tr><th>Date</th><th>Sleep</th><th>Rec</th><th>HRV</th><th>RHR</th><th>Night Before</th></tr></thead>
             <tbody id="sl-history-body">
               <tr><td colspan="6" style="text-align:center;color:var(--text3);padding:20px;">No entries yet — log your first night above.</td></tr>
             </tbody>
@@ -2580,7 +2510,22 @@
       </div>
     </div><!-- /sl-tab-trends -->
 
-  </div><!-- end wb2-tab-sleep -->
+  </div><!-- end wb1-tab-sleep -->
+
+<!-- ===================== WELLBEING TOOLS ===================== -->
+
+<div id="page-wellbeing-ref" class="page">
+  <div class="page-header">
+    <div class="page-eyebrow">Wellbeing</div>
+    <div class="page-title">Health and Recovery</div>
+    <div class="page-sub">Whoop recovery guide · Longevity protocols · Wellness kit</div>
+  </div>
+  <div class="eating-tabs" style="margin-bottom:20px;">
+    <div class="etab" id="wtab-tools" onclick="switchWellbeingTab2('tools',this)">🔴 My Kit</div>
+    <div class="etab" id="wtab-whoop" onclick="switchWellbeingTab2('whoop',this)">🫀 Whoop</div>
+    <div class="etab" id="wtab-longevity" onclick="switchWellbeingTab2('longevity',this)">🌿 Longevity</div>
+  </div>
+
 
   <!-- ======= WHOOP TAB ======= -->
   <div id="wb2-tab-whoop" class="etab-page">
@@ -3107,7 +3052,7 @@ function goTo(page, el) {
 
   // Reset etab-pages that aren't inside the current page (prevents bleed)
   if (page !== 'routines') {
-    ['wb1-tab-routines','wb1-tab-supplements'].forEach(function(id) {
+    ['wb1-tab-routines','wb1-tab-supplements','wb1-tab-sleep'].forEach(function(id) {
       var el2 = document.getElementById(id);
       if (el2) el2.classList.remove('active');
     });
@@ -3119,8 +3064,8 @@ function goTo(page, el) {
       var el2 = document.getElementById(id);
       if (el2) el2.classList.remove('active');
     });
-    var wb2s = document.getElementById('wb2-tab-sleep');
-    if (wb2s) wb2s.classList.add('active');
+    var wb2t = document.getElementById('wb2-tab-tools');
+    if (wb2t) wb2t.classList.add('active');
   }
 
   // Per-page init — always reset to first sub-tab on every navigation
@@ -3157,7 +3102,7 @@ function goTo(page, el) {
   }
   if (page === 'wellbeing-ref') {
     // Always reset to My Kit tab
-    try { switchWellbeingTab2('sleep', document.getElementById('wtab-sleep')); } catch(e) {}
+    try { switchWellbeingTab2('tools', document.getElementById('wtab-tools')); } catch(e) {}
     if (typeof renderWtGrid === 'function') renderWtGrid();
   }
   if (window.innerWidth <= 900) closeSidebar();
@@ -9062,9 +9007,10 @@ async function getMealSuggestions() {
 //  PLANNER TAB SWITCHER
 // ─────────────────────────────────────────────
 function switchWellbeingTab1(id, el) {
-  ['routines','supplements'].forEach(t => {
+  ['routines','supplements','sleep'].forEach(t => {
     const pane = document.getElementById('wb1-tab-' + t);
-    const tab  = document.getElementById('wtab-' + t);
+    const tabId = t === 'sleep' ? 'wtab-sleep1' : 'wtab-' + t;
+    const tab  = document.getElementById(tabId);
     if (pane) pane.classList.toggle('active', t === id);
     if (tab)  tab.classList.toggle('active', t === id);
   });
@@ -9073,7 +9019,7 @@ function switchWellbeingTab1(id, el) {
 }
 
 function switchWellbeingTab2(id, el) {
-  ['sleep','whoop','longevity','tools'].forEach(t => {
+  ['whoop','longevity','tools'].forEach(t => {
     const pane = document.getElementById('wb2-tab-' + t);
     const tab  = document.getElementById('wtab-' + t);
     if (pane) pane.classList.toggle('active', t === id);
@@ -10205,7 +10151,7 @@ function renderTWDayPanel(dayKey, targetEl) {
       var b = btn.parentElement.querySelector('[onclick*="\'' + t + '\'"]');
       if (p) p.classList.toggle('active', t === name);
     });
-    document.querySelectorAll('#wb2-tab-sleep .sl-stab').forEach(function(b) {
+    document.querySelectorAll('#wb1-tab-sleep .sl-stab').forEach(function(b) {
       b.classList.toggle('active', b.getAttribute('onclick').indexOf("'" + name + "'") !== -1);
     });
     if (name === 'history') slRenderHistory();
