@@ -15,6 +15,9 @@
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;900&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
@@ -3309,9 +3312,16 @@ function closeSidebar() {
 }
 
 function goTo(page, el) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  // Explicitly hide ALL pages first (belt-and-suspenders for mobile)
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+    p.style.display = 'none';
+  });
   const pageEl = document.getElementById('page-' + page);
-  if (pageEl) pageEl.classList.add('active');
+  if (pageEl) {
+    pageEl.classList.add('active');
+    pageEl.style.display = 'block';
+  }
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   if (el) el.classList.add('active');
 
@@ -10610,11 +10620,21 @@ function renderTWDayPanel(dayKey, targetEl) {
   var SL_KEY = 'sleepTrackerEntries';
 
   function slLoadEntries() {
-    return getData(SL_KEY, []);
+    // Primary: gAppData (Drive-backed). Mirror to localStorage for resilience.
+    var fromDrive = getData(SL_KEY, null);
+    if (fromDrive !== null) return fromDrive;
+    // Fallback: localStorage mirror (same device, same browser)
+    try {
+      var local = localStorage.getItem('sl_mirror_' + SL_KEY);
+      return local ? JSON.parse(local) : [];
+    } catch(e) { return []; }
   }
   function slSaveEntries(arr) {
+    // Write to Drive-backed store (primary)
     setData(SL_KEY, arr);
     scheduleSave();
+    // Also mirror to localStorage so data survives Drive load timing issues
+    try { localStorage.setItem('sl_mirror_' + SL_KEY, JSON.stringify(arr)); } catch(e) {}
   }
 
   // Sub-tab switching
