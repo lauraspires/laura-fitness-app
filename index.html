@@ -10923,16 +10923,12 @@ function renderTWDayPanel(dayKey, targetEl) {
       var dateStr = null;
       var m = rawDate.match(/(\d{4})-(\d{2})-(\d{2})/);
       if (m) {
-        // Cycles start evening before — date label is the morning after
-        var d = new Date(m[1] + '-' + m[2] + '-' + m[3] + 'T12:00:00');
-        d.setDate(d.getDate() + 1);
-        dateStr = d.toISOString().slice(0,10);
+        // Use the cycle start date directly as the sleep date
+        dateStr = m[1] + '-' + m[2] + '-' + m[3];
       } else {
         var m2 = rawDate.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
         if (m2) {
-          var d2 = new Date(m2[3] + '-' + m2[1].padStart(2,'0') + '-' + m2[2].padStart(2,'0') + 'T12:00:00');
-          d2.setDate(d2.getDate() + 1);
-          dateStr = d2.toISOString().slice(0,10);
+          dateStr = m2[3] + '-' + m2[1].padStart(2,'0') + '-' + m2[2].padStart(2,'0');
         }
       }
       if (!dateStr) continue;
@@ -11023,16 +11019,12 @@ function renderTWDayPanel(dayKey, targetEl) {
         // WHOOP format: "2024-03-15 23:47:00" or "03/15/2024 11:47 PM"
         var m = rawDate.match(/(\d{4})-(\d{2})-(\d{2})/);
         if (m) {
-          // WHOOP cycle starts the evening before — the sleep "date" is typically the next calendar day
-          var d = new Date(m[1] + '-' + m[2] + '-' + m[3] + 'T12:00:00');
-          d.setDate(d.getDate() + 1);
-          dateStr = d.toISOString().slice(0,10);
+          // Use the date directly from WHOOP — no offset needed
+          dateStr = m[1] + '-' + m[2] + '-' + m[3];
         } else {
           var m2 = rawDate.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
           if (m2) {
-            var d2 = new Date(m2[3] + '-' + m2[1].padStart(2,'0') + '-' + m2[2].padStart(2,'0') + 'T12:00:00');
-            d2.setDate(d2.getDate() + 1);
-            dateStr = d2.toISOString().slice(0,10);
+            dateStr = m2[3] + '-' + m2[1].padStart(2,'0') + '-' + m2[2].padStart(2,'0');
           }
         }
       }
@@ -11362,6 +11354,11 @@ function renderTWDayPanel(dayKey, targetEl) {
     slCloseEditModal();
   };
   // ── END EDIT MODAL ───────────────────────────────────────────
+  // Expose render functions globally so launchApp can refresh after Drive loads
+  window.slRenderHistory  = slRenderHistory;
+  window.slRenderWeekGrid = slRenderWeekGrid;
+  window.slRenderTrends   = slRenderTrends;
+  window.slInit           = slInit;
   // Run init when DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', slInit);
