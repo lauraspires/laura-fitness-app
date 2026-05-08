@@ -958,6 +958,27 @@
       grid-template-columns: 1fr !important;
     }
 
+    /* ── DASHBOARD: reorder cards on mobile ── */
+    #page-overview {
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    #page-overview .page-header { order: 0; }
+    #page-overview #dash-top-stats { order: 1; }
+    #page-overview .overview-week { order: 2; margin-bottom: 16px !important; }
+    #page-overview .grid-2 { order: 3; }
+    /* Weekly goals grid: move to end */
+    #page-overview > div[style*="Weekly goals"] { order: 5; }
+    #page-overview .grid-4 { order: 6; }
+    /* The "Weekly goals" label div */
+    #page-overview > div:not(.page-header):not(#dash-top-stats):not(.overview-week):not(.grid-2):not(.grid-4) { order: 5; }
+
+    /* ── DASHBOARD: on mobile, stack the 2-col grid-2 as nutrition first ── */
+    #page-overview .grid-2 {
+      display: flex !important;
+      flex-direction: column-reverse !important;
+    }
+
     /* ── SETTINGS: profile grid 2-col → 1-col ── */
     #page-settings .card > div[style*="grid-template-columns:1fr 1fr"],
     #page-settings .card > div[style*="grid-template-columns: 1fr 1fr"] {
@@ -9468,6 +9489,34 @@ function twUpdateWorkout(dayKey, slotIndex, newType) {
   try { renderDashboardNutritionWidget(null); } catch(e) {}
 }
 
+function twSwitchPanel(dayKey, view) {
+  const workoutView = document.getElementById('tw-view-workout-' + dayKey);
+  const foodView = document.getElementById('tw-view-food-' + dayKey);
+  const workoutPill = document.getElementById('tw-pill-workout-' + dayKey);
+  const foodPill = document.getElementById('tw-pill-food-' + dayKey);
+  if (!workoutView || !foodView) return;
+
+  if (view === 'workout') {
+    workoutView.style.display = 'block';
+    foodView.style.display = 'none';
+    workoutPill.style.background = 'var(--teal)';
+    workoutPill.style.borderColor = 'var(--teal)';
+    workoutPill.style.color = '#003830';
+    foodPill.style.background = 'var(--card)';
+    foodPill.style.borderColor = 'var(--border)';
+    foodPill.style.color = 'var(--text2)';
+  } else {
+    workoutView.style.display = 'none';
+    foodView.style.display = 'block';
+    foodPill.style.background = 'var(--teal)';
+    foodPill.style.borderColor = 'var(--teal)';
+    foodPill.style.color = '#003830';
+    workoutPill.style.background = 'var(--card)';
+    workoutPill.style.borderColor = 'var(--border)';
+    workoutPill.style.color = 'var(--text2)';
+  }
+}
+
 function twCloseSheet() {
   _twSelectedDay = null;
   renderTWGrid();
@@ -9641,38 +9690,42 @@ function renderTWDayPanel(dayKey, targetEl) {
   // ── Close button ──
   const closeBtn = '<button onclick="document.getElementById(\'thisweek-day-panel\').style.display=\'none\';_twSelectedDay=null;renderTWGrid();" style="background:none;border:none;color:var(--text3);font-size:18px;cursor:pointer;padding:2px 6px;line-height:1;flex-shrink:0;">✕</button>';
 
-  el.innerHTML = '<div style="background:var(--card);border:1px solid ' + styleColor + '40;border-radius:var(--radius);padding:16px;margin-top:4px;">'
-    // Header row
-    + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">'
-      + '<div style="display:flex;align-items:center;gap:10px;">'
-        + '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:20px;font-weight:700;">' + DAY_LABELS[dayKey] + '</div>'
+  const panelId = 'tw-panel-' + dayKey;
+
+  el.innerHTML = '<div id="' + panelId + '" style="background:var(--card);border:1px solid ' + styleColor + '40;border-radius:var(--radius);padding:14px 16px;margin-top:4px;">'
+    // Header row: day name + badges + close
+    + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">'
+      + '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">'
+        + '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:18px;font-weight:700;">' + DAY_LABELS[dayKey] + '</div>'
         + workoutBadges
       + '</div>'
       + closeBtn
     + '</div>'
-    // Workout picker
-    + '<div style="margin-bottom:14px;">'
-      + buildWorkoutSelect(0)
-      + (wts.length > 1 ? buildWorkoutSelect(1) : '')
+    // Toggle pills: Workout | Food
+    + '<div style="display:flex;gap:6px;margin-bottom:14px;">'
+      + '<button id="tw-pill-workout-' + dayKey + '" onclick="twSwitchPanel(\'' + dayKey + '\',\'workout\')" style="flex:1;padding:7px 12px;border-radius:999px;font-size:13px;font-weight:600;font-family:\'Manrope\',sans-serif;cursor:pointer;border:1.5px solid var(--teal);background:var(--teal);color:#003830;transition:all 0.15s;">🏋️ Workout</button>'
+      + '<button id="tw-pill-food-' + dayKey + '" onclick="twSwitchPanel(\'' + dayKey + '\',\'food\')" style="flex:1;padding:7px 12px;border-radius:999px;font-size:13px;font-weight:600;font-family:\'Manrope\',sans-serif;cursor:pointer;border:1.5px solid var(--border);background:var(--card);color:var(--text2);transition:all 0.15s;">' + EATING_STYLE_EMOJI[style] + ' Food</button>'
     + '</div>'
-    // 2-col content: exercises | food
-    + '<div class="tw-day-panel-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">'
-      + '<div>'
-        + '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:8px;">Exercise detail</div>'
-        + (exerciseRows || '<div style="font-size:13px;color:var(--text3);padding:8px 0;">Tap the dropdown above to assign a workout.</div>')
+    // Workout panel (shown by default)
+    + '<div id="tw-view-workout-' + dayKey + '">'
+      + '<div style="margin-bottom:10px;">'
+        + buildWorkoutSelect(0)
+        + (wts.length > 1 ? buildWorkoutSelect(1) : '')
       + '</div>'
-      + '<div>'
-        + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">'
-          + '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);">Food plan' + (isOverridden ? ' <span style="color:var(--teal);font-size:10px;text-transform:none;letter-spacing:0;">· custom</span>' : '') + '</div>'
-          + (isOverridden ? '<button onclick="twClearStyle(\'' + dayKey + '\')" style="font-size:11px;color:var(--text3);background:none;border:none;padding:0;cursor:pointer;font-family:\'Manrope\',sans-serif;">↩ reset</button>' : '')
-        + '</div>'
-        + '<select onchange="twSetStyle(\'' + dayKey + '\',this.value)" style="width:100%;padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-family:\'Manrope\',sans-serif;font-size:13px;margin-bottom:10px;">'
-          + ALL_EATING_STYLES.map(function(s) {
-              return '<option value="' + s + '"' + (s === style ? ' selected' : '') + '>' + EATING_STYLE_EMOJI[s] + ' ' + EATING_STYLE_LABELS[s] + '</option>';
-            }).join('')
-        + '</select>'
-        + foodSummaryHtml
+      + (exerciseRows || '<div style="font-size:13px;color:var(--text3);padding:4px 0;">No workout assigned — pick one above.</div>')
+    + '</div>'
+    // Food panel (hidden by default)
+    + '<div id="tw-view-food-' + dayKey + '" style="display:none;">'
+      + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">'
+        + '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);">Eating style' + (isOverridden ? ' <span style="color:var(--teal);font-size:10px;text-transform:none;letter-spacing:0;">· custom</span>' : '') + '</div>'
+        + (isOverridden ? '<button onclick="twClearStyle(\'' + dayKey + '\')" style="font-size:11px;color:var(--text3);background:none;border:none;padding:0;cursor:pointer;font-family:\'Manrope\',sans-serif;">↩ reset</button>' : '')
       + '</div>'
+      + '<select onchange="twSetStyle(\'' + dayKey + '\',this.value)" style="width:100%;padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-family:\'Manrope\',sans-serif;font-size:13px;margin-bottom:10px;">'
+        + ALL_EATING_STYLES.map(function(s) {
+            return '<option value="' + s + '"' + (s === style ? ' selected' : '') + '>' + EATING_STYLE_EMOJI[s] + ' ' + EATING_STYLE_LABELS[s] + '</option>';
+          }).join('')
+      + '</select>'
+      + foodSummaryHtml
     + '</div>'
   + '</div>';
 }
