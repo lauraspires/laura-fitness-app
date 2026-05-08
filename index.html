@@ -3322,6 +3322,28 @@ function goTo(page, el) {
     pageEl.classList.add('active');
     pageEl.style.display = 'block';
   }
+  // DEBUG overlay — shows computed display of every page immediately + after rAF
+  (function() {
+    var _dbg = document.getElementById('_dbg_overlay');
+    if (!_dbg) {
+      _dbg = document.createElement('div');
+      _dbg.id = '_dbg_overlay';
+      _dbg.style.cssText = 'position:fixed;top:0;left:0;right:0;background:rgba(0,0,0,0.9);color:#0f0;font-size:10px;padding:6px 8px;z-index:99999;font-family:monospace;max-height:50vh;overflow-y:auto;pointer-events:none;';
+      document.body.appendChild(_dbg);
+    }
+    function snap(label) {
+      var lines = [label + ' goTo("' + page + '")'];
+      document.querySelectorAll('.page').forEach(function(p) {
+        var cs = window.getComputedStyle(p);
+        lines.push(p.id.replace('page-','') + ': cls=' + (p.className.includes('active')?'ACTIVE':'') + ' inline=' + (p.style.display||'-') + ' computed=' + cs.display);
+      });
+      return lines.join('<br>');
+    }
+    _dbg.innerHTML = snap('SYNC');
+    requestAnimationFrame(function() {
+      _dbg.innerHTML += '<br><br>' + snap('rAF');
+    });
+  })();
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   if (el) el.classList.add('active');
 
