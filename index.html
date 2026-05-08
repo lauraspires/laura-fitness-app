@@ -870,6 +870,135 @@
       width: 100% !important;
       box-sizing: border-box !important;
     }
+
+    /* ── WHOOP: stack 3-col recovery cards vertically on mobile ── */
+    #wb2-tab-whoop > div:first-child {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* ── NUTRITION: collapse golden rules 3-col grid ── */
+    #nutr-tab-eatingout .card > div[style*="grid-template-columns:1fr 1fr 1fr"],
+    #nutr-tab-eatingout .card > div[style*="grid-template-columns: 1fr 1fr 1fr"] {
+      grid-template-columns: 1fr 1fr !important;
+    }
+
+    /* ── NUTRITION: fasting rows — stack label + text + badge vertically ── */
+    div[style*="grid-template-columns:100px 1fr auto"],
+    div[style*="grid-template-columns: 100px 1fr auto"] {
+      grid-template-columns: 1fr !important;
+      gap: 6px !important;
+    }
+
+    /* ── NUTRITION: approach/guide cards grid — already 1fr 1fr, ensure inline grids also collapse ── */
+    #eat-guide > div[style*="grid-template-columns:1fr 1fr"],
+    #eat-guide > div[style*="grid-template-columns: 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* ── LONGEVITY: 2-col grid → single col ── */
+    #wb2-tab-longevity > div[style*="grid-template-columns:1fr 1fr"],
+    #wb2-tab-longevity > div[style*="grid-template-columns: 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* ── NUTRITION guide: clean food / cut sugar 2-col → single col ── */
+    div[style*="grid-template-columns:1fr 1fr"][style*="margin-bottom:12px"] {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* ── NUTRITION eating out: by-cuisine golden rules panel 3-col → 1-col ── */
+    .cuisine-panel.active {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* ── OMAD grid: already grid-2 handled, but extra inline ones ── */
+    #eat-omad .card .grid-2 {
+      grid-template-columns: 1fr 1fr !important;
+    }
+
+    /* ── TRAINING: running plans sync bar → wrap ── */
+    #training-tab-plans > div:first-child {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 8px !important;
+    }
+
+    /* ── TRAINING: Classes & Running section labels ── */
+    #training-tab-classes .grid-2 {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* ── TRAINING: running plans list → single column ── */
+    #running-plans-list {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* ── NUTRITION: Whoop understanding numbers grid ── */
+    #wb2-tab-whoop .card > div[style*="grid-template-columns:1fr 1fr"],
+    #wb2-tab-whoop .card > div[style*="grid-template-columns: 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* ── ROUTINES: sub-tab buttons → full width ── */
+    #wb1-tab-routines > div:first-child {
+      display: flex !important;
+      width: 100% !important;
+    }
+    #wb1-tab-routines > div:first-child button {
+      flex: 1 !important;
+    }
+
+    /* ── LONGEVITY checkin items ── */
+    #longevity-checks-list > div {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* ── NUTRITION: waiter phrases stack ── */
+    #nutr-tab-eatingout .card > div[style*="flex-direction:column"] div[style*="grid-template-columns"] {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* ── SETTINGS: profile grid 2-col → 1-col ── */
+    #page-settings .card > div[style*="grid-template-columns:1fr 1fr"],
+    #page-settings .card > div[style*="grid-template-columns: 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* ── SETTINGS: data management rows → stack label + button ── */
+    #page-settings div[style*="justify-content:space-between"] {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 10px !important;
+    }
+    #page-settings div[style*="justify-content:space-between"] button {
+      width: 100% !important;
+    }
+
+    /* ── WELLBEING KIT: tools grid 2-col → 1-col ── */
+    #wt-grid {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* ── OVERVIEW: progress chart area ── */
+    #wb2-tab-whoop + div[style*="grid-template-columns"] {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* ── FASTING rows (extended fasting section) — 2-col inline grids ── */
+    div[style*="grid-template-columns:100px 1fr"] {
+      grid-template-columns: 1fr !important;
+      gap: 4px !important;
+    }
+    div[style*="grid-template-columns: 100px 1fr"] {
+      grid-template-columns: 1fr !important;
+      gap: 4px !important;
+    }
+
+    /* ── SUPPLEMENT stack: min-width forced items ── */
+    div[style*="min-width:130px"] {
+      min-width: 0 !important;
+      width: 100% !important;
+    }
   }
 
   /* Planner bottom sheet hidden — mobile uses inline panel same as desktop */
