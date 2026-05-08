@@ -277,6 +277,91 @@
   #page-sleep .sl-pill.green { background:rgba(0,245,212,.12); color:#00f5d4; }
   #page-sleep .sl-pill.amber { background:rgba(245,200,66,.12); color:#f5c842; }
   #page-sleep .sl-pill.red   { background:rgba(255,107,107,.12); color:#ff6b6b; }
+
+  /* ── MOBILE BOTTOM NAV ── */
+  .mob-bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: calc(56px + env(safe-area-inset-bottom));
+    padding-bottom: env(safe-area-inset-bottom);
+    background: var(--sidebar-bg);
+    border-top: 1px solid var(--border);
+    z-index: 200;
+    align-items: stretch;
+    justify-content: space-around;
+  }
+  .mob-nav-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text3);
+    font-family: 'Manrope', sans-serif;
+    padding: 6px 2px 4px;
+    transition: color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mob-nav-btn.active { color: var(--teal); }
+  .mob-nav-icon { font-size: 20px; line-height: 1; }
+  .mob-nav-label { font-size: 9.5px; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; }
+  /* More drawer */
+  .mob-more-backdrop {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 300;
+  }
+  .mob-more-backdrop.open { display: block; }
+  .mob-more-drawer {
+    position: fixed;
+    bottom: calc(56px + env(safe-area-inset-bottom));
+    left: 0; right: 0;
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    border-radius: 16px 16px 0 0;
+    padding: 16px 16px 8px;
+    z-index: 301;
+    transform: translateY(100%);
+    transition: transform 0.25s ease;
+  }
+  .mob-more-drawer.open { transform: translateY(0); }
+  .mob-more-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+    padding: 0 2px;
+  }
+  .mob-more-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 13px 10px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Manrope', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mob-more-item:last-child { border-bottom: none; }
+  .mob-more-item:active { background: var(--card-high); }
+  .mob-more-item span:first-child { font-size: 18px; }
+
 </style>
 <style>
     :root {
@@ -673,9 +758,11 @@
     .grid-3 { grid-template-columns: 1fr 1fr; }
     .grid-2 { grid-template-columns: 1fr; }
     .week-strip { grid-template-columns: repeat(4, 1fr); }
-    .hamburger { display: flex !important; }
-    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 99; }
-    .sidebar-overlay.open { display: block; }
+    .hamburger { display: none !important; }
+    .sidebar { display: none !important; }
+    .sidebar-overlay { display: none !important; }
+    .mob-bottom-nav { display: flex !important; }
+    .main { margin-left: 0 !important; padding: 16px 14px 80px !important; }
   }
   .hamburger { display:none;position:fixed;top:max(14px, env(safe-area-inset-top));left:max(14px, env(safe-area-inset-left));z-index:95;background:var(--sidebar-bg);border:1px solid var(--border);border-radius:8px;padding:8px 10px;cursor:pointer;color:var(--text);font-size:16px; }
 
@@ -1357,6 +1444,46 @@
   <div class="sidebar-footer">
   </div>
 </nav>
+
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mob-bottom-nav" id="mob-bottom-nav">
+  <button class="mob-nav-btn active" id="mbn-overview" onclick="goTo('overview',this);mbnSetActive(this)">
+    <span class="mob-nav-icon">🏠</span>
+    <span class="mob-nav-label">Home</span>
+  </button>
+  <button class="mob-nav-btn" id="mbn-thisweek" onclick="goTo('thisweek',this);mbnSetActive(this)">
+    <span class="mob-nav-icon">📅</span>
+    <span class="mob-nav-label">This Week</span>
+  </button>
+  <button class="mob-nav-btn" id="mbn-training" onclick="goTo('training',this);mbnSetActive(this)">
+    <span class="mob-nav-icon">💪</span>
+    <span class="mob-nav-label">Training</span>
+  </button>
+  <button class="mob-nav-btn" id="mbn-mealplan" onclick="goTo('mealplan',this);mbnSetActive(this)">
+    <span class="mob-nav-icon">🥗</span>
+    <span class="mob-nav-label">Meals</span>
+  </button>
+  <button class="mob-nav-btn" id="mbn-sleep" onclick="goTo('sleep',this);mbnSetActive(this)">
+    <span class="mob-nav-icon">😴</span>
+    <span class="mob-nav-label">Sleep</span>
+  </button>
+  <button class="mob-nav-btn" id="mbn-more" onclick="mbnToggleMore()">
+    <span class="mob-nav-icon">⋯</span>
+    <span class="mob-nav-label">More</span>
+  </button>
+</nav>
+
+<!-- MOBILE MORE DRAWER -->
+<div class="mob-more-backdrop" id="mob-more-backdrop" onclick="mbnCloseMore()"></div>
+<div class="mob-more-drawer" id="mob-more-drawer">
+  <div class="mob-more-title">More</div>
+  <button class="mob-more-item" onclick="goTo('pantry',null);mbnCloseMore()"><span>🥕</span> Kitchen &amp; Food</button>
+  <button class="mob-more-item" onclick="goTo('nutrition',null);mbnCloseMore()"><span>📚</span> Nutrition Guide</button>
+  <button class="mob-more-item" onclick="goTo('routines',null);mbnCloseMore()"><span>🌅</span> Routines / Supplements</button>
+  <button class="mob-more-item" onclick="goTo('wellbeing-ref',null);mbnCloseMore()"><span>❤️</span> Health / Recovery</button>
+  <button class="mob-more-item" onclick="goTo('settings',null);mbnCloseMore()"><span>⚙️</span> Settings</button>
+</div>
 
 <!-- MAIN -->
 <main class="main">
@@ -2465,7 +2592,7 @@
   <div class="sl-today-bar" style="padding:0 20px 14px;">
     <span class="sl-date-label" id="sl-today-date">Today</span>
     <div class="sl-chip"><span class="sl-chip-label">SLEEP</span><span class="sl-chip-val" id="sl-chip-sleep">—</span></div>
-    <div class="sl-chip"><span class="sl-chip-label">REC</span><span class="sl-chip-val" id="sl-chip-rec">—</span></div>
+    <div class="sl-chip"><span class="sl-chip-label">RECOVERY</span><span class="sl-chip-val" id="sl-chip-rec">—</span></div>
     <div class="sl-chip"><span class="sl-chip-label">HRV</span><span class="sl-chip-val" id="sl-chip-hrv">—</span></div>
     <div class="sl-chip"><span class="sl-chip-label">RHR</span><span class="sl-chip-val" id="sl-chip-rhr">—</span></div>
   </div>
@@ -2486,7 +2613,7 @@
         <div class="sl-week-grid" id="sl-week-grid"></div>
         <div class="sl-week-avgs">
           <div style="text-align:center"><div class="sl-wavg-lbl">Avg Sleep</div><div class="sl-wavg-val" id="sl-avg-sleep">—</div></div>
-          <div style="text-align:center"><div class="sl-wavg-lbl">Avg Rec</div><div class="sl-wavg-val" id="sl-avg-rec">—</div></div>
+          <div style="text-align:center"><div class="sl-wavg-lbl">Avg Recovery</div><div class="sl-wavg-val" id="sl-avg-rec">—</div></div>
           <div style="text-align:center"><div class="sl-wavg-lbl">Avg HRV</div><div class="sl-wavg-val" id="sl-avg-hrv">—</div></div>
           <div style="text-align:center"><div class="sl-wavg-lbl">Avg RHR</div><div class="sl-wavg-val" id="sl-avg-rhr">—</div></div>
         </div>
@@ -2517,29 +2644,23 @@
       </div>
       <div class="card" style="margin-bottom:14px;">
         <div class="card-title">Night Before</div>
-        <div class="sl-cl-title">Supplements</div>
-        <div class="sl-items" id="sl-supp-list">
-          <div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">Magnesium Glycinate</span></div>
-          <div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">Ashwagandha</span></div>
-          <div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">L-Theanine</span></div>
-          <div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">Deep Sleep Spray</span></div>
-        </div>
-        <div class="sl-add-row">
-          <input class="sl-add-input" id="sl-supp-input" type="text" placeholder="Add supplement…">
-          <button class="sl-btn-add" onclick="slAddItem('sl-supp-list','sl-supp-input')">+ Add</button>
-        </div>
-        <div class="sl-divider"></div>
-        <div class="sl-cl-title">Routine</div>
-        <div class="sl-items" id="sl-routine-list">
-          <div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">No screens 1hr before bed</span></div>
-          <div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">No caffeine after 2pm</span></div>
-          <div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">No alcohol</span></div>
-          <div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">Cool room (18–19°C)</span></div>
-          <div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">Journal</span></div>
-        </div>
-        <div class="sl-add-row">
-          <input class="sl-add-input" id="sl-routine-input" type="text" placeholder="Add routine step…">
-          <button class="sl-btn-add" onclick="slAddItem('sl-routine-list','sl-routine-input')">+ Add</button>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <div>
+            <div class="sl-cl-title">Supplements</div>
+            <div class="sl-items" id="sl-supp-list"></div>
+            <div class="sl-add-row">
+              <input class="sl-add-input" id="sl-supp-input" type="text" placeholder="Add supplement…">
+              <button class="sl-btn-add" onclick="slAddItem('sl-supp-list','sl-supp-input')">+</button>
+            </div>
+          </div>
+          <div>
+            <div class="sl-cl-title">Routine</div>
+            <div class="sl-items" id="sl-routine-list"></div>
+            <div class="sl-add-row">
+              <input class="sl-add-input" id="sl-routine-input" type="text" placeholder="Add routine step…">
+              <button class="sl-btn-add" onclick="slAddItem('sl-routine-list','sl-routine-input')">+</button>
+            </div>
+          </div>
         </div>
       </div>
       <button class="sl-btn-save" onclick="slSaveEntry()">Save Tonight's Log</button>
@@ -2550,13 +2671,18 @@
       <div class="card">
         <div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">
           <span>Recent Entries</span>
-          <button class="sl-btn-import-whoop" onclick="slImportWhoopCSV()" title="Import WHOOP sleep export CSV">⬆ Import WHOOP CSV</button>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;">
+            <button class="sl-btn-import-whoop" onclick="slImportSleepCSV()" title="Import WHOOP sleep export CSV" style="font-size:11px;">⬆ Sleep CSV</button>
+            <button class="sl-btn-import-whoop" onclick="slImportCyclesCSV()" title="Import WHOOP physiological cycles CSV (adds Recovery score)" style="font-size:11px;background:var(--teal-light);color:var(--teal);">⬆ Recovery CSV</button>
+          </div>
         </div>
-        <input type="file" id="sl-whoop-file-input" accept=".csv" style="display:none" onchange="slHandleWhoopFile(this)">
+        <div style="font-size:11.5px;color:var(--text3);margin-bottom:8px;">From WHOOP app: <strong style="color:var(--text2);">Export Data → Sleep</strong> for sleep/HRV/RHR · <strong style="color:var(--text2);">Export Data → Physiological Cycles</strong> for Recovery score</div>
+        <input type="file" id="sl-whoop-file-input" accept=".csv" style="display:none" onchange="slHandleWhoopFile(this,'sleep')">
+        <input type="file" id="sl-cycles-file-input" accept=".csv" style="display:none" onchange="slHandleWhoopFile(this,'cycles')">
         <div id="sl-import-toast" style="display:none;margin:8px 0 4px;padding:8px 12px;background:var(--teal);color:#00382f;font-size:13px;font-weight:700;border-radius:8px;"></div>
         <div style="overflow-x:auto;">
           <table class="sl-htable">
-            <thead><tr><th>Date</th><th>Sleep</th><th>Rec</th><th>HRV</th><th>RHR</th><th>Night Before</th></tr></thead>
+            <thead><tr><th>Date</th><th>Sleep</th><th>Recovery</th><th>HRV</th><th>RHR</th><th>Night Before</th></tr></thead>
             <tbody id="sl-history-body">
               <tr><td colspan="6" style="text-align:center;color:var(--text3);padding:20px;">No entries yet — log your first night above.</td></tr>
             </tbody>
@@ -3183,6 +3309,7 @@ function goTo(page, el) {
     try { switchWellbeingTab1('routines', document.getElementById('wtab-routines')); } catch(e) {}
   }
   if (page === 'sleep') {
+    try { slPopulateNightBefore(); } catch(e) {}
     try { if (typeof slRenderWeekGrid === 'function') slRenderWeekGrid(); } catch(e) {}
   }
   if (page === 'wellbeing-ref') {
@@ -10548,47 +10675,143 @@ function renderTWDayPanel(dayKey, targetEl) {
 
   // Render week grid (last 7 days)
   // ── WHOOP CSV IMPORT ─────────────────────────────────────────────
-  window.slImportWhoopCSV = function() {
+  window.slImportSleepCSV = function() {
     var input = document.getElementById('sl-whoop-file-input');
     if (input) input.click();
   };
 
-  window.slHandleWhoopFile = function(input) {
+  window.slImportCyclesCSV = function() {
+    var input = document.getElementById('sl-cycles-file-input');
+    if (input) input.click();
+  };
+
+  window.slHandleWhoopFile = function(input, mode) {
     var file = input.files && input.files[0];
     if (!file) return;
     var reader = new FileReader();
     reader.onload = function(e) {
       try {
-        var imported = slParseWhoopCSV(e.target.result);
-        if (!imported.length) {
-          slShowImportToast('No valid sleep rows found in that file.', false);
-          return;
-        }
-        var existing = slLoadEntries();
-        var existingDates = {};
-        existing.forEach(function(en) { existingDates[en.date] = true; });
-        var added = 0;
-        imported.forEach(function(row) {
-          if (!existingDates[row.date]) {
-            existing.push(row);
-            existingDates[row.date] = true;
-            added++;
+        if (mode === 'cycles') {
+          // Merge recovery scores into existing entries
+          var recMap = slParseCyclesCSV(e.target.result);
+          var dates = Object.keys(recMap);
+          if (!dates.length) {
+            slShowImportToast('No recovery rows found in that file. Make sure you exported "Physiological Cycles" from WHOOP.', false);
+            return;
           }
-        });
-        // Sort descending by date
-        existing.sort(function(a, b) { return a.date < b.date ? 1 : -1; });
-        slSaveEntries(existing);
-        slShowImportToast('Imported ' + added + ' night' + (added === 1 ? '' : 's') + (added < imported.length ? ' (' + (imported.length - added) + ' already existed)' : '') + '.', true);
-        slRenderHistory();
-        slRenderWeekGrid();
+          var existing = slLoadEntries();
+          var updated = 0;
+          existing.forEach(function(en) {
+            if (recMap[en.date] !== undefined) {
+              en.rec = recMap[en.date];
+              updated++;
+            }
+          });
+          // Also create stub entries for dates not yet in sleep log
+          var existingDates = {};
+          existing.forEach(function(en) { existingDates[en.date] = true; });
+          var added = 0;
+          dates.forEach(function(d) {
+            if (!existingDates[d]) {
+              existing.push({ date: d, sleep: 0, rec: recMap[d], hrv: null, rhr: null, supps: [], routines: [] });
+              existingDates[d] = true;
+              added++;
+            }
+          });
+          existing.sort(function(a, b) { return a.date < b.date ? 1 : -1; });
+          slSaveEntries(existing);
+          slShowImportToast('Recovery scores: updated ' + updated + (added ? ', added ' + added + ' new' : '') + '.', true);
+          slRenderHistory();
+          slRenderWeekGrid();
+        } else {
+          // Sleep CSV import (existing logic)
+          var imported = slParseWhoopCSV(e.target.result);
+          if (!imported.length) {
+            slShowImportToast('No valid sleep rows found in that file.', false);
+            return;
+          }
+          var existing = slLoadEntries();
+          var existingDates = {};
+          existing.forEach(function(en) { existingDates[en.date] = true; });
+          var added = 0;
+          imported.forEach(function(row) {
+            if (!existingDates[row.date]) {
+              existing.push(row);
+              existingDates[row.date] = true;
+              added++;
+            }
+          });
+          existing.sort(function(a, b) { return a.date < b.date ? 1 : -1; });
+          slSaveEntries(existing);
+          slShowImportToast('Imported ' + added + ' night' + (added === 1 ? '' : 's') + (added < imported.length ? ' (' + (imported.length - added) + ' already existed)' : '') + '.', true);
+          slRenderHistory();
+          slRenderWeekGrid();
+        }
       } catch(err) {
         slShowImportToast('Error parsing CSV: ' + err.message, false);
       }
-      // Reset so same file can be re-selected
       input.value = '';
     };
     reader.readAsText(file);
   };
+
+  // Parse WHOOP "Physiological Cycles" export → { date: recoveryScore }
+  function slParseCyclesCSV(text) {
+    var lines = text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n');
+    if (lines.length < 2) return {};
+    function parseLine(line) {
+      var result = [], cur = '', inQ = false;
+      for (var i = 0; i < line.length; i++) {
+        var c = line[i];
+        if (c === '"') { inQ = !inQ; }
+        else if (c === ',' && !inQ) { result.push(cur.trim()); cur = ''; }
+        else { cur += c; }
+      }
+      result.push(cur.trim());
+      return result;
+    }
+    var headers = parseLine(lines[0]).map(function(h) { return h.replace(/^"|"$/g,'').trim().toLowerCase(); });
+    // Find relevant columns — WHOOP cycles CSV typically has:
+    // "Cycle start time", "Recovery score %", "HRV (ms)", "Resting heart rate (bpm)"
+    function colIdx(keywords) {
+      for (var i = 0; i < headers.length; i++)
+        for (var k = 0; k < keywords.length; k++)
+          if (headers[i].indexOf(keywords[k]) !== -1) return i;
+      return -1;
+    }
+    var iDate = colIdx(['cycle start', 'date']);
+    var iRec  = colIdx(['recovery score', 'recovery %', 'recovery%']);
+    if (iDate < 0 || iRec < 0) return {};
+    var result = {};
+    for (var li = 1; li < lines.length; li++) {
+      var line = lines[li].trim();
+      if (!line) continue;
+      var cols = parseLine(line).map(function(c) { return c.replace(/^"|"$/g,'').trim(); });
+      if (cols.length < 2) continue;
+      // Parse date
+      var rawDate = cols[iDate] || '';
+      var dateStr = null;
+      var m = rawDate.match(/(\d{4})-(\d{2})-(\d{2})/);
+      if (m) {
+        // Cycles start evening before — date label is the morning after
+        var d = new Date(m[1] + '-' + m[2] + '-' + m[3] + 'T12:00:00');
+        d.setDate(d.getDate() + 1);
+        dateStr = d.toISOString().slice(0,10);
+      } else {
+        var m2 = rawDate.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+        if (m2) {
+          var d2 = new Date(m2[3] + '-' + m2[1].padStart(2,'0') + '-' + m2[2].padStart(2,'0') + 'T12:00:00');
+          d2.setDate(d2.getDate() + 1);
+          dateStr = d2.toISOString().slice(0,10);
+        }
+      }
+      if (!dateStr) continue;
+      var recRaw = cols[iRec] ? cols[iRec].replace(/[^\d.]/g,'') : '';
+      var rec = recRaw ? Math.round(parseFloat(recRaw)) : null;
+      if (rec !== null && !isNaN(rec)) result[dateStr] = rec;
+    }
+    return result;
+  }
 
   function slShowImportToast(msg, success) {
     var toast = document.getElementById('sl-import-toast');
@@ -10711,6 +10934,63 @@ function renderTWDayPanel(dayKey, targetEl) {
     return results;
   }
   // ── END WHOOP CSV IMPORT ──────────────────────────────────────────
+
+  // Auto-populate Night Before checklists from Supplements/Routines tabs
+  function slPopulateNightBefore() {
+    // Supplements: pull active "before bed" or "sleep" category supplements
+    var suppList = document.getElementById('sl-supp-list');
+    if (suppList && typeof loadSupps === 'function') {
+      var supps = loadSupps().filter(function(s) {
+        if (s.active === false) return false;
+        var t = (s.time || '').toLowerCase();
+        var c = (s.cat || '').toLowerCase();
+        return c === 'sleep' || t.indexOf('bed') !== -1 || t.indexOf('night') !== -1 || t.indexOf('sleep') !== -1 || t.indexOf('pm') !== -1 || t.indexOf('evening') !== -1;
+      });
+      if (supps.length > 0) {
+        suppList.innerHTML = '';
+        supps.forEach(function(s) {
+          var d = document.createElement('div');
+          d.className = 'sl-ci';
+          d.setAttribute('onclick', 'slToggleCheck(this)');
+          d.innerHTML = '<div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">' + s.name + '</span>';
+          suppList.appendChild(d);
+        });
+      } else {
+        // fallback defaults
+        suppList.innerHTML = ['Magnesium Glycinate','Ashwagandha','L-Theanine','Deep Sleep Spray'].map(function(n) {
+          return '<div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">'+n+'</span></div>';
+        }).join('');
+      }
+    }
+    // Routines: pull evening/PM routine steps
+    var routineList = document.getElementById('sl-routine-list');
+    if (routineList && typeof loadRoutine === 'function') {
+      var steps = [];
+      try {
+        var routine = loadRoutine();
+        var pm = (routine.pm || []).concat(routine.evening || []);
+        pm.forEach(function(step) {
+          var label = step.name || step.label || step;
+          if (label && typeof label === 'string') steps.push(label);
+        });
+      } catch(e) {}
+      if (steps.length > 0) {
+        routineList.innerHTML = '';
+        steps.forEach(function(label) {
+          var d = document.createElement('div');
+          d.className = 'sl-ci';
+          d.setAttribute('onclick', 'slToggleCheck(this)');
+          d.innerHTML = '<div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">' + label + '</span>';
+          routineList.appendChild(d);
+        });
+      } else {
+        // fallback defaults
+        routineList.innerHTML = ['No screens 1hr before bed','No caffeine after 2pm','No alcohol','Cool room (18–19°C)','Journal'].map(function(n) {
+          return '<div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">'+n+'</span></div>';
+        }).join('');
+      }
+    }
+  }
 
   function slRenderWeekGrid() {
     var entries = slLoadEntries();
@@ -10864,6 +11144,39 @@ function renderTWDayPanel(dayKey, targetEl) {
   } else {
     slInit();
   }
+})();
+
+
+// ── MOBILE BOTTOM NAV ──
+function mbnSetActive(btn) {
+  document.querySelectorAll('.mob-nav-btn').forEach(function(b) { b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+}
+function mbnToggleMore() {
+  document.getElementById('mob-more-drawer').classList.toggle('open');
+  document.getElementById('mob-more-backdrop').classList.toggle('open');
+}
+function mbnCloseMore() {
+  document.getElementById('mob-more-drawer').classList.remove('open');
+  document.getElementById('mob-more-backdrop').classList.remove('open');
+}
+// Patch goTo so bottom nav stays in sync when navigating from sidebar (desktop)
+(function() {
+  var _origGoTo = window.goTo;
+  window.goTo = function(page, el) {
+    _origGoTo(page, el);
+    // sync bottom nav active state
+    var pageToBtn = {
+      overview:'mbn-overview', thisweek:'mbn-thisweek',
+      training:'mbn-training', mealplan:'mbn-mealplan', sleep:'mbn-sleep'
+    };
+    document.querySelectorAll('.mob-nav-btn').forEach(function(b) { b.classList.remove('active'); });
+    var btnId = pageToBtn[page];
+    if (btnId) {
+      var btn = document.getElementById(btnId);
+      if (btn) btn.classList.add('active');
+    }
+  };
 })();
 
 </script>
