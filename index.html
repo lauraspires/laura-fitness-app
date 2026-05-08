@@ -319,6 +319,7 @@
   }
   .mob-more-backdrop.open { display: block; }
   .mob-more-drawer {
+    display: none;
     position: fixed;
     bottom: calc(56px + env(safe-area-inset-bottom));
     left: 0; right: 0;
@@ -330,7 +331,7 @@
     transform: translateY(100%);
     transition: transform 0.25s ease;
   }
-  .mob-more-drawer.open { transform: translateY(0); }
+  .mob-more-drawer.open { display: block; transform: translateY(0); }
   .mob-more-title {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 13px;
@@ -749,7 +750,7 @@
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
 
-  @media (max-width: 900px) {
+  @media (max-width: 768px) {
     .sidebar { transform: translateX(-240px); transition: transform 0.3s ease; }
     .sidebar.open { transform: translateX(0); }
 
@@ -10862,8 +10863,11 @@ function renderTWDayPanel(dayKey, targetEl) {
     var iSWS         = col(['slow wave sleep', 'sws']);
     var iREM         = col(['rem sleep']);
     var iLight       = col(['light sleep']);
-    var iHRV         = col(['heart rate variability', 'hrv']);
-    var iRHR         = col(['resting heart rate', 'rhr']);
+    var iHRV         = col(['heart rate variability', 'hrv (ms)', 'hrv']);
+    var iRHR         = col(['resting heart rate', 'rhr (bpm)', 'rhr']);
+    // Debug: log found columns to console so we can see what WHOOP exported
+    console.log('[WHOOP import] headers:', headers);
+    console.log('[WHOOP import] iHRV=' + iHRV + ' iRHR=' + iRHR + ' iSleepScore=' + iSleepScore);
     var iResp        = col(['respiratory rate', 'resp']);
     var iSkinTemp    = col(['skin temp']);
     var iBloodOx     = col(['blood oxygen']);
@@ -10937,58 +10941,40 @@ function renderTWDayPanel(dayKey, targetEl) {
 
   // Auto-populate Night Before checklists from Supplements/Routines tabs
   function slPopulateNightBefore() {
-    // Supplements: pull active "before bed" or "sleep" category supplements
+    // SUPPLEMENTS — pull sleep-category or before-bed supps
     var suppList = document.getElementById('sl-supp-list');
-    if (suppList && typeof loadSupps === 'function') {
-      var supps = loadSupps().filter(function(s) {
-        if (s.active === false) return false;
-        var t = (s.time || '').toLowerCase();
-        var c = (s.cat || '').toLowerCase();
-        return c === 'sleep' || t.indexOf('bed') !== -1 || t.indexOf('night') !== -1 || t.indexOf('sleep') !== -1 || t.indexOf('pm') !== -1 || t.indexOf('evening') !== -1;
-      });
-      if (supps.length > 0) {
-        suppList.innerHTML = '';
-        supps.forEach(function(s) {
-          var d = document.createElement('div');
-          d.className = 'sl-ci';
-          d.setAttribute('onclick', 'slToggleCheck(this)');
-          d.innerHTML = '<div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">' + s.name + '</span>';
-          suppList.appendChild(d);
-        });
-      } else {
-        // fallback defaults
-        suppList.innerHTML = ['Magnesium Glycinate','Ashwagandha','L-Theanine','Deep Sleep Spray'].map(function(n) {
-          return '<div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">'+n+'</span></div>';
-        }).join('');
+    if (suppList) {
+      var items = [];
+      if (typeof loadSupps === 'function') {
+        items = loadSupps().filter(function(s) {
+          if (s.active === false) return false;
+          var t = (s.time || '').toLowerCase();
+          var c = (s.cat || '').toLowerCase();
+          return c === 'sleep' || t.indexOf('bed') !== -1 || t.indexOf('night') !== -1 || t.indexOf('sleep') !== -1 || t.indexOf('pm') !== -1 || t.indexOf('evening') !== -1;
+        }).map(function(s) { return s.name; });
       }
+      // Fallback defaults if nothing matched
+      if (!items.length) items = ['Magnesium Glycinate','Ashwagandha','L-Theanine','Deep Sleep Spray'];
+      suppList.innerHTML = items.map(function(n) {
+        return '<div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">'+n+'</span></div>';
+      }).join('');
     }
-    // Routines: pull evening/PM routine steps
+
+    // ROUTINE — pull PM items from loadRoutineItems() (time:'pm')
     var routineList = document.getElementById('sl-routine-list');
-    if (routineList && typeof loadRoutine === 'function') {
+    if (routineList) {
       var steps = [];
-      try {
-        var routine = loadRoutine();
-        var pm = (routine.pm || []).concat(routine.evening || []);
-        pm.forEach(function(step) {
-          var label = step.name || step.label || step;
-          if (label && typeof label === 'string') steps.push(label);
-        });
-      } catch(e) {}
-      if (steps.length > 0) {
-        routineList.innerHTML = '';
-        steps.forEach(function(label) {
-          var d = document.createElement('div');
-          d.className = 'sl-ci';
-          d.setAttribute('onclick', 'slToggleCheck(this)');
-          d.innerHTML = '<div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">' + label + '</span>';
-          routineList.appendChild(d);
-        });
-      } else {
-        // fallback defaults
-        routineList.innerHTML = ['No screens 1hr before bed','No caffeine after 2pm','No alcohol','Cool room (18–19°C)','Journal'].map(function(n) {
-          return '<div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">'+n+'</span></div>';
-        }).join('');
+      if (typeof loadRoutineItems === 'function') {
+        steps = loadRoutineItems()
+          .filter(function(item) { return (item.time || '').toLowerCase() === 'pm'; })
+          .map(function(item) { return item.name || item.label || ''; })
+          .filter(Boolean);
       }
+      // Fallback defaults if nothing matched
+      if (!steps.length) steps = ['No screens 1hr before bed','No caffeine after 2pm','No alcohol','Cool room (18–19°C)','Journal'];
+      routineList.innerHTML = steps.map(function(n) {
+        return '<div class="sl-ci" onclick="slToggleCheck(this)"><div class="sl-cbox"><span class="sl-ctick">✓</span></div><span class="sl-clabel">'+n+'</span></div>';
+      }).join('');
     }
   }
 
