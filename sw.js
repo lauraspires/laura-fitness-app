@@ -1,4 +1,4 @@
-const CACHE_NAME = 'health-hub-v21';
+const CACHE_NAME = 'health-hub-v22';
 const STATIC_ASSETS = [
   '/health-hub/manifest.json',
   '/health-hub/icons/icon-192.png',
