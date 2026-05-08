@@ -111,163 +111,163 @@
   /* ═══════════════════════════════════════════
      SLEEP TRACKER — scoped styles
   ═══════════════════════════════════════════ */
-  #wb1-tab-sleep .sl-today-bar {
+  #page-sleep .sl-today-bar {
     display:flex; align-items:center; gap:8px; overflow-x:auto;
     padding:0 0 14px; scrollbar-width:none; flex-wrap:nowrap;
   }
-  #wb1-tab-sleep .sl-today-bar::-webkit-scrollbar { display:none; }
-  #wb1-tab-sleep .sl-date-label {
+  #page-sleep .sl-today-bar::-webkit-scrollbar { display:none; }
+  #page-sleep .sl-date-label {
     font-size:11px; font-weight:600; color:var(--text3);
     white-space:nowrap; letter-spacing:.05em; text-transform:uppercase; flex-shrink:0;
   }
-  #wb1-tab-sleep .sl-chip {
+  #page-sleep .sl-chip {
     display:flex; align-items:center; gap:5px; background:var(--bg2);
     border:1px solid var(--border); border-radius:999px; padding:5px 11px;
     white-space:nowrap; flex-shrink:0;
   }
-  #wb1-tab-sleep .sl-chip-label { font-size:10px; color:var(--text3); font-weight:600; letter-spacing:.04em; }
-  #wb1-tab-sleep .sl-chip-val { font-size:12px; font-weight:700; color:var(--teal); }
-  #wb1-tab-sleep .sl-week-grid {
+  #page-sleep .sl-chip-label { font-size:10px; color:var(--text3); font-weight:600; letter-spacing:.04em; }
+  #page-sleep .sl-chip-val { font-size:12px; font-weight:700; color:var(--teal); }
+  #page-sleep .sl-week-grid {
     display:grid; grid-template-columns:repeat(7,1fr); gap:5px; margin-bottom:12px;
   }
-  #wb1-tab-sleep .sl-wday { display:flex; flex-direction:column; align-items:center; gap:4px; }
-  #wb1-tab-sleep .sl-wday-label { font-size:9px; color:var(--text3); font-weight:600; text-transform:uppercase; }
-  #wb1-tab-sleep .sl-dot {
+  #page-sleep .sl-wday { display:flex; flex-direction:column; align-items:center; gap:4px; }
+  #page-sleep .sl-wday-label { font-size:9px; color:var(--text3); font-weight:600; text-transform:uppercase; }
+  #page-sleep .sl-dot {
     width:34px; height:34px; border-radius:50%; display:flex; align-items:center;
     justify-content:center; font-size:11px; font-weight:700;
   }
-  #wb1-tab-sleep .sl-dot.green { background:rgba(0,245,212,.15); color:#00f5d4; border:1px solid rgba(0,245,212,.3); }
-  #wb1-tab-sleep .sl-dot.amber { background:rgba(245,200,66,.15); color:#f5c842; border:1px solid rgba(245,200,66,.3); }
-  #wb1-tab-sleep .sl-dot.red   { background:rgba(255,107,107,.15); color:#ff6b6b; border:1px solid rgba(255,107,107,.3); }
-  #wb1-tab-sleep .sl-dot.today { box-shadow:0 0 0 2px var(--teal); }
-  #wb1-tab-sleep .sl-dot.empty { background:var(--bg3); color:var(--text3); border:1px solid var(--border); }
-  #wb1-tab-sleep .sl-wscore { font-size:9px; color:var(--text3); }
-  #wb1-tab-sleep .sl-week-avgs {
+  #page-sleep .sl-dot.green { background:rgba(0,245,212,.15); color:#00f5d4; border:1px solid rgba(0,245,212,.3); }
+  #page-sleep .sl-dot.amber { background:rgba(245,200,66,.15); color:#f5c842; border:1px solid rgba(245,200,66,.3); }
+  #page-sleep .sl-dot.red   { background:rgba(255,107,107,.15); color:#ff6b6b; border:1px solid rgba(255,107,107,.3); }
+  #page-sleep .sl-dot.today { box-shadow:0 0 0 2px var(--teal); }
+  #page-sleep .sl-dot.empty { background:var(--bg3); color:var(--text3); border:1px solid var(--border); }
+  #page-sleep .sl-wscore { font-size:9px; color:var(--text3); }
+  #page-sleep .sl-week-avgs {
     display:flex; justify-content:space-between; padding-top:10px;
     border-top:1px solid var(--border); margin-top:2px;
   }
-  #wb1-tab-sleep .sl-wavg-lbl { font-size:10px; color:var(--text3); text-transform:uppercase; letter-spacing:.04em; text-align:center; }
-  #wb1-tab-sleep .sl-wavg-val { font-size:15px; font-weight:700; color:var(--teal); font-family:'Space Grotesk',sans-serif; margin-top:2px; text-align:center; }
-  #wb1-tab-sleep .sl-slider-row { margin-bottom:14px; }
-  #wb1-tab-sleep .sl-slider-hdr { display:flex; justify-content:space-between; align-items:center; margin-bottom:7px; }
-  #wb1-tab-sleep .sl-slider-label { font-size:14px; font-weight:600; color:var(--text); }
-  #wb1-tab-sleep .sl-slider-val { font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; color:var(--teal); min-width:36px; text-align:right; }
-  #wb1-tab-sleep input[type="range"].sl-range {
+  #page-sleep .sl-wavg-lbl { font-size:10px; color:var(--text3); text-transform:uppercase; letter-spacing:.04em; text-align:center; }
+  #page-sleep .sl-wavg-val { font-size:15px; font-weight:700; color:var(--teal); font-family:'Space Grotesk',sans-serif; margin-top:2px; text-align:center; }
+  #page-sleep .sl-slider-row { margin-bottom:14px; }
+  #page-sleep .sl-slider-hdr { display:flex; justify-content:space-between; align-items:center; margin-bottom:7px; }
+  #page-sleep .sl-slider-label { font-size:14px; font-weight:600; color:var(--text); }
+  #page-sleep .sl-slider-val { font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; color:var(--teal); min-width:36px; text-align:right; }
+  #page-sleep input[type="range"].sl-range {
     width:100%; height:6px; -webkit-appearance:none; appearance:none;
     background:var(--bg3); border-radius:999px; outline:none; cursor:pointer;
   }
-  #wb1-tab-sleep input[type="range"].sl-range::-webkit-slider-thumb {
+  #page-sleep input[type="range"].sl-range::-webkit-slider-thumb {
     -webkit-appearance:none; width:22px; height:22px; border-radius:50%;
     background:var(--teal); cursor:pointer;
   }
-  #wb1-tab-sleep .sl-metrics-grid {
+  #page-sleep .sl-metrics-grid {
     display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:4px;
   }
-  #wb1-tab-sleep .sl-mf { display:flex; flex-direction:column; gap:5px; }
-  #wb1-tab-sleep .sl-ml { font-size:11px; font-weight:600; color:var(--text3); text-transform:uppercase; letter-spacing:.04em; }
-  #wb1-tab-sleep .sl-mi {
+  #page-sleep .sl-mf { display:flex; flex-direction:column; gap:5px; }
+  #page-sleep .sl-ml { font-size:11px; font-weight:600; color:var(--text3); text-transform:uppercase; letter-spacing:.04em; }
+  #page-sleep .sl-mi {
     background:var(--bg2); border:1px solid var(--border); border-radius:10px;
     color:var(--text); font-family:'Manrope',sans-serif; font-size:17px; font-weight:700;
     padding:9px 10px; width:100%; text-align:center; outline:none; transition:border-color .2s;
   }
-  #wb1-tab-sleep .sl-mi:focus { border-color:var(--teal); }
-  #wb1-tab-sleep .sl-mu { font-size:10px; color:var(--text3); text-align:center; margin-top:2px; }
-  #wb1-tab-sleep .sl-whoop-collapsed { display:none; align-items:center; justify-content:space-between; }
-  #wb1-tab-sleep .sl-whoop-collapsed.visible { display:flex; }
-  #wb1-tab-sleep .sl-sum-chips { display:flex; gap:6px; flex-wrap:wrap; }
-  #wb1-tab-sleep .sl-sum-chip {
+  #page-sleep .sl-mi:focus { border-color:var(--teal); }
+  #page-sleep .sl-mu { font-size:10px; color:var(--text3); text-align:center; margin-top:2px; }
+  #page-sleep .sl-whoop-collapsed { display:none; align-items:center; justify-content:space-between; }
+  #page-sleep .sl-whoop-collapsed.visible { display:flex; }
+  #page-sleep .sl-sum-chips { display:flex; gap:6px; flex-wrap:wrap; }
+  #page-sleep .sl-sum-chip {
     background:rgba(0,245,212,.1); border:1px solid rgba(0,245,212,.2);
     border-radius:999px; padding:4px 10px; font-size:12px; font-weight:600; color:var(--teal);
   }
-  #wb1-tab-sleep .sl-btn-edit {
+  #page-sleep .sl-btn-edit {
     background:none; border:1px solid var(--border); border-radius:8px; color:var(--text2);
     font-family:'Manrope',sans-serif; font-size:13px; font-weight:600;
     padding:6px 14px; cursor:pointer; white-space:nowrap; flex-shrink:0; margin-left:10px;
   }
-  #wb1-tab-sleep .sl-cl-title {
+  #page-sleep .sl-cl-title {
     font-size:12px; font-weight:700; color:var(--text3); text-transform:uppercase;
     letter-spacing:.05em; margin-bottom:10px;
   }
-  #wb1-tab-sleep .sl-items { display:flex; flex-direction:column; gap:2px; margin-bottom:10px; }
-  #wb1-tab-sleep .sl-ci {
+  #page-sleep .sl-items { display:flex; flex-direction:column; gap:2px; margin-bottom:10px; }
+  #page-sleep .sl-ci {
     display:flex; align-items:center; gap:12px; padding:10px 12px;
     border-radius:10px; cursor:pointer; user-select:none;
   }
-  #wb1-tab-sleep .sl-ci:hover { background:var(--bg3); }
-  #wb1-tab-sleep .sl-ci.checked { background:rgba(0,245,212,0.06); }
-  #wb1-tab-sleep .sl-cbox {
+  #page-sleep .sl-ci:hover { background:var(--bg3); }
+  #page-sleep .sl-ci.checked { background:rgba(0,245,212,0.06); }
+  #page-sleep .sl-cbox {
     width:20px; height:20px; border-radius:6px; border:2px solid var(--text3);
     flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:.15s;
   }
-  #wb1-tab-sleep .sl-ci.checked .sl-cbox { background:var(--teal); border-color:var(--teal); }
-  #wb1-tab-sleep .sl-ctick { display:none; color:#00382f; font-size:13px; font-weight:700; }
-  #wb1-tab-sleep .sl-ci.checked .sl-ctick { display:block; }
-  #wb1-tab-sleep .sl-clabel { font-size:14px; color:var(--text); }
-  #wb1-tab-sleep .sl-add-row { display:flex; gap:8px; margin-bottom:14px; }
-  #wb1-tab-sleep .sl-add-input {
+  #page-sleep .sl-ci.checked .sl-cbox { background:var(--teal); border-color:var(--teal); }
+  #page-sleep .sl-ctick { display:none; color:#00382f; font-size:13px; font-weight:700; }
+  #page-sleep .sl-ci.checked .sl-ctick { display:block; }
+  #page-sleep .sl-clabel { font-size:14px; color:var(--text); }
+  #page-sleep .sl-add-row { display:flex; gap:8px; margin-bottom:14px; }
+  #page-sleep .sl-add-input {
     flex:1; background:var(--bg2); border:1px solid var(--border); border-radius:10px;
     color:var(--text); font-family:'Manrope',sans-serif; font-size:14px;
     padding:9px 12px; outline:none;
   }
-  #wb1-tab-sleep .sl-add-input:focus { border-color:var(--teal); }
-  #wb1-tab-sleep .sl-btn-add {
+  #page-sleep .sl-add-input:focus { border-color:var(--teal); }
+  #page-sleep .sl-btn-add {
     background:none; border:1px solid var(--teal); border-radius:10px; color:var(--teal);
     font-family:'Manrope',sans-serif; font-size:13px; font-weight:600;
     padding:9px 14px; cursor:pointer; white-space:nowrap;
   }
-  #wb1-tab-sleep .sl-divider { height:1px; background:var(--border); margin:14px 0; }
-  #wb1-tab-sleep .sl-btn-save {
+  #page-sleep .sl-divider { height:1px; background:var(--border); margin:14px 0; }
+  #page-sleep .sl-btn-save {
     width:100%; background:var(--teal); color:#00382f; font-family:'Space Grotesk',sans-serif;
     font-size:15px; font-weight:700; border:none; border-radius:12px;
     padding:15px; cursor:pointer; margin-top:4px;
   }
-  #wb1-tab-sleep .sl-bar-chart { display:flex; flex-direction:column; gap:8px; }
-  #wb1-tab-sleep .sl-bar-row { display:flex; align-items:center; gap:10px; }
-  #wb1-tab-sleep .sl-bar-lbl { font-size:12px; color:var(--text2); min-width:30px; text-align:right; flex-shrink:0; }
-  #wb1-tab-sleep .sl-bar-track { flex:1; height:10px; background:var(--bg3); border-radius:999px; overflow:hidden; }
-  #wb1-tab-sleep .sl-bar-fill { height:100%; border-radius:999px; background:var(--teal); }
-  #wb1-tab-sleep .sl-bar-fill.amber { background:#f5c842; }
-  #wb1-tab-sleep .sl-bar-fill.red   { background:#ff6b6b; }
-  #wb1-tab-sleep .sl-bar-score { font-size:12px; font-weight:700; color:var(--text); min-width:28px; }
-  #wb1-tab-sleep .sl-ptable-wrap { overflow-x:auto; }
-  #wb1-tab-sleep .sl-ptable { width:100%; border-collapse:collapse; min-width:320px; }
-  #wb1-tab-sleep .sl-ptable th {
+  #page-sleep .sl-bar-chart { display:flex; flex-direction:column; gap:8px; }
+  #page-sleep .sl-bar-row { display:flex; align-items:center; gap:10px; }
+  #page-sleep .sl-bar-lbl { font-size:12px; color:var(--text2); min-width:30px; text-align:right; flex-shrink:0; }
+  #page-sleep .sl-bar-track { flex:1; height:10px; background:var(--bg3); border-radius:999px; overflow:hidden; }
+  #page-sleep .sl-bar-fill { height:100%; border-radius:999px; background:var(--teal); }
+  #page-sleep .sl-bar-fill.amber { background:#f5c842; }
+  #page-sleep .sl-bar-fill.red   { background:#ff6b6b; }
+  #page-sleep .sl-bar-score { font-size:12px; font-weight:700; color:var(--text); min-width:28px; }
+  #page-sleep .sl-ptable-wrap { overflow-x:auto; }
+  #page-sleep .sl-ptable { width:100%; border-collapse:collapse; min-width:320px; }
+  #page-sleep .sl-ptable th {
     text-align:left; font-size:11px; font-weight:700; color:var(--text3);
     text-transform:uppercase; letter-spacing:.04em; padding:8px 10px;
     border-bottom:1px solid var(--border);
   }
-  #wb1-tab-sleep .sl-ptable td {
+  #page-sleep .sl-ptable td {
     padding:10px 10px; font-size:13px; border-bottom:1px solid var(--border); color:var(--text);
   }
-  #wb1-tab-sleep .sl-ptable tr:last-child td { border-bottom:none; }
-  #wb1-tab-sleep .sl-delta-pos { color:var(--teal); font-weight:700; }
-  #wb1-tab-sleep .sl-delta-neg { color:#ff6b6b; font-weight:700; }
-  #wb1-tab-sleep .sl-subtabs { display:flex; gap:0; margin-bottom:18px; border-bottom:1px solid var(--border); }
-  #wb1-tab-sleep .sl-stab {
+  #page-sleep .sl-ptable tr:last-child td { border-bottom:none; }
+  #page-sleep .sl-delta-pos { color:var(--teal); font-weight:700; }
+  #page-sleep .sl-delta-neg { color:#ff6b6b; font-weight:700; }
+  #page-sleep .sl-subtabs { display:flex; gap:0; margin-bottom:18px; border-bottom:1px solid var(--border); }
+  #page-sleep .sl-stab {
     flex:1; background:none; border:none; border-bottom:2px solid transparent;
     color:var(--text3); font-family:'Manrope',sans-serif; font-size:13px; font-weight:600;
     padding:9px 8px; cursor:pointer; min-height:44px;
   }
-  #wb1-tab-sleep .sl-stab.active { color:var(--teal); border-bottom-color:var(--teal); }
-  #wb1-tab-sleep .sl-subpanel { display:none; }
-  #wb1-tab-sleep .sl-subpanel.active { display:block; }
-  #wb1-tab-sleep .sl-tag { background:var(--bg3); border-radius:999px; padding:3px 8px; font-size:11px; color:var(--text2); display:inline-block; margin:2px; }
-  #wb1-tab-sleep table.sl-htable { width:100%; border-collapse:collapse; min-width:460px; }
-  #wb1-tab-sleep table.sl-htable th {
+  #page-sleep .sl-stab.active { color:var(--teal); border-bottom-color:var(--teal); }
+  #page-sleep .sl-subpanel { display:none; }
+  #page-sleep .sl-subpanel.active { display:block; }
+  #page-sleep .sl-tag { background:var(--bg3); border-radius:999px; padding:3px 8px; font-size:11px; color:var(--text2); display:inline-block; margin:2px; }
+  #page-sleep table.sl-htable { width:100%; border-collapse:collapse; min-width:460px; }
+  #page-sleep table.sl-htable th {
     text-align:left; font-size:11px; font-weight:700; color:var(--text3);
     text-transform:uppercase; letter-spacing:.05em; padding:8px 10px;
     border-bottom:1px solid var(--border);
   }
-  #wb1-tab-sleep table.sl-htable td {
+  #page-sleep table.sl-htable td {
     padding:11px 10px; font-size:13px; border-bottom:1px solid var(--border); color:var(--text); vertical-align:top;
   }
-  #wb1-tab-sleep table.sl-htable tr:last-child td { border-bottom:none; }
-  #wb1-tab-sleep .sl-pill {
+  #page-sleep table.sl-htable tr:last-child td { border-bottom:none; }
+  #page-sleep .sl-pill {
     display:inline-block; padding:3px 9px; border-radius:999px; font-size:12px; font-weight:700;
   }
-  #wb1-tab-sleep .sl-pill.green { background:rgba(0,245,212,.12); color:#00f5d4; }
-  #wb1-tab-sleep .sl-pill.amber { background:rgba(245,200,66,.12); color:#f5c842; }
-  #wb1-tab-sleep .sl-pill.red   { background:rgba(255,107,107,.12); color:#ff6b6b; }
+  #page-sleep .sl-pill.green { background:rgba(0,245,212,.12); color:#00f5d4; }
+  #page-sleep .sl-pill.amber { background:rgba(245,200,66,.12); color:#f5c842; }
+  #page-sleep .sl-pill.red   { background:rgba(255,107,107,.12); color:#ff6b6b; }
 </style>
 <style>
     :root {
@@ -1329,6 +1329,9 @@
     <button class="nav-item" onclick="goTo('routines', this)">
       <span class="nav-icon">🌅</span> Routines / Supplements
     </button>
+    <button class="nav-item" onclick="goTo('sleep', this)">
+      <span class="nav-icon">😴</span> Sleep Log
+    </button>
     <button class="nav-item" onclick="goTo('wellbeing-ref', this)">
       <span class="nav-icon">❤️</span> Health / Recovery
     </button>
@@ -2170,7 +2173,6 @@
   <div class="eating-tabs" style="margin-bottom:20px;">
     <div class="etab active" id="wtab-routines" onclick="switchWellbeingTab1('routines',this)">🌅 Daily Rituals</div>
     <div class="etab" id="wtab-supplements" onclick="switchWellbeingTab1('supplements',this)">💊 Supplements</div>
-    <div class="etab" id="wtab-sleep1" onclick="switchWellbeingTab1('sleep',this)">😴 Sleep Log</div>
   </div>
   <div id="wb1-tab-routines" class="etab-page active">
   <!-- SUB-TABS: Overview / Today / By Day -->
@@ -2376,24 +2378,31 @@
 </div>
 
 
-  <!-- ======= SLEEP LOG TAB ======= -->
-  <div id="wb1-tab-sleep" class="etab-page">
 
-    <!-- Today summary chips -->
-    <div class="sl-today-bar">
-      <span class="sl-date-label" id="sl-today-date">Today</span>
-      <div class="sl-chip"><span class="sl-chip-label">SLEEP</span><span class="sl-chip-val" id="sl-chip-sleep">—</span></div>
-      <div class="sl-chip"><span class="sl-chip-label">REC</span><span class="sl-chip-val" id="sl-chip-rec">—</span></div>
-      <div class="sl-chip"><span class="sl-chip-label">HRV</span><span class="sl-chip-val" id="sl-chip-hrv">—</span></div>
-      <div class="sl-chip"><span class="sl-chip-label">RHR</span><span class="sl-chip-val" id="sl-chip-rhr">—</span></div>
-    </div>
+<div id="page-sleep" class="page">
+  <div class="page-header">
+    <div class="page-eyebrow">Wellbeing</div>
+    <div class="page-title">Sleep Log</div>
+    <div class="page-sub">Track WHOOP scores, night-before routine, and find what works</div>
+  </div>
 
-    <!-- Sub-tabs: Log / History / Trends -->
-    <div class="sl-subtabs">
-      <button class="sl-stab active" onclick="slShowTab('log',this)">Log</button>
-      <button class="sl-stab" onclick="slShowTab('history',this)">History</button>
-      <button class="sl-stab" onclick="slShowTab('trends',this)">Trends</button>
-    </div>
+  <!-- Today summary chips -->
+  <div class="sl-today-bar" style="padding:0 20px 14px;">
+    <span class="sl-date-label" id="sl-today-date">Today</span>
+    <div class="sl-chip"><span class="sl-chip-label">SLEEP</span><span class="sl-chip-val" id="sl-chip-sleep">—</span></div>
+    <div class="sl-chip"><span class="sl-chip-label">REC</span><span class="sl-chip-val" id="sl-chip-rec">—</span></div>
+    <div class="sl-chip"><span class="sl-chip-label">HRV</span><span class="sl-chip-val" id="sl-chip-hrv">—</span></div>
+    <div class="sl-chip"><span class="sl-chip-label">RHR</span><span class="sl-chip-val" id="sl-chip-rhr">—</span></div>
+  </div>
+
+  <!-- Sub-tabs: Log / History / Trends -->
+  <div class="sl-subtabs" style="margin:0 20px 18px;">
+    <button class="sl-stab active" onclick="slShowTab('log',this)">Log</button>
+    <button class="sl-stab" onclick="slShowTab('history',this)">History</button>
+    <button class="sl-stab" onclick="slShowTab('trends',this)">Trends</button>
+  </div>
+
+  <div style="padding:0 20px 80px;">
 
     <!-- ── LOG ── -->
     <div id="sl-tab-log" class="sl-subpanel active">
@@ -2407,7 +2416,6 @@
           <div style="text-align:center"><div class="sl-wavg-lbl">Avg RHR</div><div class="sl-wavg-val" id="sl-avg-rhr">—</div></div>
         </div>
       </div>
-
       <div class="card" style="margin-bottom:14px;">
         <div class="card-title">WHOOP Scores
           <span style="font-size:11px;color:var(--text3);font-weight:500;text-transform:none;letter-spacing:0" id="sl-whoop-date"></span>
@@ -2418,17 +2426,11 @@
         </div>
         <div id="sl-whoop-expanded">
           <div class="sl-slider-row">
-            <div class="sl-slider-hdr">
-              <span class="sl-slider-label">Sleep Score</span>
-              <span class="sl-slider-val" id="sl-sleep-val">—</span>
-            </div>
+            <div class="sl-slider-hdr"><span class="sl-slider-label">Sleep Score</span><span class="sl-slider-val" id="sl-sleep-val">—</span></div>
             <input type="range" class="sl-range" id="sl-sleep-slider" min="0" max="100" value="0" oninput="slOnSleepSlide(this.value)">
           </div>
           <div class="sl-slider-row">
-            <div class="sl-slider-hdr">
-              <span class="sl-slider-label">Recovery Score</span>
-              <span class="sl-slider-val" id="sl-rec-val">—</span>
-            </div>
+            <div class="sl-slider-hdr"><span class="sl-slider-label">Recovery Score</span><span class="sl-slider-val" id="sl-rec-val">—</span></div>
             <input type="range" class="sl-range" id="sl-rec-slider" min="0" max="100" value="0" oninput="slOnRecSlide(this.value)">
           </div>
           <div class="sl-metrics-grid">
@@ -2438,7 +2440,6 @@
           </div>
         </div>
       </div>
-
       <div class="card" style="margin-bottom:14px;">
         <div class="card-title">Night Before</div>
         <div class="sl-cl-title">Supplements</div>
@@ -2510,7 +2511,8 @@
       </div>
     </div><!-- /sl-tab-trends -->
 
-  </div><!-- end wb1-tab-sleep -->
+  </div><!-- /inner padding -->
+</div><!-- end page-sleep -->
 
 <!-- ===================== WELLBEING TOOLS ===================== -->
 
@@ -3052,7 +3054,7 @@ function goTo(page, el) {
 
   // Reset etab-pages that aren't inside the current page (prevents bleed)
   if (page !== 'routines') {
-    ['wb1-tab-routines','wb1-tab-supplements','wb1-tab-sleep'].forEach(function(id) {
+    ['wb1-tab-routines','wb1-tab-supplements'].forEach(function(id) {
       var el2 = document.getElementById(id);
       if (el2) el2.classList.remove('active');
     });
@@ -3099,6 +3101,9 @@ function goTo(page, el) {
   if (page === 'routines') {
     // Always reset to Daily Rituals, then Overview inside it
     try { switchWellbeingTab1('routines', document.getElementById('wtab-routines')); } catch(e) {}
+  }
+  if (page === 'sleep') {
+    try { if (typeof slRenderWeekGrid === 'function') slRenderWeekGrid(); } catch(e) {}
   }
   if (page === 'wellbeing-ref') {
     // Always reset to My Kit tab
@@ -9007,10 +9012,9 @@ async function getMealSuggestions() {
 //  PLANNER TAB SWITCHER
 // ─────────────────────────────────────────────
 function switchWellbeingTab1(id, el) {
-  ['routines','supplements','sleep'].forEach(t => {
+  ['routines','supplements'].forEach(t => {
     const pane = document.getElementById('wb1-tab-' + t);
-    const tabId = t === 'sleep' ? 'wtab-sleep1' : 'wtab-' + t;
-    const tab  = document.getElementById(tabId);
+    const tab  = document.getElementById('wtab-' + t);
     if (pane) pane.classList.toggle('active', t === id);
     if (tab)  tab.classList.toggle('active', t === id);
   });
@@ -10151,7 +10155,7 @@ function renderTWDayPanel(dayKey, targetEl) {
       var b = btn.parentElement.querySelector('[onclick*="\'' + t + '\'"]');
       if (p) p.classList.toggle('active', t === name);
     });
-    document.querySelectorAll('#wb1-tab-sleep .sl-stab').forEach(function(b) {
+    document.querySelectorAll('#page-sleep .sl-stab').forEach(function(b) {
       b.classList.toggle('active', b.getAttribute('onclick').indexOf("'" + name + "'") !== -1);
     });
     if (name === 'history') slRenderHistory();
