@@ -539,8 +539,6 @@
   #page-sleep:not(.active),
   #page-wellbeing-ref:not(.active),
   #page-settings:not(.active) { display: none !important; }
-  /* When active, preserve whatever display the page needs (flex or block) */
-  #page-overview.active { display: flex !important; }
 
   /* ---- PAGE HEADER ---- */
   .page-header { margin-bottom: 28px; }
@@ -1233,7 +1231,7 @@
     }
 
     /* ── DASHBOARD: reorder cards on mobile ── */
-    #page-overview {
+    #page-overview.active {
       display: flex !important;
       flex-direction: column !important;
     }
@@ -3614,6 +3612,10 @@ function launchApp() {
   if (typeof renderShoppingTickList === 'function') renderShoppingTickList();
   if (typeof updateAllClassBadges === 'function') updateAllClassBadges();
   if (typeof updateAllRunBadges === 'function') updateAllRunBadges();
+  // Re-render sleep data after Drive loads
+  if (typeof slRenderHistory === 'function') slRenderHistory();
+  if (typeof slRenderWeekGrid === 'function') slRenderWeekGrid();
+  if (typeof slRenderTrends === 'function') slRenderTrends();
   // If API key is in localStorage but not in Drive data, push it into Drive too
   try {
     const localKey = localStorage.getItem(API_KEY_STORE);
@@ -10102,7 +10104,9 @@ function renderTWGrid() {
     const emojiStr = isRest ? '😴' : wts.map(t => lib[t] ? lib[t].emoji : '').filter(Boolean).join(' ');
     const nameStr = isRest ? 'Rest' : wts.map(t => lib[t] ? lib[t].name.split(' ')[0] : '').filter(Boolean).join('+');
 
-    return '<div onclick="twSelectDay(\'' + day.dayKey + '\')" style="cursor:pointer;border-radius:var(--radius-sm);background:' + bg + ';border:1px solid ' + borderColor + ';padding:10px 6px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px;transition:background 0.15s,border-color 0.15s;">'
+    return '<div onclick="twSelectDay(\'' + day.dayKey + '\')" '
+      + 'draggable="true" ondragstart="twOnDragStart(event,\''+day.dayKey+'\')" ondragover="twOnDragOver(event)" ondrop="twOnDrop(event,\''+day.dayKey+'\')" ondragend="this.style.opacity=\'1\'" '
+      + 'style="cursor:pointer;border-radius:var(--radius-sm);background:' + bg + ';border:1px solid ' + borderColor + ';padding:10px 6px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px;transition:background 0.15s,border-color 0.15s;">'
       + '<div style="font-size:11px;font-weight:700;color:' + dayLabelColor + ';font-family:\'Space Grotesk\',sans-serif;letter-spacing:0.03em;">' + DAY_SHORT_TW[day.dayKey] + '</div>'
       + '<div style="font-size:9px;color:var(--text3);margin-bottom:2px;">' + dateStr + '</div>'
       + '<div style="font-size:18px;line-height:1.1;">' + emojiStr + '</div>'
@@ -10110,6 +10114,35 @@ function renderTWGrid() {
       + '<div style="width:6px;height:6px;border-radius:50%;background:' + styleColor + ';margin-top:3px;opacity:0.8;"></div>'
     + '</div>';
   }).join('') + '</div>';
+}
+
+// ---- Drag and Drop for This Week workouts ----
+function twOnDragStart(e, dayKey) {
+  e.dataTransfer.setData('text/plain', dayKey);
+  e.dataTransfer.effectAllowed = 'move';
+  e.target.style.opacity = '0.5';
+}
+function twOnDragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+}
+function twOnDrop(e, targetDayKey) {
+  e.preventDefault();
+  const sourceDayKey = e.dataTransfer.getData('text/plain');
+  if (sourceDayKey === targetDayKey) return;
+
+  const routine = loadWorkoutRoutine();
+  const sourceDay = routine.find(d => d.dayKey === sourceDayKey);
+  const targetDay = routine.find(d => d.dayKey === targetDayKey);
+
+  if (sourceDay && targetDay) {
+    const temp = sourceDay.workoutTypes;
+    sourceDay.workoutTypes = targetDay.workoutTypes;
+    targetDay.workoutTypes = temp;
+    saveWorkoutRoutine(routine);
+    renderTWGrid();
+    if (typeof renderDashboardWeek === 'function') renderDashboardWeek();
+  }
 }
 
 function twToggleStyleMenu(dayKey) {
@@ -11184,7 +11217,7 @@ function renderTWDayPanel(dayKey, targetEl) {
     // Pattern matrix
     var allItems = {};
     entries.forEach(function(e) {
-      e.supps.concat(e.routines).forEach(function(item) { allItems[item] = true; });
+      (e.supps||[]).concat(e.routines||[]).forEach(function(item) { allItems[item] = true; });
     });
     var tbody = document.getElementById('sl-pattern-body');
     if (tbody) {
@@ -11192,7 +11225,7 @@ function renderTWDayPanel(dayKey, targetEl) {
       var rows = Object.keys(allItems).map(function(item) {
         var withScores = [], withoutScores = [];
         entries.forEach(function(e) {
-          var has = e.supps.indexOf(item) >= 0 || e.routines.indexOf(item) >= 0;
+          var has = (e.supps||[]).indexOf(item) >= 0 || (e.routines||[]).indexOf(item) >= 0;
           if (has) withScores.push(e.sleep); else withoutScores.push(e.sleep);
         });
         var w = withScores.length ? Math.round(withScores.reduce(function(a,b){return a+b;},0)/withScores.length) : null;
@@ -11361,5 +11394,6 @@ function mbnSyncActive(page) {
 
 </script>
 
+</div><!-- end app -->
 </body>
 </html>
